@@ -1,0 +1,2550 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="计算机四级网络技术, cai">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>计算机四级网络技术 | cai</title>
+    <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="/favicon.ico">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery.min.js"></script>
+
+<meta name="generator" content="Hexo 4.2.1"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">cai</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">cai</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-cover.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">计算机四级网络技术</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        height: calc(100vh - 250px);
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">
+                                <span class="chip bg-color">计算机网络</span>
+                            </a>
+                        
+                            <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%9B%E7%BA%A7/">
+                                <span class="chip bg-color">计算机四级</span>
+                            </a>
+                        
+                            <a href="/tags/%E7%9F%A5%E8%AF%86%E7%82%B9%E6%95%B4%E7%90%86/">
+                                <span class="chip bg-color">知识点整理</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" class="post-category">
+                                计算机网络
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2020-03-26
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2020-06-30
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    21.8k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    77 分
+                </div>
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p>本文是对计算机四级知识点的整理摘要，覆盖大概90%的历年考试知识点，剩下的不多的计算题大家自行琢磨理解</p>
+<h1 id="第一章-网络技术基础"><a href="#第一章-网络技术基础" class="headerlink" title="第一章 网络技术基础"></a>第一章 网络技术基础</h1><h3 id="1-1-2-计算机网络形成与ARPANET"><a href="#1-1-2-计算机网络形成与ARPANET" class="headerlink" title="1.1.2 计算机网络形成与ARPANET"></a>1.1.2 计算机网络形成与ARPANET</h3><p>美国国防高级研究计划局提出ARPANET研究计划</p>
+<p>采取分组交换的思想，将ARPANET分为两个部分：<strong>通信子网与资源子网</strong></p>
+<p>开始时，实验网络包含四个节点</p>
+<p>在计算机网络发展的不同阶段，人们对计算机网络有不同的定义，这些定义主要分为三类：广义、资源共享与用户透明性。其中资源共享的定义符合当前计算机网络的基本特征，主要表现为三点：</p>
+<p>（1）建立计算机网络的主要目的是<strong>实现计算机资源的共享</strong>；</p>
+<p>（2）互联的计算机是分布在不同地理位置的多台独立的“自治计算机”，<strong>互联的计算机之间没有明确的主从关系</strong>。</p>
+<p>（3）联网计算机之间的通信<strong>必须遵循共同的网络协议</strong>。</p>
+<h3 id="1-2-2-计算机网络的分类"><a href="#1-2-2-计算机网络的分类" class="headerlink" title="1.2.2 计算机网络的分类"></a>1.2.2 计算机网络的分类</h3><table>
+<thead>
+<tr>
+<th>0~10m</th>
+<th>0~10m</th>
+<th>10m~10km</th>
+<th>50km~100km</th>
+<th>10km~1000km</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>个人区域网（WPAN）最有名的为蓝牙</td>
+<td>个人局域网(PAN)</td>
+<td>局域网(LAN)</td>
+<td>城域网(MAN)</td>
+<td>广域网(WAN)</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>10Mbps~100Gbps</td>
+<td>45~150Mbps</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>FDDI,介质访问子层令牌环</td>
+<td></td>
+</tr>
+<tr>
+<td>IEEE 802.15</td>
+<td></td>
+<td></td>
+<td>IEEE 802.6</td>
+<td></td>
+</tr>
+</tbody></table>
+<p>书中各种协议：</p>
+<p><strong>IEEE 802又称为LMSC，致力于研究局域网和城域网的物理层和MAC层中定义的服务和协议，对应OSI网络参考模型的最低两层（数据链路层和物理层），它针对不同的传输介质定义不同的介质标准。</strong></p>
+<p><strong>IEEE 802在介质访问控制（MAC）子层和物理层可以采用不同的协议，但是在逻辑链路控制（LLC）子层必须采用相同的协议，LLC子层与低层采用的传输介质，介质访问控制方法无关</strong></p>
+<p><strong>IEEE 802.11</strong> 是无线局域网(WLAN)的介质访问控制协议以及物理层技术规范</p>
+<p>IEEE 802.11标准采用的是层次结构模型，主要工作在OSI参考模型的最低两层：物理层和数据链路层。最初定义的三个物理层传输标准包括两个扩散频谱技术和一个红外传播规范。IEEE 802.11标准规定的MAC层是在一个共享媒体上支持多个用户共享资源，发送数据前需要进行<strong>冲突检测</strong>，访问控制支持<strong>无争用服务和争用服务两种</strong>方式。</p>
+<table>
+<thead>
+<tr>
+<th align="left">标准名称</th>
+<th align="left">标准描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">802.11a</td>
+<td align="left">5G Hz波段，速率54Mbps</td>
+</tr>
+<tr>
+<td align="left">802.11b</td>
+<td align="left">2.4G Hz波段，速率11Mbps</td>
+</tr>
+<tr>
+<td align="left">802.11g</td>
+<td align="left">2.4G Hz波段，速率54Mbps</td>
+</tr>
+<tr>
+<td align="left">802.11n</td>
+<td align="left">5G Hz波段，速率100Mbps</td>
+</tr>
+<tr>
+<td align="left">802.11ac</td>
+<td align="left">5G Hz波段，速率1Gbps</td>
+</tr>
+<tr>
+<td align="left">802.11ad</td>
+<td align="left">60G Hz波段，速率7Gbps</td>
+</tr>
+<tr>
+<td align="left">802.11i</td>
+<td align="left">增强无线通信安全的规范</td>
+</tr>
+<tr>
+<td align="left">802.11e</td>
+<td align="left">服务质量QoS</td>
+</tr>
+</tbody></table>
+<p><strong>IEEE 802.1</strong>局域网体系结构，网络互联，以及网络管理与性能测试</p>
+<p><strong>IEEE 802.11</strong> 是无线局域网(WLAN)的访问控制子层以及物理层技术规范</p>
+<p><strong>IEEE 802.15</strong> 采用蓝牙技术（近距离）的无线个人网络技术规范</p>
+<p><strong>IEEE802.16</strong> 定义<strong>宽带无线局域网</strong>介质访问 MAC 子层与物理层标准</p>
+<p><strong>IEEE 802.2</strong>逻辑链路控制LLC子层功能与服务</p>
+<p><strong>IEEE802.3</strong> 定义MAC层载波侦听多路访问 （CSMA/CD ） 介质访问控制子层与物理层标准</p>
+<p><strong>IEEE802.4</strong> 定义了总线拓扑的令牌总线介质访问控制方法与相应的物理规范</p>
+<p>无线局域网标准802.11的MAC和802.3协议的MAC不同，传统的Ethernet网帧的结构中有前导码和帧前定界符，而802.11标准中用帧控制单元代替。传统的Ethernet网的数据段长度是46B<del>1500B，而802.11帧中的数据段长度是0</del>2312B。传统的Ethernet网中帧的类型字段表示当前帧使用协议的类型，而802.11帧中类型字段用来表示当前帧是数据帧、管理帧或控制帧。这两种帧均工作在数据链路层，<strong>采用的地址是MAC地址。</strong></p>
+<p>高速局域网技术：</p>
+<table>
+<thead>
+<tr>
+<th>标准</th>
+<th>类型</th>
+<th>速率</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>IEEE802.3u</td>
+<td>Fast Ethernet</td>
+<td>100Mbps</td>
+</tr>
+<tr>
+<td>IEEE802.3z</td>
+<td>Gigabit Ethernet</td>
+<td>1000Mbps</td>
+</tr>
+<tr>
+<td>IEEE802.3ae</td>
+<td>10 Gigabit Ethernet</td>
+<td>10Gbps</td>
+</tr>
+<tr>
+<td>IEEE802.3ba</td>
+<td>40&amp;100 Gigabit Ethernet</td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="1-2-3-计算机网络的拓扑结构"><a href="#1-2-3-计算机网络的拓扑结构" class="headerlink" title="1.2.3 计算机网络的拓扑结构"></a>1.2.3 计算机网络的拓扑结构</h3><ol>
+<li><p>星型结构</p>
+<p>结构简单易于实现便于管理</p>
+<p>网络中心节点是全网性能与可靠性的瓶颈，中心节点的故障可能造成全网瘫痪</p>
+</li>
+<li><p>环形拓扑</p>
+<p>结构简单，<strong>传输延时确定</strong></p>
+<p>环中每个节点与连接点之间通信线路都会成为网络可靠性瓶颈。</p>
+</li>
+<li><p>总线型拓扑</p>
+<p>当一个节点利用总线发送数据时，其他节点只能接收数据</p>
+<p>当有两个或者多个节点同时发送数据时，都会出现冲突，造成传输失败</p>
+<p>缺点：必须解决多节点访问总线的介质访问控制问题</p>
+</li>
+<li><p>树形拓扑</p>
+<p>节点按层次连接，信息交换在上下节点之间进行，相邻以及同层节点之间通信通常不进行数据交换</p>
+<p><strong>树型通常用来汇聚信息</strong></p>
+</li>
+<li><p>网状拓扑</p>
+<p>连接任意<strong>没有规律</strong>，又称为无规则型拓扑</p>
+<p><strong>可靠性高</strong>，<strong>广域网一般采用网状拓扑</strong></p>
+<p><strong>结构复杂</strong>，必须采用路由选择算法，流量控制与拥塞控制</p>
+</li>
+</ol>
+<h3 id="1-2-4-描述计算机网络传输特性的参数"><a href="#1-2-4-描述计算机网络传输特性的参数" class="headerlink" title="1.2.4 描述计算机网络传输特性的参数"></a>1.2.4 描述计算机网络传输特性的参数</h3><ol>
+<li><p>数据传输速率的定义</p>
+<ul>
+<li><p>速率为：$S=\frac{1}{T}(bps)$其中T为发送1比特所需要的时间</p>
+</li>
+<li><p>对于二进制数据信号的最大数据传输速率$R_{max}$与通信信道带宽B(B=f,单位Hz)的关系可以写为：$R_{max}=2\times f(bps)$</p>
+</li>
+</ul>
+</li>
+<li><p>误码率的定义</p>
+<p>误码率指二进制码元在数据传输系统中被传错的概率数值上近似等于：$P_{e}=\frac{N_{e}}{N}$,其中N为传输的二进制码元总数，$N_{e}$为被传错的码元数</p>
+<p>注意：</p>
+<ol>
+<li>误码率是<strong>正常工作状态</strong>下的传输可靠性参数</li>
+<li>对于实际的数据传输系统，不能笼统说误码率越低越好，因为<strong>误码率越低造价越高</strong></li>
+<li>如果传输的不是二进制码元，<strong>折合成二进制码元计算</strong></li>
+<li>由于差错有随机性，实际测量<strong>需要传输二进制码元数越大，才会越接近真实值</strong></li>
+</ol>
+</li>
+</ol>
+<h3 id="1-3-3-数据报交换与虚电路交换"><a href="#1-3-3-数据报交换与虚电路交换" class="headerlink" title="1.3.3 数据报交换与虚电路交换"></a>1.3.3 数据报交换与虚电路交换</h3><ol>
+<li><p><strong>数据报方式</strong></p>
+<p><strong>分组传输方式中，分组传输不需要在源主机与目的主机之间预先建立“线路连接”</strong></p>
+<p>源主机发送的每个分组都可以独立选择一条传输路径，<strong>每个分组在通信子网中可能通过不同的路径到达目的主机</strong></p>
+<p>数据报方式有以下几个特点：</p>
+<ul>
+<li>同一个报文不同分组可以通过<strong>不同路径</strong>通过通信子网</li>
+<li>同一个报文的不同分组到达目的主机是可能会出现<strong>乱序，重复与丢失的现象</strong></li>
+<li>数据传输方式的<strong>传输延时较大</strong>，<strong>适用于突发性通信，不适用于长报文，会话式通信</strong></li>
+</ul>
+</li>
+<li><p><strong>虚电路方式</strong></p>
+<p>发送分组前，发送方和接收方需要建立一条逻辑连接的虚电路</p>
+<p>虚电路方式具有以下几个特点：</p>
+<ul>
+<li>在每次传输分组前，<strong>在源主机和目的主机之间建立一条虚电路</strong></li>
+<li>所有分组都通过虚电路顺序传输，分组<strong>不必携带目的地址，源地址</strong>等信息，分组到达目的主机是<strong>不会出现乱序重复与丢失</strong></li>
+<li>分组通过虚电路每个路由器时，路由器<strong>只需要进行差错检查，而不需要进行路由选择</strong></li>
+<li>路由器可以<strong>与多个主机之间通信建立多条虚电路</strong></li>
+</ul>
+</li>
+</ol>
+<h2 id="1-4-网络体系结构与网络协议"><a href="#1-4-网络体系结构与网络协议" class="headerlink" title="1.4 网络体系结构与网络协议"></a>1.4 网络体系结构与网络协议</h2><h3 id="1-4-1-网络体系结构的概念"><a href="#1-4-1-网络体系结构的概念" class="headerlink" title="1.4.1 网络体系结构的概念"></a>1.4.1 网络体系结构的概念</h3><p>网络协议是由三个要素组成：</p>
+<ol>
+<li><p><strong>语法</strong>。语法是用户数据与控制信息的<strong>结构与格式</strong>，以及数据出现的<strong>顺序</strong>。</p>
+</li>
+<li><p><strong>语义</strong>。语义是解释控制信息每个部分的意义。它规定了需要发出何种控制信息，以及<strong>完成的动作与做出什么样的响应</strong>。</p>
+</li>
+<li><p><strong>时序</strong>。时序是对事件<strong>发生顺序</strong>的详细说明。（也可称为“同步”）</p>
+</li>
+</ol>
+<p>人们形象地把这三个要素描述为：语义表示要做什么，语法表示要怎么做，时序表示做的顺序。</p>
+<h3 id="1-4-2-ISO-OSI-参考模型"><a href="#1-4-2-ISO-OSI-参考模型" class="headerlink" title="1.4.2 ISO/OSI 参考模型"></a>1.4.2 ISO/OSI 参考模型</h3><p>TCP协议运行在传输层，IP在网络层，http在应用层</p>
+<p><strong>同一个节点下层为上层提供服务，相邻层通过接口通信</strong></p>
+<p>不同节点同等层之间通过通信协议通信</p>
+<p>各层实现技术互不影响  </p>
+<table>
+<thead>
+<tr>
+<th>ISO/OSI 参考模型</th>
+<th>功能</th>
+<th>该层的设备与协议</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>物理层</strong></td>
+<td><strong>物理连接，比特流传输，单位为比特流</strong></td>
+<td>IEEE 802，中继器，网线，集线器</td>
+</tr>
+<tr>
+<td><strong>数据链路层</strong></td>
+<td><strong>建立数据链路连接，差错控制，流量控制</strong></td>
+<td>网卡，二层交换机、网桥</td>
+</tr>
+<tr>
+<td><strong>网络层</strong></td>
+<td><strong>路由选择，流量控制，拥塞控制，网络互联</strong></td>
+<td>路由器，RIP,OSPF，IP，ICMP，IGMP，包过滤路由器</td>
+</tr>
+<tr>
+<td><strong>传输层</strong></td>
+<td><strong>端到端连接与数据传输，单位为报文</strong></td>
+<td>TCP,UDP，NAT</td>
+</tr>
+<tr>
+<td><strong>会话层</strong></td>
+<td><strong>会话主机之间的建立，管理和终止，数据交换</strong></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>表示层</strong></td>
+<td><strong>数据格式变换，加密解密，压缩恢复</strong></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>应用层</strong></td>
+<td><strong>通信过程控制</strong></td>
+<td>Telnet,FTP,SNMP,HTTP，SIP，CMIP</td>
+</tr>
+</tbody></table>
+<p><strong>调制解调器</strong>是一种硬件，它能把计算机的数字信号翻译成模拟信号。</p>
+<p><strong>集线器</strong>的主要功能是对接收到的信号进行再生、整形、放大，以扩大网络的传输距离，同时把所有结点集中在以它为中心的结点上。</p>
+<p><strong>中继器</strong>是网络物理层上面的连接设备，适用于完全相同的两类网络的互连，主要功能是通过对数据信号的重新发送或者转发，来扩大网络传输的距离。</p>
+<p><strong>路由器</strong>是使用在网络层的互连设备，可以实现异构网络互联，是网络与网络之间连接的桥梁。</p>
+<p>TCP（传输控制协议）协议是一种<strong>面向连接</strong>的、可靠的、<strong>基于IP的传输层协议</strong>。TCP使用三次握手协议建立连接，而终止一个连接要经过四次握手。RTT（Round Trip Time）表示从发送端到接收端的一去一回需要的时间，TCP在数据传输过程中会<strong>对RTT进行采样，采用自适应的RTT计算方法</strong>。TCP协议利用窗口机制进行流量控制，端口采用<strong>16位的二进制数</strong>表示。</p>
+<h3 id="1-4-3-TCP-IP-参考模型"><a href="#1-4-3-TCP-IP-参考模型" class="headerlink" title="1.4.3 TCP/IP 参考模型"></a>1.4.3 TCP/IP 参考模型</h3><p>由IETF制定</p>
+<p>独立于特定的网络硬件</p>
+<table>
+<thead>
+<tr>
+<th>TCP/IP 参考模型</th>
+<th>功能</th>
+<th>安全协议</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>主机-网络层</strong></td>
+<td><strong>发送，接收IP分组</strong></td>
+<td>PPTP,L2TP,L2F</td>
+</tr>
+<tr>
+<td><strong>互联网络层/互联层</strong></td>
+<td><strong>处理传输层的数据发送请求，处理接收分组，路由选择，流量控制，拥塞控制</strong></td>
+<td>IPSec</td>
+</tr>
+<tr>
+<td><strong>传输层</strong></td>
+<td><strong>建立维护端到端连接，实现网络环境分布式进程通信</strong></td>
+<td>SSH，SSL，SOCKS,TLS</td>
+</tr>
+<tr>
+<td><strong>应用层</strong></td>
+<td><strong>包括各种标准协议</strong></td>
+<td>SET,PGP,S-HTTP,S/MIME</td>
+</tr>
+</tbody></table>
+<h3 id="1-4-4-OSI参考模型与TCP-IP参考模型的比较"><a href="#1-4-4-OSI参考模型与TCP-IP参考模型的比较" class="headerlink" title="1.4.4 OSI参考模型与TCP/IP参考模型的比较"></a>1.4.4 OSI参考模型与TCP/IP参考模型的比较</h3><table><tbody><tr><td>
+            <p><strong>TCP/IP&nbsp;</strong></p>
+            </td>
+            <td>
+            <p><strong>OSI参考模型</strong></p>
+            </td>
+        </tr><tr><td rowspan="3">
+            <p>应用层</p>
+            </td>
+            <td>
+            <p>应用层</p>
+            </td>
+        </tr><tr><td>
+            <p>表示层</p>
+            </td>
+        </tr><tr><td>
+            <p>会话层</p>
+            </td>
+        </tr><tr><td>
+            <p>传输层</p>
+            </td>
+            <td>
+            <p>传输层</p>
+            </td>
+        </tr><tr><td>
+            <p>互联/网络互联层</p>
+            </td>
+            <td>
+            <p>网络层</p>
+            </td>
+        </tr><tr><td rowspan="2">
+            <p>主机-网络层</p>
+            </td>
+            <td>
+            <p>数据链路层</p>
+            </td>
+        </tr><tr><td>
+            <p>物理层</p>
+            </td>
+        </tr></tbody></table>
+
+
+<h1 id="第二章-局域网基础"><a href="#第二章-局域网基础" class="headerlink" title="第二章 局域网基础"></a>第二章 局域网基础</h1><p>局域网从介质访问控制方式的角度可以分为<strong>共享介质局域网</strong>与<strong>交换局域网</strong>。</p>
+<p><strong>共享介质局域网</strong>中所有的结点共享一条公共的传输介质，通过广播的方式发送数据帧，并采用CSMA/CD(带有冲突检测的载波侦听多路访问)方法解决冲突问题，连接在总线上的所有结点都能“收听”到数据。由于所有结点都可以利用总线发送数据，并且在网络中没有控制中心，隐藏冲突的发生将不可避免。</p>
+<p><em>CSMA/CA(Carrier Sense Multiple Access with Collision Avoid<strong>,载波侦听多路访问／冲突避免</strong>)是无线局域网标准IEEE 802.11使用的一种介质访问控制方法，工作在MAC层。该方法要求每个结点在发送帧之前先侦听信道，如果空闲则可以发送帧，如果没有收到发回帧的确认ACK则表明该帧发送出现冲突，即发送失败，则在规定的帧间隔时间内不能再发送帧，只有超过了帧间隔时间才可以发送帧。常见的帧间间隔IFS有三种，短帧间间隔（SIFS）,点帧间间隔（PIFS），和分布帧间间隔（DIFS）,短帧间间隔用于分隔属于一次对话的各帧，MAC层支持无征用服务和征用服务两种访问方式，没有类似以太网的冲突检测机制，不能完全避免冲突的发生</em></p>
+<h3 id="2-1-2-介质访问控制方法的比较"><a href="#2-1-2-介质访问控制方法的比较" class="headerlink" title="2.1.2 介质访问控制方法的比较"></a>2.1.2 介质访问控制方法的比较</h3><p>局域网按照介质访问控制方法分类：</p>
+<ol>
+<li><p><strong>采用带有冲突检测的载波侦听多路访问(Carrier Sense Multiple Access/Collision Detection,CSMA/CD)访问控制方法的总线形Ethernet，简称以太网</strong></p>
+<p><strong>总线形，广播方式，两个及以上发送数据会发生冲突，随机型介质访问</strong></p>
+<p>总线型局域网的主要特点：</p>
+<p>（1）所有结点都通过网卡连接到作为公共介质的总线上。</p>
+<p>（2）<strong>总线通常采用双绞线或同轴电缆作为传输介质。</strong></p>
+<p>（3）所有的结点都可以发送或接收数据，<strong>但在一段时间内只允许一个结点通过总线发送数据（即但双工形式）</strong>。当一个结点通过总线以“广播”方式发送数据时，其他结点只能以“收听”方式接收数据。</p>
+<p>（4）由于总线作为公共传输介质被多个结点共享，因此会出现冲突现象。</p>
+</li>
+<li><p>采用令牌控制的令牌总线形(Token Bus)局域网，简称“Token Bus”或“令牌总线网”</p>
+<p><strong>总线形，取得令牌才能使用共享总线发送数据，令牌持有时间(Token Holding Time,THT)为10ms，控制访问数量实时性可以得到保证</strong></p>
+</li>
+<li><p>采用令牌控制的令牌环形(Token Ring)局域网，简称“Token Ring”或”令牌环网“</p>
+<p><strong>环形，沿一个方向传输，发送数据间隔固定，提供有限服务，适用于重负载的应用领域</strong></p>
+</li>
+</ol>
+<p>传输介质主要为同轴电缆，双绞线，光纤</p>
+<p>采用共享介质发送接收数据帧</p>
+<p>介质访问控制采用分布式控制方法，没有集中控制的主机</p>
+<h2 id="2-2-共享介质局域网技术"><a href="#2-2-共享介质局域网技术" class="headerlink" title="2.2 共享介质局域网技术"></a>2.2 共享介质局域网技术</h2><h3 id="2-2-1-Ethernet工作原理"><a href="#2-2-1-Ethernet工作原理" class="headerlink" title="2.2.1 Ethernet工作原理"></a>2.2.1 Ethernet工作原理</h3><p>CSMA/CD：先听后发(先侦听是否空闲)，边听边发，冲突停止，<strong>延迟</strong>重发</p>
+<h3 id="2-2-2-Ethernet帧结构"><a href="#2-2-2-Ethernet帧结构" class="headerlink" title="2.2.2 Ethernet帧结构"></a>2.2.2 Ethernet帧结构</h3><ol>
+<li>Ethernet V2.0和IEEE802.3的Ethernet帧结构区别</li>
+</ol>
+<p><img src="%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C.assets/1232796-20171017084041287-1347335048.png" alt="img"></p>
+<p>​    <strong>具体异同见书本</strong></p>
+<p>​    主要字段：<strong>前导码字段，目的地址和源地址字段，类型字段，数据字段，帧校验字段</strong></p>
+<ol start="2">
+<li><p>Ethernet帧结构分析</p>
+<ol>
+<li><p>前导码字段</p>
+<p><strong>8B</strong>的10101010….101010比特序列组成，前导码的作用是实现收发双方的比特同步与帧同步。在接收后不需要保留，也不计入帧头的长度中</p>
+</li>
+<li><p>目的地址和源地址字段</p>
+<p>目的地址和源地址分别表示帧的接收主机与发送主机的硬件地址，地址长度为6B，<strong>源地址必须是48b的MAC地址</strong>，目的地址可以是单播地址，多播地址或广播地址</p>
+</li>
+<li><p>类型字段</p>
+<p>表示<strong>网络层</strong>使用的协议类型</p>
+</li>
+<li><p>数据字段</p>
+<p>数据字段是网络层发送的数据部分，<strong>长度在46~1500B之间</strong>，<strong>因此Ethernet帧的最小长度为46~1500B+18B=64~1518B</strong></p>
+</li>
+<li><p>校验字段</p>
+<p>采用CRC校验，<strong>32位，4B</strong></p>
+</li>
+</ol>
+</li>
+</ol>
+<h3 id="2-2-3-Ethernet网卡与物理地址"><a href="#2-2-3-Ethernet网卡与物理地址" class="headerlink" title="2.2.3 Ethernet网卡与物理地址"></a>2.2.3 Ethernet网卡与物理地址</h3><ol>
+<li><p>Ethernet 网卡与物理地址</p>
+<p><strong>网卡包含发送与接收信号的收发器，曼彻斯特编码与解码器，Ethernet数据链路控制，组帧与拆帧软件，与主机的接口</strong></p>
+</li>
+<li><p>Etherne物理地址</p>
+<p>48位的地称为EUI-48，允许分配的Ethernet物理地址应为$2^{47}$个，<strong>IEEE为每个网卡厂商分配Ethernet物理地址的前三位，后三位字节由厂商自行分配</strong>。当网卡厂商获得前三位后它可以生产的网卡数量为$2^{24}$块，表示方法为两个十六进制之间用一个连字符隔开，如02-01-00-2A-10-C3</p>
+<p>48位全1的地址成为广播地址</p>
+</li>
+</ol>
+<h3 id="2-2-4-Ethernet-组网方法"><a href="#2-2-4-Ethernet-组网方法" class="headerlink" title="2.2.4 Ethernet 组网方法"></a>2.2.4 Ethernet 组网方法</h3><ol>
+<li><p>Ethernet物理层标准</p>
+<table>
+<thead>
+<tr>
+<th>标准</th>
+<th>速率</th>
+<th>基带传输</th>
+<th></th>
+<th>最大长度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>IEEE802.3 10BASE-5</td>
+<td>10Mbps</td>
+<td>是</td>
+<td>粗同轴线缆</td>
+<td>500m</td>
+</tr>
+<tr>
+<td>IEEE802.3 10BASE-2</td>
+<td>10Mbps</td>
+<td>是</td>
+<td>细同轴线缆</td>
+<td>200m</td>
+</tr>
+<tr>
+<td>IEEE802.3 10BASE-T</td>
+<td>10Mbps</td>
+<td>是</td>
+<td>双绞线</td>
+<td>？</td>
+</tr>
+</tbody></table>
+<p>字段总结：</p>
+<p>10:10Mbps </p>
+<p>5:500m 2:200m</p>
+<p>T:<em>双绞线（twisted pair，TP）</em></p>
+</li>
+</ol>
+<h2 id="2-3-交换式局域网与虚拟局域网"><a href="#2-3-交换式局域网与虚拟局域网" class="headerlink" title="2.3 交换式局域网与虚拟局域网"></a>2.3 交换式局域网与虚拟局域网</h2><h3 id="2-3-1-交换式局域网技术"><a href="#2-3-1-交换式局域网技术" class="headerlink" title="2.3.1 交换式局域网技术"></a>2.3.1 交换式局域网技术</h3><p>交换式以太网的<strong>核心设备是以太网交换机</strong>，它从根本上改变了“共享介质”的工作方式，<strong>可以在多个端口之间建立多个并发连接</strong>，实现多结点之间数据的并发传输，从而可以增加网络带宽，改善局域网的性能与服务质量，避免数据传输冲突的发生。<strong>以太网交换机利用“端口/MAC地址映射表”进行数据帧交换</strong>。</p>
+<h2 id="2-4-高速局域网技术发展"><a href="#2-4-高速局域网技术发展" class="headerlink" title="2.4 高速局域网技术发展"></a>2.4 高速局域网技术发展</h2><h3 id="2-4-1-Fast-Ethernet"><a href="#2-4-1-Fast-Ethernet" class="headerlink" title="2.4.1 Fast Ethernet"></a>2.4.1 Fast Ethernet</h3><p>保留传统的Ethernet帧格式</p>
+<p>介质专用接口（Media Indepandent Interface,MII）将ＭＡＣ子层与物理层分开</p>
+<table>
+<thead>
+<tr>
+<th>标准</th>
+<th>材料</th>
+<th>双功</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>100BASE-TX</td>
+<td>两对5类非屏蔽双绞线（UTP）或两对1类屏蔽双绞线（STP）一对用于发送一对用于接收</td>
+<td>全双工</td>
+</tr>
+<tr>
+<td><strong>100BASE-T4</strong></td>
+<td><strong>四对3类非屏蔽双绞线UTP，三对用于数据传输，1对用于冲突检测</strong></td>
+<td><strong>半双工</strong></td>
+</tr>
+<tr>
+<td>100BASE-FX</td>
+<td>2芯单模或多模光纤</td>
+<td>全双工</td>
+</tr>
+</tbody></table>
+<p><em>光纤fiber</em></p>
+<h3 id="2-4-2-Gigabit-Ethernet"><a href="#2-4-2-Gigabit-Ethernet" class="headerlink" title="2.4.2 Gigabit Ethernet"></a>2.4.2 Gigabit Ethernet</h3><p>保留传统的Ethernet帧格式</p>
+<p>千兆介质专用接口（Gigabit Media Indepandent Interface,GMII）将MAC，子层与物理层分开</p>
+<table>
+<thead>
+<tr>
+<th>标准</th>
+<th>材料</th>
+<th>最大长度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1000BASE-CX</td>
+<td>两对屏蔽双绞线</td>
+<td>25m</td>
+</tr>
+<tr>
+<td>1000BASE-T</td>
+<td>4对5类非屏蔽双绞线</td>
+<td>100m</td>
+</tr>
+<tr>
+<td>1000BASE-SX</td>
+<td>多模光纤</td>
+<td>550m</td>
+</tr>
+<tr>
+<td>1000BASE-LX</td>
+<td>单模光纤</td>
+<td>5km</td>
+</tr>
+<tr>
+<td>1000BASE-LH</td>
+<td>单模光纤</td>
+<td>10km</td>
+</tr>
+<tr>
+<td>1000BASE-ZX</td>
+<td>单模光纤</td>
+<td>70km</td>
+</tr>
+</tbody></table>
+<h3 id="2-4-3-10-Gigabit-Ethernet"><a href="#2-4-3-10-Gigabit-Ethernet" class="headerlink" title="2.4.3 10 Gigabit Ethernet"></a>2.4.3 10 Gigabit Ethernet</h3><p>保留传统的Ethernet帧格式</p>
+<p>介质专用接口（10 Gigabit Media Indepandent Interface,10GMII）将MAC子层与物理层分开</p>
+<p>不再采用传统的CSMA/CD协议，使10GbE的覆盖范围不受传统的Ethernet网的冲突窗口限制，传输距离仅仅由光纤通信系统的性能</p>
+<table>
+<thead>
+<tr>
+<th>标准</th>
+<th>材料</th>
+<th>最大长度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>10GBASE-SR</td>
+<td>多模光纤</td>
+<td>300m</td>
+</tr>
+<tr>
+<td>10GBASE-LRM</td>
+<td>多模光纤</td>
+<td>220m</td>
+</tr>
+<tr>
+<td>10GBASE-LX4</td>
+<td>单模光纤</td>
+<td>10km</td>
+</tr>
+<tr>
+<td>10GBASE-LR</td>
+<td>单模光纤</td>
+<td>25km</td>
+</tr>
+<tr>
+<td>10GBASE-ER</td>
+<td>单模光纤</td>
+<td>40km</td>
+</tr>
+<tr>
+<td>10GBASE-ZR</td>
+<td>单模光纤</td>
+<td>80km</td>
+</tr>
+</tbody></table>
+<p><strong>10 Gigabit Ethernet都是全双工，只支持光纤</strong></p>
+<h3 id="2-5-6-IEEE-802-11帧结构"><a href="#2-5-6-IEEE-802-11帧结构" class="headerlink" title="2.5.6 IEEE 802.11帧结构"></a>2.5.6 IEEE 802.11帧结构</h3><ol>
+<li><p>管理帧</p>
+<p>定义了14种帧，如<strong>信标帧，探测帧，关联帧，认证帧</strong></p>
+</li>
+<li><p>控制帧</p>
+<p>定义了9种帧，如<strong>RTS，CTS，ACK帧</strong></p>
+</li>
+<li><p>数据帧</p>
+</li>
+</ol>
+<h2 id="2-5-无线局域网技术"><a href="#2-5-无线局域网技术" class="headerlink" title="2.5 无线局域网技术"></a>2.5 无线局域网技术</h2><h3 id="2-5-1-无线局域网的发展"><a href="#2-5-1-无线局域网的发展" class="headerlink" title="2.5.1 无线局域网的发展"></a>2.5.1 无线局域网的发展</h3><p>IEEE802.11 由IEEE为无线局域网制定的标准，是无线局域网<strong>介质访问控制</strong>方法</p>
+<p>采用了<strong>层次结构模型</strong></p>
+<p>物理层定义了以<strong>微波，激光与红外线</strong>等<strong>无线电波</strong>作为传输介质</p>
+<p>MAC层主要功能是对无线环境进行访问控制，可以在多个接入点上提供漫游支持，同时提供数据验证与保密服务</p>
+<p>MAC层支持无争用与争用服务两种访问方式</p>
+<p>应用领域：<strong>传统局域网的扩充</strong>，建筑物之间互联，移动主机漫游访问，无线自组网</p>
+<p>支持基于漫游访问(Nomadic Access)和无线访问接入点(Wireless Access Point,AP)访问模式，也可以通过对等P2P方式实现漫游</p>
+<p>虚拟局域网（Virtual LAN，VLAN）是建立在局域网的基础上，以软件形式在局域网交换机上实现逻辑工作组的划分与管理，工作组中的结点不受物理位置的限制。</p>
+<p>虚拟局域网的组网方法包括：用<strong>交换机端口</strong>定义虚拟局域网、用<strong>MAC地址</strong>定义虚拟局域网、用<strong>网络层地址</strong>定义虚拟局域网、基于<strong>广播组</strong>的虚拟局域网。<br>虚拟局域网的优点有：<strong>方便网络用户管理，减少网络管理开销、提供更好的安全性、改善网络服务质量</strong>。</p>
+<h3 id="2-5-2-扩频无线局域网"><a href="#2-5-2-扩频无线局域网" class="headerlink" title="2.5.2 扩频无线局域网"></a>2.5.2 扩频无线局域网</h3><ol>
+<li><p>扩频通信的概念</p>
+<p>无线局域网主要采用两种扩频技术：<strong>跳频扩频与直接序列扩频</strong></p>
+<p>IEEE 802.11规定：</p>
+<p>跳频通信使用<strong>2.4GHZ的工业、科学与医药专用的ISM频段</strong>。</p>
+<p>直接序列扩频的<strong>所有接收点使用相同的频段，发送端与接收端使用相同的伪随机码，使用2.4GHz的ISM频段，数据传输速率为1Mbps或2Mbps,发送前需要调制</strong>。</p>
+</li>
+</ol>
+<h3 id="2-5-4-无线局域网拓扑结构"><a href="#2-5-4-无线局域网拓扑结构" class="headerlink" title="2.5.4 无线局域网拓扑结构"></a>2.5.4 无线局域网拓扑结构</h3><p>端站使用无线网卡，将计算机或嵌入设备接入WLAN，接入点AP按照无线接口标准使用无线链路与端站进行通信，接入控制器AC在WLAN与外部网络之间充当网关的作用，AAA服务器又称为RADIUS用户认证服务器，负责完成用户认证授权和计费功能，IEEE802.11认证有三种认证方式：基于IEEE802.1x的认证，基于PPPoE的认证和基于Web的认证</p>
+<ol start="3">
+<li><p>独立基本服务集</p>
+<p>Ad hoc 具有以下几个主要特点：<strong>自组织与自修复，无中心，多跳路由，动态拓扑,对等式，无线网络，无基站</strong></p>
+</li>
+</ol>
+<h3 id="2-5-4-IEEE-802-11-帧结构"><a href="#2-5-4-IEEE-802-11-帧结构" class="headerlink" title="2.5.4 IEEE 802.11 帧结构"></a>2.5.4 IEEE 802.11 帧结构</h3><p>IEEE 802.11帧采用<strong>2字节（16b）</strong>作为帧控制字段，帧中目的地址和源地址使用MAC地址，数据字段最大长度是2312字节。帧校验字段长度为4字节，采用CRC校验，校验范围为<strong>MAC帧头与数据域</strong>。类型字段的类型标识数据帧、管理帧或控制帧。</p>
+<p>IEEE802.11协议定义了三种帧结构：管理帧，控制帧，数据帧</p>
+<ol>
+<li><p>管理帧</p>
+<p>定义了14种管理帧，例如信标帧，探测帧，关联帧，认证帧，用于无线主机与AP之间的连接</p>
+</li>
+<li><p>控制帧</p>
+<p>定义了9种控制帧，对预约信道，对单播数据帧的确认，RTS，CTS,ACK都属于控制帧</p>
+</li>
+<li><p>数据帧</p>
+<p>数据帧由三个部分组成：帧头，数据字段，帧尾，<strong>其中帧头长30B,数据字段长0~2312B,帧尾由2B的帧校验字段组成</strong></p>
+</li>
+</ol>
+<p>无线局域网标准802.11的MAC和802.3协议的MAC不同，传统的Ethernet网帧的结构中有前导码和帧前定界符，而802.11标准中用帧控制单元代替。传统的Ethernet网的数据段长度是<strong>46B~1500B</strong>，而802.11帧中的数据段长度是<strong>0~2312B</strong>。传统的Ethernet网中帧的类型字段表示当前帧使用协议的类型，而802.11帧中类型字段用来表示当前帧是数据帧、管理帧或控制帧。<strong>这两种帧均工作在数据链路层，采用的地址是MAC地址</strong>。</p>
+<h1 id="第三章-Internet基础"><a href="#第三章-Internet基础" class="headerlink" title="第三章 Internet基础"></a>第三章 Internet基础</h1><p>Internet的使用者不必关心Internet的内部结构；路由器是网络与网络之间连接的<strong>桥梁</strong>；主机是Internet中不可缺少的成员，它是<strong>信息资源和服务的载体</strong>。</p>
+<h3 id="3-1-2-Internet的接入方式"><a href="#3-1-2-Internet的接入方式" class="headerlink" title="3.1.2 Internet的接入方式"></a>3.1.2 Internet的接入方式</h3><ol>
+<li><p>通过电话线接入</p>
+</li>
+<li><p>利用ADSL接入</p>
+<p>利用<strong>非对称数字用户线</strong></p>
+<p><strong>使用比较复杂的调制解调技术</strong>，在<strong>普通电话线</strong>上进行高速数据传输</p>
+<p>分上行和下行两个通道，下行通道数据传输远大于上行，<strong>上行16~640kbps，下行速率可达1.5~9Mbps</strong></p>
+</li>
+<li><p>使用HFC接入</p>
+<p><strong>共享式传输</strong></p>
+<p><strong>信号首先通过光纤传输到光纤节点然后通过同轴电缆传输到有线电视网用户</strong></p>
+<p>混合光纤/同轴电缆线（Hybrid Fiber Coaxial，HFC），同ADSL为非对称连接，<strong>上行速率达到10Mbps,下行10~40Mbps</strong></p>
+</li>
+<li><p>通过数据通信线路接入</p>
+</li>
+</ol>
+<h3 id="3-2-2-IP服务"><a href="#3-2-2-IP服务" class="headerlink" title="3.2.2 IP服务"></a>3.2.2 IP服务</h3><p>IP协议的互联层可以为其高层用户提供如下服务：</p>
+<ol>
+<li><strong>不可靠</strong>数据投递服务</li>
+<li><strong>面向无连接</strong>的传输服务</li>
+<li><strong>尽最大努力</strong>投递服务</li>
+</ol>
+<p>IP协议精确定义了<strong>IP数据报格式</strong>，并且<strong>对数据报寻址和路由、数据报分配和重组、差错控制和处理</strong>等做出了具体的规定。</p>
+<h3 id="3-2-3-IP互联网的特点"><a href="#3-2-3-IP互联网的特点" class="headerlink" title="3.2.3 IP互联网的特点"></a>3.2.3 IP互联网的特点</h3><ul>
+<li><strong>隐藏了底层物理网络的细节</strong>，向上为用户提供通用一致的网络服务</li>
+<li>IP互联网<strong>不指定网络互联的拓扑结构</strong>，也<strong>不要求网络之间的全互联</strong></li>
+<li>IP互联网<strong>能在物理网络之间转发数据</strong>，信息可以跨网传输</li>
+<li>IP互联网中所有计算机使用<strong>统一的，全局的地址描述法</strong></li>
+<li>IP互联网<strong>平等地对待</strong>互联网中的每一个网络，不管这个网络规模是大是小，速度是快是慢</li>
+</ul>
+<h2 id="3-4-IP数据报"><a href="#3-4-IP数据报" class="headerlink" title="3.4 IP数据报"></a>3.4 IP数据报</h2><p>IP数据报是IP协议单元使用的数据单元，它的格式可以<strong>分为报头区和数据区两大部分</strong>，其中数据区包括高层需要传输的数据，而报头区是为了正确传输高层数据而增加的控制信息。报头区主要包括：<strong>版本与协议类型域、长度域、服务类型域、生存周期域、头部校验和域、地址域、选项+填充域</strong>。其中<strong>报头长度域以32位的双字为单位</strong>；<strong>生存周期（Time to Live，TTL）域用于防止数据报在Internet中无休止地传递</strong>；<strong>头部校验和域用来保证IP数据报报头的完整性</strong>；<strong>选项域主要用于控制和测试两大目的</strong>。</p>
+<h3 id="3-4-2-IP封装分片与重组"><a href="#3-4-2-IP封装分片与重组" class="headerlink" title="3.4.2 IP封装分片与重组"></a>3.4.2 IP封装分片与重组</h3><ol>
+<li><p>MTU与分片</p>
+<p>每种网络都规定了一个帧最多能携带的数据量，这一限制成为<strong>最大传输单元（Maximum Transmission Unit,MTU）</strong>因此一个IP数据报只有小于等于一个网络的MTU才能在这个网络进行传播</p>
+<p>当一个数据报尺寸大于将发往的网络的MTU时，路由器会将IP数据报分成若干较小的部分，称为<strong>分片</strong>，然后再将每片独立地进行发送</p>
+</li>
+<li><p>重组</p>
+<p>IP协议规定，<strong>只有最终的目的主机才可以对分片进行重组</strong></p>
+<p>当转发一个IP数据报的时候，路由器不需要知道它是不是一个分片，其次路由器可以为每个分片独立选择路由，每个分片达到目的地所经过的路径可以不同</p>
+</li>
+<li><p>分片控制</p>
+<p>在IP数据报中，<strong>标识，标志和片偏移</strong>三个字段与控制分片与重组有关</p>
+<p>标识是主机赋予IP数据报的标识符，分片时该域必须不加修改地复制到新分片头的报头中</p>
+<p>标志告诉主机该数据报是否已经分片，是否是最后一个分片</p>
+<p>片偏移是本片数据在初始IP数据报数据区中的位置，<strong>位置偏移量以８个字节为单位</strong>，重组的分片顺序由片偏移提供</p>
+</li>
+</ol>
+<p>分片后<strong>标识和目的地址一定和原数据报中字段相同</strong></p>
+<h3 id="3-4-3-IP数据报选项"><a href="#3-4-3-IP数据报选项" class="headerlink" title="3.4.3 IP数据报选项"></a>3.4.3 IP数据报选项</h3><p>IP选项主要用于控制和测试</p>
+<ol>
+<li><p>源路由</p>
+<p>指IP数据报穿越互联网所经过的路径是由源主机决定的，它区别于由主机或者路由器的IP层软件自行选路后得出的路径</p>
+<p>源路由选项可以分为两类：一类是严格源路由选项，一类是松散路由选项</p>
+<ul>
+<li>严格源路由选项：规定经过的 每一个路由器，相邻的路由器之间不能有中间路由器</li>
+<li>松散路由选项：给出必须经过的要点，不给出完备的路径</li>
+</ul>
+</li>
+<li><p>记录路由</p>
+<p>记录IP数据报从源主机到目的主机之间所经过的路径上的各个路由器的IP地址，记录路由功能可以由IP数据报的记录路由选项完成，利用它可以判断经过的路径</p>
+</li>
+<li><p>时间戳</p>
+<p>记录下IP数据报经过每一个路由器当地时间，用于分析网络吞吐率，拥塞情况，负载情况</p>
+</li>
+</ol>
+<h2 id="3-5-差错报文控制"><a href="#3-5-差错报文控制" class="headerlink" title="3.5 差错报文控制"></a>3.5 差错报文控制</h2><p>IP层使用的控制协议是互联网控制报文协议(Internet Control Message Protocol,ICMP),ICMP不仅用来传输控制报文，而且还用于传输差错报文</p>
+<h3 id="3-5-1-ICMP-差错控制"><a href="#3-5-1-ICMP-差错控制" class="headerlink" title="3.5.1 ICMP 差错控制"></a>3.5.1 ICMP 差错控制</h3><p>ICMP差错报告采用路由器到源主机的模式，所有差错信息都需要想源主机报告。</p>
+<p>特点：</p>
+<ul>
+<li>差错报告<strong>不享受特别优先权和可靠性</strong>，作为一般数据传输，完全可能丢失损坏或者抛弃。</li>
+<li>ICMP差错报告数据中除了<strong>包含故障IP数据报报头</strong>外，还包含<strong>故障IP数据报数据区的前64bit数据</strong>。</li>
+<li>ICMP差错报告是伴随着抛弃出错IP数据报而产生的。</li>
+</ul>
+<p>ICMP差错报告报文共有如下5种。<br>（1）<strong>终点不可达</strong>：分为网络不可达、主机不可达、协议不可达、端口不可达、需要分片但DF比特已置为1、源路由失败等六种情况。<br>（2）<strong>源站抑制</strong>：当路由器或主机由于拥塞而丢弃数据报时，就向<strong>源站</strong>发送源站抑制报文，使源站知道应当将数据报的<strong>发送速率放慢</strong>。<br>（3）<strong>时间超时</strong>：当路由器收到生存时间为零的数据报时，除丢弃该数据报外，还要向<strong>源站</strong>发送时间超时报文。当目的站在预先规定的时间内不能收到一个数据报的全部数据报片时，就<strong>将已收到的数据报片都丢弃</strong>，并向源站发送时间超时报文。<br>（4）<strong>参数问题</strong>：当路由器或目的主机收到的数据报的首部中的字段的值不正确时，就<strong>丢弃该数据报</strong>，并向<strong>源站</strong>发送参数问题报文。<br>（5）<strong>重定向报文</strong>：改变路由（<strong>重定向</strong>）路由器将改变路由报文发送给主机，让主机知道下次应将数据报发送给另外的路由器。ICMP重定向报文机制是为了<strong>保证主机拥有一个动态的、既小且优的路由表</strong>。</p>
+<h2 id="3-6-路由器与路由选择"><a href="#3-6-路由器与路由选择" class="headerlink" title="3.6 路由器与路由选择"></a>3.6 路由器与路由选择</h2><h3 id="3-6-1-表驱动IP选路"><a href="#3-6-1-表驱动IP选路" class="headerlink" title="3.6.1 表驱动IP选路"></a>3.6.1 表驱动IP选路</h3><ol start="3">
+<li>路由表中的特殊路由<ol>
+<li>默认路由：是一种特殊的静态路由，指的是当路由表中与包的目的地址之间没有匹配的表项时路由器能够做出的选择，默认路由会大大简化路由器的配置，减轻管理员的工作负担，提高网络性能。</li>
+<li>特定主机路由：对单个主机指定一条特别的路径就是所谓的特定主机路由，可用于安全性，网络连通性调试及路由表正确性判断等目的</li>
+</ol>
+</li>
+</ol>
+<h3 id="3-6-3-RIP协议与向量-距离算法"><a href="#3-6-3-RIP协议与向量-距离算法" class="headerlink" title="3.6.3 RIP协议与向量-距离算法"></a>3.6.3 RIP协议与向量-距离算法</h3><ol start="2">
+<li><p>RIP协议</p>
+<p>使用Bellman-Ford算法</p>
+<p>RIP协议规定路由器<strong>每30秒</strong>交换一次路由信息</p>
+<p>RIP协议严格准守向量-距离算法</p>
+<p>规定路径超时时间为180秒，相当于6个RIP刷新周期</p>
+</li>
+<li><p>收敛慢的问题及对策</p>
+<ul>
+<li><strong>限制最大距离对策</strong></li>
+<li><strong>水平分割对策</strong></li>
+<li><strong>保持对策</strong></li>
+<li><strong>带触发刷新的毒性逆转对策</strong></li>
+</ul>
+</li>
+</ol>
+<h3 id="3-6-4-OSPF协议与链路-状态算法"><a href="#3-6-4-OSPF协议与链路-状态算法" class="headerlink" title="3.6.4 OSPF协议与链路-状态算法"></a>3.6.4 OSPF协议与链路-状态算法</h3><p>使用最短路径优先算法,<strong>收敛速度比RIP快，计算复杂度比RIP高</strong></p>
+<h3 id="3-6-5-部署和选择路由协议"><a href="#3-6-5-部署和选择路由协议" class="headerlink" title="3.6.5 部署和选择路由协议"></a>3.6.5 部署和选择路由协议</h3><ol>
+<li><p>静态路由</p>
+<p><strong>适用于在小型，单路径，静态的IP互联网环境下使用</strong></p>
+<p>小公司，家庭办公室等小型机构建设的互联网可采用静态路由</p>
+</li>
+<li><p>RIP路由选择协议</p>
+<p><strong>适合小型到中型，多路径，动态IP互联网环境</strong></p>
+<p>中型企业，具有多个网络的大型分支办公室等</p>
+</li>
+<li><p>OSPF路有选择协议</p>
+<p><strong>适合较大型到特大型，多路径，动态的IP互联网环境</strong></p>
+<p>企业，校园，部队，机关等</p>
+</li>
+</ol>
+<h3 id="3-7-1-IP组播的概念和特点"><a href="#3-7-1-IP组播的概念和特点" class="headerlink" title="3.7.1 IP组播的概念和特点"></a>3.7.1 IP组播的概念和特点</h3><ol>
+<li>组播使用组地址。每个组播组拥有唯一的组播地址（<strong>D类地址</strong>）发送方不必知道有哪些成员，他自己不必是组成员，对组成员中主机的数目和位置没有限制</li>
+<li>动态组成员。一个主机（接收方或发送方）可以参加某个特定的组，也可以任意时间退出该组。</li>
+<li>底层硬件支持的组播。以太网本身具有组播的能力，以太网利用硬件进行组播。</li>
+</ol>
+<h3 id="3-7-2-组播技术基础"><a href="#3-7-2-组播技术基础" class="headerlink" title="3.7.2 组播技术基础"></a>3.7.2 组播技术基础</h3><ol>
+<li><p>IP组播地址</p>
+<p>D类地址为组播地址</p>
+</li>
+<li><p>组播的相关协议</p>
+<p><strong>组管理协议：</strong>Internet组管理协议（Internet Group Management Protocol，<strong>IGMP</strong>）和Cisco专用的组管理协议（<strong>CGMP</strong>）。组播路由协议又分为<strong>域内组播路由协议</strong>以及<strong>域间组播路由协议</strong>两类。</p>
+<ul>
+<li>域内组播协议：组播路由算法构造组播分发树，路由器中建立组播路由状态，根据这些状态进行组播数据包转发</li>
+<li>域间组播路由协议：在各自治系统（Autonomous System，AS）间发布具有组播能力的路由信息以及组播源信息，使组播信息能在域间进行转发</li>
+</ul>
+<p><strong>组播路由协议</strong>： 域内组播路由协议包括MOSPF，CBT，PIM-SM、PIM-DM、DVMRP等协议，域内的组播协议又分为密集，与稀疏模式的协议。</p>
+<ul>
+<li><p>DVMRP，PIM-DM，MOSPF属于密集模式</p>
+</li>
+<li><p>CBT，PIM-SM属于稀疏模式。</p>
+</li>
+</ul>
+<p>在域内，主要使用PIM-SM，PIM-DM，DVMRP协议。</p>
+</li>
+</ol>
+<p>组播路由协议是IP组播协议中最核心的功能，组播路由不同于单播路由，他是由源地址，组地址，入接口和出接口列表4部分组成</p>
+<h3 id="3-8-1-IPv4协议的局限性"><a href="#3-8-1-IPv4协议的局限性" class="headerlink" title="3.8.1 IPv4协议的局限性"></a>3.8.1 IPv4协议的局限性</h3><ol>
+<li>地址空间的局限性</li>
+<li>IP协议的性能问题</li>
+<li>IP协议的安全问题</li>
+<li>自动配置问题</li>
+<li>服务质量（QoS）保证问题</li>
+</ol>
+<h3 id="3-8-2-IPv6地址"><a href="#3-8-2-IPv6地址" class="headerlink" title="3.8.2 IPv6地址"></a>3.8.2 IPv6地址</h3><ol start="2">
+<li><p>IPv6地址类型</p>
+<ol start="4">
+<li><p>特殊地址</p>
+<p><strong>全零地址：表示地址不存在</strong></p>
+<p><strong>回送地址：::1</strong></p>
+<p>IPv4兼容的IPv6地址</p>
+<p>映射到IPv4的IPv6地址</p>
+</li>
+</ol>
+</li>
+</ol>
+<h2 id="3-10-NAT的基本工作原理"><a href="#3-10-NAT的基本工作原理" class="headerlink" title="3.10 NAT的基本工作原理"></a>3.10 NAT的基本工作原理</h2><h3 id="3-10-2-NAT的主要技术类型"><a href="#3-10-2-NAT的主要技术类型" class="headerlink" title="3.10.2 NAT的主要技术类型"></a>3.10.2 NAT的主要技术类型</h3><p>主要类型有三种：<strong>静态路由NAT，动态NAT,网络地址端口转换NAPT</strong></p>
+<ol>
+<li><p>静态路由NAT</p>
+<p>网络管理员需要在NAT设备中设置NAT地址映射表，该表确定了一个内部IP地址与一个全局IP地址的对应关系，NAT地址映射表中的内部地址与全局地址一一对应</p>
+</li>
+<li><p>动态NAT</p>
+<p>全局IP地址构成NAT池，当主机通信结束，NAT设备将回收全局IP地址，并删除地址映射表中对应的映射项，以便其他内部主机访问外部网络时使用</p>
+</li>
+<li><p>网络地址端口转换NAPT</p>
+<p>最常使用的NAT类型，利用TCP/UDP的端口号区分NAT地址映射表中的转换条目，可以使内部网络中的多个主机共享一个全局IP地址同时访问外部网络。</p>
+</li>
+</ol>
+<h1 id="第四章-Internet-基本服务"><a href="#第四章-Internet-基本服务" class="headerlink" title="第四章 Internet 基本服务"></a>第四章 Internet 基本服务</h1><h3 id="4-1-1-客户机-服务器模型"><a href="#4-1-1-客户机-服务器模型" class="headerlink" title="4.1.1 客户机/服务器模型"></a>4.1.1 客户机/服务器模型</h3><p>服务器的分类：<strong>重复服务器，并发服务器</strong></p>
+<h2 id="4-2-域名系统"><a href="#4-2-域名系统" class="headerlink" title="4.2 域名系统"></a>4.2 域名系统</h2><p>地址解析系统由一组既独立又协作的域名服务器组成，<strong>域名服务器是解析系统的核心</strong>。域名解析的DNS在实现上也采用<strong>层次化模式</strong>，并与分级结构的域名空间相对应。域名解析方式有<strong>递归解析和迭代解析</strong>两种类型。域名解析每次从根服务器进行解析很可能会造成根域名服务器因负荷太重而超载。为了提高解析效率，<strong>域名解析可以从本地域名服务器开始解析或者采用域名服务器的高速缓冲技术来提高解析效率</strong></p>
+<h3 id="4-2-2-域名解析"><a href="#4-2-2-域名解析" class="headerlink" title="4.2.2 域名解析"></a>4.2.2 域名解析</h3><ol>
+<li><p>TCP/IP域名服务器与解析过程</p>
+<p>域名解析采用自顶向下的算法，从根服务器到叶服务器</p>
+<p>但是如果没每个均是从根到叶会使到达根服务器的信息流量随互联网规模增大而增大，所以每个解析均从根服务器开始并不是一个很好的解决方案</p>
+<p>域名解析方法有两种：第一种叫递归解析，第二种叫反复解析</p>
+<p><strong>递归解析：域名服务器系统一次性完成全部名字-地址转换</strong></p>
+<p><strong>反复解析：每次请求一个服务器，不行再请求别的服务器</strong></p>
+</li>
+<li><p>提高域名解析效率</p>
+<ol>
+<li><strong>解析从本地域名服务器开始</strong></li>
+<li><strong>域名服务器的高速缓冲技术</strong></li>
+<li><strong>主机上的高速缓冲技术</strong></li>
+</ol>
+</li>
+</ol>
+<ul>
+<li>如果解析器收到一条“非授权的”服务器响应，<strong>那么解析器可以认为该响应提供的信息可能不准确</strong></li>
+<li>解析器收到一个“非权威性”的映射时，<strong>解析器可以认为响应服务器不是该域名的授权管理者</strong></li>
+</ul>
+<h3 id="4-2-3-对象类型与资源记录"><a href="#4-2-3-对象类型与资源记录" class="headerlink" title="4.2.3 对象类型与资源记录"></a>4.2.3 对象类型与资源记录</h3><table>
+<thead>
+<tr>
+<th>类型</th>
+<th>意义</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>SOA（Start Of Authority）</td>
+<td>授权开始</td>
+<td>标识一个资源记录集合的开始</td>
+</tr>
+<tr>
+<td>A(address)</td>
+<td>主机地址</td>
+<td>32位二进制IP地址</td>
+</tr>
+<tr>
+<td>MX(mail exchanger)</td>
+<td>邮件交换机</td>
+<td>邮件服务器名及优先级</td>
+</tr>
+<tr>
+<td>NS(name server)</td>
+<td>域名服务器</td>
+<td>域的授权名字服务器名</td>
+</tr>
+<tr>
+<td>CNAME(canonical name)</td>
+<td>别名</td>
+<td>别名的规范名字</td>
+</tr>
+<tr>
+<td>PTR(pointer)</td>
+<td>指针</td>
+<td>对应于IP地址的主机名</td>
+</tr>
+<tr>
+<td>HINFO(host info)</td>
+<td>主机描述</td>
+<td>ASCII字符串，CPU和OS描述</td>
+</tr>
+<tr>
+<td>TXT</td>
+<td>文本</td>
+<td>ASCII字符串，不解释</td>
+</tr>
+</tbody></table>
+<h2 id="4-3-远程登录服务"><a href="#4-3-远程登录服务" class="headerlink" title="4.3 远程登录服务"></a>4.3 远程登录服务</h2><p><strong>Telnet协议是TCP/IP协议</strong>一部分，精确定义本地客户机与远程服务器之间的交互过程</p>
+<p>远程登录允许<strong>任意类型</strong>的计算机之间进行通信</p>
+<p>使用Telnet主要目的是使本地主机成为远程主机的仿真终端</p>
+<h3 id="4-3-1-远程登录协议"><a href="#4-3-1-远程登录协议" class="headerlink" title="4.3.1 远程登录协议"></a>4.3.1 远程登录协议</h3><p>远程登录协议Telnet是TCP/IP协议族中的重要协议，为了解决系统的差异性，Telnet协议引入<strong>网络虚拟终端（Network Virtual Terminal，NVT）提供一种标准的键盘定义</strong>，用来屏蔽不同的计算机系统对键盘输入的差异性</p>
+<h2 id="4-4-FTP服务"><a href="#4-4-FTP服务" class="headerlink" title="4.4 FTP服务"></a>4.4 FTP服务</h2><p>FTP（File Transfer Protocol）文件传输协议，主要用于internet上的文件双向传输，采用客户机/服务器模式</p>
+<h3 id="4-4-1-FTP客户机-服务器模型"><a href="#4-4-1-FTP客户机-服务器模型" class="headerlink" title="4.4.1 FTP客户机/服务器模型"></a>4.4.1 FTP客户机/服务器模型</h3><p>FTP客户机与服务器要建立双向链接，一个是控制连接（端口号21）一个是数据连接（端口号20）</p>
+<ul>
+<li><p>控制连接用于维持会话，负责在客户机与服务器之间传送FTP命令和响应</p>
+<p>控制连接以通常的客户机/服务器方式建立，服务器以被动方式在TCP的21端口打开等待客户机连接，客户机则以主动方式在一个TCP随机端口打开</p>
+</li>
+<li><p>数据连接用于访问数据。<strong>建立方式有主动模式和被动模式</strong></p>
+</li>
+</ul>
+<h3 id="4-4-2-FTP命令和响应"><a href="#4-4-2-FTP命令和响应" class="headerlink" title="4.4.2 FTP命令和响应"></a>4.4.2 FTP命令和响应</h3><table>
+<thead>
+<tr>
+<th>命令</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>USER</td>
+<td>认证用户名</td>
+</tr>
+<tr>
+<td>PASS</td>
+<td>认证密码</td>
+</tr>
+<tr>
+<td>PORT n1,n2,n3,n4,n5,n6</td>
+<td>客户机IP地址（n1,n2,n3,n4）和端口号（n5*256+n6）</td>
+</tr>
+<tr>
+<td>PASV</td>
+<td>进入被动模式</td>
+</tr>
+<tr>
+<td>LIST filelist</td>
+<td>如果指定了文件或目录，返回其信息；否则返回当前工作目录的信息</td>
+</tr>
+<tr>
+<td>TYPE type(ascii/binary)</td>
+<td>设定传输模式（ASCII/BINARY) 文本使用ASCII，图像使用二进制</td>
+</tr>
+<tr>
+<td>REST marker</td>
+<td>传输文件的起始点</td>
+</tr>
+<tr>
+<td>RERT filename</td>
+<td>检索一个文件</td>
+</tr>
+<tr>
+<td>STOR filename</td>
+<td>存储一个文件</td>
+</tr>
+<tr>
+<td>QUIT</td>
+<td>从服务器注销</td>
+</tr>
+</tbody></table>
+<h3 id="4-4-3-文件格式"><a href="#4-4-3-文件格式" class="headerlink" title="4.4.3 文件格式"></a>4.4.3 文件格式</h3><p>FTP协议支持两种<strong>文件传输方式</strong>：<strong>文本文件传输和二进制文件传输</strong></p>
+<p>FTP<strong>数据连接建立模式</strong>有两种：<strong>主动模式与被动模式</strong></p>
+<h2 id="4-5-电子邮件系统"><a href="#4-5-电子邮件系统" class="headerlink" title="4.5 电子邮件系统"></a>4.5 电子邮件系统</h2><h3 id="4-5-1-电子邮件系统的基本知识"><a href="#4-5-1-电子邮件系统的基本知识" class="headerlink" title="4.5.1 电子邮件系统的基本知识"></a>4.5.1 电子邮件系统的基本知识</h3><ol>
+<li><p>电子邮件系统</p>
+<p>电子邮件系统采用客户机/服务器工作模式。</p>
+</li>
+<li><p>TCP/IP互联网上电子邮件传输过程</p>
+<p>在TCP/IP互联网中，邮件之间采用<strong>简单邮件传输协议（Simple Mail Transfer Protocol,STMP）</strong>相互传输邮件。</p>
+<p>电子邮件应用程序<strong>使用STMP向邮件服务器发送邮件</strong>，使用<strong>POP3（Post Office Protocol）协议或者IMAP（Interactive Mail Access Protocol）协议从邮件服务器邮箱中读取邮件</strong></p>
+</li>
+<li><p>电子邮件地址</p>
+<p>TCP/IP互联网上电子邮件地址一般为：</p>
+<p>local-part@domain-name</p>
+<p>domain-name是邮件服务器域名，而local-part则表示邮件服务器上的用户名邮箱</p>
+</li>
+</ol>
+<h3 id="4-5-2-电子邮件传递协议"><a href="#4-5-2-电子邮件传递协议" class="headerlink" title="4.5.2 电子邮件传递协议"></a>4.5.2 电子邮件传递协议</h3><ol>
+<li><p>简单的邮件传输协议SMTP</p>
+<p>SMTP邮件传输采用客户机/服务器模式，邮件接收程序作为SMTP服务器在TCP的25端口守候</p>
+<p>SMTP邮件传递过程可以分为三个阶段：<strong>连接建立阶段，邮件传送阶段，连接关闭阶段</strong>。</p>
+<p>SMTP的最大特点就是简单和直观，它<strong>不规定邮件的接收程序如何存储邮件，也不规定邮件发送程序多长时间发送一次邮件</strong>，它<strong>只规定发送程序和接收程序之间的命令</strong>，SMTP邮件传输采用<strong>客户机/服务器</strong>模式，在TCP/IP互联网中，邮件服务器之间使用简单邮件传输协议SMTP相互传递电子邮件，也就是说SMTP协议使用传输层的TCP服务，<strong>SMTP响应字符串以3位十进制数字开始</strong></p>
+<p>SMTP常用命令：</p>
+</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>HELO&lt;主机域名&gt;</th>
+<th>开始会话</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>MAIL FROM&lt;发送者的电子邮件地址&gt;</td>
+<td>开始一个邮递处理，指出邮件发送者</td>
+</tr>
+<tr>
+<td>RCPT TO&lt;接收者的电子邮件地址&gt;</td>
+<td>标识单个的邮件接收人；可有多个 RCPT TO；常在 MAIL 命令后面</td>
+</tr>
+<tr>
+<td>DATA</td>
+<td>DATA命令后的数据作为邮件内容处理，直到出现 CR LF CR LF 结束</td>
+</tr>
+<tr>
+<td>NOOP</td>
+<td>无操作，服务器应响应 OK</td>
+</tr>
+<tr>
+<td>RSET</td>
+<td>中止当前邮件处理</td>
+</tr>
+<tr>
+<td>QUIT</td>
+<td>结束会话</td>
+</tr>
+</tbody></table>
+<ol start="2">
+<li><p>邮局协议POP3</p>
+<p>POP3本身也采用客户机/服务器模式，当用户需要下载邮件时候，POP客户机首先向POP服务器的TCP守候端口110发送建立连接请求</p>
+<p>POP3邮件传递过程可以分为三个阶段：<strong>认证阶段、事务处理阶段、更新阶段</strong></p>
+<table>
+<thead>
+<tr>
+<th>USER</th>
+<th>username 认证用户名</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>PASS</td>
+<td>password 认证密码认证，认证通过则状态转换</td>
+</tr>
+<tr>
+<td>STAT</td>
+<td>查询报文总数与长度</td>
+</tr>
+<tr>
+<td>LIST[&lt;邮件编号&gt;]</td>
+<td>处理 server 返回指定邮件的大小等</td>
+</tr>
+<tr>
+<td>RETR&lt;邮件编号&gt;</td>
+<td>请求服务器发送指定编号的邮件</td>
+</tr>
+<tr>
+<td>DELE&lt;邮件编号&gt;</td>
+<td>对指定编号的邮件做删除处理</td>
+</tr>
+<tr>
+<td>RSET</td>
+<td>复位操作，清除所有删除标记</td>
+</tr>
+<tr>
+<td>NOOP</td>
+<td>无操作</td>
+</tr>
+<tr>
+<td>QUIT</td>
+<td>删除那些标记成删除的邮件，关闭连接</td>
+</tr>
+</tbody></table>
+</li>
+</ol>
+<h3 id="4-5-3-电子邮件的报文格式"><a href="#4-5-3-电子邮件的报文格式" class="headerlink" title="4.5.3 电子邮件的报文格式"></a>4.5.3 电子邮件的报文格式</h3><p>RFC822和多用途Internet邮件扩展协议(Multipurpose Internet Mail Extensions,MIME)对邮件报文格式作出了具体的规定</p>
+<ol>
+<li><p>RFC822</p>
+<p>对邮件的最大限制是邮件体为７位ASCII文本，而且SMTP中又规定传输邮件时将８位字节高位清０</p>
+</li>
+<li><p>多用途Internet邮件扩展协议MIME</p>
+<p><strong>使用Base64编码主要目的是将二进制码转换为ASCII码</strong></p>
+</li>
+</ol>
+<h3 id="4-6-2-系统的传输协议"><a href="#4-6-2-系统的传输协议" class="headerlink" title="4.6.2 系统的传输协议"></a>4.6.2 系统的传输协议</h3><p><strong>超文本传输协议HTTP是Web客户机与Web服务器之间的传输协议，TCP上，是一种面向对象的协议。HTTP精确定义了请求报文和响应报文的格式</strong></p>
+<p>HTTP协议是一种详细规定了浏览器和万维网服务器之间互相通信的规则，通过因特网传送万维网文档的数据传送协议。HTTP协议是基于TCP的协议。HTTP协议的请求消息为<strong>一个请求行、请求头、空行和具体的请求内容</strong>。客户端向服务器发送一个请求，服务器以一个状态行作为响应，响应的内容包括：消息协议的版本、成功或者错误编码、服务器信息、实体元信息以及必要的实体内容。结果代码（状态码），<strong>用三个数字表示</strong>。</p>
+<ul>
+<li>请求报文包含一个请求行和若干报头行</li>
+<li>应答报文包含一个状态行和若干报头行，并可能在空行后面有报文体</li>
+</ul>
+<p>Web站点中储存的通常是结构化文档，Web浏览器应能解析HTML文档，Web站点应实现HTTP协议</p>
+<h1 id="第五章-新型网络应用"><a href="#第五章-新型网络应用" class="headerlink" title="第五章 新型网络应用"></a>第五章 新型网络应用</h1><h2 id="5-1-即时通信系统"><a href="#5-1-即时通信系统" class="headerlink" title="5.1 即时通信系统"></a>5.1 即时通信系统</h2><p><strong>以色列Mirabils公司推出了世界上第一款即时通信软件ICQ</strong>（I Seek You网络寻呼机）宣告了“<strong>即时通信（Instant Messsaging，IM）</strong>”这一概念的诞生</p>
+<p>即时通信系统是一种基于Internet的通信服务，可以提供<strong>近实时的信息交换</strong>和<strong>用户状态跟踪</strong></p>
+<h3 id="5-1-1-即时通信系统模型"><a href="#5-1-1-即时通信系统模型" class="headerlink" title="5.1.1 即时通信系统模型"></a>5.1.1 即时通信系统模型</h3><p>IETF批准的<strong>RFC2778</strong>给出了一个抽象的呈现与<strong>即时消息系统模型</strong>，<strong>描述了即时通信系统的功能</strong>，<strong>勾勒了即时通信系统的模型框架</strong></p>
+<p>在RFC2778中，即时消息系统被定义为“允许用户相互订阅并获取彼此状态变更信息，以使用用户间互相收发短信息”</p>
+<h3 id="5-1-2-即时通信系统主要通信模式"><a href="#5-1-2-即时通信系统主要通信模式" class="headerlink" title="5.1.2 即时通信系统主要通信模式"></a>5.1.2 即时通信系统主要通信模式</h3><p><strong>一种是用户/服务器模式，另外一种是用户/用户模式</strong></p>
+<ol>
+<li><p>用户/服务器模式</p>
+<p><strong>文本消息</strong>一般采用此模式，TCP协议</p>
+<p>即时消息服务器一般采用固定服务端口被动地与用户通信</p>
+</li>
+<li><p>用户/用户模式</p>
+<p><strong>文件传输</strong>一般采用此模式</p>
+</li>
+</ol>
+<h3 id="5-1-3-即时通信系统的通信协议"><a href="#5-1-3-即时通信系统的通信协议" class="headerlink" title="5.1.3 即时通信系统的通信协议"></a>5.1.3 即时通信系统的通信协议</h3><p><strong>MSN使用的是MSNP协议，ICQ,AOL使用的是OSCAR协议，QQ采用自己的私有协议(UDP为主,辅以TCP)</strong></p>
+<p>即时通信开放的协议主要代表有两个：<strong>基于SIP协议框架的SIMPLE</strong>（SIP for Instant Messaging and Presence Leverage Extension）协议簇，一个是<strong>基于JABBER协议框架的XMPP</strong>（eXtensible Messaging and Presence Protocol）协议簇</p>
+<p>一个即时通信系统包括两个服务：<strong>呈现服务，即时消息服务</strong></p>
+<ol>
+<li><p>SIP协议</p>
+<p>SIP（Session Initiation Protocol）<strong>会话初始化协议</strong></p>
+<p>所谓一个会话指的是用户之间的一次数据交换过程</p>
+<p>SIP<strong>主要是为了IP网络设计的，可以运行于TCP，UDP,SCTP等各种传输层协议之上</strong></p>
+<p><strong>SIP是一种在IP网络上实现实时通信的应用层的控制（信令）协议</strong></p>
+<p>SIP消息可以分为两类，<strong>请求消息和响应消息</strong></p>
+<p>SIP消息由<strong>一个起始行，消息头，一个标志消息头结束的空行，消息体组成</strong></p>
+<p><strong>起始行分为请求行和状态行</strong></p>
+<p>SIP协议虽然主要是为IP网络设计的，但它并<strong>不关心和依赖特定承载网络</strong>。SIP注册服务器用于接收和处理用户端的注册请求，完成用户地址的注册。在通话初始，需要发送方发送INVITE信息，而<strong>接收方不需要发送INVITE</strong>信息。在信息的传送过程中，可能会<strong>经历多个代理服务器</strong>才会完成信息发送。</p>
+<table>
+<thead>
+<tr>
+<th>请求方法</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>INVITE</td>
+<td>邀请用户或者服务器参加一个会话</td>
+</tr>
+<tr>
+<td>ACK</td>
+<td>UA向服务器证实它已经对INVITE请求的最终响应。ACK只和INVITE一起使用</td>
+</tr>
+<tr>
+<td>OPTIONS</td>
+<td>请求关于服务器能力的信息。如果服务器认为它能与用户联系，则可用一个能力集响应OPTIONS请求</td>
+</tr>
+<tr>
+<td>BYE</td>
+<td>用户终止一次会话，既可由主叫UA发送，也可由被叫UA发送</td>
+</tr>
+<tr>
+<td>CANCEL</td>
+<td>取消一个挂起的呼叫</td>
+</tr>
+<tr>
+<td>REGISTER</td>
+<td>向定位服务器注册UA的相关信息</td>
+</tr>
+</tbody></table>
+<p>BYE:是一种请求消息，请求消息包含请求行，消息头，空行，和消息体。</p>
+</li>
+<li><p>SIMPLE协议</p>
+<p><strong>由IETF制定</strong>，SIMPLE协议通过<strong>对SIP协议进行扩展</strong>，使其支持<strong>即时消息服务</strong></p>
+</li>
+<li><p>XMPP</p>
+<p>XMPP是一种基于XML的即时通信协议，IEFT在4个RFC文档中对该协议进行了定义，其中RFC3920，RFC3922，RFC3923分别对XMPP协议的核心构架，即时通讯方法，XMPP与CPIM的映射，安全性保证等内容进行了定义,使用XMPP的有<strong>Google Talk,Jive Messager</strong></p>
+<p><strong>XMPP实体地址</strong>叫做<strong>JID（Jabber标识）</strong>，它由域标识符、结点标识符、资源标识符三部分组成。形如：node@domain/resource</p>
+<p><strong>系统构架沿用了E-mail系统的构架</strong></p>
+<ul>
+<li><p>XMPP系统构架</p>
+<p>主要由3种实体组成：XMPP客户，XMPP服务器，XMPP网关</p>
+</li>
+<li><p>XMPP系统特点</p>
+<p><strong>用户/服务器中转模式</strong></p>
+<p><strong>分布式网络</strong></p>
+<p><strong>简单客户机端</strong></p>
+</li>
+</ul>
+</li>
+</ol>
+<p>QQ用户登录过程如下：<br>（1）客户端每次登陆时会访问记录上次登陆服务器的地址的记录文件，如果成功则不会重发DNS请求。<br>（2）在QQ通信中，用户必须先登录后才可以进行互相发送信息等。<br>（3）<strong>每次登陆</strong>时QQ客户机会向<strong>服务器获取一个会话密钥</strong>。</p>
+<p>（4）实现成功登录前可能连接多个登录服务器</p>
+<h2 id="5-2-P2P文件共享"><a href="#5-2-P2P文件共享" class="headerlink" title="5.2 P2P文件共享"></a>5.2 P2P文件共享</h2><p>文件共享技术有多种实现方式：<strong>FTP文件共享，NFS网络文件系统共享，Windows共享文件夹，以及P2P文件共享</strong></p>
+<p>P2P网络的主要结构类型分为<strong>集中式，分布式非结构化，分布式结构化和混合式</strong></p>
+<h3 id="5-2-1-P2P文件共享历史"><a href="#5-2-1-P2P文件共享历史" class="headerlink" title="5.2.1 P2P文件共享历史"></a>5.2.1 P2P文件共享历史</h3><p>P2P文件共享起源于<strong>1999年的音乐分享网站Napster</strong>，<strong>集中式对等网络结构</strong></p>
+<ul>
+<li>在<strong>中心服务器端</strong>存放希望共享的文件描述信息</li>
+<li>文件依然存放在用户的本地主机</li>
+</ul>
+<p>2000年3月，另一种P2P文件共享应用<strong>GnutElla</strong>问世，最初<strong>采用分布式非结构化对等网络结构</strong></p>
+<ul>
+<li><p>分布式非结构化P2P网络采用<strong>随机图的组织方式形成一个松散网络</strong>，支持复杂查询</p>
+</li>
+<li><p>优点是配置简单，不需要服务器支持，在规模小时候具有很高的查询效率</p>
+</li>
+<li><p>缺点是<strong>采用TTL，洪泛，随机漫步或者有选择转发算法</strong>，基于广播进行查找，网络拓扑直径不可控，可扩展性较差</p>
+</li>
+</ul>
+<p>2000年9月，<strong>eDonkey2000</strong>出现，继承了GnutElla的共享文件系统优点，并<strong>为文件增加了哈希（hash）信息</strong></p>
+<p>2001年夏，<strong>由MIT开发</strong>的开源BT（BitTorrent 比特洪流）出现，引发互联网文件共享的革命：最初需要中心服务器存放用户信息，该服务器成为Tracker服务器，BT系统要求文件发布者制作一个成为种子的文件（.torrent文件）下载者通过发布者提供的<strong>种子文件链接到Tracker的服务器</strong>，获取其他下载者的IP地址和端口号，下载者得到信息后，可以与其他下载者互连，互连的下载者可以通过种子文件确认已经拥有的文件块，并相互交换各自的没有的文件块，当下载完毕后，<strong>用户自动转换为“做种”模式</strong>，负责上传其他用户所需要的文件块，在整个过程中，<strong>Tracker仅负责提供下载该文件的用户列表</strong>，用户数越多下载速度越快，在后续版本中加入了DHT的支持，以实现无Tracker服务器文件传输</p>
+<p>使用了<strong>分布式结构化拓扑的P2P网络</strong>：<strong>Pastry,Tapestry,Chord,CAN</strong></p>
+<p>分布式结构化拓扑的P2P网络基于<strong>DHT</strong>(分布式散列表)的分布式发现和路由算法。避免了中心服务器，不需要基于广播进行查找，<strong>支持精确关键词匹配查询</strong></p>
+<p>混合式P2P网络：</p>
+<p>索引结点保存可以利用的搜索结点信息、搜集状态信息以及尽力维护网络的结构，一个结点既可以是搜索结点也可以是索引结点。索引结点不会直接连接到有版权的资料，只是搜索所需资料相关的地址，至于用户到底连接下载了什么内容与它无关。</p>
+<h3 id="5-2-2-P2P文件共享的理论基础"><a href="#5-2-2-P2P文件共享的理论基础" class="headerlink" title="5.2.2 P2P文件共享的理论基础"></a>5.2.2 P2P文件共享的理论基础</h3><p><strong>小世界假设，六度分隔理论</strong></p>
+<p>2001年秋，哥伦比亚大学<strong>瓦特斯</strong>通过电子邮件领导验证</p>
+<h3 id="5-2-3-P2P文件共享示例"><a href="#5-2-3-P2P文件共享示例" class="headerlink" title="5.2.3 P2P文件共享示例"></a>5.2.3 P2P文件共享示例</h3><p>Maze:支持<strong>在线资源搜索和文件目录视图</strong>，可以<strong>多点下载</strong>和<strong>断点续传</strong>，采用Maze<strong>积点</strong>和Maze<strong>星级</strong>技术。支持<strong>即时通信BBS</strong>；支持<strong>跨防火墙</strong>的文件共享与下载；支持<strong>在线资源搜索</strong>和<strong>文件目录视图</strong>；支持积点的资源交换体系；采用社交网络的网络链接关系。Maze属于混合型P2P系统，整个系统除了多个Peer外，还包括集中式的<strong>用户管理服务器</strong>、<strong>目录收集服务器</strong>、<strong>检索服务器</strong>、<strong>心跳服务器</strong>和<strong>种子服务器</strong>。为了实现结点的发现与通信策略，采用<strong>分布式认证机制</strong>。混合P2P结构，采用URL表示文件位置，用XML方式检索接口</p>
+<h2 id="5-3-IPTV"><a href="#5-3-IPTV" class="headerlink" title="5.3 IPTV"></a>5.3 IPTV</h2><h3 id="5-3-1-IPTV系统"><a href="#5-3-1-IPTV系统" class="headerlink" title="5.3.1 IPTV系统"></a>5.3.1 IPTV系统</h3><ol>
+<li><p>视频点播</p>
+<p>视频点播(Video On Demond,VOD)也被称为交互式电视点播系统。</p>
+<p>VOD的服务类型分三种，一种是就近式点播电视(Near Video On Demand,NVOD),一种是真实点播电视(True Video On demand,TVOD),还有一种是交互式点播电视(Interactive Video On Demand,IVOD)</p>
+<ul>
+<li>NVOD:每个视频流间隔一定时间就发送同样的内容，用户选择距最近的某个时间起点进行收看。</li>
+<li>TVOD:支持即点即放，当用户提出请求时，视频服务器立即传送用户所需的视频内容。每个视频流只为一个用户服务</li>
+<li>IVOD:不仅支持即点即放，而且还可以让用户对视频流进行交互式控制，实现播放倒回快进等功能</li>
+</ul>
+</li>
+</ol>
+<h3 id="5-3-2-IPTV关键技术"><a href="#5-3-2-IPTV关键技术" class="headerlink" title="5.3.2 IPTV关键技术"></a>5.3.2 IPTV关键技术</h3><ol>
+<li><p>媒体内容分发技术</p>
+<p>媒体内容分发网络(Media Content Delivery Network,MCDN)技术是IPTV大规模应用的重要保障</p>
+<ul>
+<li>内容发布：将<strong>内容发布或投递</strong>到距离用户<strong>最近的</strong>远程服务点</li>
+<li>内容路由：整体性的网络<strong>负载均衡技术</strong>，利用<strong>应用层</strong>的技术，保证<strong>用户得到最近内容源</strong>的响应</li>
+<li>内容交换：利用<strong>应用层</strong>交换，流分裂，重定向及宽带媒体分发策略等技术，智能地<strong>平衡负载流量</strong></li>
+<li>性能管理：获取网络部件的状态信息，另外测量内容发布的端到端性能，<strong>保证网络处于最佳运行状态</strong></li>
+<li>IP承载网：利用IP网络技术，为IPTV应用<strong>提供可靠的IP网络平台</strong></li>
+</ul>
+</li>
+<li><p>数字版权管理技术</p>
+<ul>
+<li>数据加密</li>
+<li>版权保护</li>
+<li>数字水印</li>
+</ul>
+</li>
+<li><p>IPTV运营支撑管理系统</p>
+</li>
+</ol>
+<h2 id="5-4-VoIP"><a href="#5-4-VoIP" class="headerlink" title="5.4 VoIP"></a>5.4 VoIP</h2><p>VoIP（Voice over IP）俗称IP电话（Internet Protocol Phone）。IP电话系统有4个基本组件：终端设备、网关、多点控制单元和网守。终端设备（Terminal）是一个IP电话客户终端，可以是软件。网关是通过IP网络提供语音通信的关键设备，是IP网络和PSTN（Public Switched Telephone Network，公用电话交换网简称电话网）网络之间的接口设备，从网络的角度看，它就是一个H.323设备。多点控制单元MCU（Multipoint Control Unit）的功能在于利用IP网络实现多点通信。网守（Gatekeeper）主要负责用户的注册和管理等。</p>
+<h3 id="5-4-2-VoIP系统组成"><a href="#5-4-2-VoIP系统组成" class="headerlink" title="5.4.2 VoIP系统组成"></a>5.4.2 VoIP系统组成</h3><ol start="2">
+<li><p>IP电话网关，是IP网络和电话网络之间的桥梁</p>
+<p>基本功能：<strong>号码查询，建立通信连接（信号调制），路由寻址</strong></p>
+</li>
+<li><p>网守</p>
+<p>网守是一个中央控制实体，在VoIP系统中起管理作用。</p>
+<p>网守是VoIP系统中的<strong>消息控制中心</strong>，可以进行<strong>呼叫控制，地址解析，呼叫授权，身份验证，集中账务和计费管理</strong>，<strong>存留呼叫详细记录</strong>等操作。</p>
+<p>网守还可以像实时网管一样<strong>监控网络，平衡负载，管理带宽以及提供与现有系统的接口</strong>。</p>
+</li>
+</ol>
+<h3 id="5-4-4-VoIP实例"><a href="#5-4-4-VoIP实例" class="headerlink" title="5.4.4 VoIP实例"></a>5.4.4 VoIP实例</h3><p>Skype是著名Kazaa软件创始人Niklas推出的一款Internet即时语音通信软件</p>
+<ol>
+<li>基本概念<ul>
+<li>SkypeClient:SC,SKype系统客户机</li>
+<li>SuperNode:SN，动态生成，作用像Internet中的核心路由器，每个SC根据其内存，带宽以及上线时间为因素，都有可能被选为SN</li>
+<li>其他见书本</li>
+</ul>
+</li>
+<li>超级结点（SN）的作用就像是因特网中的核心路由器，负责客户端的连接。好友列表（Buddy List）经过了数字化签名和加密处理，不是明文存储。<strong>Skype采用了256 bit的AES加密算法，以及混合式网络拓扑</strong>。</li>
+</ol>
+<h2 id="5-5-网络搜索技术"><a href="#5-5-网络搜索技术" class="headerlink" title="5.5 网络搜索技术"></a>5.5 网络搜索技术</h2><h3 id="5-5-2-搜索引擎的主要内容"><a href="#5-5-2-搜索引擎的主要内容" class="headerlink" title="5.5.2 搜索引擎的主要内容"></a>5.5.2 搜索引擎的主要内容</h3><p><strong>搜索器，索引器，检索器，用户接口</strong></p>
+<h1 id="第六章-网络管理与网络安全"><a href="#第六章-网络管理与网络安全" class="headerlink" title="第六章 网络管理与网络安全"></a>第六章 网络管理与网络安全</h1><h2 id="6-1-网络管理技术"><a href="#6-1-网络管理技术" class="headerlink" title="6.1 网络管理技术"></a>6.1 网络管理技术</h2><h3 id="6-1-1-网络管理的概念"><a href="#6-1-1-网络管理的概念" class="headerlink" title="6.1.1 网络管理的概念"></a>6.1.1 网络管理的概念</h3><p>通常涉及：网络提供，网络维护，网络管理</p>
+<p>ISO定义网管模型包括４个部分：<strong>组织模型，信息模型，通信模型与功能模型</strong></p>
+<p>组织模型:描述网管系统的组成部分和结构</p>
+<p>信息模型：网管系统的对象命名和结构</p>
+<p>通信模型：网管系统使用的网管协议</p>
+<p>功能模型：网管系统的主要功能</p>
+<p><strong>网络管理模式通常为集中式网络管理或管理者－网管代理模型</strong></p>
+<h3 id="6-1-2-网络管理功能域"><a href="#6-1-2-网络管理功能域" class="headerlink" title="6.1.2 网络管理功能域"></a>6.1.2 网络管理功能域</h3><p>网络管理功能域定义的是主要的网管功能，并将这些功能划分为５个部分：<strong>配置管理，故障管理，性能管理，安全管理与记账管理</strong></p>
+<p>配置管理：中长期，网络增容，设备更新，新技术应用，新业务开通，新用户加入，业务撤销，用户迁移</p>
+<p>故障管理：<strong>发现与排除故障，保证网络资源无障碍无错误运营</strong>，包括障碍管理，故障恢复，预防故障，故障管理包括检测隔离纠正故障</p>
+<p>性能管理：测试性能指标，包括吞吐率，利用率，响应时间，传输延时等，性能管理可以分为两个部分：<strong>性能监控和网络控制</strong>，性能监控收集网络状态信息，网络控制值为改善性能采用的措施</p>
+<p>安全管理：<strong>控制与维护对网络资源的访问权限，安全服务设施的建立控制与删除</strong>，信息分发，事件通知，网络操作记录维护</p>
+<p>计费管理：控制监控网络操作的费用与代价，还进行网络资源利用率的统计和网络的成本效益的核算</p>
+<h3 id="6-1-3-网络管理系统"><a href="#6-1-3-网络管理系统" class="headerlink" title="6.1.3 网络管理系统"></a>6.1.3 网络管理系统</h3><p>网络管理系统(Network Management System,NMS)通常称为网管系统，是用来实现网管功能的软件或硬件系统。</p>
+<p><strong>管理对象</strong>是经过抽象的网络元素，对应于网络中具体可以操作的数据，例如网络设备的工作参数，网络性能的统计参数等。<strong>管理对象相关信息储存在MIB中，每个网管系统都需要MIB的支持</strong></p>
+<p>网络管理涉及到网络中的各种资源，可分为两大类：硬件资源和软件资源。<br>硬件资源是指物理介质、计算机设备和网络互联资源。物理介质通常是物理层设备、如网卡、双绞线等；计算机设备包括打印机和存储设备及其他计算机外围设备；常用的网络互联设备有中继器、网桥、路由器、网关等。软件资源主要包括操作系统、应用软件和通信软件。</p>
+<p><strong>管理协议</strong>负责在网络工作站与网络设备的管理进程之间通信，传输信息包括发送的操作命令与返回的操作结果。</p>
+<p>网管系统通常分为两类：网元管理系统(Element Management System,EMS)只负责管理单独的网络元素（网络设备）。另一种是通用的网络管理系统(Network Management System,NMS)负责管理整个网络而不是单个设备，通常用于掌握整个网络的工作状态，作为作为底层的网络平台服务于EMS.</p>
+<h3 id="6-1-4-网络管理协议"><a href="#6-1-4-网络管理协议" class="headerlink" title="6.1.4 网络管理协议"></a>6.1.4 网络管理协议</h3><ol>
+<li><p>SNMP协议</p>
+<p><strong>Internet工程任务组(Internet Engineering Task Force,IETF)是很多互联网标准的制定者，制定了简单网络管理协议(Simple Network Management Protocol,SNMP)</strong>是一种面向Internet的网管协议，针对的管理对象是各种网络设备</p>
+<p>1987年IETF制作了简单网关协议(Simple Gateway Monitoring Protocol,SGMP)，<strong>SNMP协议在SGMP的基础上建立起来的。</strong></p>
+<p>第一个版本设计简单，易于实现，<strong>第二个版本增加了操作类型与支持多层传输层协议，第三个版本提供了安全与改进的框架结构。</strong></p>
+<p>由于开始的SNMP没有考虑安全问题，SNMPv2开始在提供安全性<strong>(安全性不是重点内容)</strong>和更有效的传递管理信息方面加以改进，具体包括提供验证、加密和时间同步机制。SNMPv3的重点是安全、可管理的体系结构和远程配置。</p>
+<p>SNMP是一种<strong>应用层的协议</strong>，采用客户机/主机的形式</p>
+<p>SNMP在传输层采用支持无线连接服务的<strong>UDP</strong>协议。网络设备的管理信息可以分为很多类型，并<strong>保存在MIB的管理对象中</strong>。SNMP协议采用<strong>轮询监控方式</strong>，管理器定时想代理请求获得管理信息，并根据返回信息判断是否发生异常。</p>
+<p>MIB（管理信息库）是一个数据库，它代表了某个设备或服务的一套可管理对象。由SNMP管理的<strong>每台主机必须有一个MIB</strong>，它描述了该主机上的可管理对象。所有的MIB必须用精确的组织结构定义。SNMP管理器在与其他代理连接时，通过MIB中的信息，来识别该代理上的信息是如何组织的。</p>
+<p>SNMP从被管理设备中收集数据有两种方法：<strong>一种是轮询（polling）方法，另一种是基于中断（interrupt-based）的方法</strong></p>
+<p>管理器和代理是一对多关系</p>
+<p>RMON提供补充功能</p>
+</li>
+<li><p>CMIP协议</p>
+<p><strong>ISO制定</strong>的通用管理信息服务(Common Management Information Service,CMIS)与通用管理信息协议(Common Management Information Protocol,CMIP)</p>
+<p>CMIP是一种<strong>应用层的协议</strong></p>
+<p>CMIP<strong>建立在OSI模型基础上</strong></p>
+<p>在<strong>传输层采用支持有连接服务的协议</strong>，例如OSI模型定义的TP3协议，CMIP系统<strong>传输信息之前需要预先建立连接。</strong></p>
+<p>采用委托监控机制</p>
+</li>
+</ol>
+<h2 id="6-2-网络安全的概念"><a href="#6-2-网络安全的概念" class="headerlink" title="6.2 网络安全的概念"></a>6.2 网络安全的概念</h2><h3 id="6-2-2-网络安全服务与法律法规"><a href="#6-2-2-网络安全服务与法律法规" class="headerlink" title="6.2.2 网络安全服务与法律法规"></a>6.2.2 网络安全服务与法律法规</h3><ol>
+<li><p>网络安全服务应该提供以下基本保障：</p>
+<ol>
+<li>可用性：尽管可能存在突发事件（自然灾害，突然断电，事故等）情况下，网络仍然可以正常运转，用户可以使用各种网络服务</li>
+<li>机密性：保证网络中的数据不馁非法截获或非授权访问，保护敏感数据和涉及个人隐私信息的安全</li>
+<li>完整性：保证数据完整，没有被修改，插入或删除</li>
+<li>不可否认性：确认通信参与者的身份真实性，防止对已发送或接受的信息否认的现象出现</li>
+<li>可控性：控制与限定网络用户对主机系统，网络服务与网络信息资源的访问和使用，防止非授权用户读取写入删除数据</li>
+</ol>
+</li>
+<li><p>网络安全的法律法规：</p>
+<p><strong>美国政府定制</strong>的可信用计算机系统评估准则(TC-SEC-NCSC)将计算机系统安全等级分为４类７个等级，即D,C1,C2,B1,B2,B3与A1,<strong>Ｄ级系统安全级别最低，A1级系统的安全要求最高</strong></p>
+<p>D:非安全保护类，C:自主保护类型，B:强制型安全保护类，A1:相对B在安全审计，安全测试，配置管理等方面提出更高要求</p>
+<p>D1是最小的保护级别。主要特征是保护措施很少，没有安全功能。</p>
+<p>C1是有选择的安全保护。主要特征是有选择的存取控制，用户与数据分离，数据保护以用户组为单位。<br>C2是受控的访问控制。主要特征是存取控制以用户为单位，广泛的审计。<br>B1是标记安全保护。除了C2级的安全要求外，增加安全策略模型，数据标号（安全和属性），托管访问控制等。<br>B2是结构化安全保护。设计系统时必须有一个合理的总体设计方案，面向安全的体系结构，遵循最小授权原则，具有较好的抗渗透能力，访问控制应对所有的主体和客体进行保护，对系统进行隐蔽通道分析。<br>B3是安全域机制保护。安全内核，高抗渗透能力。<br>A1可验证安全设计。形式化的最高级描述和验证，形式化的隐秘通道分析，非形式化的代码一致性证明。</p>
+<p>在我国，以《计算机信息系统安全保护等级划分准侧》为标准。</p>
+<p>ITSEC欧洲信息安全评估标准</p>
+</li>
+</ol>
+<h3 id="6-2-4-网络攻击的主要类型"><a href="#6-2-4-网络攻击的主要类型" class="headerlink" title="6.2.4 网络攻击的主要类型"></a>6.2.4 网络攻击的主要类型</h3><p><strong>主动攻击：拒绝服务攻击（DoS），分布式拒绝服务(DDoS)，信息篡改，资源使用，欺骗（如源路由攻击），伪装（如邮件炸弹），重放等攻击方法</strong></p>
+<p><strong>服务攻击(与主动攻击不是并列关系)：针对某特定网络服务攻击，如针对Email，FTP，HTTP等服务攻击，如对Telnet的23号端口，对HTTP的80端口，邮件炸弹等</strong></p>
+<ol start="3">
+<li><p>DoS与DDoS</p>
+<ol>
+<li><p>DoS的分类与特征</p>
+<p>拒绝服务攻击(Denial of Service,DoS)利用合理的理由通过发送一定数量，一定序列的报文，使网络服务器中充斥大量要求回复的信息，消耗网络带宽或系统资源，导致服务器不能正常工作，甚至瘫痪。</p>
+</li>
+<li><p>DDoS攻击的特征</p>
+<p>典型的DDoS攻击采用三层结构：攻击控制层，攻击服务层，攻击执行层。</p>
+<p>真正的攻击者处于攻击控制层的位置，为了防止被跟踪和追查，攻击者首先通过漏洞扫描方式选择安全性较差的计算机作为被控制对象（即攻击服务器）,向攻击服务器传播恶意攻击程序，通过攻击服务器去发展下一级的攻击执行器，攻击执行器也称为“傀儡机”。在向攻击服务器发出攻击命令后，攻击控制台立即车里，不参加之后的攻击行动。</p>
+<p>特点：</p>
+<ol>
+<li>被攻击的主机上可能有大量等待应答的TCP连接</li>
+<li>网络中充斥着大量无用网络数据包，并且数据包的源地址是伪造的</li>
+<li>大量无用数据包造成网络拥塞，使得网络工作不正常，甚至瘫痪</li>
+<li>被攻击的主机可能在攻击发起之后短短几秒后就处于瘫痪状态</li>
+<li>攻击服务器和傀儡机都是在不知情下参与的，真正攻击者早已消失</li>
+</ol>
+</li>
+<li><p>僵尸网络特征</p>
+<p>控制者出于恶意目的，传播僵尸病毒，控制大量主机，通过一对多的命令与控制信道主城网络，实施DDoS攻击，僵尸网络是一种典型的植入威胁攻击</p>
+</li>
+</ol>
+</li>
+</ol>
+<h2 id="6-3-加密与认证技术"><a href="#6-3-加密与认证技术" class="headerlink" title="6.3 加密与认证技术"></a>6.3 加密与认证技术</h2><p><strong>唯密文攻击</strong>指的是在仅知已加密文字的情况下进行穷举攻击。</p>
+<p><strong>已知明文攻击</strong>指攻击者掌握了某段明文和对应密文，推断加密方式，从而破解后段密文的攻击方式。</p>
+<p><strong>选择明文攻击</strong>是指攻击者不仅已知加密算法和密文，而且还能够通过某种方式让发送者在发送的信息中插入一段由他选择的信息。</p>
+<p><strong>选择密文攻击</strong>的密码分析者事先任意搜集一定数量的密文，让这些密文透过被攻击的加密算法解密，透过未知的密钥获得解密后的明文。</p>
+<h3 id="6-3-2-对称密码体系"><a href="#6-3-2-对称密码体系" class="headerlink" title="6.3.2 对称密码体系"></a>6.3.2 对称密码体系</h3><ol start="2">
+<li><p>典型的对称加密算法</p>
+<p>数据加密标准(Data Encrytion Stardard,DES)是最典型的<strong>对称加密算法</strong>，<strong>由IBM公司提出，经ISO认定的国际标准</strong>。DES每次处理一个<strong>64位的明文分组</strong>，并且每次生成一个64位的密文分组。</p>
+<p>DES有<strong>56位密钥长度</strong>。<strong>基于置换和代换技术</strong>，基于<strong>整数有限域离散对数难题</strong>，和RSA安全性差不多。DES算法加密过程中每轮操作都有置换和代换，<strong>每轮置换函数相同</strong></p>
+<p>高级加密算法(Advanced Encrytion Stardard,AES)是后来出现的一种<strong>对称加密算法</strong>，<strong>由NIST制定</strong>，AES将数据分为固定大小的分组，以分组为单位进行加密或解密。<strong>AES算法安全性能不低于3DES，同时具有良好的执行性能，运行速度比3DES速度快。密钥长度为128、192和256位，分组长度为128位。</strong></p>
+<p>其他对称加密算法包括:IDEA,Blowfish,RC2,RC4,RC5,CAST等</p>
+<p>Blowfish算法是有Bruce Schneider设计的算法，是一个可变密钥长度的分组算法，分组长度为64位，Blowfish算法所有的运算都是32位字的加法和异或，仅有的另一个运算时每轮的四个查表。</p>
+<p>背包加密算法是一种公钥加密算法，该算法中背包的物品总重量是公开的，所有可能的物品也是公开的，但是背包中的物品却是保密的，它是一个NP难度问题。目前大多数一次背包体制均被破译了，一次背包已不安全了</p>
+</li>
+</ol>
+<h3 id="6-3-3-非对称密码体系"><a href="#6-3-3-非对称密码体系" class="headerlink" title="6.3.3 非对称密码体系"></a>6.3.3 非对称密码体系</h3><ol start="2">
+<li><p>典型的非对称加密算法</p>
+<p>RSA是一种典型的公钥加密算法，它在网络安全领域得到广泛应用，RSA算法的安全性建立在大素数分解极其困难的基础之上。是由Ron Rivest,Adi Shamir,Leonard Adleman设计的一种算法。</p>
+<p>其他非对称加密算法主要包括DSS,ElGamal与Diffie-Hellman等</p>
+<p>ElGamal:基于公钥秘钥体制和椭圆曲线加密体系，属于非对称加密，加密过程中，生成的密文长度是明文的两倍，基于离散对数，常用于数字签名。</p>
+<p>数据加密标准DES属于堆成加密算法，DSA与ElGamal属于公钥加密</p>
+</li>
+</ol>
+<h3 id="6-3-4-公钥基础设施"><a href="#6-3-4-公钥基础设施" class="headerlink" title="6.3.4 公钥基础设施"></a>6.3.4 公钥基础设施</h3><ol>
+<li><strong>公钥基础设施(Public Key Infrastructure,PKI)是利用公钥加密和数字签名技术建立的安全服务基础设施，以保证网络环境中的数据的秘密性完整性和不可抵赖性。</strong></li>
+</ol>
+<h3 id="6-3-5-数字签名技术"><a href="#6-3-5-数字签名技术" class="headerlink" title="6.3.5 数字签名技术"></a>6.3.5 数字签名技术</h3><p>数字签名是笔迹签名的模拟，<strong>公钥密码体制和私钥密码体制都可以用于数字签名</strong>，验证时需要使用相同的散列函数，并且<strong>通过比较消息摘要是否匹配</strong>来验证签名的正确性。</p>
+<ol start="2">
+<li><p>数字签名的工作原理</p>
+<ol start="6">
+<li><p>目前广泛使用的数字签名算法是消息摘要(Message Digest,MD5)</p>
+<p>MD5没有对数据进行加密或者修改，<strong>可对任意长度的数据生成128位散列值，没有对数据加密或者修改，只是生成一个用于判断完整性与真实性的散列值</strong></p>
+</li>
+</ol>
+</li>
+</ol>
+<h2 id="6-4-网络安全协议"><a href="#6-4-网络安全协议" class="headerlink" title="6.4 网络安全协议"></a>6.4 网络安全协议</h2><h3 id="6-4-1-网络安全协议的概念"><a href="#6-4-1-网络安全协议的概念" class="headerlink" title="6.4.1 网络安全协议的概念"></a>6.4.1 网络安全协议的概念</h3><p><strong>在主机－网络层（数据链路层对应它的一部分）中，主要的安全协议包括PPTP,L2TP与L2F等</strong></p>
+<p><strong>在互联层（或网络层）中，最主要的安全机制是IPSec的两个组成协议，即认证头部(AH)与封装安全有效载荷（ESP）</strong></p>
+<p><strong>在传输层中，主要的安全协议包括SSL,SSH,TLS与SOCKS等。</strong></p>
+<p>https是以安全为目标的HTTP通道，简单讲是HTTP安全版，即HTTP+SSL，HTTPS安全基础是SSL。如果用户想在Web上使用SSL协议URL必须使用https开头</p>
+<p>SSL最初由Netscape公司定制，SSL以及其继任者TLS，是为了为网络通信提供安全以及数据完整性的一种安全协议，TLS与SSL在传输层对网络进行加密，用于保障网络数据传输安全，利用数据加密技术，，确保数据在网络传输过程中不被截取与窃听，所有主要浏览器和Web服务器支持SSL，可以通过安装SSL证书激活SSL协议。</p>
+<p><strong>在应用层中针对不同的网络服务或应用的安全机制比较多，例如PGP,SET,用于增强Web安全的S-HTTP,用于保障邮件安全的S/MIME,用于电子商务安全交易的SET等</strong></p>
+<h3 id="6-4-2-网络安全与IPSec"><a href="#6-4-2-网络安全与IPSec" class="headerlink" title="6.4.2 网络安全与IPSec"></a>6.4.2 网络安全与IPSec</h3><ol>
+<li><p>IPSec安全体系结构</p>
+<p>IPSec主要包含３个组成部分，<strong>认证头(Authentication Header,AH)，封装安全负载(Encapsulating Security Payload,ESP)与密钥管理协议</strong></p>
+<p>IPSec工作模式分两种，<strong>隧道模式和传输模式</strong></p>
+</li>
+<li><p>AH协议的工作原理</p>
+<p>可工作在隧道模式与传输模式</p>
+</li>
+<li><p>ESP协议工作原理</p>
+<p>可工作在隧道模式与传输模式</p>
+</li>
+</ol>
+<p>浏览器安全性：</p>
+<ol>
+<li><strong>将Web站点放入可信站点区可以保证信息传输的机密性</strong></li>
+<li><strong>在浏览器中添加证书可以验证Web站点的真实性</strong></li>
+<li><strong>索要Web站点的证书可以表明浏览器的身份</strong></li>
+<li><strong>使用SSL技术可以防止病毒的传播</strong></li>
+</ol>
+<h3 id="6-4-4-应用层安全与PGP-SET"><a href="#6-4-4-应用层安全与PGP-SET" class="headerlink" title="6.4.4 应用层安全与PGP,SET"></a>6.4.4 应用层安全与PGP,SET</h3><ol>
+<li><p>PGP</p>
+<p>PGP（Pretty Good Privacy，相当好的私密性）是一个安全电子邮件加密软件，它主要由5种服务组成：<strong>鉴别、机密性、压缩、电子邮件的兼容性和分段</strong>，<strong>支持多语种安装平台</strong>。数字签名使用DSS/SHA或RSA/SHA算法，<strong>报文加密采用CAST或IDEA，或使用Diffie-Hellman的3DES或RSA算法。</strong><br>PGP也提供了公共密钥认证机制，但是这个机制完全不同于通用的认证中心（CA）。PGP公共密钥通过委托网站进行认证，它也可以通过互联网上的PGP公共密钥服务器发布。</p>
+</li>
+</ol>
+<p>包括<strong>电子邮件的加密，身份验证，数字签名</strong>等安全功能。</p>
+<p>   在PGP协议中需要两个不同的加密过程：<strong>明文加密与对称密钥的加密</strong></p>
+<p>   PGP2数字签名能够保证邮件的完整性，身份认证与不可抵赖性，数据加密可以保证邮件内容的机密性</p>
+<h2 id="6-5-防火墙技术"><a href="#6-5-防火墙技术" class="headerlink" title="6.5 防火墙技术"></a>6.5 防火墙技术</h2><h3 id="6-5-1-防火墙概念"><a href="#6-5-1-防火墙概念" class="headerlink" title="6.5.1 防火墙概念"></a>6.5.1 防火墙概念</h3><p>防火墙的基本部件是：包过滤路由器，应用级网关</p>
+<p>通常应用于内部网络与外部网络之间</p>
+<p>可通过软硬件实现</p>
+<h3 id="6-5-2-包过滤路由器"><a href="#6-5-2-包过滤路由器" class="headerlink" title="6.5.2 包过滤路由器"></a>6.5.2 包过滤路由器</h3><p>包过滤路由器作用于网络层上</p>
+<p>检查每个分组的源地址，目的地址，决定该分组是否应该转发。</p>
+<p>包过滤路由器会检查TCP报头的端口号和字节，通常基于部分或全部报头内容，例如对TCP报头信息，可以是源地址，目的地址，协议类型，IP选项，源端口号，目的端口号，TCP,ACK等标识</p>
+<h3 id="6-5-3-应用级网关"><a href="#6-5-3-应用级网关" class="headerlink" title="6.5.3 应用级网关"></a>6.5.3 应用级网关</h3><p>应用代理是应用级网关的另一种形式</p>
+<h1 id="题目心得："><a href="#题目心得：" class="headerlink" title="题目心得："></a>题目心得：</h1><ol>
+<li><p>51题左右：</p>
+<p>关键词：“ping不通”</p>
+<p>首先判断是否在一个子网，如果不在一个子网则是因为不在一个子网。如果在一个子网，如果题目说不是一个VLAN则选不在一个VLAN，ping不通与操作系统无关</p>
+</li>
+<li><p>有限广播地址：255.255.255.255</p>
+<p>直接广播地址：网络号+一个全“1”的主机号</p>
+</li>
+<li><p>混合P2P网络包含节点种类：用户节点，搜索节点，索引结点</p>
+</li>
+<li><p><strong>ISO制定了：CMIP，CMIS，OSI参考模型</strong></p>
+<p><strong>IETF：TCP/IP 参考模型，RFC2778，SIMPLE协议，SNMP协议,IPSec，SIP</strong></p>
+</li>
+<li><p><strong>为了保护自己的计算机免受非安全软件的危害，浏览器通常采用的方法是将Internet世界划分为不同的区域（如Internet区域、本地Internet区域、可信站点区域、受限站点区域）</strong></p>
+</li>
+<li><p><strong>为了避免他人假冒自己，用户可以在浏览器安装自己的数字证书</strong></p>
+<p><strong>将Web站点放入可信站点区可以保证信息传输的机密性</strong></p>
+<p><strong>在浏览器中添加证书可以验证Web站点的真实性</strong></p>
+<p><strong>索要Web站点的证书可以表明浏览器的身份，验证站点的真实性</strong></p>
+<p><strong>使用SSL技术可以防止病毒的传播，避免第三方偷看</strong></p>
+<p><strong>使用Base64编码主要目的是将二进制码转换为ASCII码</strong></p>
+</li>
+<li><p>Web服务采用客户机/服务器工作模式</p>
+<p>Web服务以超文本方式组织网络多媒体信息</p>
+<p>Web<strong>服务器需要实现HTTP协议</strong></p>
+<p>用户访问Web服务器可以使用图形界面</p>
+<p>Web浏览器的解释单元<strong>负责解析从服务器发送回来的数据</strong></p>
+<p>浏览器组成为：<strong>控制单元，客户单元，解释单元</strong></p>
+</li>
+<li><p>广域网的研究重点是核心交换技术</p>
+</li>
+<li><p>共享介质以太网核心是<strong>集线器</strong>，支持全双工</p>
+</li>
+<li><p>局域网交换机核心核心技术包括端口/MAC地址映射</p>
+</li>
+<li><p>54题附近：</p>
+<p>从使用者来看，Internet是一个资源网</p>
+<p>从设计者来看，Internet是计算机互联网络的实例/IP互联网</p>
+<p>Internet利用路由器实现异构网络互联</p>
+<p>Internet主要组成部分包括四个部分：通信线路，路由器，主机和信息资源。</p>
+</li>
+<li><p>个人区域网（WPAN,Wireless Personal）</p>
+<p>个人局域网(PAN,Personal)  </p>
+<p>局域网(LAN,local)  </p>
+<p>城域网(MAN,metropolitian)  </p>
+<p><strong>广域网(WAN,wide)</strong> </p>
+<p><strong>无线自组网（WAN,Wireless ad hoc network）</strong></p>
+<p>无线局域网(WLAN,Wireless Local)</p>
+<p>无线网状网(WMN,wireless mesh network)</p>
+</li>
+<li><p>VLAN技术：</p>
+<p>虚拟局域网是<strong>建立在交换式技术的基础上</strong>，以软件方式实现逻辑工作组的划分与管理，工作组中的结点不受物理位置的限制。常见的组网方式包括：<strong>用交换机端口定义虚拟局域网、用MAC地址定义虚拟局域网、用网络层(IP)地址定义虚拟局域网、基于广播组的虚拟局域网。</strong></p>
+</li>
+<li><p>信息存储安全措施至少要包括三类：（1）社会的法律政策、企业的规章制度及网络安全教育；（2）技术方面的措施，如防火墙技术、防病毒、信息加密、身份确认以及授权即设置访问权限等；（3）审计与管理措施，包括技术与社会措施。主要有实时监控、提供安全策略改变的能力以及对安全系统实施漏洞检查等。</p>
+</li>
+<li><p>欧洲原子核研究委员会（CERN）的 Tim Berners-Lee 开发了一个协议，用来解决复杂进化系统中的信息丢失问题，并提出一个基于分布式超文本系统的解决方法，Web 因此诞生。Web服务采用客户机/服务器工作模式，Web服务以超文本方式组织网络多媒体信息，<strong>Web服务器需要实现HTTP协议</strong>，存储了用户共享的信息，用户访问Web服务器可以使用图形界面，Web浏览器的解释单元负责解析从服务器发送回来的数据。</p>
+</li>
+<li><p>UNIX操作系统，是一个多用户、多任务操作系统，支持多种处理器架构，按照操作系统的分类，属于分时操作系统。Unix从第三版内核开始使用C语言。Linux是一套免费使用和自由传播的类Unix操作系统，是一个基于POSIX和UNIX的多用户、多任务、支持多线程和多CPU的操作系统。</p>
+</li>
+<li><p><strong>ASN.1</strong>抽象语法标记（Abstract Syntax Notation One） ASN.1是一种 ISO/ITU-T 标准，描述了一种对数据进行表示、编码、传输和解码的数据格式，ISO 协议套中的应用层协议使用了 ASN.1 来描述它们所传输的 PDU，这些协议包括：用于传输电子邮件的 X.400、用于目录服务的 X.500、用于 VoIP 的 H.323 和 SNMP（简单网络管理协议）。ASN.1 取得成功的一个主要原因是它与几个标准化编码规则相关，如基本编码规则（BER） -X.209 、规范编码规则（CER）、识别名编码规则（DER）、压缩编码规则（PER）和 XML编码规则（XER）。<br><strong>Unicode</strong>（统一码、万国码、单一码）是一种在计算机上使用的字符编码。Unicode 是为了解决传统的字符编码方案的局限而产生的，它为每种语言中的每个字符设定了统一并且唯一的二进制编码，以满足跨语言、跨平台进行文本转换、处理的要求。<br><strong>Base64</strong>是网络上最常见的用于传输8Bit字节代码的编码方式之一，可用于在HTTP环境下传递较长的标识信息。Base64 也会经常用作一个简单的“加密”来保护某些数据，而真正的加密通常都比较繁琐。Mozilla Thunderbird和Evolution用Base64来保密电子邮件密码<br><strong>Quoted-printable</strong>是使用可打印的ASCII字符 (如字母、数字与”=”)表示各种编码格式下的字符，以便能在7-bit数据通路上传输8-bit数据, 或者更一般地说在非8-bit clean媒体上正确处理数据。这被定义为MIME content transfer encoding，用于e-mail。</p>
+<p>邮件编码常用后两者</p>
+</li>
+<li><p>HTML是一种标记语言、用于描述文档结构，是Web世界的共同语言，浏览器应能解释符合HTML标准的页面且多个符合HTML标准的页面可相互链接。</p>
+</li>
+<li><p>LAMP（Linux- Apache-MySQL-PHP）网站架构是目前国际流行的Web框架，该框架包括：Linux操作系统，Apache网络服务器，MySQL数据库，Perl、PHP或者Python编程语言，所有组成产品均是开源软件，是国际上成熟的架构框架。该架构起源于Linux平台，由于是开源软件，建设成本很低。</p>
+</li>
+<li><p>Ethernet交换机转发帧可以采用直接交换方式、存储转发交换方式或者改进的直接交换方式。通常采用端口号/MAC地址映射表，支持虚拟局域网服务。</p>
+</li>
+<li><p>POP3邮件传递过程可以分为三个阶段：认证阶段、事务处理阶段、更新阶段</p>
+<p>SMTP邮件传递过程可以分为三个阶段：连接建立阶段，邮件传送阶段，连接关闭阶段</p>
+</li>
+<li><p>NetBIOS是由IBM开发，工作于网络层驱动接口和传输层驱动接口之间，支持254个并发通信话路，名字服务可以采用UDP协议。</p>
+</li>
+<li><p>跳频扩频通信（Frequence Hopping Spread Spectum），英文缩写为FHSS，直接序列扩频（Direct Sequence Spread Spectrum），英文缩写为DSSS，点协调功能（Point Coordition Function），英文缩写为PCF，分布式协调功能（Distributed Coordition Function），英文缩写为DCF，虚拟监听（Virtual Carrier Sense），英文缩写为VCS</p>
+</li>
+<li><p>消息认证就是使意定的接收者能够检验收到的消息是否真实的方法，又称为<strong>完整性校验</strong>。信息的完整性认证方法的基本途径有两条：<strong>采用消息认证码（MAC）、采用篡改检测码（MDC）</strong>。消息认证方法很多，如认证信息的来源时可以采用通信双方事先约定各自发送消息所使用的通行字的方法，<strong>不需要使用公钥</strong>。密钥分发中心（KDC）是一个独立的可信网络实体，它可以为用户提供不同的对称密钥，<strong>当不采用公钥算法进行消息认证时，并不需要使用KDC，</strong></p>
+</li>
+</ol>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">cai</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="http://yoursite.com/2020/03/26/ji-suan-ji-si-ji-wang-luo-ji-zhu/">http://yoursite.com/2020/03/26/ji-suan-ji-si-ji-wang-luo-ji-zhu/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">cai</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">
+                                    <span class="chip bg-color">计算机网络</span>
+                                </a>
+                            
+                                <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%9B%E7%BA%A7/">
+                                    <span class="chip bg-color">计算机四级</span>
+                                </a>
+                            
+                                <a href="/tags/%E7%9F%A5%E8%AF%86%E7%82%B9%E6%95%B4%E7%90%86/">
+                                    <span class="chip bg-color">知识点整理</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.4rem;
+        line-height: 38px;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.png" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+        <link rel="stylesheet" href="/libs/gitalk/gitalk.css">
+<link rel="stylesheet" href="/css/my-gitalk.css">
+
+<div class="card gitalk-card" data-aos="fade-up">
+    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
+        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+        <span>评论</span>
+    </div>
+    <div id="gitalk-container" class="card-content"></div>
+</div>
+
+<script src="/libs/gitalk/gitalk.min.js"></script>
+<script>
+    let gitalk = new Gitalk({
+        clientID: '567ab5f0da87cd87c36c',
+        clientSecret: '6c660baacd461151d3b40ea2aa7c24e6b7dd8b3a',
+        repo: 'cai-hust.github.io',
+        owner: 'cai-hust',
+        admin: "cai-hust",
+        id: '2020-03-26T18-24-33',
+        distractionFreeMode: false  // Facebook-like distraction free mode
+    });
+
+    gitalk.render('gitalk-container');
+</script>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2020/03/27/manim-de-zhu-yao-hui-tu-lei/">
+                    <div class="card-image">
+                        
+                        <img src="/images/manim-cover.png" class="responsive-img" alt="manim的主要绘图类">
+                        
+                        <span class="card-title">manim的主要绘图类</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            初步探索manim的绘图类层次结构,绘制了相应的类图
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-03-27
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/manim/" class="post-category">
+                                    manim
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/manim/">
+                        <span class="chip bg-color">manim</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%95%99%E7%A8%8B/">
+                        <span class="chip bg-color">教程</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2020/03/26/manimtutorial/">
+                    <div class="card-image">
+                        
+                        <img src="/images/manim-cover.png" class="responsive-img" alt="manimTutorial">
+                        
+                        <span class="card-title">manimTutorial</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            manim教程,本教程写的比较简略,很多需要大家仔细阅读源代码
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-03-26
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/manim/" class="post-category">
+                                    manim
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/manim/">
+                        <span class="chip bg-color">manim</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%95%99%E7%A8%8B/">
+                        <span class="chip bg-color">教程</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('60')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: cai<br />'
+            + '文章作者: cai<br />'
+            + '文章链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+<!-- 代码块折行 -->
+
+<style type="text/css">
+code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
+</style>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\(', '\)']]}
+    });
+</script>
+
+
+
+    <footer class="page-footer bg-color">
+    
+    <div class="container row center-align" style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            <span id="year">2019</span>
+            <a href="/about" target="_blank">cai</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                class="white-color">44.1k</span>&nbsp;字
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/cai-hust" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/search.xml", 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

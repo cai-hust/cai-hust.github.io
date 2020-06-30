@@ -1,0 +1,1946 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="manim学习--Mobject类(一), cai">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>manim学习--Mobject类(一) | cai</title>
+    <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="/favicon.ico">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery.min.js"></script>
+
+<meta name="generator" content="Hexo 4.2.1"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">cai</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">cai</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/images/manim-cover.png')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">manim学习--Mobject类(一)</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        height: calc(100vh - 250px);
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/manim/">
+                                <span class="chip bg-color">manim</span>
+                            </a>
+                        
+                            <a href="/tags/%E6%95%99%E7%A8%8B/">
+                                <span class="chip bg-color">教程</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/manim/" class="post-category">
+                                manim
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2020-03-30
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2020-06-30
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    4.7k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    21 分
+                </div>
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="1-Mobject所派生的子类"><a href="#1-Mobject所派生的子类" class="headerlink" title="1. Mobject所派生的子类"></a>1. Mobject所派生的子类</h2><p><img src="manim%E5%AD%A6%E4%B9%A0-Mobject%E7%B1%BB/Mobject-1586013786368.png" alt="Mobject"></p>
+<h2 id="2-Mobject的主要变量与属性"><a href="#2-Mobject的主要变量与属性" class="headerlink" title="2. Mobject的主要变量与属性"></a>2. Mobject的主要变量与属性</h2><h3 id="2-1-CONFIG"><a href="#2-1-CONFIG" class="headerlink" title="2.1 CONFIG"></a>2.1 CONFIG</h3><pre class=" language-python"><code class="language-python">CONFIG <span class="token operator">=</span> <span class="token punctuation">{</span>
+        <span class="token string">"color"</span><span class="token punctuation">:</span> WHITE<span class="token punctuation">,</span>
+        <span class="token string">"name"</span><span class="token punctuation">:</span> None<span class="token punctuation">,</span>
+        <span class="token string">"dim"</span><span class="token punctuation">:</span> <span class="token number">3</span><span class="token punctuation">,</span>
+        <span class="token string">"target"</span><span class="token punctuation">:</span> None<span class="token punctuation">,</span>
+    <span class="token punctuation">}</span></code></pre>
+<h3 id="2-2-init-函数"><a href="#2-2-init-函数" class="headerlink" title="2.2 __init__()函数:"></a>2.2 <code>__init__()</code>函数:</h3><ul>
+<li><p><code>submobjects = []</code>:每个Mobject都有自己的submobjects列表,列表里面的每个元素也是Mobject,这样有利于对嵌套的Mobject进行整体操作,如对一群图形一起平移等等动画的实现</p>
+</li>
+<li><p><code>updaters = []</code>:一系列的更新函数组成,如:</p>
+<pre class=" language-python"><code class="language-python"> <span class="token keyword">def</span> <span class="token function">update_text</span><span class="token punctuation">(</span>obj<span class="token punctuation">)</span><span class="token punctuation">:</span>
+            obj<span class="token punctuation">.</span>next_to<span class="token punctuation">(</span>dot<span class="token punctuation">,</span>RIGHT<span class="token punctuation">,</span>buff<span class="token operator">=</span>SMALL_BUFF<span class="token punctuation">)</span></code></pre>
+<p>就可以作为一个updater,有<code>add_updater()</code>方法进行添加:</p>
+<pre class=" language-python"><code class="language-python"><span class="token comment" spellcheck="true"># author:TB,由于3b1b的函数有改进,本代码进行了修改</span>
+<span class="token keyword">class</span> <span class="token class-name">AddUpdater</span><span class="token punctuation">(</span>Scene<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">construct</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        dot <span class="token operator">=</span> Dot<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        text <span class="token operator">=</span> TextMobject<span class="token punctuation">(</span><span class="token string">"Label"</span><span class="token punctuation">)</span><span class="token punctuation">.</span>next_to<span class="token punctuation">(</span>dot<span class="token punctuation">,</span>RIGHT<span class="token punctuation">,</span>buff<span class="token operator">=</span>SMALL_BUFF<span class="token punctuation">)</span>
+
+        self<span class="token punctuation">.</span>add<span class="token punctuation">(</span>dot<span class="token punctuation">,</span>text<span class="token punctuation">)</span>
+
+        <span class="token comment" spellcheck="true"># Update function 更新函数</span>
+        <span class="token keyword">def</span> <span class="token function">update_text</span><span class="token punctuation">(</span>obj<span class="token punctuation">)</span><span class="token punctuation">:</span>
+            obj<span class="token punctuation">.</span>next_to<span class="token punctuation">(</span>dot<span class="token punctuation">,</span>RIGHT<span class="token punctuation">,</span>buff<span class="token operator">=</span>SMALL_BUFF<span class="token punctuation">)</span>
+
+        <span class="token comment" spellcheck="true"># Add update function to the objects</span>
+        <span class="token comment" spellcheck="true"># 把更新函数加给对象</span>
+        text<span class="token punctuation">.</span>add_updater<span class="token punctuation">(</span>update_text<span class="token punctuation">)</span>
+
+        <span class="token comment" spellcheck="true"># 如果想简洁，lambda表达式如下：</span>
+        <span class="token comment" spellcheck="true"># text.add_updater(lambda m: m.next_to(dot,RIGHT,buff=SMALL_BUFF))</span>
+        <span class="token comment" spellcheck="true"># 此时下面的remove_updater(update_text)不能继续使用，需要改为clear_updaters</span>
+
+        self<span class="token punctuation">.</span>play<span class="token punctuation">(</span>dot<span class="token punctuation">.</span>shift<span class="token punctuation">,</span>UP<span class="token operator">*</span><span class="token number">2</span><span class="token punctuation">)</span>
+        <span class="token comment" spellcheck="true"># Remove update function</span>
+        text<span class="token punctuation">.</span>remove_updater<span class="token punctuation">(</span>update_text<span class="token punctuation">)</span>
+
+        self<span class="token punctuation">.</span>wait<span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre>
+<p>效果如下:</p>
+<p><img src="manim%E5%AD%A6%E4%B9%A0-Mobject%E7%B1%BB/AddUpdater-1586013786369.gif" alt="AddUpdater"></p>
+<p>详细见下面3.3.2的介绍</p>
+</li>
+<li><p><code>updating_suspended = False</code>:是否暂停更新</p>
+</li>
+<li><p><code>points = np.zeros((0, self.dim))</code>:坐标,默认为原点,维度由属性<code>dim</code>决定</p>
+</li>
+</ul>
+<h3 id="2-3-其他函数里面产生的变量"><a href="#2-3-其他函数里面产生的变量" class="headerlink" title="2.3 其他函数里面产生的变量"></a>2.3 其他函数里面产生的变量</h3><ul>
+<li><code>saved_state</code>:自己的一份备份,可以用来恢复之前的状态</li>
+<li><code>array_attr</code>:初始为<code>["points"]</code>列表</li>
+<li><code>z_index_group</code>:暂时不知道有什么用</li>
+</ul>
+<h3 id="2-4-Mobject的一些抽象概念"><a href="#2-4-Mobject的一些抽象概念" class="headerlink" title="2.4 Mobject的一些抽象概念"></a>2.4 Mobject的一些抽象概念</h3><ul>
+<li><p>family:如果将Mobject看作父节点,submobjects列表中的Mobject看作子节点,则对每个Mobjects都会产生一棵树,这个树里面的所有节点成为这个Mobject的family</p>
+<p>family没有真正的实体,但是Mobject内有一个函数叫<code>get_family()</code>可以返回这个概念:</p>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">get_family</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token comment" spellcheck="true"># 如果对map函数不理解,请自行查找Python map()函数</span>
+        <span class="token comment" spellcheck="true"># 递归得到submobjects,代码非常简洁</span>
+        sub_families <span class="token operator">=</span> list<span class="token punctuation">(</span>map<span class="token punctuation">(</span>Mobject<span class="token punctuation">.</span>get_family<span class="token punctuation">,</span> self<span class="token punctuation">.</span>submobjects<span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token comment" spellcheck="true"># 使用chain的原因是可能每个submobject可能是不同的类型</span>
+        all_mobjects <span class="token operator">=</span> <span class="token punctuation">[</span>self<span class="token punctuation">]</span> <span class="token operator">+</span> list<span class="token punctuation">(</span>it<span class="token punctuation">.</span>chain<span class="token punctuation">(</span><span class="token operator">*</span>sub_families<span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token comment" spellcheck="true"># 去重</span>
+        <span class="token keyword">return</span> remove_list_redundancies<span class="token punctuation">(</span>all_mobjects<span class="token punctuation">)</span></code></pre>
+<p>Mobject的很多函数也用到了这个概念</p>
+</li>
+</ul>
+<h3 id="2-5-Mobject的属性"><a href="#2-5-Mobject的属性" class="headerlink" title="2.5 Mobject的属性"></a>2.5 Mobject的属性</h3><ol>
+<li><p>自身可迭代</p>
+<p>假如有Mobject变量mob,则mob[0]是self本身,mob[1]以及更大的索引是subMobject</p>
+</li>
+<li><p>自身有长度</p>
+<p>自身长度为submobject列表长度+1</p>
+</li>
+</ol>
+<h2 id="3-Mobject的主要方法"><a href="#3-Mobject的主要方法" class="headerlink" title="3. Mobject的主要方法"></a>3. Mobject的主要方法</h2><h3 id="3-1-属性的处理"><a href="#3-1-属性的处理" class="headerlink" title="3.1 属性的处理"></a>3.1 属性的处理</h3><ol>
+<li><p><code>reset_points()</code></p>
+<p>self.points = np.zeros((0, self.dim))</p>
+</li>
+<li><p><code>add(*mobjects)</code></p>
+<p>将自己的submobjects列表中加入mobjects</p>
+<p><strong>注意:不能加入自己</strong></p>
+</li>
+<li><p><code>add_to_back(*mobjects)</code></p>
+<p>将自己的submobjects列表末尾加入mobjects</p>
+<p><strong>注意:如果加入的mobjects中有的在自己的列表中已经存在,则按照加入的mobjects顺序存放</strong></p>
+</li>
+<li><p><code>remove(*mobjects)</code></p>
+<p>submobjects列表移除对应的mobjects</p>
+<p><strong>注意:如果mobjects某些元素不在submobjects列表则不会有任何反应</strong></p>
+</li>
+<li></li>
+</ol>
+<h3 id="3-2-图像静态显示"><a href="#3-2-图像静态显示" class="headerlink" title="3.2 图像静态显示"></a>3.2 图像静态显示</h3><ol>
+<li><p><code>get_image(camera=None)</code></p>
+<p>根据传入的camera类对应的参数(如角度,距离等等)返回一个图像(以PIL.Image的格式)</p>
+<p><strong>注意:应该用不到这个(如果不是自己开发代码)</strong></p>
+</li>
+<li><p><code>show(camera=None)</code></p>
+<p>无动画根据传入的camera类对应的参数(如角度,距离等等)显示自己</p>
+</li>
+<li><p><code>save_image(name=None)</code></p>
+<p>将自己图像保存到宏定义<code>VIDEO_DIR</code>位置,名字为<code>name</code>如果未传入名字,则默认名字为自己的str方法得到的数值</p>
+</li>
+<li><p><code>deepcopy()</code></p>
+</li>
+</ol>
+<p>返回一个自己的副本,副本的改变与不会影响到自己</p>
+<ol>
+<li><code>copy()</code></li>
+</ol>
+<p>浅拷贝,与深拷贝对应</p>
+<ol start="2">
+<li><code>generate_target(use_deepcopy=False)</code></li>
+</ol>
+<h3 id="3-3-更新-跟踪-函数"><a href="#3-3-更新-跟踪-函数" class="headerlink" title="3.3 更新(跟踪)函数"></a>3.3 更新(跟踪)函数</h3><ol>
+<li><p>$ ^{^*}$<code>update(dt=0, recursive=True)</code></p>
+<p><em>底层函数,一般制作的时候用不到,但是仍然列举出来以备不时之需</em></p>
+<ul>
+<li><p>参数含义</p>
+<p><code>dt</code>:每帧运动速率是多少</p>
+<p><code>recursive</code>:递归进行submobjects列表的Mobject的<code>update</code>函数</p>
+</li>
+<li><p>执行过程</p>
+<p>如果updaters的某一项<code>update_function</code>列表里面有参数<code>dt</code>,则执行update_function(dt),否则执行update_function(),并根据recursive判断是否递归到submobjects列表中的每一项</p>
+</li>
+</ul>
+</li>
+<li><p><code>get_updaters()</code>:</p>
+<p>得到updaters[]</p>
+</li>
+<li><p><code>get_family_updaters()</code>:</p>
+<p>得到family的所有updaters</p>
+</li>
+<li><p><code>add_updater(update_function, index=None, call_updater=True)</code></p>
+<ul>
+<li><p>参数含义</p>
+<p><code>update_function</code>:更新函数</p>
+<p><code>index</code>:更新函数的索引</p>
+<p><code>call_updater</code>:我也不知道这个有啥用(¦3[▓▓],3b1b的代码也没找到一个用过这个参数的</p>
+<p><em>TODO:<code>call_updater</code>什么意思,欢迎留言</em></p>
+</li>
+<li><p>执行过程</p>
+<p>将自己的<code>updaters</code>列表加入<code>update_function</code>,位置在<code>index</code>,插入方法同python列表的insert方法,并决定是否立即执行</p>
+<p>例子:</p>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">UpdateFunctionWithDt</span><span class="token punctuation">(</span>Scene<span class="token punctuation">)</span><span class="token punctuation">:</span>
+     <span class="token keyword">def</span> <span class="token function">construct</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+         sun <span class="token operator">=</span> Dot<span class="token punctuation">(</span>color<span class="token operator">=</span>RED<span class="token punctuation">)</span><span class="token punctuation">.</span>scale<span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span>
+
+         earthOrbit<span class="token operator">=</span>Circle<span class="token punctuation">(</span>color<span class="token operator">=</span>WHITE<span class="token punctuation">)</span><span class="token punctuation">.</span>scale<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span>
+         earth<span class="token operator">=</span>Dot<span class="token punctuation">(</span>color<span class="token operator">=</span>BLUE<span class="token punctuation">)</span><span class="token punctuation">.</span>scale<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span>
+         earth<span class="token punctuation">.</span>move_to<span class="token punctuation">(</span>earthOrbit<span class="token punctuation">.</span>point_from_proportion<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+         self<span class="token punctuation">.</span>earthOffset<span class="token operator">=</span><span class="token number">0</span>
+
+         moonOrbit<span class="token operator">=</span> Circle<span class="token punctuation">(</span>color<span class="token operator">=</span>WHITE<span class="token punctuation">)</span><span class="token punctuation">.</span>move_to<span class="token punctuation">(</span>earth<span class="token punctuation">)</span>
+         moon <span class="token operator">=</span>Dot<span class="token punctuation">(</span>color<span class="token operator">=</span>YELLOW<span class="token punctuation">)</span>
+         moon<span class="token punctuation">.</span>move_to<span class="token punctuation">(</span>moonOrbit<span class="token punctuation">.</span>point_from_proportion<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+         self<span class="token punctuation">.</span>moonOffset<span class="token operator">=</span><span class="token number">0</span>
+
+         <span class="token keyword">def</span> <span class="token function">update_earth</span><span class="token punctuation">(</span>mob<span class="token punctuation">,</span>dt<span class="token punctuation">)</span><span class="token punctuation">:</span>
+             rate<span class="token operator">=</span>dt<span class="token operator">*</span><span class="token number">0.1</span>
+             mob<span class="token punctuation">.</span>move_to<span class="token punctuation">(</span>earthOrbit<span class="token punctuation">.</span>point_from_proportion<span class="token punctuation">(</span><span class="token punctuation">(</span>self<span class="token punctuation">.</span>earthOffset <span class="token operator">+</span> rate<span class="token punctuation">)</span><span class="token operator">%</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+             self<span class="token punctuation">.</span>earthOffset <span class="token operator">+=</span> rate
+
+         <span class="token keyword">def</span> <span class="token function">update_moonOrbit</span><span class="token punctuation">(</span>mob<span class="token punctuation">)</span><span class="token punctuation">:</span>
+             mob<span class="token punctuation">.</span>move_to<span class="token punctuation">(</span>earth<span class="token punctuation">)</span>
+
+         <span class="token keyword">def</span> <span class="token function">update_moon</span><span class="token punctuation">(</span>mob<span class="token punctuation">,</span>dt<span class="token punctuation">)</span><span class="token punctuation">:</span>
+             rate<span class="token operator">=</span>dt<span class="token operator">*</span><span class="token number">0.2</span>
+             mob<span class="token punctuation">.</span>move_to<span class="token punctuation">(</span>moonOrbit<span class="token punctuation">.</span>point_from_proportion<span class="token punctuation">(</span><span class="token punctuation">(</span>self<span class="token punctuation">.</span>moonOffset <span class="token operator">+</span> rate<span class="token punctuation">)</span><span class="token operator">%</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+             self<span class="token punctuation">.</span>moonOffset <span class="token operator">+=</span> rate
+
+         earth<span class="token punctuation">.</span>add_updater<span class="token punctuation">(</span>update_earth<span class="token punctuation">)</span>
+         moonOrbit<span class="token punctuation">.</span>add_updater<span class="token punctuation">(</span>update_moonOrbit<span class="token punctuation">)</span>
+         moon<span class="token punctuation">.</span>add_updater<span class="token punctuation">(</span>update_moon<span class="token punctuation">)</span>
+         self<span class="token punctuation">.</span>add<span class="token punctuation">(</span>earthOrbit<span class="token punctuation">,</span>moonOrbit<span class="token punctuation">,</span>sun<span class="token punctuation">,</span>earth<span class="token punctuation">,</span>moon<span class="token punctuation">)</span>
+         self<span class="token punctuation">.</span>wait<span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">)</span>
+         self<span class="token punctuation">.</span>wait<span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre>
+<p>效果如下:</p>
+<p><img src="manim%E5%AD%A6%E4%B9%A0-Mobject%E7%B1%BB/UpdateFunctionWithDt-1586013786369.gif" alt="UpdateFunctionWithDt"></p>
+<p>dt的决定速度:</p>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">WhatIsDt</span><span class="token punctuation">(</span>Scene<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">construct</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        sun <span class="token operator">=</span> Dot<span class="token punctuation">(</span>color<span class="token operator">=</span>RED<span class="token punctuation">)</span><span class="token punctuation">.</span>scale<span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span>
+        earthOrbit<span class="token operator">=</span>Circle<span class="token punctuation">(</span>color<span class="token operator">=</span>WHITE<span class="token punctuation">)</span><span class="token punctuation">.</span>scale<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span>
+
+        earths <span class="token operator">=</span> <span class="token punctuation">[</span>Dot<span class="token punctuation">(</span>color<span class="token operator">=</span>i<span class="token punctuation">)</span><span class="token punctuation">.</span>scale<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span> <span class="token keyword">for</span> i <span class="token keyword">in</span><span class="token punctuation">[</span>RED<span class="token punctuation">,</span>BLUE<span class="token punctuation">]</span><span class="token punctuation">]</span>
+        earths <span class="token operator">=</span> VGroup<span class="token punctuation">(</span><span class="token operator">*</span>earths<span class="token punctuation">)</span>
+        earths<span class="token punctuation">.</span>move_to<span class="token punctuation">(</span>earthOrbit<span class="token punctuation">.</span>point_from_proportion<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>earthOffsets <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token operator">*</span><span class="token number">2</span>
+        texts <span class="token operator">=</span> VGroup<span class="token punctuation">(</span><span class="token operator">*</span><span class="token punctuation">[</span>Text<span class="token punctuation">(</span><span class="token string">"dt*0.%d"</span><span class="token operator">%</span>i<span class="token punctuation">,</span>size<span class="token operator">=</span><span class="token number">0.5</span><span class="token punctuation">,</span>font<span class="token operator">=</span><span class="token string">"Lucida Console"</span><span class="token punctuation">)</span> <span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+
+        <span class="token keyword">def</span> <span class="token function">update_earth_factory</span><span class="token punctuation">(</span>index<span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token keyword">def</span> <span class="token function">update_earth</span><span class="token punctuation">(</span>mob<span class="token punctuation">,</span>dt<span class="token punctuation">)</span><span class="token punctuation">:</span>
+                rate <span class="token operator">=</span> dt<span class="token operator">*</span><span class="token number">0.1</span><span class="token operator">*</span><span class="token punctuation">(</span>index<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span>
+                mob<span class="token punctuation">.</span>move_to<span class="token punctuation">(</span>earthOrbit<span class="token punctuation">.</span>point_from_proportion<span class="token punctuation">(</span><span class="token punctuation">(</span>self<span class="token punctuation">.</span>earthOffsets<span class="token punctuation">[</span>index<span class="token punctuation">]</span> <span class="token operator">+</span> rate<span class="token punctuation">)</span><span class="token operator">%</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+                self<span class="token punctuation">.</span>earthOffsets<span class="token punctuation">[</span>index<span class="token punctuation">]</span> <span class="token operator">+=</span> rate
+            <span class="token keyword">return</span> update_earth
+
+        <span class="token keyword">def</span> <span class="token function">update_text_factory</span><span class="token punctuation">(</span>index<span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token keyword">def</span> <span class="token function">update_text</span><span class="token punctuation">(</span>mob<span class="token punctuation">)</span><span class="token punctuation">:</span>
+                mob<span class="token punctuation">.</span>next_to<span class="token punctuation">(</span>earths<span class="token punctuation">[</span>index<span class="token punctuation">]</span><span class="token punctuation">,</span>LEFT<span class="token punctuation">,</span>SMALL_BUFF<span class="token punctuation">)</span>
+            <span class="token keyword">return</span> update_text
+
+        <span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">:</span>
+            earths<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">.</span>add_updater<span class="token punctuation">(</span>update_earth_factory<span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">)</span>
+            texts<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">.</span>add_updater<span class="token punctuation">(</span>update_text_factory<span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>add<span class="token punctuation">(</span>earthOrbit<span class="token punctuation">,</span>sun<span class="token punctuation">,</span>earths<span class="token punctuation">,</span>texts<span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>wait<span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">)</span></code></pre>
+<p><img src="manim%E5%AD%A6%E4%B9%A0-Mobject%E7%B1%BB/WhatIsDt-1586013786370.gif" alt="WhatIsDt"></p>
+</li>
+</ul>
+</li>
+<li><p><code>remove_updater(update_function)</code>:</p>
+<p>很明显与<code>add_updater</code>相反</p>
+</li>
+<li><p><code>clear_updaters(recursive=True)</code>:</p>
+<p>清除所有的<code>update_function</code>,如果<code>recursive</code>为<code>True</code>则submobjects列表的所有<code>update_function</code>清除</p>
+<p><strong>存疑:<code>recursive</code>为<code>True</code>貌似如果subMobjects里面还套有subMobjects,则内层的不能被清除?</strong></p>
+</li>
+<li><p><code>match_updaters(mobject)</code>:</p>
+<p>将mobject的updater全部复制给自己(自己的原来的updaters失效)</p>
+</li>
+<li><p><code>suspend_updating(recursive=True)</code>:</p>
+<p>略</p>
+</li>
+<li><p><code>resume_updating(recursive=True)</code></p>
+<p>略</p>
+</li>
+<li><p><code>get_time_based_updaters()</code>:</p>
+<p>得到参数含有<code>dt</code>的updater</p>
+</li>
+<li><p><code>has_time_based_updater()</code>:</p>
+<p>有参数含有<code>dt</code>的updater</p>
+</li>
+</ol>
+<h3 id="3-4-变换函数"><a href="#3-4-变换函数" class="headerlink" title="3.4 变换函数"></a>3.4 变换函数</h3><ol>
+<li><p><code>apply_to_family(func)</code>:</p>
+<p>对每个家庭成员实行func函数</p>
+</li>
+<li><p><code>shift(*vectors)</code>:</p>
+<p>平移,vector的维数为dim,如果输入多个vector则平移的终点为这几个vector的向量和</p>
+<p>如<code>.shift(UP*2,LEFT)</code>和<code>shift(UP*2+LEFT)</code>是一个效果</p>
+</li>
+<li><p><code>scale(scale_factor, **kwargs)</code>:</p>
+<ul>
+<li><p>参数:</p>
+<p><code>scale_factor</code>:缩放因子</p>
+<p><code>**kwargs</code>:</p>
+<p>默认行为是围绕mobject的中心进行缩放。参数about_edge可以是向量，指要围绕mobject的哪一侧进行缩放,否则，如果给about_point一个值，则相对于该点进行缩放。</p>
+<ul>
+<li><p><code>about_edge</code>:相对边</p>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">AddUpdater</span><span class="token punctuation">(</span>Scene<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">construct</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        circles <span class="token operator">=</span> <span class="token punctuation">[</span>Circle<span class="token punctuation">(</span>arc_center <span class="token operator">=</span> LEFT<span class="token operator">*</span>i<span class="token operator">*</span><span class="token number">2</span><span class="token punctuation">)</span> <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
+        vg <span class="token operator">=</span> VGroup<span class="token punctuation">(</span><span class="token operator">*</span>circles<span class="token punctuation">)</span>
+        line <span class="token operator">=</span> Line<span class="token punctuation">(</span>np<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">10</span><span class="token punctuation">,</span>vg<span class="token punctuation">.</span>get_top<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">,</span>np<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">10</span><span class="token punctuation">,</span>vg<span class="token punctuation">.</span>get_top<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        text <span class="token operator">=</span> TextMobject<span class="token punctuation">(</span><span class="token string">"about\_edge"</span><span class="token punctuation">)</span>
+        text<span class="token punctuation">.</span>next_to<span class="token punctuation">(</span>line<span class="token punctuation">,</span>UP<span class="token punctuation">,</span>buff<span class="token operator">=</span>SMALL_BUFF<span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>add<span class="token punctuation">(</span>line<span class="token punctuation">,</span>vg<span class="token punctuation">,</span>text<span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>play<span class="token punctuation">(</span>vg<span class="token punctuation">.</span>scale<span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token punctuation">{</span><span class="token string">"about_edge"</span><span class="token punctuation">:</span>UP<span class="token punctuation">}</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>wait<span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre>
+<p><img src="manim%E5%AD%A6%E4%B9%A0-Mobject%E7%B1%BB/about_edge-1586013786370.gif" alt="about_edge"></p>
+<p>如果<code>about_edge</code>为方向的线性组合,则会按照对应的边进行阻隔,以UP+RIGHT为例子:</p>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">AddUpdater</span><span class="token punctuation">(</span>Scene<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">construct</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        circles <span class="token operator">=</span> <span class="token punctuation">[</span>Circle<span class="token punctuation">(</span>arc_center <span class="token operator">=</span> LEFT<span class="token operator">*</span>i<span class="token operator">*</span><span class="token number">2</span><span class="token punctuation">)</span> <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
+        vg <span class="token operator">=</span> VGroup<span class="token punctuation">(</span><span class="token operator">*</span>circles<span class="token punctuation">)</span>
+        line <span class="token operator">=</span> Line<span class="token punctuation">(</span>np<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">10</span><span class="token punctuation">,</span>vg<span class="token punctuation">.</span>get_top<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">,</span>np<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">10</span><span class="token punctuation">,</span>vg<span class="token punctuation">.</span>get_top<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        line1 <span class="token operator">=</span> Line<span class="token punctuation">(</span>np<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span>vg<span class="token punctuation">.</span>get_right<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token operator">-</span><span class="token number">10</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">,</span>np<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span>vg<span class="token punctuation">.</span>get_right<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token number">10</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        text <span class="token operator">=</span> TextMobject<span class="token punctuation">(</span><span class="token string">"about\_edge1"</span><span class="token punctuation">)</span>
+        text<span class="token punctuation">.</span>next_to<span class="token punctuation">(</span>line<span class="token punctuation">,</span>UP<span class="token punctuation">,</span>buff<span class="token operator">=</span>SMALL_BUFF<span class="token punctuation">)</span>
+        text1 <span class="token operator">=</span> TextMobject<span class="token punctuation">(</span><span class="token string">"about\_edge2"</span><span class="token punctuation">)</span>
+        text1<span class="token punctuation">.</span>next_to<span class="token punctuation">(</span>line1<span class="token punctuation">,</span>RIGHT<span class="token punctuation">,</span>buff<span class="token operator">=</span>SMALL_BUFF<span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>add<span class="token punctuation">(</span>line<span class="token punctuation">,</span>line1<span class="token punctuation">,</span>vg<span class="token punctuation">,</span>text<span class="token punctuation">,</span>text1<span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>play<span class="token punctuation">(</span>vg<span class="token punctuation">.</span>scale<span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token punctuation">{</span><span class="token string">"about_edge"</span><span class="token punctuation">:</span>np<span class="token punctuation">.</span>array<span class="token punctuation">(</span>UP<span class="token operator">+</span>RIGHT<span class="token punctuation">)</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>wait<span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre>
+<p><img src="manim%E5%AD%A6%E4%B9%A0-Mobject%E7%B1%BB/UP_RIGHT-1586013786370.gif" alt="UP_RIGHT"></p>
+</li>
+<li><p><code>about_point</code>:相对点</p>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">AddUpdater</span><span class="token punctuation">(</span>Scene<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">construct</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        circles <span class="token operator">=</span> <span class="token punctuation">[</span>Circle<span class="token punctuation">(</span>arc_center <span class="token operator">=</span> LEFT<span class="token operator">*</span>i<span class="token operator">*</span><span class="token number">2</span><span class="token punctuation">)</span> <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
+        vg <span class="token operator">=</span> VGroup<span class="token punctuation">(</span><span class="token operator">*</span>circles<span class="token punctuation">)</span>
+        dot <span class="token operator">=</span> Dot<span class="token punctuation">(</span>point<span class="token operator">=</span>circles<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>get_center<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        text <span class="token operator">=</span> TextMobject<span class="token punctuation">(</span><span class="token string">"about\_point"</span><span class="token punctuation">)</span>
+        text<span class="token punctuation">.</span>next_to<span class="token punctuation">(</span>dot<span class="token punctuation">,</span>DOWN<span class="token punctuation">,</span>buff<span class="token operator">=</span>SMALL_BUFF<span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>add<span class="token punctuation">(</span>dot<span class="token punctuation">,</span>vg<span class="token punctuation">,</span>text<span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>play<span class="token punctuation">(</span>vg<span class="token punctuation">.</span>scale<span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token punctuation">{</span><span class="token string">"about_point"</span><span class="token punctuation">:</span>dot<span class="token punctuation">.</span>get_center<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>wait<span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre>
+<p><img src="manim%E5%AD%A6%E4%B9%A0-Mobject%E7%B1%BB/about_point-1586013786370.gif" alt="about_point"></p>
+</li>
+</ul>
+</li>
+<li><p>执行过程</p>
+<p>放大或缩小指定的因子</p>
+</li>
+</ul>
+</li>
+<li><p><code>rotate(angle, axis=OUT, **kwargs)</code>:</p>
+<p>学过初中物理就应该知道右手定则,在数学,物理中,旋转的方向就是右手定则中的(大拇指)方向</p>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">myRotateScene</span><span class="token punctuation">(</span>ThreeDScene<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">construct</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+     dot <span class="token operator">=</span> Dot<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        text <span class="token operator">=</span> TextMobject<span class="token punctuation">(</span><span class="token string">"about\_point"</span><span class="token punctuation">,</span>color<span class="token operator">=</span>RED<span class="token punctuation">)</span>
+        text<span class="token punctuation">.</span>next_to<span class="token punctuation">(</span>dot<span class="token punctuation">,</span>DOWN<span class="token punctuation">,</span>buff<span class="token operator">=</span>SMALL_BUFF<span class="token punctuation">)</span>
+        axes <span class="token operator">=</span> ThreeDAxes<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>add<span class="token punctuation">(</span>dot<span class="token punctuation">,</span>text<span class="token punctuation">,</span>axes<span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>set_camera_orientation<span class="token punctuation">(</span>theta<span class="token operator">=</span><span class="token operator">-</span>PI<span class="token operator">/</span><span class="token number">4</span><span class="token punctuation">,</span>phi<span class="token operator">=</span>PI<span class="token operator">/</span><span class="token number">4</span><span class="token punctuation">)</span>           
+        self<span class="token punctuation">.</span>play<span class="token punctuation">(</span>text<span class="token punctuation">.</span>rotate<span class="token punctuation">,</span>PI<span class="token operator">/</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token punctuation">{</span><span class="token string">"axis"</span><span class="token punctuation">:</span>OUT<span class="token punctuation">}</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>wait<span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre>
+<p><img src="manim%E5%AD%A6%E4%B9%A0-Mobject%E7%B1%BB/Rotate-1586013786370.gif" alt="Rotate"></p>
+<p>上图text的起始平面是X-Y平面,UP为y轴正方向,大家可以自行尝试更改axis方向(注意self.play函数不代表角度从0到PI/2的渐近变化所以只要看起始帧和终止帧)</p>
+<p><code>**kwargs</code>还可以接受相对点<code>about_point</code>:</p>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">myRotateScene</span><span class="token punctuation">(</span>ThreeDScene<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">construct</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        dot <span class="token operator">=</span> Dot<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        text <span class="token operator">=</span> TextMobject<span class="token punctuation">(</span><span class="token string">"about\_point"</span><span class="token punctuation">,</span>color<span class="token operator">=</span>RED<span class="token punctuation">)</span>
+        text<span class="token punctuation">.</span>next_to<span class="token punctuation">(</span>dot<span class="token punctuation">,</span>DOWN<span class="token punctuation">,</span>buff<span class="token operator">=</span>SMALL_BUFF<span class="token punctuation">)</span>
+        axes <span class="token operator">=</span> ThreeDAxes<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>add<span class="token punctuation">(</span>dot<span class="token punctuation">,</span>text<span class="token punctuation">,</span>axes<span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>set_camera_orientation<span class="token punctuation">(</span>theta<span class="token operator">=</span><span class="token operator">-</span>PI<span class="token operator">/</span><span class="token number">4</span><span class="token punctuation">,</span>phi<span class="token operator">=</span>PI<span class="token operator">/</span><span class="token number">4</span><span class="token punctuation">)</span>           
+        self<span class="token punctuation">.</span>play<span class="token punctuation">(</span>text<span class="token punctuation">.</span>rotate<span class="token punctuation">,</span>PI<span class="token punctuation">,</span><span class="token punctuation">{</span><span class="token string">"axis"</span><span class="token punctuation">:</span>OUT<span class="token punctuation">,</span><span class="token string">"about_point"</span><span class="token punctuation">:</span>dot<span class="token punctuation">.</span>get_center<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>wait<span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre>
+<p>这个相对点旋转其实是线性代数里面的旋转矩阵造成的结果,如果角度是180度,效果是关于这个点对称</p>
+<p><img src="manim%E5%AD%A6%E4%B9%A0-Mobject%E7%B1%BB/rotateAboutPoint-1586013786370.gif" alt="rotateAboutPoint"></p>
+</li>
+<li><p><code>flip(axis=UP, **kwargs)</code>:</p>
+<p>翻转,其实就是<code>rotate</code>180度,其他参数同<code>rotate</code></p>
+</li>
+<li><p><code>stretch(factor, dim, **kwargs)</code>:</p>
+<p>在对应的维度伸缩<code>factor</code>倍</p>
+<p>这个函数与<code>scale</code>的用法一样,也会有<code>about_point</code>和<code>about_edge</code></p>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Stretch</span><span class="token punctuation">(</span>Scene<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">construct</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        text <span class="token operator">=</span> Text<span class="token punctuation">(</span><span class="token string">"stretch"</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>play<span class="token punctuation">(</span>text<span class="token punctuation">.</span>stretch<span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>wait<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span></code></pre>
+</li>
+<li><p><code>apply_function(function, **kwargs)</code>:</p>
+<p>对所有family成员的点坐标都进行<code>function</code>处理,所以function必须是一个处理一个点的函数</p>
+<p>例如对于二维图形:</p>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">myScene</span><span class="token punctuation">(</span>Scene<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">func</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span>point<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> point<span class="token operator">*</span><span class="token number">2</span>
+
+    <span class="token keyword">def</span> <span class="token function">construct</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        circle <span class="token operator">=</span> Circle<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        circle2 <span class="token operator">=</span> Circle<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>add<span class="token punctuation">(</span>circle<span class="token punctuation">,</span>circle2<span class="token punctuation">)</span>  
+        circle<span class="token punctuation">.</span>apply_function<span class="token punctuation">(</span>self<span class="token punctuation">.</span>func<span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>play<span class="token punctuation">(</span>Write<span class="token punctuation">(</span>circle<span class="token punctuation">)</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>wait<span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre>
+<p>默认的<code>about_point</code>为<code>ORIGIN</code>,可以看出来实现了<code>apply_function</code>的会大一倍</p>
+<p><img src="manim%E5%AD%A6%E4%B9%A0-Mobject%E7%B1%BB/applyFunc-1586013786370.gif" alt="applyFunc"></p>
+</li>
+<li><p><code>apply_function_to_position(function)</code>:</p>
+<p>移动图像中心到function(self.get_center())</p>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">myWag</span><span class="token punctuation">(</span>Scene<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">x2</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span>x<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> x<span class="token operator">*</span><span class="token number">2</span>
+
+    <span class="token keyword">def</span> <span class="token function">construct</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        circle <span class="token operator">=</span> Circle<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        circle<span class="token punctuation">.</span>move_to<span class="token punctuation">(</span>RIGHT<span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>add<span class="token punctuation">(</span>circle<span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>play<span class="token punctuation">(</span>circle<span class="token punctuation">.</span>apply_function_to_position<span class="token punctuation">,</span><span class="token punctuation">{</span><span class="token string">"function"</span><span class="token punctuation">:</span>self<span class="token punctuation">.</span>x2<span class="token punctuation">}</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>wait<span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre>
+</li>
+<li><p><code>apply_function_to_submobject_positions(function)</code>:</p>
+<p>略</p>
+</li>
+<li><p><code>apply_matrix(matrix, **kwargs)</code>:</p>
+<p><code>matrix</code>为变换矩阵,这个就是对Mobject点对应的向量乘以<code>matrix</code>变换矩阵,学过线性代数或者计算机视觉或者看过3b1b的线性代数的人应该不陌生</p>
+</li>
+<li><p><code>apply_complex_function(function, **kwargs)</code>:</p>
+<p>同理于<code>apply_function(function, **kwargs)</code>,只不过这里的<code>function</code>接受一个平面复数,即<code>complex(x, y)</code></p>
+</li>
+<li><p><code>wag(direction=RIGHT, axis=DOWN, wag_factor=1.0)</code>:</p>
+<p>分析源码得到如下处理步骤:</p>
+<ol>
+<li><p>对所有含有坐标属性家庭成员进行步骤2到5的操作</p>
+</li>
+<li><p>向axis对应维度投影,如axis=UP/DOWN则向y轴投影,即保留y值不变,得到对应维度的向量列表alphas</p>
+</li>
+<li><p>将向量列表alphas归一化到[0,1],归一方法如下:<br>$$<br>\vec{alphas’}_i = \frac{\vec{alphas}_i-min(\vec{alphas})}{max(\vec{alphas})-min(\vec{alphas})}<br>$$</p>
+</li>
+<li><p>执行幂运算<br>$$<br>\vec{alphas}_i^{“}=(\vec{alphas’})^{wag_factor}<br>$$</p>
+</li>
+<li><p>每个点在direction方向平移$\vec{alphas}_i^{“}$</p>
+</li>
+</ol>
+<p>例子:</p>
+<p>factor=1</p>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">myWag</span><span class="token punctuation">(</span>Scene<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">construct</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        squares <span class="token operator">=</span> <span class="token punctuation">[</span>Square<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
+        <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            squares<span class="token punctuation">[</span><span class="token number">1</span><span class="token operator">+</span>i<span class="token punctuation">]</span><span class="token punctuation">.</span>move_to<span class="token punctuation">(</span>RIGHT<span class="token operator">*</span><span class="token number">3</span><span class="token operator">*</span>i<span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>add<span class="token punctuation">(</span><span class="token operator">*</span>squares<span class="token punctuation">)</span> 
+        self<span class="token punctuation">.</span>play<span class="token punctuation">(</span>squares<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>wag<span class="token punctuation">,</span><span class="token punctuation">{</span><span class="token string">"direction"</span><span class="token punctuation">:</span>UP<span class="token punctuation">,</span><span class="token string">"axis"</span><span class="token punctuation">:</span>RIGHT<span class="token punctuation">,</span><span class="token string">"wag_factor"</span><span class="token punctuation">:</span><span class="token number">0.1</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+                  squares<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">.</span>wag<span class="token punctuation">,</span><span class="token punctuation">{</span><span class="token string">"direction"</span><span class="token punctuation">:</span>UP<span class="token punctuation">,</span><span class="token string">"axis"</span><span class="token punctuation">:</span>RIGHT<span class="token punctuation">,</span><span class="token string">"wag_factor"</span><span class="token punctuation">:</span><span class="token number">1</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+                  squares<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">.</span>wag<span class="token punctuation">,</span><span class="token punctuation">{</span><span class="token string">"direction"</span><span class="token punctuation">:</span>UP<span class="token punctuation">,</span><span class="token string">"axis"</span><span class="token punctuation">:</span>RIGHT<span class="token punctuation">,</span><span class="token string">"wag_factor"</span><span class="token punctuation">:</span><span class="token number">2</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>wait<span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre>
+<p><img src="manim%E5%AD%A6%E4%B9%A0-Mobject%E7%B1%BB/myWag1-1585643241928-1586013786370.gif" alt="myWag1"></p>
+<p>从左到右factor依次为0.1,1,2,都是向上wag的,具体怎么理解大家可以自己理解,比较难以表述</p>
+</li>
+<li><p><code>reverse_points()</code>:</p>
+<p>调换点的顺序:</p>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">myWag</span><span class="token punctuation">(</span>Scene<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">construct</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        circle <span class="token operator">=</span> Circle<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>scale<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span>
+        texts <span class="token operator">=</span> <span class="token punctuation">[</span>TextMobject<span class="token punctuation">(</span><span class="token string">"p"</span><span class="token operator">+</span>str<span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span>scale<span class="token punctuation">(</span><span class="token number">0.5</span><span class="token punctuation">)</span> <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span>len<span class="token punctuation">(</span>circle<span class="token punctuation">.</span>points<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
+        <span class="token keyword">def</span> <span class="token function">update_factory</span><span class="token punctuation">(</span>index<span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token keyword">def</span> <span class="token function">update_func</span><span class="token punctuation">(</span>mob<span class="token punctuation">)</span><span class="token punctuation">:</span>
+                mob<span class="token punctuation">.</span>move_to<span class="token punctuation">(</span>circle<span class="token punctuation">.</span>points<span class="token punctuation">[</span>index<span class="token punctuation">]</span><span class="token punctuation">)</span>
+            <span class="token keyword">return</span> update_func
+        <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span>len<span class="token punctuation">(</span>texts<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            texts<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">.</span>add_updater<span class="token punctuation">(</span>update_factory<span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+        self<span class="token punctuation">.</span>add<span class="token punctuation">(</span>circle<span class="token punctuation">,</span><span class="token operator">*</span>texts<span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>wait<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>play<span class="token punctuation">(</span>circle<span class="token punctuation">.</span>reverse_points<span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>wait<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span></code></pre>
+<p><img src="manim%E5%AD%A6%E4%B9%A0-Mobject%E7%B1%BB/ReversePoint-1586013786371.gif" alt="ReversePoint"></p>
+<p>注意play函数不能很好表现reverse的现象,如果看顺序,上图顺序从逆时针变成了顺时针</p>
+</li>
+<li><p><code>repeat(count)</code>:</p>
+<p>会出现重影的特效</p>
+<p><img src="manim%E5%AD%A6%E4%B9%A0-Mobject%E7%B1%BB/Repeat-1586013786371.gif" alt="Repeat"></p>
+</li>
+<li><p><code>apply_points_function_about_point(func, about_point=None, about_edge=None)</code>:</p>
+<p>相对点或边对自己的所有点左边应用函数</p>
+</li>
+</ol>
+<h3 id="3-5-位置函数"><a href="#3-5-位置函数" class="headerlink" title="3.5 位置函数"></a>3.5 位置函数</h3><ol>
+<li><p><code>center()</code>:</p>
+<p>此处center为动词:到中心</p>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Repeat</span><span class="token punctuation">(</span>Scene<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">construct</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        square <span class="token operator">=</span> Square<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        dot<span class="token operator">=</span>Dot<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>add<span class="token punctuation">(</span>square<span class="token punctuation">,</span>dot<span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>play<span class="token punctuation">(</span>square<span class="token punctuation">.</span>shift<span class="token punctuation">,</span>RIGHT<span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>play<span class="token punctuation">(</span>square<span class="token punctuation">.</span>shift<span class="token punctuation">,</span>RIGHT<span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>play<span class="token punctuation">(</span>square<span class="token punctuation">.</span>shift<span class="token punctuation">,</span>UP<span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>play<span class="token punctuation">(</span>square<span class="token punctuation">.</span>center<span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>wait<span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre>
+<p><img src="manim%E5%AD%A6%E4%B9%A0-Mobject%E7%B1%BB/Center-1586013786371.gif" alt="Center"></p>
+</li>
+<li><p><code>align_on_border(direction, buff=DEFAULT_MOBJECT_TO_EDGE_BUFFER)</code>:</p>
+<p>在边界对齐,buff为和边界的距离</p>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Align</span><span class="token punctuation">(</span>Scene<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">construct</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        square <span class="token operator">=</span> Square<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>play<span class="token punctuation">(</span>square<span class="token punctuation">.</span>align_on_border<span class="token punctuation">,</span>LEFT<span class="token operator">+</span>UP<span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>wait<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span></code></pre>
+<p><img src="manim%E5%AD%A6%E4%B9%A0-Mobject%E7%B1%BB/Align-1586013786371.gif" alt="Align"></p>
+</li>
+<li><p><code>to_corner(corner=LEFT + DOWN, buff=DEFAULT_MOBJECT_TO_EDGE_BUFFER)</code>:</p>
+<p>到某一个角</p>
+<p><img src="manim%E5%AD%A6%E4%B9%A0-Mobject%E7%B1%BB/to-1586013786371.png" alt="to_corner author:Elteoremadebeethoven"></p>
+</li>
+<li><p><code>to_edge(edge=LEFT, buff=DEFAULT_MOBJECT_TO_EDGE_BUFFER)</code>:</p>
+<p>到某一边</p>
+</li>
+<li><p><code>next_to(mobject_or_point,direction=RIGHT, buff=DEFAULT_MOBJECT_TO_MOBJECT_BUFFER,aligned_edge=ORIGIN,submobject_to_align=None,index_of_submobject_to_align=None, coor_mask=np.array([1, 1, 1]),)</code>:</p>
+<p>参数分析:</p>
+<ul>
+<li><code>mobject_or_point</code>:Mobject或者一个点坐标</li>
+<li><code>direction</code>:方向</li>
+<li><code>buff</code>:相聚的距离</li>
+<li><code>aligned_edge</code>:对齐的边</li>
+<li><code>submobject_to_align</code>:对齐的子Mobject,此参数要求Mobject是一个列表性质的Mobject</li>
+<li><code>index_of_submobject_to_align</code>:如果<code>submobject_to_align</code>不为空,则需要指定对应的是哪一个Mobject</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li><code>coor_mask</code>:掩膜,术语来自数字信号处理/数字图像处理,不懂可以自行搜索,在这里即为1的地方才进行next_to,如果为0,则对应的坐标不进行next_to变换</li>
+</ul>
+<p>执行过程:</p>
+<p>   如果<code>mobject_or_point</code>是点则next_to的对象就是点,否则为由参数决定的Mobject的中心</p>
+<ol start="6">
+<li><p><code>shift_onto_screen(**kwargs)</code>:</p>
+</li>
+<li><p><code>is_off_screen()</code>:</p>
+<p>是否超出屏幕范围</p>
+</li>
+<li><p><code>rescale_to_fit(length, dim, stretch=False, **kwargs)</code>:</p>
+<p>将某一个方向的长度拉伸至length,可以按照scale方式拉长或者stretch方式拉长</p>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">RescaleToFit</span><span class="token punctuation">(</span>Scene<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">construct</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        ellipse <span class="token operator">=</span> Ellipse<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        length <span class="token operator">=</span> ellipse<span class="token punctuation">.</span>length_over_dim<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>play<span class="token punctuation">(</span>ellipse<span class="token punctuation">.</span>rescale_to_fit<span class="token punctuation">,</span>length<span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token punctuation">{</span><span class="token string">"stretch"</span><span class="token punctuation">:</span><span class="token boolean">True</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>wait<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span></code></pre>
+<p><img src="manim%E5%AD%A6%E4%B9%A0-Mobject%E7%B1%BB/RescaleToFit-1586013786371.gif" alt="RescaleToFit"></p>
+<ul>
+<li><code>stretch_to_fit_width(width, **kwargs)</code></li>
+<li><code>stretch_to_fit_height(height, **kwargs)</code></li>
+<li><code>stretch_to_fit_depth(depth, **kwargs)</code></li>
+<li><code>set_width(width, stretch=False, **kwargs)</code></li>
+<li><code>set_height(height, stretch=False, **kwargs)</code></li>
+<li><code>set_depth(depth, stretch=False, **kwargs)</code></li>
+</ul>
+</li>
+<li><p><code>set_coord(value, dim, direction=ORIGIN)</code>:</p>
+<p>将dim对应的坐标设置为value,direction表示设置什么的坐标,如direction为RIGHT则表示设置图像的最右端点的dim维度的坐标为value</p>
+<ul>
+<li><code>set_x(x, direction=ORIGIN)</code></li>
+<li><code>set_y(y, direction=ORIGIN)</code></li>
+<li><code>set_z(z, direction=ORIGIN)</code></li>
+</ul>
+</li>
+<li><p><code>space_out_submobjects(factor=1.5, **kwargs)</code>:</p>
+<p>自己scale factor倍,子mobject缩小1/factor倍</p>
+</li>
+<li><p><code>move_to(point_or_mobject, aligned_edge=ORIGIN,coor_mask=np.array([1, 1, 1]))</code>:</p>
+<p>与next_to相近,不过区别是:next_to表示的是边界的距离，而不是中心距离</p>
+<p><img src="manim%E5%AD%A6%E4%B9%A0-Mobject%E7%B1%BB/move_next_to-1586013786372.png" alt="move_next_to author:Elteoremadebeethoven"></p>
+</li>
+<li><p><code>replace(mobject, dim_to_match=0, stretch=False)</code>:</p>
+<p>将位置移动到mobject,并且大小做一些改变,具体看源码</p>
+</li>
+<li><p><code>surround(mobject,dim_to_match=0,stretch=False,buff=MED_SMALL_BUFF)</code>:</p>
+<p>包围(默认情况下,等边长的正多边形规则物体效果很好,对于不等变长的形状最好启用stretch)</p>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Surround</span><span class="token punctuation">(</span>Scene<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">construct</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        circle <span class="token operator">=</span> Circle<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        square <span class="token operator">=</span> Square<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>shift<span class="token punctuation">(</span>UP<span class="token operator">*</span><span class="token number">2</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>add<span class="token punctuation">(</span>circle<span class="token punctuation">,</span>square<span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>play<span class="token punctuation">(</span>circle<span class="token punctuation">.</span>surround<span class="token punctuation">,</span>square<span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>wait<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span></code></pre>
+<p><img src="manim%E5%AD%A6%E4%B9%A0-Mobject%E7%B1%BB/Surround-1586013786372.gif" alt="Surround"></p>
+</li>
+<li><p><code>put_start_and_end_on(start, end)</code>:</p>
+<p>将起点终点重置为start,end</p>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">PutStartAndEndOn</span><span class="token punctuation">(</span>Scene<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">construct</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        arc <span class="token operator">=</span> Arc<span class="token punctuation">(</span>PI<span class="token operator">/</span><span class="token number">3</span><span class="token punctuation">)</span>
+        texts <span class="token operator">=</span> <span class="token punctuation">[</span>TexMobject<span class="token punctuation">(</span>i<span class="token punctuation">,</span>color<span class="token operator">=</span>RED<span class="token punctuation">)</span> <span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token punctuation">[</span><span class="token string">"startPoint"</span><span class="token punctuation">,</span><span class="token string">"endPoint"</span><span class="token punctuation">]</span><span class="token punctuation">]</span>
+        texts<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>add_updater<span class="token punctuation">(</span><span class="token keyword">lambda</span> x<span class="token punctuation">:</span> x<span class="token punctuation">.</span>move_to<span class="token punctuation">(</span>arc<span class="token punctuation">.</span>get_start<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        texts<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">.</span>add_updater<span class="token punctuation">(</span><span class="token keyword">lambda</span> x<span class="token punctuation">:</span> x<span class="token punctuation">.</span>move_to<span class="token punctuation">(</span>arc<span class="token punctuation">.</span>get_end<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>add<span class="token punctuation">(</span>arc<span class="token punctuation">,</span> <span class="token operator">*</span>texts<span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>play<span class="token punctuation">(</span>arc<span class="token punctuation">.</span>put_start_and_end_on<span class="token punctuation">,</span>ORIGIN<span class="token punctuation">,</span><span class="token punctuation">(</span>UP<span class="token operator">+</span>RIGHT<span class="token punctuation">)</span><span class="token operator">*</span><span class="token number">2</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>wait<span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre>
+<p><img src="manim%E5%AD%A6%E4%B9%A0-Mobject%E7%B1%BB/PutStartAndEndOn-1586013786372.gif" alt="PutStartAndEndOn"></p>
+</li>
+<li><p><code>add_background_rectangle(color=BLACK, opacity=0.75, **kwargs)</code>:</p>
+<p>增加背景方块,此方块是可以随着Mobject变化而变化的</p>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">BackgroundRectangle</span><span class="token punctuation">(</span>Scene<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">construct</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        circle <span class="token operator">=</span> Circle<span class="token punctuation">(</span>color<span class="token operator">=</span>RED<span class="token punctuation">)</span>
+        circle<span class="token punctuation">.</span>add_background_rectangle<span class="token punctuation">(</span>color<span class="token operator">=</span>BLUE<span class="token punctuation">,</span>opacity<span class="token operator">=</span><span class="token number">0.4</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>add<span class="token punctuation">(</span>circle<span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>play<span class="token punctuation">(</span>circle<span class="token punctuation">.</span>stretch<span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>wait<span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre>
+<p><img src="manim%E5%AD%A6%E4%B9%A0-Mobject%E7%B1%BB/BackgroundRectangle-1586013786372.gif" alt="BackgroundRectangle"></p>
+</li>
+<li><p><code>add_background_rectangle_to_submobjects(**kwargs)</code>:</p>
+<p>略</p>
+</li>
+<li><p><code>add_background_rectangle_to_family_members_with_points(**kwargs)</code>:</p>
+<p>略</p>
+</li>
+</ol>
+<h3 id="3-6-颜色函数"><a href="#3-6-颜色函数" class="headerlink" title="3.6 颜色函数"></a>3.6 颜色函数</h3><ol>
+<li><p><code>set_color(color=YELLOW_C, family=True)</code>:</p>
+<p>设置颜色,family指家庭成员是否也跟着变色</p>
+</li>
+<li><p><code>set_color_by_gradient(*colors)</code>:</p>
+<p>渐变色,可以是两个或多个颜色的列表</p>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">main</span><span class="token punctuation">(</span>Scene<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">construct</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        qed <span class="token operator">=</span> TexMobject<span class="token punctuation">(</span><span class="token string">'This is a Text'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>scale<span class="token punctuation">(</span><span class="token number">1.25</span><span class="token punctuation">)</span>
+        qed<span class="token punctuation">.</span>set_color_by_gradient<span class="token punctuation">(</span>RED<span class="token punctuation">,</span>YELLOW<span class="token punctuation">,</span>GREEN<span class="token punctuation">,</span>BLUE<span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>play<span class="token punctuation">(</span>Write<span class="token punctuation">(</span>qed<span class="token punctuation">)</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>wait<span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span></code></pre>
+<p><img src="manim%E5%AD%A6%E4%B9%A0-Mobject%E7%B1%BB/image-20200403201147347-1586013786372.png" alt="gradientColor"></p>
+</li>
+<li><p><code>set_colors_by_radial_gradient(center=None, radius=1, inner_color=WHITE, outer_color=BLACK)</code>:</p>
+<p>辐射状渐变颜色,半径为radius</p>
+</li>
+<li><p><code>set_submobject_colors_by_gradient(*colors)</code>:</p>
+<p>给子Mobject设置渐变颜色</p>
+</li>
+<li><p><code>set_submobject_colors_by_radial_gradient(center=None, radius=1, inner_color=WHITE, outer_color=BLACK)</code>:</p>
+<p>同理,略</p>
+</li>
+<li><p><code>fade_to(color, alpha, family=True)</code>:</p>
+<p>褪色为某一个颜色,alpha为插值系数,alpha在[0,1]之间,越接近1,褪色越厉害</p>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">FadeTo</span><span class="token punctuation">(</span>Scene<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">construct</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        text <span class="token operator">=</span> TexMobject<span class="token punctuation">(</span><span class="token string">"This is a Text"</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>add<span class="token punctuation">(</span>text<span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>play<span class="token punctuation">(</span>text<span class="token punctuation">.</span>set_colors_by_radial_gradient<span class="token punctuation">,</span><span class="token punctuation">{</span><span class="token string">"inner_color"</span><span class="token punctuation">:</span>WHITE<span class="token punctuation">,</span><span class="token string">"outer_color"</span><span class="token punctuation">:</span>RED<span class="token punctuation">}</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>play<span class="token punctuation">(</span>text<span class="token punctuation">.</span>fade_to<span class="token punctuation">,</span>BLUE<span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>wait<span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre>
+<p><img src="manim%E5%AD%A6%E4%B9%A0-Mobject%E7%B1%BB/FadeTo-1586013786373.gif" alt="FadeTo"></p>
+</li>
+<li><p><code>get_color()</code>:</p>
+<p>返回颜色</p>
+</li>
+<li><p><code>fade(darkness=0.5, family=True)</code>:</p>
+<p>褪色为黑色,darkness为灰度</p>
+</li>
+</ol>
+<h3 id="3-7-恢复函数"><a href="#3-7-恢复函数" class="headerlink" title="3.7 恢复函数"></a>3.7 恢复函数</h3><ol>
+<li><p><code>save_state(use_deepcopy=False)</code>:</p>
+<p>保存状态,并确定是否使用深拷贝</p>
+</li>
+<li><p><code>restore()</code>:</p>
+<p>恢复之前状态</p>
+</li>
+</ol>
+<h3 id="3-8-其他的getter方法"><a href="#3-8-其他的getter方法" class="headerlink" title="3.8 其他的getter方法"></a>3.8 其他的getter方法</h3><ol>
+<li><p><code>reduce_across_dimension(points_func, reduce_func, dim)</code>:</p>
+</li>
+<li><p><code>nonempty_submobjects()</code>:</p>
+<p>返回Submobject的subSubMobject不为空的Submobject</p>
+</li>
+<li><p><code>get_merged_array(array_attr)</code>:</p>
+<p>得到Mobject以及其子Mobject的array_attr属性的列表</p>
+</li>
+<li><p><code>get_all_points()</code>:</p>
+<p>得到Mobject与其子Mobject属性所有的点</p>
+</li>
+<li><p><code>get_num_points()</code>:</p>
+<p>得到自己的点的数量(不包含子Mobject)</p>
+</li>
+<li><p><code>get_extremum_along_dim(points=None, dim=0, key=0)</code>:</p>
+<p>沿着dim方向(dim为0表示x方向,1表示y方向….),给出坐标的极值,key&lt;0表示得到最小值,key&gt;0表示得到最大值,key=0表示得到中值</p>
+</li>
+<li><p><code>get_critical_point(direction)</code>:</p>
+<p>画一个框，框住mobject。 这样的盒子有9个“关键点”：4个角，4个边缘中心，中心。 这将返回其中之一。</p>
+<p>direction什么方向就返回什么</p>
+<p>对其进行封装有如下的函数:</p>
+<ul>
+<li><code>get_edge_center</code><ul>
+<li><code>get_top</code></li>
+<li><code>get_bottom</code></li>
+<li><code>get_right</code></li>
+<li><code>get_left</code></li>
+<li><code>get_zenith</code></li>
+<li><code>get_nadir</code></li>
+</ul>
+</li>
+<li><code>get_corner</code></li>
+<li><code>get_center</code></li>
+</ul>
+</li>
+<li><p><code>get_boundary_point(direction)</code>:</p>
+<p>得到某个方向的最远的点</p>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">FadeTo</span><span class="token punctuation">(</span>Scene<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">construct</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        square <span class="token operator">=</span> Square<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        circle <span class="token operator">=</span> Circle<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>shift<span class="token punctuation">(</span><span class="token number">2</span> <span class="token operator">*</span> RIGHT <span class="token operator">+</span> <span class="token number">1</span> <span class="token operator">*</span> DOWN<span class="token punctuation">)</span>
+        shapeGroup <span class="token operator">=</span> VGroup<span class="token punctuation">(</span>square<span class="token punctuation">,</span>circle<span class="token punctuation">)</span>
+        points <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+        nums <span class="token operator">=</span> <span class="token number">10</span>
+        <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span>nums<span class="token punctuation">)</span><span class="token punctuation">:</span>
+            points<span class="token punctuation">.</span>append<span class="token punctuation">(</span>shapeGroup<span class="token punctuation">.</span>get_boundary_point<span class="token punctuation">(</span>np<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">(</span>np<span class="token punctuation">.</span>cos<span class="token punctuation">(</span><span class="token number">2</span><span class="token operator">*</span>PI<span class="token operator">*</span>i<span class="token operator">/</span>nums<span class="token punctuation">)</span><span class="token punctuation">,</span>np<span class="token punctuation">.</span>sin<span class="token punctuation">(</span><span class="token number">2</span><span class="token operator">*</span>PI<span class="token operator">*</span>i<span class="token operator">/</span>nums<span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        polygon <span class="token operator">=</span> Polygon<span class="token punctuation">(</span><span class="token operator">*</span>points<span class="token punctuation">,</span>color<span class="token operator">=</span>BLUE<span class="token punctuation">)</span>
+        dots <span class="token operator">=</span> <span class="token punctuation">[</span>Dot<span class="token punctuation">(</span>point<span class="token operator">=</span>i<span class="token punctuation">)</span> <span class="token keyword">for</span> i <span class="token keyword">in</span> points<span class="token punctuation">]</span>
+        self<span class="token punctuation">.</span>add<span class="token punctuation">(</span>shapeGroup<span class="token punctuation">,</span><span class="token operator">*</span>dots<span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>play<span class="token punctuation">(</span>Write<span class="token punctuation">(</span>polygon<span class="token punctuation">)</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>wait<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span></code></pre>
+<p><img src="manim%E5%AD%A6%E4%B9%A0-Mobject%E7%B1%BB/image-20200404172800256-1586013786373.png" alt="boundary_points"></p>
+</li>
+<li><p><code>length_over_dim(dim)</code>:</p>
+<p>dim方向的长度</p>
+<p>此方法封装的方法:</p>
+<ul>
+<li><code>get_width</code></li>
+<li><code>get_height</code></li>
+<li><code>get_depth</code></li>
+</ul>
+</li>
+<li><p><code>get_coord(dim, direction=ORIGIN)</code>:</p>
+<p>在dim方向得到direction对应的极值,直接使用意义不大</p>
+<ul>
+<li><code>get_x(direction=ORIGIN)</code></li>
+<li><code>get_y(direction=ORIGIN)</code></li>
+<li><code>get_z(direction=ORIGIN)</code></li>
+</ul>
+</li>
+<li><p><code>get_start</code>,<code>get_end</code>,<code>get_start_and_end</code>:</p>
+<p>得到点的起点终点,起点和终点</p>
+</li>
+<li><p><code>has_points</code>,<code>has_no_points</code>:</p>
+<p>是否有点这属性</p>
+</li>
+</ol>
+<h3 id="3-9-匹配函数"><a href="#3-9-匹配函数" class="headerlink" title="3.9 匹配函数"></a>3.9 匹配函数</h3><ol>
+<li><p><code>match_color(mobject)</code>:</p>
+<p>匹配mobject的颜色</p>
+</li>
+<li><p><code>match_dim_size(mobject, dim, **kwargs)</code>:</p>
+<p>匹配dim方向的长度,<code>**kwargs</code>和<code>rescale_to_fit()</code>使用方法相同</p>
+<ul>
+<li><code>match_width</code></li>
+<li><code>match_height</code></li>
+<li><code>match_depth</code></li>
+</ul>
+</li>
+<li><p><code>match_coord(mobject, dim, direction=ORIGIN)</code>:</p>
+<p>按照get_coord()得到对应的Mobject坐标,然后设置</p>
+<ul>
+<li><code>match_x</code></li>
+<li><code>match_y</code></li>
+<li><code>match_z</code></li>
+</ul>
+</li>
+</ol>
+<h3 id="3-10-排列函数"><a href="#3-10-排列函数" class="headerlink" title="3.10 排列函数"></a>3.10 排列函数</h3><ol>
+<li><p><code>arrange(direction=RIGHT, center=True, **kwargs)</code>:</p>
+<p>submobject列表的全部变量进行排队,按照direction的方式排队,center决定了是否排完队跑到中心</p>
+<p><code>**kwargs</code>参考next_to</p>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Arrange</span><span class="token punctuation">(</span>Scene<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">construct</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        square <span class="token operator">=</span> Square<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        square<span class="token punctuation">.</span>add<span class="token punctuation">(</span>Dot<span class="token punctuation">(</span>point<span class="token operator">=</span>np<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token operator">-</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        square<span class="token punctuation">.</span>add<span class="token punctuation">(</span>Square<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>move_to<span class="token punctuation">(</span>np<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        square<span class="token punctuation">.</span>add<span class="token punctuation">(</span>Circle<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>move_to<span class="token punctuation">(</span>np<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>add<span class="token punctuation">(</span>square<span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>play<span class="token punctuation">(</span>square<span class="token punctuation">.</span>arrange<span class="token punctuation">,</span><span class="token punctuation">{</span><span class="token string">"center"</span><span class="token punctuation">:</span><span class="token boolean">False</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>wait<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>play<span class="token punctuation">(</span>square<span class="token punctuation">.</span>arrange<span class="token punctuation">,</span><span class="token punctuation">{</span><span class="token string">"direction"</span><span class="token punctuation">:</span>UP<span class="token punctuation">,</span><span class="token string">"center"</span><span class="token punctuation">:</span><span class="token boolean">False</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>wait<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span></code></pre>
+<p><img src="manim%E5%AD%A6%E4%B9%A0-Mobject%E7%B1%BB/Arrange-1586013786373.gif" alt="Arrange"></p>
+</li>
+<li><p><code>arrange_in_grid(n_rows=None, n_cols=None, **kwargs)</code>:</p>
+<p>对submobject列表重拍列</p>
+<p>如果默认无参数,重拍列至方阵,否则n_rows和n_cols最多选一个,排列为对应的行或列,如果都填,则排列为n_rows行</p>
+<p><code>**kwargs</code>参考next_to函数</p>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">ArrangeInGrid</span><span class="token punctuation">(</span>Scene<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">construct</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        square <span class="token operator">=</span> Square<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        square<span class="token punctuation">.</span>add<span class="token punctuation">(</span>Circle<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>move_to<span class="token punctuation">(</span>np<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token operator">-</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        square<span class="token punctuation">.</span>add<span class="token punctuation">(</span>Circle<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>move_to<span class="token punctuation">(</span>np<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        square<span class="token punctuation">.</span>add<span class="token punctuation">(</span>Circle<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>move_to<span class="token punctuation">(</span>np<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        square<span class="token punctuation">.</span>add<span class="token punctuation">(</span>Circle<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>move_to<span class="token punctuation">(</span>np<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">5</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>add<span class="token punctuation">(</span>square<span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>play<span class="token punctuation">(</span>square<span class="token punctuation">.</span>arrange_in_grid<span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>wait<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span></code></pre>
+<p><img src="manim%E5%AD%A6%E4%B9%A0-Mobject%E7%B1%BB/ArrangeInGrid-1586013786373.gif" alt="ArrangeInGrid"></p>
+</li>
+<li><p><code>sort(point_to_num_func=lambda p: p[0], submob_func=None)</code>:</p>
+<p>对点进行排序,这个一般意义不大,可以自己编写排序方法</p>
+</li>
+<li><p><code>shuffle(recursive=False)</code>:</p>
+<p>打乱submobject的列表排序,以及是否递归进行</p>
+</li>
+</ol>
+<h3 id="3-11-对齐函数"><a href="#3-11-对齐函数" class="headerlink" title="3.11 对齐函数"></a>3.11 对齐函数</h3><ol>
+<li><p><code>align_to(mobject_or_point, direction=ORIGIN, alignment_vect=UP)</code>:</p>
+<p>对齐,direction表示对齐的边是哪边</p>
+<p>mob1.align_to（mob2，UP）垂直移动mob1，以便其顶部边缘与mob2的顶部边缘对齐。 mob1.align_to（mob2，alignment_vect = RIGHT）水平移动mob1，使其中心位于mob2中心的正上方/正下方</p>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">AlighTo</span><span class="token punctuation">(</span>Scene<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">construct</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        square <span class="token operator">=</span> Square<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        circle <span class="token operator">=</span> Circle<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>shift<span class="token punctuation">(</span><span class="token number">2</span> <span class="token operator">*</span> RIGHT <span class="token operator">+</span> <span class="token number">1</span> <span class="token operator">*</span> DOWN<span class="token punctuation">)</span><span class="token punctuation">.</span>scale<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>add<span class="token punctuation">(</span>square<span class="token punctuation">,</span>circle<span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>play<span class="token punctuation">(</span>circle<span class="token punctuation">.</span>align_to<span class="token punctuation">,</span>square<span class="token punctuation">,</span>RIGHT<span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>wait<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span></code></pre>
+<p><img src="manim%E5%AD%A6%E4%B9%A0-Mobject%E7%B1%BB/AlighTo-1586013786373.gif" alt="AlighTo"></p>
+</li>
+<li><p><code>add_n_more_submobjects(n)</code>:</p>
+<p>加入n个submoject</p>
+</li>
+</ol>
+<h3 id="3-12-抽象方法"><a href="#3-12-抽象方法" class="headerlink" title="3.12 抽象方法"></a>3.12 抽象方法</h3><ol>
+<li><p><code>align_data(mobject)</code>:</p>
+</li>
+<li><p><code>align_points(mobject)</code>:</p>
+</li>
+<li><p><code>align_submobjects(mobject)</code>:</p>
+<p>对齐submobjects</p>
+</li>
+<li><p><code>null_point_align(mobject)</code>:</p>
+</li>
+<li><p><code>get_point_mobject(center=None)</code></p>
+</li>
+<li><p><code>align_points_with_larger(larger_mobject)</code></p>
+</li>
+<li><p><code>interpolate_color(mobject1, mobject2, alpha)</code>:</p>
+<p>颜色插值</p>
+</li>
+<li><p><code>interpolate(mobject1,mobject2,alpha, path_func=straight_path)</code>:</p>
+<p>Mobject插值</p>
+</li>
+<li><p><code>become_partial(mobject, a, b)</code>:</p>
+<p>以仅成为mobject一部分的方式设置点。 输入0 &lt;= a &lt;b &lt;= 1确定要成为mobject的哪一部分。</p>
+</li>
+<li><p><code>become(mobject, copy_submobjects=True)</code>:</p>
+<p>变成另一个的样式</p>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Become</span><span class="token punctuation">(</span>Scene<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">construct</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        square <span class="token operator">=</span> Square<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        square<span class="token punctuation">.</span>submobjects<span class="token punctuation">.</span>append<span class="token punctuation">(</span>Circle<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>move_to<span class="token punctuation">(</span>np<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token operator">-</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        square<span class="token punctuation">.</span>submobjects<span class="token punctuation">.</span>append<span class="token punctuation">(</span>Circle<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>move_to<span class="token punctuation">(</span>np<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        square<span class="token punctuation">.</span>submobjects<span class="token punctuation">.</span>append<span class="token punctuation">(</span>Circle<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>move_to<span class="token punctuation">(</span>np<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        square<span class="token punctuation">.</span>submobjects<span class="token punctuation">.</span>append<span class="token punctuation">(</span>Circle<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>move_to<span class="token punctuation">(</span>np<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">5</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        text <span class="token operator">=</span> Text<span class="token punctuation">(</span><span class="token string">"text"</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>add<span class="token punctuation">(</span>square<span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>play<span class="token punctuation">(</span>square<span class="token punctuation">.</span>become<span class="token punctuation">,</span>text<span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>play<span class="token punctuation">(</span>text<span class="token punctuation">.</span>shift<span class="token punctuation">,</span>UP<span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>wait<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span></code></pre>
+<p><img src="manim%E5%AD%A6%E4%B9%A0-Mobject%E7%B1%BB/Become-1586013786373.gif" alt="Become"></p>
+</li>
+</ol>
+<h2 id="4-小结"><a href="#4-小结" class="headerlink" title="4. 小结"></a>4. 小结</h2><p>Mobject的用法还是很多的,空闲时间写了很多天才写完,希望自己能用熟练</p>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">cai</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="http://yoursite.com/2020/03/30/manim-xue-xi-mobject-lei/">http://yoursite.com/2020/03/30/manim-xue-xi-mobject-lei/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">cai</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/manim/">
+                                    <span class="chip bg-color">manim</span>
+                                </a>
+                            
+                                <a href="/tags/%E6%95%99%E7%A8%8B/">
+                                    <span class="chip bg-color">教程</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.4rem;
+        line-height: 38px;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.png" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+        <link rel="stylesheet" href="/libs/gitalk/gitalk.css">
+<link rel="stylesheet" href="/css/my-gitalk.css">
+
+<div class="card gitalk-card" data-aos="fade-up">
+    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
+        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+        <span>评论</span>
+    </div>
+    <div id="gitalk-container" class="card-content"></div>
+</div>
+
+<script src="/libs/gitalk/gitalk.min.js"></script>
+<script>
+    let gitalk = new Gitalk({
+        clientID: '567ab5f0da87cd87c36c',
+        clientSecret: '6c660baacd461151d3b40ea2aa7c24e6b7dd8b3a',
+        repo: 'cai-hust.github.io',
+        owner: 'cai-hust',
+        admin: "cai-hust",
+        id: '2020-03-30T23-39-00',
+        distractionFreeMode: false  // Facebook-like distraction free mode
+    });
+
+    gitalk.render('gitalk-container');
+</script>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2020/04/25/ji-suan-ji-wang-luo-di-yi-zhang/">
+                    <div class="card-image">
+                        
+                        <img src="/images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-cover.jpg" class="responsive-img" alt="计算机网络第一章">
+                        
+                        <span class="card-title">计算机网络第一章</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            <<计算机网络(第七版)>>第一章阅读摘抄
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-04-25
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" class="post-category">
+                                    计算机网络
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">
+                        <span class="chip bg-color">计算机网络</span>
+                    </a>
+                    
+                    <a href="/tags/%E9%98%85%E8%AF%BB%E6%91%98%E8%A6%81/">
+                        <span class="chip bg-color">阅读摘要</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2020/03/30/manim-xue-xi-container-lei/">
+                    <div class="card-image">
+                        
+                        <img src="/images/manim-cover.png" class="responsive-img" alt="manim学习--Container类">
+                        
+                        <span class="card-title">manim学习--Container类</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            manim的Container类介绍
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-03-30
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/manim/" class="post-category">
+                                    manim
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/manim/">
+                        <span class="chip bg-color">manim</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%95%99%E7%A8%8B/">
+                        <span class="chip bg-color">教程</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('60')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: cai<br />'
+            + '文章作者: cai<br />'
+            + '文章链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+<!-- 代码块折行 -->
+
+<style type="text/css">
+code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
+</style>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\(', '\)']]}
+    });
+</script>
+
+
+
+    <footer class="page-footer bg-color">
+    
+    <div class="container row center-align" style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            <span id="year">2019</span>
+            <a href="/about" target="_blank">cai</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                class="white-color">44.1k</span>&nbsp;字
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/cai-hust" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/search.xml", 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

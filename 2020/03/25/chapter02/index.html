@@ -1,0 +1,1311 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="csapp-chapter02, cai">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>csapp-chapter02 | cai</title>
+    <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="/favicon.ico">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery.min.js"></script>
+
+<meta name="generator" content="Hexo 4.2.1"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">cai</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">cai</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/images/csapp3e-cover.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">csapp-chapter02</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        height: calc(100vh - 250px);
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">
+                                <span class="chip bg-color">深入理解计算机系统读书笔记</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F/" class="post-category">
+                                深入理解计算机系统
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2020-03-25
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2020-06-30
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    1.9k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    7 分
+                </div>
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="2-1-信息存储"><a href="#2-1-信息存储" class="headerlink" title="2.1 信息存储"></a>2.1 信息存储</h2><h3 id="2-1-2-字数据大小"><a href="#2-1-2-字数据大小" class="headerlink" title="2.1.2 字数据大小"></a>2.1.2 字数据大小</h3><img src="image-20200320224158463.png" alt="image-20200320224158463" style="zoom:50%;">
+
+<h3 id="2-1-3-寻址和字节顺序"><a href="#2-1-3-寻址和字节顺序" class="headerlink" title="2.1.3 寻址和字节顺序"></a>2.1.3 寻址和字节顺序</h3><p>在计算机内存中，通常是以字节（Byte），也就是 8 个位（Bit）为基本存储单元（也有以 16 位为基本存储单元的）。对于跨越多个字节的数据类型（比如 int 长 4 个字节），如何在内存中对这些字节进行排序有两种常见的方法：大端法（Big-endian）和小端法（Little-endian）。</p>
+<p><strong>【注】不管是大端法还是小端法存储，计算机在内存中存放数据的顺序都是从低地址到高地址，所不同的是首先取低字节的数据存放在低地址还是取高字节数据存放在低地址。</strong></p>
+<ul>
+<li>若首先取高字节的数据存放在低地址，则是大端法</li>
+<li>若首先取低字节的数据存放在低地址，则是小端法</li>
+</ul>
+<img src="image-20200321000815181.png" alt="image-20200321000815181" style="zoom:50%;">
+
+<p>大多数Intel兼容机是小端法</p>
+<h3 id="2-1-9-C语言中的移位运算"><a href="#2-1-9-C语言中的移位运算" class="headerlink" title="2.1.9 C语言中的移位运算"></a>2.1.9 C语言中的移位运算</h3><img src="image-20200321181504713.png" alt="image-20200321181504713" style="zoom:50%;">
+
+<p><strong>遇到一行多个移位运算的时候要记得打括号</strong></p>
+<h2 id="2-2-整数表示"><a href="#2-2-整数表示" class="headerlink" title="2.2 整数表示"></a>2.2 整数表示</h2><h3 id="2-2-3-补码编码"><a href="#2-2-3-补码编码" class="headerlink" title="2.2.3 补码编码"></a>2.2.3 补码编码</h3><p>为了表示负数,最常见的计算机表示方式就是补码,将最高位表示为负权:</p>
+<p><img src="image-20200322211917167.png" alt="image-20200322211917167"></p>
+<p>最高位表示的权重为$-2^{w-1}$.</p>
+<p>补码和计算机表示的二进制码的转换是一一对应的(双射)</p>
+<blockquote>
+<p>为什么不用原码和反码表示负数:</p>
+<ul>
+<li>原码:最高位表示符号,剩下位表示数字</li>
+<li>反码:和补码类似,不过最高位表示的权重为$-(2^{w-1}-1)$</li>
+</ul>
+<p>这两个编码有一个不好的性质,对数字0有两个不同的编码:</p>
+<ul>
+<li>原码中[00..0]表示+0,[10..0]表示-0</li>
+<li>反码中[00..0]表示+0,[11..1]表示-0</li>
+</ul>
+<p>即表示的编码不是一一对应的双射关系</p>
+</blockquote>
+<h3 id="2-2-4-C语言中有符号数和无符号数之间的转换"><a href="#2-2-4-C语言中有符号数和无符号数之间的转换" class="headerlink" title="2.2.4 C语言中有符号数和无符号数之间的转换"></a>2.2.4 C语言中有符号数和无符号数之间的转换</h3><p>强制转换对于有一点编程经验的人来说,看似习以为常,但是在设计强制转换的时候可以选择很多规则,C语言转换规则是:从位级来看,而不是从数值来看.即对应的二进制不变.</p>
+<h3 id="2-2-6-扩展一个数字的位表示"><a href="#2-2-6-扩展一个数字的位表示" class="headerlink" title="2.2.6 扩展一个数字的位表示"></a>2.2.6 扩展一个数字的位表示</h3><p>较大的数据类型转换位较小的可能会出错,但是从较小的数字转换为较大的应该是可以实现的.</p>
+<ul>
+<li><p>将一个无符号数转换为更大的数据类型,只需在开头加0即可,称为<strong>零扩展</strong>:</p>
+<img src="image-20200322153501910.png" alt="image-20200322153501910">
+</li>
+<li><p>将一个补码数字转换为更大的数据类型,可以在在前面填充最高有效位的值,称为符号扩展:</p>
+<img src="image-20200322153834509.png" alt="image-20200322153834509">
+
+<p>其中$x_{w-1}$为符号位</p>
+</li>
+</ul>
+<h2 id="2-3-整数运算"><a href="#2-3-整数运算" class="headerlink" title="2.3 整数运算"></a>2.3 整数运算</h2><h3 id="2-3-1-无符号加法"><a href="#2-3-1-无符号加法" class="headerlink" title="2.3.1 无符号加法"></a>2.3.1 无符号加法</h3><p>考虑两个非负数x,y,满足$0 \le x,y\le 2^w-1$,每个数都能表示为w位无符号数,则有$0 \le x+y\le 2^{w+1}-2$,表示这个和可能需要w+1位表示.</p>
+<p>一般常见的编程语言仅仅支持固定精度的计算,因此会产生溢出:</p>
+<p><img src="image-20200322175257127.png" alt="image-20200322175257127"></p>
+<p>上述的也可以称为模数加法,形成了一个数学结构,阿贝尔群,满足如下性质:</p>
+<ul>
+<li>可交换</li>
+<li>仅有一个单位元(这里单位元是0)</li>
+<li>每个元素有一个加法逆元</li>
+</ul>
+<p>所以对于无符号数$x$都有唯一一个逆元$-_w^u x$:</p>
+<p><img src="image-20200322181059389.png" alt="image-20200322181059389"></p>
+<h3 id="2-3-2-补码加法"><a href="#2-3-2-补码加法" class="headerlink" title="2.3.2 补码加法"></a>2.3.2 补码加法</h3><p>补码加法和无符号加法,对于计算机来说处理是一样的,即截断,然后计算机会将截断后的数字当做补码进行解读.</p>
+<p><img src="image-20200322195842080.png" alt="image-20200322195842080"></p>
+<h3 id="2-3-3-补码的非"><a href="#2-3-3-补码的非" class="headerlink" title="2.3.3 补码的非"></a>2.3.3 补码的非</h3><p>范围在$TMin_w \le x\le TMax_w$中的每个数字x都有$+^t_w$下的加法逆元$-^t_w$,称为补码的非:</p>
+<p><img src="image-20200322211418982.png" alt="image-20200322211418982"></p>
+<h3 id="2-3-4-无符号乘法"><a href="#2-3-4-无符号乘法" class="headerlink" title="2.3.4 无符号乘法"></a>2.3.4 无符号乘法</h3><p>范围在$0\le x,y\le2^w-1$内的整数x,y可以被表示为w位的无符号数,对应的乘积$x \cdot y$的取值范围为$[0,2^{2w}-2^{w+1}+1]$需要2w位表示,但是C语言是用w位表示的,所以有截断:</p>
+<p><img src="image-20200322214057227.png" alt="image-20200322214057227"></p>
+<h3 id="2-3-5-补码乘法"><a href="#2-3-5-补码乘法" class="headerlink" title="2.3.5 补码乘法"></a>2.3.5 补码乘法</h3><p>范围在$-2^{w-1}\le x,y\le 2^{w-1}-1$内的整数x,y可以被表示位w位的补码,但是成乘积范围在$-2^{w-1}\cdot (2^{w-1}-1)=-2^{2w-2}+2^{w-1}$到$-2^{w-1}\cdot -2^{w-1}=2^{2w-2}$之间,这个范围需要2w位表示,C语言将其截断为w位,将其记为$x*_w^t y$.</p>
+<p>上述机器计算的结果,可以用算法表示为:先将乘积得到的值模$2^w$,得到的无符号数转换为补码:</p>
+<p><img src="image-20200322223742838.png" alt="image-20200322223742838"></p>
+<p>根据书上的证明有如下结论:相同位表示的无符号数乘法和补码乘法得到的二进制数结果是一样的:</p>
+<p><img src="image-20200322230146529.png" alt="image-20200322230146529"></p>
+<h3 id="2-3-6-乘以常数"><a href="#2-3-6-乘以常数" class="headerlink" title="2.3.6 乘以常数"></a>2.3.6 乘以常数</h3><p>大多数机器上整数乘法指令相当慢,大多需要10+个时钟周期,编译器因此进行了一定的优化:试着用位移和加法运算的组合来代替乘以常数因子的乘法.</p>
+<p>下面首先说说乘以2的幂的情况:</p>
+<p><img src="image-20200322231300422.png" alt="image-20200322231300422"></p>
+<p>因此,左移一个数值等价于一个与2的幂相乘的无符号乘法:</p>
+<p><img src="image-20200322231444005.png" alt="image-20200322231444005"></p>
+<p>无论是无符号还是补码运算,乘以2的幂都会导致溢出,但是即使溢出,通过移位的结果都是一样的</p>
+<p>为了减少代价,许多C语言编译器试图以位移,加法减法消除很多整数乘以常数的情况,例如x*14可以重写为:(x&lt;&lt;3)+(x&lt;&lt;2)+(x&lt;&lt;1),更好地有:(x&lt;&lt;4)-(x&lt;&lt;1)</p>
+<p><strong>选择上述的方法还是使用乘法指令,取决于指令的相对速度,而这个与机器高度相关,一般只在仅需要少量位移,加法减法就足够的时候使用这种优化</strong></p>
+<h3 id="2-3-7-除以2的幂"><a href="#2-3-7-除以2的幂" class="headerlink" title="2.3.7 除以2的幂"></a>2.3.7 除以2的幂</h3><p>一般地,整数除法比整数乘法更慢–需要30+个周期,但是除以2的运算可以通过右移计算.无符号和补码数分别通过逻辑右移和算数右移实现.</p>
+<ol>
+<li><p>无符号右移非常简单,因为一定是逻辑右移:</p>
+<p><img src="image-20200322234628390.png" alt="image-20200322234628390"></p>
+</li>
+<li><p>除以2的幂的补码运算,情况稍有复杂,首先为了保证为负,需要算术右移:</p>
+<p><img src="image-20200322235518595.png" alt="image-20200322235518595"></p>
+<p><img src="image-20200323000249985.png" alt="image-20200323000249985"></p>
+<p><strong>注意:上图中向上舍入原理,经过与英文版比较,最后应为”产生数值$\lceil  x/2^k\rceil$”</strong>,定义偏量为$(1&lt;&lt;k)-1$,下面有几个例子:</p>
+<p><img src="image-20200323003738528.png" alt="image-20200323003738528"></p>
+<p>根据下图的几个数据与相关的证明可以知道:</p>
+<ul>
+<li>对于不需要舍入的情况,加上偏量只会影响最后被移掉的位</li>
+<li>对于需要舍入的情况,加上偏量会导致较高的位加1,这个会导致向0舍入</li>
+</ul>
+<blockquote>
+<p>偏置技术用的数学知识:$\lceil x/y\rceil=\lfloor (x+y-1)/y\rfloor$(x,y为整数)</p>
+<p>所以上面的式子:(x+(1&lt;&lt;k)-1)&gt;&gt;k,中,y为$2^k$,$(x+2^k-1)/2^k$就表示$\lceil  x/2^k\rceil$</p>
+</blockquote>
+</li>
+</ol>
+<p>综合1,2两个情况,得到C的算术右移的补码机器,计算$x/2^k$:</p>
+<pre class=" language-c++"><code class="language-c++">(x<0 ? x+(1<<k)-1 : x)>>k</code></pre>
+<p>可惜的是,不能将除以2的幂推广到一般除法.</p>
+<h2 id="2-4-浮点数"><a href="#2-4-浮点数" class="headerlink" title="2.4 浮点数"></a>2.4 浮点数</h2><p>与十进制类似,形如$b_mb_{m-1}…b_1b_0.b_{-1}b_{-2}…b_{-n-1}b_{-n}$的二进制数,其对应的十进制的值为:<br>$$<br>b=\sum_{i=-n}^{m}2^i\times b_i<br>$$<br>有限长度的编码不能表示如$\frac{1}{3},\frac{5}{7}$的数字,小数的二进制表示法仅能表示能被写成$x\times2^y$的数.</p>
+<h3 id="2-4-2-IEEE浮点表示"><a href="#2-4-2-IEEE浮点表示" class="headerlink" title="2.4.2 IEEE浮点表示"></a>2.4.2 IEEE浮点表示</h3><p><img src="image-20200323182025508.png" alt="image-20200323182025508"></p>
+<p>下图是常见的单双精度的浮点数的格式:</p>
+<p><img src="image-20200323183711302.png" alt="image-20200323183711302"></p>
+<p>上图说明了:</p>
+<table>
+<thead>
+<tr>
+<th>精度</th>
+<th>s位数</th>
+<th>exp位数</th>
+<th>frac位数</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>单</td>
+<td>1</td>
+<td>8</td>
+<td>23</td>
+</tr>
+<tr>
+<td>双</td>
+<td>1</td>
+<td>11</td>
+<td>52</td>
+</tr>
+</tbody></table>
+<p>给定位表示,根据exp的值,被编码的值可以分成三种不同的情况(最后一种有两个不同的变种),下图为单精度的数字表示:</p>
+<p><img src="image-20200323192300543.png" alt="image-20200323192300543"></p>
+<p>由上图有以下几个解码:</p>
+<ol>
+<li><p>规格化的数值</p>
+<p>此时,阶码的值E=e-Bias,e是exp字段对应的无符号数,Bias为$2^{k-1}-1$,其中k为exp的位数,因此产生的指数E的范围对于单精度为-126~+127,对于双精度为-1022~+1023</p>
+<p>frac是小数值$f$,$0\le f &lt; 1$,二进制表示为$0.f_{n-1}…f_1f_0$,为数M定义为$M=1+f$,因为对于二进制来说,按照十进制的科学计数法的规则,二进制科学计数法第一位一定为1,为了节省比特位,直接将其隐藏,这种方法也叫隐含的以1开头的表示.</p>
+</li>
+<li><p>非规格化的值</p>
+<p>当阶码域exp全部是0的时候,所表示的数字是非规格化的形式,此时阶码$E=1-Bias$,尾数的值是$M=f$,也就是小数字段的值,不包含隐含的1</p>
+<blockquote>
+<p>为什么要对于非规格化的值设置这样的偏置值:</p>
+<p>这样可以让从非规格化到规格化的转换平滑</p>
+</blockquote>
+<p>非规格化的用途:</p>
+<ul>
+<li><p>提供一种表示0的方法,如果使用规格化数,必须$M\ge 1$,所以不能表示0,$+0.0$的浮点表示位模式为所有位为0,此时$M=f=0$,当符号位为1,其他所有位为0的的时候,表示$-0.0$.</p>
+<p>IEEE的浮点格式表示,$+0.0$和$-0.0$在某些方面是不同的</p>
+</li>
+<li><p>表示那些非常接近0.0的数,非规格化提供一种属性:逐渐溢出(gradual underflow),表示一个数与0的距离非常小</p>
+</li>
+</ul>
+</li>
+<li><p>特殊值</p>
+<ul>
+<li>3a: 当阶码域exp全是1,小数域全是0,得到的值表示无穷,s决定是正无穷还是负无穷,当把两个非常大的数字相乘或者进行了除以0的操作后,无穷能表示溢出</li>
+<li>3b: 当小数域非0的时候,结果值为NaN(Not a Number),这用于表示不是实数或者无穷:$\sqrt{-1}或\infty - \infty $等</li>
+</ul>
+</li>
+</ol>
+<h3 id="2-4-3-数字示例"><a href="#2-4-3-数字示例" class="headerlink" title="2.4.3 数字示例"></a>2.4.3 数字示例</h3><p><img src="image-20200323232701819.png" alt="image-20200323232701819"></p>
+<p><img src="image-20200323232716933.png" alt="image-20200323232716933"></p>
+<h3 id="2-4-4-舍入"><a href="#2-4-4-舍入" class="headerlink" title="2.4.4 舍入"></a>2.4.4 舍入</h3><p>默认的方式为:向偶数舍入,也被称为向最近的值舍入(round-to-nearest),又叫向偶数舍入(round-to-even).方法为”四舍六入五成双”,使得到的最低有效位为偶数</p>
+<p>其他的几种有:向零舍入,向下舍入,向上舍入</p>
+<p>向偶舍入的原因:为了将50%的几率向上舍入和50%几率向下舍入</p>
+<p>向偶舍入也可以应用到二进制:将最低有效位的值为0认为是偶数,1为奇数</p>
+<h3 id="2-4-5-浮点运算"><a href="#2-4-5-浮点运算" class="headerlink" title="2.4.5 浮点运算"></a>2.4.5 浮点运算</h3><p>IEEE标准制定了简单的规则确定加法乘法这样的算术运算结果:</p>
+<p>由于精度的限制,对于两个浮点数x,y,某个运算$x\bigodot y$产生的值,计算机会再进行舍入:$Round(x\bigodot y)$</p>
+<p>当其中有一个为特殊值的时候(如-0,无穷,NaN),IEEE定义了一些更合理的规则:1/-0产生$-\infty$,1/+0产生$+\infty$.</p>
+<p>整数加法形成了阿贝尔群,IEEE标准实数加法也构成了阿贝尔群,但是证明过程需要加上Round()函数的证明:</p>
+<p>将$x+^fy$定义为$Round(x+y)$,如果不考虑溢出则直接可以得到就是阿贝尔群,但是如果考虑溢出:</p>
+<ol>
+<li><p>交换律</p>
+<p>交换律:交换x,y是都会同样的方式溢出,所以$+^f$是可交换的;</p>
+</li>
+<li><p>不可结合:例如,使用单精度浮点(3.14+1e10)-1e10=0.0因为3.14作为尾数被舍入,减去1e10变为0,而3.14+(1e10-1e10)=3.14）</p>
+</li>
+<li><p>逆元</p>
+<p>对于x,不考虑溢出明显有逆元-x,如果考虑溢出:$x+^f(-x)$一般都为0,但是有例外$+\infty+^f(-\infty)=NaN$,$NaN+^fx=NaN$</p>
+<p>可见这个逆元不能普适,所以也不存在单位元,所以$+^{f}$不是阿贝尔群</p>
+</li>
+<li><p>另外浮点加法的性质还包含单调性</p>
+</li>
+</ol>
+<p>浮点乘法具有:</p>
+<ol>
+<li><p>交换律</p>
+</li>
+<li><p>不可结合</p>
+</li>
+<li><p>对加法不具有分配律</p>
+</li>
+<li><p>单调性:<br>$$<br>a \ge b 且 c \ge 0 \to a * ^f c\ge b<em>^fc\<br>a \ge b 且 c \le 0 \to a * ^f c\le b</em>^fc<br>$$</p>
+</li>
+<li><p>平方大于等于0:</p>
+<p>若$a\ne 0:a*a\ge0$</p>
+</li>
+</ol>
+<p>缺乏结合性和分配性对科学计算程序员和编译器的编写造成麻烦</p>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">cai</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="http://yoursite.com/2020/03/25/chapter02/">http://yoursite.com/2020/03/25/chapter02/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">cai</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">
+                                    <span class="chip bg-color">深入理解计算机系统读书笔记</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.4rem;
+        line-height: 38px;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.png" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+        <link rel="stylesheet" href="/libs/gitalk/gitalk.css">
+<link rel="stylesheet" href="/css/my-gitalk.css">
+
+<div class="card gitalk-card" data-aos="fade-up">
+    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
+        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+        <span>评论</span>
+    </div>
+    <div id="gitalk-container" class="card-content"></div>
+</div>
+
+<script src="/libs/gitalk/gitalk.min.js"></script>
+<script>
+    let gitalk = new Gitalk({
+        clientID: '567ab5f0da87cd87c36c',
+        clientSecret: '6c660baacd461151d3b40ea2aa7c24e6b7dd8b3a',
+        repo: 'cai-hust.github.io',
+        owner: 'cai-hust',
+        admin: "cai-hust",
+        id: '2020-03-25T15-45-22',
+        distractionFreeMode: false  // Facebook-like distraction free mode
+    });
+
+    gitalk.render('gitalk-container');
+</script>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2020/03/26/hello-world/">
+                    <div class="card-image">
+                        
+                        <img src="/images/hello-world.jpg" class="responsive-img" alt="Hello World">
+                        
+                        <span class="card-title">Hello World</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            大家好,这个是我的个人博客第一次部署博客可能有点生疏,而且这个博客仅仅是我武汉疫情期间的无聊消遣的时候搭建的如果做的不好大家就谅解一下吧
+以下是博客功能的测试:
+视频播放: 
+     
+      
+ 
+
+
+
+
+
+
+嵌入数学公式的书写 欧
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-03-26
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            cai
+                            
+                        </span>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                本篇&nbsp;<i class="far fa-dot-circle"></i>
+            </div>
+            <div class="card">
+                <a href="/2020/03/25/chapter02/">
+                    <div class="card-image">
+                        
+                        <img src="/images/csapp3e-cover.jpg" class="responsive-img" alt="csapp-chapter02">
+                        
+                        <span class="card-title">csapp-chapter02</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            深入理解计算机系统的读书笔记
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-03-25
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F/" class="post-category">
+                                    深入理解计算机系统
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">
+                        <span class="chip bg-color">深入理解计算机系统读书笔记</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('60')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: cai<br />'
+            + '文章作者: cai<br />'
+            + '文章链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+<!-- 代码块折行 -->
+
+<style type="text/css">
+code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
+</style>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\(', '\)']]}
+    });
+</script>
+
+
+
+    <footer class="page-footer bg-color">
+    
+    <div class="container row center-align" style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            <span id="year">2019</span>
+            <a href="/about" target="_blank">cai</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                class="white-color">44.1k</span>&nbsp;字
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/cai-hust" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/search.xml", 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>
