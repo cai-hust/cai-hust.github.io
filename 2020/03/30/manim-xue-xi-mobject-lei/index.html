@@ -432,7 +432,7 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="1-Mobject所派生的子类"><a href="#1-Mobject所派生的子类" class="headerlink" title="1. Mobject所派生的子类"></a>1. Mobject所派生的子类</h2><p><img src="manim%E5%AD%A6%E4%B9%A0-Mobject%E7%B1%BB/Mobject-1586013786368.png" alt="Mobject"></p>
+                <h2 id="1-Mobject所派生的子类"><a href="#1-Mobject所派生的子类" class="headerlink" title="1. Mobject所派生的子类"></a>1. Mobject所派生的子类</h2><p><img src="Mobject-1586013786368.png" alt="Mobject"></p>
 <h2 id="2-Mobject的主要变量与属性"><a href="#2-Mobject的主要变量与属性" class="headerlink" title="2. Mobject的主要变量与属性"></a>2. Mobject的主要变量与属性</h2><h3 id="2-1-CONFIG"><a href="#2-1-CONFIG" class="headerlink" title="2.1 CONFIG"></a>2.1 CONFIG</h3><pre class=" language-python"><code class="language-python">CONFIG <span class="token operator">=</span> <span class="token punctuation">{</span>
         <span class="token string">"color"</span><span class="token punctuation">:</span> WHITE<span class="token punctuation">,</span>
         <span class="token string">"name"</span><span class="token punctuation">:</span> None<span class="token punctuation">,</span>
@@ -472,7 +472,7 @@
 
         self<span class="token punctuation">.</span>wait<span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre>
 <p>效果如下:</p>
-<p><img src="manim%E5%AD%A6%E4%B9%A0-Mobject%E7%B1%BB/AddUpdater-1586013786369.gif" alt="AddUpdater"></p>
+<p><img src="AddUpdater-1586013786369.gif" alt="AddUpdater"></p>
 <p>详细见下面3.3.2的介绍</p>
 </li>
 <li><p><code>updating_suspended = False</code>:是否暂停更新</p>
@@ -611,7 +611,7 @@
          self<span class="token punctuation">.</span>wait<span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">)</span>
          self<span class="token punctuation">.</span>wait<span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre>
 <p>效果如下:</p>
-<p><img src="manim%E5%AD%A6%E4%B9%A0-Mobject%E7%B1%BB/UpdateFunctionWithDt-1586013786369.gif" alt="UpdateFunctionWithDt"></p>
+<p><img src="UpdateFunctionWithDt-1586013786369.gif" alt="UpdateFunctionWithDt"></p>
 <p>dt的决定速度:</p>
 <pre class=" language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">WhatIsDt</span><span class="token punctuation">(</span>Scene<span class="token punctuation">)</span><span class="token punctuation">:</span>
     <span class="token keyword">def</span> <span class="token function">construct</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
@@ -641,7 +641,7 @@
             texts<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">.</span>add_updater<span class="token punctuation">(</span>update_text_factory<span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">)</span>
         self<span class="token punctuation">.</span>add<span class="token punctuation">(</span>earthOrbit<span class="token punctuation">,</span>sun<span class="token punctuation">,</span>earths<span class="token punctuation">,</span>texts<span class="token punctuation">)</span>
         self<span class="token punctuation">.</span>wait<span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">)</span></code></pre>
-<p><img src="manim%E5%AD%A6%E4%B9%A0-Mobject%E7%B1%BB/WhatIsDt-1586013786370.gif" alt="WhatIsDt"></p>
+<p><img src="WhatIsDt-1586013786370.gif" alt="WhatIsDt"></p>
 </li>
 </ul>
 </li>
@@ -694,7 +694,7 @@
         self<span class="token punctuation">.</span>add<span class="token punctuation">(</span>line<span class="token punctuation">,</span>vg<span class="token punctuation">,</span>text<span class="token punctuation">)</span>
         self<span class="token punctuation">.</span>play<span class="token punctuation">(</span>vg<span class="token punctuation">.</span>scale<span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token punctuation">{</span><span class="token string">"about_edge"</span><span class="token punctuation">:</span>UP<span class="token punctuation">}</span><span class="token punctuation">)</span>
         self<span class="token punctuation">.</span>wait<span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre>
-<p><img src="manim%E5%AD%A6%E4%B9%A0-Mobject%E7%B1%BB/about_edge-1586013786370.gif" alt="about_edge"></p>
+<p><img src="about_edge-1586013786370.gif" alt="about_edge"></p>
 <p>如果<code>about_edge</code>为方向的线性组合,则会按照对应的边进行阻隔,以UP+RIGHT为例子:</p>
 <pre class=" language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">AddUpdater</span><span class="token punctuation">(</span>Scene<span class="token punctuation">)</span><span class="token punctuation">:</span>
     <span class="token keyword">def</span> <span class="token function">construct</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
@@ -709,7 +709,7 @@
         self<span class="token punctuation">.</span>add<span class="token punctuation">(</span>line<span class="token punctuation">,</span>line1<span class="token punctuation">,</span>vg<span class="token punctuation">,</span>text<span class="token punctuation">,</span>text1<span class="token punctuation">)</span>
         self<span class="token punctuation">.</span>play<span class="token punctuation">(</span>vg<span class="token punctuation">.</span>scale<span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token punctuation">{</span><span class="token string">"about_edge"</span><span class="token punctuation">:</span>np<span class="token punctuation">.</span>array<span class="token punctuation">(</span>UP<span class="token operator">+</span>RIGHT<span class="token punctuation">)</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
         self<span class="token punctuation">.</span>wait<span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre>
-<p><img src="manim%E5%AD%A6%E4%B9%A0-Mobject%E7%B1%BB/UP_RIGHT-1586013786370.gif" alt="UP_RIGHT"></p>
+<p><img src="UP_RIGHT-1586013786370.gif" alt="UP_RIGHT"></p>
 </li>
 <li><p><code>about_point</code>:相对点</p>
 <pre class=" language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">AddUpdater</span><span class="token punctuation">(</span>Scene<span class="token punctuation">)</span><span class="token punctuation">:</span>
@@ -722,7 +722,7 @@
         self<span class="token punctuation">.</span>add<span class="token punctuation">(</span>dot<span class="token punctuation">,</span>vg<span class="token punctuation">,</span>text<span class="token punctuation">)</span>
         self<span class="token punctuation">.</span>play<span class="token punctuation">(</span>vg<span class="token punctuation">.</span>scale<span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token punctuation">{</span><span class="token string">"about_point"</span><span class="token punctuation">:</span>dot<span class="token punctuation">.</span>get_center<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
         self<span class="token punctuation">.</span>wait<span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre>
-<p><img src="manim%E5%AD%A6%E4%B9%A0-Mobject%E7%B1%BB/about_point-1586013786370.gif" alt="about_point"></p>
+<p><img src="about_point-1586013786370.gif" alt="about_point"></p>
 </li>
 </ul>
 </li>
@@ -743,7 +743,7 @@
         self<span class="token punctuation">.</span>set_camera_orientation<span class="token punctuation">(</span>theta<span class="token operator">=</span><span class="token operator">-</span>PI<span class="token operator">/</span><span class="token number">4</span><span class="token punctuation">,</span>phi<span class="token operator">=</span>PI<span class="token operator">/</span><span class="token number">4</span><span class="token punctuation">)</span>           
         self<span class="token punctuation">.</span>play<span class="token punctuation">(</span>text<span class="token punctuation">.</span>rotate<span class="token punctuation">,</span>PI<span class="token operator">/</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token punctuation">{</span><span class="token string">"axis"</span><span class="token punctuation">:</span>OUT<span class="token punctuation">}</span><span class="token punctuation">)</span>
         self<span class="token punctuation">.</span>wait<span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre>
-<p><img src="manim%E5%AD%A6%E4%B9%A0-Mobject%E7%B1%BB/Rotate-1586013786370.gif" alt="Rotate"></p>
+<p><img src="Rotate-1586013786370.gif" alt="Rotate"></p>
 <p>上图text的起始平面是X-Y平面,UP为y轴正方向,大家可以自行尝试更改axis方向(注意self.play函数不代表角度从0到PI/2的渐近变化所以只要看起始帧和终止帧)</p>
 <p><code>**kwargs</code>还可以接受相对点<code>about_point</code>:</p>
 <pre class=" language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">myRotateScene</span><span class="token punctuation">(</span>ThreeDScene<span class="token punctuation">)</span><span class="token punctuation">:</span>
@@ -757,7 +757,7 @@
         self<span class="token punctuation">.</span>play<span class="token punctuation">(</span>text<span class="token punctuation">.</span>rotate<span class="token punctuation">,</span>PI<span class="token punctuation">,</span><span class="token punctuation">{</span><span class="token string">"axis"</span><span class="token punctuation">:</span>OUT<span class="token punctuation">,</span><span class="token string">"about_point"</span><span class="token punctuation">:</span>dot<span class="token punctuation">.</span>get_center<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
         self<span class="token punctuation">.</span>wait<span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre>
 <p>这个相对点旋转其实是线性代数里面的旋转矩阵造成的结果,如果角度是180度,效果是关于这个点对称</p>
-<p><img src="manim%E5%AD%A6%E4%B9%A0-Mobject%E7%B1%BB/rotateAboutPoint-1586013786370.gif" alt="rotateAboutPoint"></p>
+<p><img src="rotateAboutPoint-1586013786370.gif" alt="rotateAboutPoint"></p>
 </li>
 <li><p><code>flip(axis=UP, **kwargs)</code>:</p>
 <p>翻转,其实就是<code>rotate</code>180度,其他参数同<code>rotate</code></p>
@@ -786,7 +786,7 @@
         self<span class="token punctuation">.</span>play<span class="token punctuation">(</span>Write<span class="token punctuation">(</span>circle<span class="token punctuation">)</span><span class="token punctuation">)</span>
         self<span class="token punctuation">.</span>wait<span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre>
 <p>默认的<code>about_point</code>为<code>ORIGIN</code>,可以看出来实现了<code>apply_function</code>的会大一倍</p>
-<p><img src="manim%E5%AD%A6%E4%B9%A0-Mobject%E7%B1%BB/applyFunc-1586013786370.gif" alt="applyFunc"></p>
+<p><img src="applyFunc-1586013786370.gif" alt="applyFunc"></p>
 </li>
 <li><p><code>apply_function_to_position(function)</code>:</p>
 <p>移动图像中心到function(self.get_center())</p>
@@ -836,7 +836,7 @@
                   squares<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">.</span>wag<span class="token punctuation">,</span><span class="token punctuation">{</span><span class="token string">"direction"</span><span class="token punctuation">:</span>UP<span class="token punctuation">,</span><span class="token string">"axis"</span><span class="token punctuation">:</span>RIGHT<span class="token punctuation">,</span><span class="token string">"wag_factor"</span><span class="token punctuation">:</span><span class="token number">1</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
                   squares<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">.</span>wag<span class="token punctuation">,</span><span class="token punctuation">{</span><span class="token string">"direction"</span><span class="token punctuation">:</span>UP<span class="token punctuation">,</span><span class="token string">"axis"</span><span class="token punctuation">:</span>RIGHT<span class="token punctuation">,</span><span class="token string">"wag_factor"</span><span class="token punctuation">:</span><span class="token number">2</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
         self<span class="token punctuation">.</span>wait<span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre>
-<p><img src="manim%E5%AD%A6%E4%B9%A0-Mobject%E7%B1%BB/myWag1-1585643241928-1586013786370.gif" alt="myWag1"></p>
+<p><img src="myWag1-1585643241928-1586013786370.gif" alt="myWag1"></p>
 <p>从左到右factor依次为0.1,1,2,都是向上wag的,具体怎么理解大家可以自己理解,比较难以表述</p>
 </li>
 <li><p><code>reverse_points()</code>:</p>
@@ -856,12 +856,12 @@
         self<span class="token punctuation">.</span>wait<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
         self<span class="token punctuation">.</span>play<span class="token punctuation">(</span>circle<span class="token punctuation">.</span>reverse_points<span class="token punctuation">)</span>
         self<span class="token punctuation">.</span>wait<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span></code></pre>
-<p><img src="manim%E5%AD%A6%E4%B9%A0-Mobject%E7%B1%BB/ReversePoint-1586013786371.gif" alt="ReversePoint"></p>
+<p><img src="ReversePoint-1586013786371.gif" alt="ReversePoint"></p>
 <p>注意play函数不能很好表现reverse的现象,如果看顺序,上图顺序从逆时针变成了顺时针</p>
 </li>
 <li><p><code>repeat(count)</code>:</p>
 <p>会出现重影的特效</p>
-<p><img src="manim%E5%AD%A6%E4%B9%A0-Mobject%E7%B1%BB/Repeat-1586013786371.gif" alt="Repeat"></p>
+<p><img src="Repeat-1586013786371.gif" alt="Repeat"></p>
 </li>
 <li><p><code>apply_points_function_about_point(func, about_point=None, about_edge=None)</code>:</p>
 <p>相对点或边对自己的所有点左边应用函数</p>
@@ -880,7 +880,7 @@
         self<span class="token punctuation">.</span>play<span class="token punctuation">(</span>square<span class="token punctuation">.</span>shift<span class="token punctuation">,</span>UP<span class="token punctuation">)</span>
         self<span class="token punctuation">.</span>play<span class="token punctuation">(</span>square<span class="token punctuation">.</span>center<span class="token punctuation">)</span>
         self<span class="token punctuation">.</span>wait<span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre>
-<p><img src="manim%E5%AD%A6%E4%B9%A0-Mobject%E7%B1%BB/Center-1586013786371.gif" alt="Center"></p>
+<p><img src="Center-1586013786371.gif" alt="Center"></p>
 </li>
 <li><p><code>align_on_border(direction, buff=DEFAULT_MOBJECT_TO_EDGE_BUFFER)</code>:</p>
 <p>在边界对齐,buff为和边界的距离</p>
@@ -889,11 +889,11 @@
         square <span class="token operator">=</span> Square<span class="token punctuation">(</span><span class="token punctuation">)</span>
         self<span class="token punctuation">.</span>play<span class="token punctuation">(</span>square<span class="token punctuation">.</span>align_on_border<span class="token punctuation">,</span>LEFT<span class="token operator">+</span>UP<span class="token punctuation">)</span>
         self<span class="token punctuation">.</span>wait<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span></code></pre>
-<p><img src="manim%E5%AD%A6%E4%B9%A0-Mobject%E7%B1%BB/Align-1586013786371.gif" alt="Align"></p>
+<p><img src="Align-1586013786371.gif" alt="Align"></p>
 </li>
 <li><p><code>to_corner(corner=LEFT + DOWN, buff=DEFAULT_MOBJECT_TO_EDGE_BUFFER)</code>:</p>
 <p>到某一个角</p>
-<p><img src="manim%E5%AD%A6%E4%B9%A0-Mobject%E7%B1%BB/to-1586013786371.png" alt="to_corner author:Elteoremadebeethoven"></p>
+<p><img src="to-1586013786371.png" alt="to_corner author:Elteoremadebeethoven"></p>
 </li>
 <li><p><code>to_edge(edge=LEFT, buff=DEFAULT_MOBJECT_TO_EDGE_BUFFER)</code>:</p>
 <p>到某一边</p>
@@ -929,7 +929,7 @@
         length <span class="token operator">=</span> ellipse<span class="token punctuation">.</span>length_over_dim<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>
         self<span class="token punctuation">.</span>play<span class="token punctuation">(</span>ellipse<span class="token punctuation">.</span>rescale_to_fit<span class="token punctuation">,</span>length<span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token punctuation">{</span><span class="token string">"stretch"</span><span class="token punctuation">:</span><span class="token boolean">True</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
         self<span class="token punctuation">.</span>wait<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span></code></pre>
-<p><img src="manim%E5%AD%A6%E4%B9%A0-Mobject%E7%B1%BB/RescaleToFit-1586013786371.gif" alt="RescaleToFit"></p>
+<p><img src="RescaleToFit-1586013786371.gif" alt="RescaleToFit"></p>
 <ul>
 <li><code>stretch_to_fit_width(width, **kwargs)</code></li>
 <li><code>stretch_to_fit_height(height, **kwargs)</code></li>
@@ -952,7 +952,7 @@
 </li>
 <li><p><code>move_to(point_or_mobject, aligned_edge=ORIGIN,coor_mask=np.array([1, 1, 1]))</code>:</p>
 <p>与next_to相近,不过区别是:next_to表示的是边界的距离，而不是中心距离</p>
-<p><img src="manim%E5%AD%A6%E4%B9%A0-Mobject%E7%B1%BB/move_next_to-1586013786372.png" alt="move_next_to author:Elteoremadebeethoven"></p>
+<p><img src="move_next_to-1586013786372.png" alt="move_next_to author:Elteoremadebeethoven"></p>
 </li>
 <li><p><code>replace(mobject, dim_to_match=0, stretch=False)</code>:</p>
 <p>将位置移动到mobject,并且大小做一些改变,具体看源码</p>
@@ -966,7 +966,7 @@
         self<span class="token punctuation">.</span>add<span class="token punctuation">(</span>circle<span class="token punctuation">,</span>square<span class="token punctuation">)</span>
         self<span class="token punctuation">.</span>play<span class="token punctuation">(</span>circle<span class="token punctuation">.</span>surround<span class="token punctuation">,</span>square<span class="token punctuation">)</span>
         self<span class="token punctuation">.</span>wait<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span></code></pre>
-<p><img src="manim%E5%AD%A6%E4%B9%A0-Mobject%E7%B1%BB/Surround-1586013786372.gif" alt="Surround"></p>
+<p><img src="Surround-1586013786372.gif" alt="Surround"></p>
 </li>
 <li><p><code>put_start_and_end_on(start, end)</code>:</p>
 <p>将起点终点重置为start,end</p>
@@ -979,7 +979,7 @@
         self<span class="token punctuation">.</span>add<span class="token punctuation">(</span>arc<span class="token punctuation">,</span> <span class="token operator">*</span>texts<span class="token punctuation">)</span>
         self<span class="token punctuation">.</span>play<span class="token punctuation">(</span>arc<span class="token punctuation">.</span>put_start_and_end_on<span class="token punctuation">,</span>ORIGIN<span class="token punctuation">,</span><span class="token punctuation">(</span>UP<span class="token operator">+</span>RIGHT<span class="token punctuation">)</span><span class="token operator">*</span><span class="token number">2</span><span class="token punctuation">)</span>
         self<span class="token punctuation">.</span>wait<span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre>
-<p><img src="manim%E5%AD%A6%E4%B9%A0-Mobject%E7%B1%BB/PutStartAndEndOn-1586013786372.gif" alt="PutStartAndEndOn"></p>
+<p><img src="PutStartAndEndOn-1586013786372.gif" alt="PutStartAndEndOn"></p>
 </li>
 <li><p><code>add_background_rectangle(color=BLACK, opacity=0.75, **kwargs)</code>:</p>
 <p>增加背景方块,此方块是可以随着Mobject变化而变化的</p>
@@ -990,7 +990,7 @@
         self<span class="token punctuation">.</span>add<span class="token punctuation">(</span>circle<span class="token punctuation">)</span>
         self<span class="token punctuation">.</span>play<span class="token punctuation">(</span>circle<span class="token punctuation">.</span>stretch<span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">)</span>
         self<span class="token punctuation">.</span>wait<span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre>
-<p><img src="manim%E5%AD%A6%E4%B9%A0-Mobject%E7%B1%BB/BackgroundRectangle-1586013786372.gif" alt="BackgroundRectangle"></p>
+<p><img src="BackgroundRectangle-1586013786372.gif" alt="BackgroundRectangle"></p>
 </li>
 <li><p><code>add_background_rectangle_to_submobjects(**kwargs)</code>:</p>
 <p>略</p>
@@ -1011,7 +1011,7 @@
         qed<span class="token punctuation">.</span>set_color_by_gradient<span class="token punctuation">(</span>RED<span class="token punctuation">,</span>YELLOW<span class="token punctuation">,</span>GREEN<span class="token punctuation">,</span>BLUE<span class="token punctuation">)</span>
         self<span class="token punctuation">.</span>play<span class="token punctuation">(</span>Write<span class="token punctuation">(</span>qed<span class="token punctuation">)</span><span class="token punctuation">)</span>
         self<span class="token punctuation">.</span>wait<span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span></code></pre>
-<p><img src="manim%E5%AD%A6%E4%B9%A0-Mobject%E7%B1%BB/image-20200403201147347-1586013786372.png" alt="gradientColor"></p>
+<p><img src="image-20200403201147347-1586013786372.png" alt="gradientColor"></p>
 </li>
 <li><p><code>set_colors_by_radial_gradient(center=None, radius=1, inner_color=WHITE, outer_color=BLACK)</code>:</p>
 <p>辐射状渐变颜色,半径为radius</p>
@@ -1031,7 +1031,7 @@
         self<span class="token punctuation">.</span>play<span class="token punctuation">(</span>text<span class="token punctuation">.</span>set_colors_by_radial_gradient<span class="token punctuation">,</span><span class="token punctuation">{</span><span class="token string">"inner_color"</span><span class="token punctuation">:</span>WHITE<span class="token punctuation">,</span><span class="token string">"outer_color"</span><span class="token punctuation">:</span>RED<span class="token punctuation">}</span><span class="token punctuation">)</span>
         self<span class="token punctuation">.</span>play<span class="token punctuation">(</span>text<span class="token punctuation">.</span>fade_to<span class="token punctuation">,</span>BLUE<span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">)</span>
         self<span class="token punctuation">.</span>wait<span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre>
-<p><img src="manim%E5%AD%A6%E4%B9%A0-Mobject%E7%B1%BB/FadeTo-1586013786373.gif" alt="FadeTo"></p>
+<p><img src="FadeTo-1586013786373.gif" alt="FadeTo"></p>
 </li>
 <li><p><code>get_color()</code>:</p>
 <p>返回颜色</p>
@@ -1100,7 +1100,7 @@
         self<span class="token punctuation">.</span>add<span class="token punctuation">(</span>shapeGroup<span class="token punctuation">,</span><span class="token operator">*</span>dots<span class="token punctuation">)</span>
         self<span class="token punctuation">.</span>play<span class="token punctuation">(</span>Write<span class="token punctuation">(</span>polygon<span class="token punctuation">)</span><span class="token punctuation">)</span>
         self<span class="token punctuation">.</span>wait<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span></code></pre>
-<p><img src="manim%E5%AD%A6%E4%B9%A0-Mobject%E7%B1%BB/image-20200404172800256-1586013786373.png" alt="boundary_points"></p>
+<p><img src="image-20200404172800256-1586013786373.png" alt="boundary_points"></p>
 </li>
 <li><p><code>length_over_dim(dim)</code>:</p>
 <p>dim方向的长度</p>
@@ -1162,7 +1162,7 @@
         self<span class="token punctuation">.</span>wait<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span>
         self<span class="token punctuation">.</span>play<span class="token punctuation">(</span>square<span class="token punctuation">.</span>arrange<span class="token punctuation">,</span><span class="token punctuation">{</span><span class="token string">"direction"</span><span class="token punctuation">:</span>UP<span class="token punctuation">,</span><span class="token string">"center"</span><span class="token punctuation">:</span><span class="token boolean">False</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
         self<span class="token punctuation">.</span>wait<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span></code></pre>
-<p><img src="manim%E5%AD%A6%E4%B9%A0-Mobject%E7%B1%BB/Arrange-1586013786373.gif" alt="Arrange"></p>
+<p><img src="Arrange-1586013786373.gif" alt="Arrange"></p>
 </li>
 <li><p><code>arrange_in_grid(n_rows=None, n_cols=None, **kwargs)</code>:</p>
 <p>对submobject列表重拍列</p>
@@ -1178,7 +1178,7 @@
         self<span class="token punctuation">.</span>add<span class="token punctuation">(</span>square<span class="token punctuation">)</span>
         self<span class="token punctuation">.</span>play<span class="token punctuation">(</span>square<span class="token punctuation">.</span>arrange_in_grid<span class="token punctuation">)</span>
         self<span class="token punctuation">.</span>wait<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span></code></pre>
-<p><img src="manim%E5%AD%A6%E4%B9%A0-Mobject%E7%B1%BB/ArrangeInGrid-1586013786373.gif" alt="ArrangeInGrid"></p>
+<p><img src="ArrangeInGrid-1586013786373.gif" alt="ArrangeInGrid"></p>
 </li>
 <li><p><code>sort(point_to_num_func=lambda p: p[0], submob_func=None)</code>:</p>
 <p>对点进行排序,这个一般意义不大,可以自己编写排序方法</p>
@@ -1198,7 +1198,7 @@
         self<span class="token punctuation">.</span>add<span class="token punctuation">(</span>square<span class="token punctuation">,</span>circle<span class="token punctuation">)</span>
         self<span class="token punctuation">.</span>play<span class="token punctuation">(</span>circle<span class="token punctuation">.</span>align_to<span class="token punctuation">,</span>square<span class="token punctuation">,</span>RIGHT<span class="token punctuation">)</span>
         self<span class="token punctuation">.</span>wait<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span></code></pre>
-<p><img src="manim%E5%AD%A6%E4%B9%A0-Mobject%E7%B1%BB/AlighTo-1586013786373.gif" alt="AlighTo"></p>
+<p><img src="AlighTo-1586013786373.gif" alt="AlighTo"></p>
 </li>
 <li><p><code>add_n_more_submobjects(n)</code>:</p>
 <p>加入n个submoject</p>
@@ -1241,7 +1241,7 @@
         self<span class="token punctuation">.</span>play<span class="token punctuation">(</span>square<span class="token punctuation">.</span>become<span class="token punctuation">,</span>text<span class="token punctuation">)</span>
         self<span class="token punctuation">.</span>play<span class="token punctuation">(</span>text<span class="token punctuation">.</span>shift<span class="token punctuation">,</span>UP<span class="token punctuation">)</span>
         self<span class="token punctuation">.</span>wait<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span></code></pre>
-<p><img src="manim%E5%AD%A6%E4%B9%A0-Mobject%E7%B1%BB/Become-1586013786373.gif" alt="Become"></p>
+<p><img src="Become-1586013786373.gif" alt="Become"></p>
 </li>
 </ol>
 <h2 id="4-小结"><a href="#4-小结" class="headerlink" title="4. 小结"></a>4. 小结</h2><p>Mobject的用法还是很多的,空闲时间写了很多天才写完,希望自己能用熟练</p>
