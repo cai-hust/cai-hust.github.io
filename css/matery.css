@@ -282,8 +282,8 @@ mark {
     position: fixed;
     bottom: 0;
     z-index: 300;
-    background: linear-gradient(to right, #080808 0%, #dd4c09 100%);
-    opacity: 0.8;
+    background: linear-gradient(to right, #f50808 0%, #09dd8cee 100%);
+    opacity: 1;
 }
 
 .sidenav-overlay {
@@ -297,7 +297,7 @@ mark {
 header .side-nav {
     width: 240px;
     z-index: 999;
-    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 7px 10px 0 rgba(0, 0, 0, 0.12);
+    box-shadow: 0 2px 5px 0 rgba(245, 16, 16, 0), 0 7px 10px 0 rgba(247, 10, 10, 0);
 }
 
 nav {
@@ -459,7 +459,7 @@ header .side-nav .social-link {
 
 @-webkit-keyframes scroll-down {
     0% {
-        opacity: 0.4;
+        opacity: 1;
         -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=40)";
         filter: alpha(opacity=40);
         top: 0;
