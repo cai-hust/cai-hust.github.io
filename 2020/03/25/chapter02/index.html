@@ -428,19 +428,16 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="2-1-信息存储"><a href="#2-1-信息存储" class="headerlink" title="2.1 信息存储"></a>2.1 信息存储</h2><h3 id="2-1-2-字数据大小"><a href="#2-1-2-字数据大小" class="headerlink" title="2.1.2 字数据大小"></a>2.1.2 字数据大小</h3><img src="image-20200320224158463.png" alt="image-20200320224158463" style="zoom:50%;">
-
+                <h2 id="2-1-信息存储"><a href="#2-1-信息存储" class="headerlink" title="2.1 信息存储"></a>2.1 信息存储</h2><h3 id="2-1-2-字数据大小"><a href="#2-1-2-字数据大小" class="headerlink" title="2.1.2 字数据大小"></a>2.1.2 字数据大小</h3><p><img src="image-20200320224158463.png" alt="image-20200320224158463" style="zoom:50%;"></p>
 <h3 id="2-1-3-寻址和字节顺序"><a href="#2-1-3-寻址和字节顺序" class="headerlink" title="2.1.3 寻址和字节顺序"></a>2.1.3 寻址和字节顺序</h3><p>在计算机内存中，通常是以字节（Byte），也就是 8 个位（Bit）为基本存储单元（也有以 16 位为基本存储单元的）。对于跨越多个字节的数据类型（比如 int 长 4 个字节），如何在内存中对这些字节进行排序有两种常见的方法：大端法（Big-endian）和小端法（Little-endian）。</p>
 <p><strong>【注】不管是大端法还是小端法存储，计算机在内存中存放数据的顺序都是从低地址到高地址，所不同的是首先取低字节的数据存放在低地址还是取高字节数据存放在低地址。</strong></p>
 <ul>
 <li>若首先取高字节的数据存放在低地址，则是大端法</li>
 <li>若首先取低字节的数据存放在低地址，则是小端法</li>
 </ul>
-<img src="image-20200321000815181.png" alt="image-20200321000815181" style="zoom:50%;">
-
+<p><img src="image-20200321000815181.png" alt="image-20200321000815181" style="zoom:50%;"></p>
 <p>大多数Intel兼容机是小端法</p>
-<h3 id="2-1-9-C语言中的移位运算"><a href="#2-1-9-C语言中的移位运算" class="headerlink" title="2.1.9 C语言中的移位运算"></a>2.1.9 C语言中的移位运算</h3><img src="image-20200321181504713.png" alt="image-20200321181504713" style="zoom:50%;">
-
+<h3 id="2-1-9-C语言中的移位运算"><a href="#2-1-9-C语言中的移位运算" class="headerlink" title="2.1.9 C语言中的移位运算"></a>2.1.9 C语言中的移位运算</h3><p><img src="image-20200321181504713.png" alt="image-20200321181504713" style="zoom:50%;"></p>
 <p><strong>遇到一行多个移位运算的时候要记得打括号</strong></p>
 <h2 id="2-2-整数表示"><a href="#2-2-整数表示" class="headerlink" title="2.2 整数表示"></a>2.2 整数表示</h2><h3 id="2-2-3-补码编码"><a href="#2-2-3-补码编码" class="headerlink" title="2.2.3 补码编码"></a>2.2.3 补码编码</h3><p>为了表示负数,最常见的计算机表示方式就是补码,将最高位表示为负权:</p>
 <p><img src="image-20200322211917167.png" alt="image-20200322211917167"></p>
@@ -463,11 +460,10 @@
 <h3 id="2-2-6-扩展一个数字的位表示"><a href="#2-2-6-扩展一个数字的位表示" class="headerlink" title="2.2.6 扩展一个数字的位表示"></a>2.2.6 扩展一个数字的位表示</h3><p>较大的数据类型转换位较小的可能会出错,但是从较小的数字转换为较大的应该是可以实现的.</p>
 <ul>
 <li><p>将一个无符号数转换为更大的数据类型,只需在开头加0即可,称为<strong>零扩展</strong>:</p>
-<img src="image-20200322153501910.png" alt="image-20200322153501910">
+<p><img src="image-20200322153501910.png" alt="image-20200322153501910"></p>
 </li>
 <li><p>将一个补码数字转换为更大的数据类型,可以在在前面填充最高有效位的值,称为符号扩展:</p>
-<img src="image-20200322153834509.png" alt="image-20200322153834509">
-
+<p><img src="image-20200322153834509.png" alt="image-20200322153834509"></p>
 <p>其中$x_{w-1}$为符号位</p>
 </li>
 </ul>
@@ -501,7 +497,7 @@
 <p>无论是无符号还是补码运算,乘以2的幂都会导致溢出,但是即使溢出,通过移位的结果都是一样的</p>
 <p>为了减少代价,许多C语言编译器试图以位移,加法减法消除很多整数乘以常数的情况,例如x*14可以重写为:(x&lt;&lt;3)+(x&lt;&lt;2)+(x&lt;&lt;1),更好地有:(x&lt;&lt;4)-(x&lt;&lt;1)</p>
 <p><strong>选择上述的方法还是使用乘法指令,取决于指令的相对速度,而这个与机器高度相关,一般只在仅需要少量位移,加法减法就足够的时候使用这种优化</strong></p>
-<h3 id="2-3-7-除以2的幂"><a href="#2-3-7-除以2的幂" class="headerlink" title="2.3.7 除以2的幂"></a>2.3.7 除以2的幂</h3><p>一般地,整数除法比整数乘法更慢–需要30+个周期,但是除以2的运算可以通过右移计算.无符号和补码数分别通过逻辑右移和算数右移实现.</p>
+<h3 id="2-3-7-除以2的幂"><a href="#2-3-7-除以2的幂" class="headerlink" title="2.3.7 除以2的幂"></a>2.3.7 除以2的幂</h3><p>一般地,整数除法比整数乘法更慢—需要30+个周期,但是除以2的运算可以通过右移计算.无符号和补码数分别通过逻辑右移和算数右移实现.</p>
 <ol>
 <li><p>无符号右移非常简单,因为一定是逻辑右移:</p>
 <p><img src="image-20200322234628390.png" alt="image-20200322234628390"></p>
@@ -518,18 +514,22 @@
 </ul>
 <blockquote>
 <p>偏置技术用的数学知识:$\lceil x/y\rceil=\lfloor (x+y-1)/y\rfloor$(x,y为整数)</p>
-<p>所以上面的式子:(x+(1&lt;&lt;k)-1)&gt;&gt;k,中,y为$2^k$,$(x+2^k-1)/2^k$就表示$\lceil  x/2^k\rceil$</p>
+<p>所以上面的式子:(x+(1&lt;<k)-1)>&gt;k,中,y为$2^k$,$(x+2^k-1)/2^k$就表示$\lceil  x/2^k\rceil$</k)-1)></p>
 </blockquote>
 </li>
 </ol>
 <p>综合1,2两个情况,得到C的算术右移的补码机器,计算$x/2^k$:</p>
-<pre class=" language-c++"><code class="language-c++">(x<0 ? x+(1<<k)-1 : x)>>k</code></pre>
+<pre class=" language-lang-c++"><code class="language-lang-c++">(x<0 ? x+(1<<k)-1 : x)>>k
+</code></pre>
 <p>可惜的是,不能将除以2的幂推广到一般除法.</p>
-<h2 id="2-4-浮点数"><a href="#2-4-浮点数" class="headerlink" title="2.4 浮点数"></a>2.4 浮点数</h2><p>与十进制类似,形如$b_mb_{m-1}…b_1b_0.b_{-1}b_{-2}…b_{-n-1}b_{-n}$的二进制数,其对应的十进制的值为:<br>$$<br>b=\sum_{i=-n}^{m}2^i\times b_i<br>$$<br>有限长度的编码不能表示如$\frac{1}{3},\frac{5}{7}$的数字,小数的二进制表示法仅能表示能被写成$x\times2^y$的数.</p>
+<h2 id="2-4-浮点数"><a href="#2-4-浮点数" class="headerlink" title="2.4 浮点数"></a>2.4 浮点数</h2><p>与十进制类似,形如$b<em>mb</em>{m-1}…b<em>1b_0.b</em>{-1}b<em>{-2}…b</em>{-n-1}b_{-n}$的二进制数,其对应的十进制的值为:</p>
+<script type="math/tex; mode=display">
+b=\sum_{i=-n}^{m}2^i\times b_i</script><p>有限长度的编码不能表示如$\frac{1}{3},\frac{5}{7}$的数字,小数的二进制表示法仅能表示能被写成$x\times2^y$的数.</p>
 <h3 id="2-4-2-IEEE浮点表示"><a href="#2-4-2-IEEE浮点表示" class="headerlink" title="2.4.2 IEEE浮点表示"></a>2.4.2 IEEE浮点表示</h3><p><img src="image-20200323182025508.png" alt="image-20200323182025508"></p>
 <p>下图是常见的单双精度的浮点数的格式:</p>
 <p><img src="image-20200323183711302.png" alt="image-20200323183711302"></p>
 <p>上图说明了:</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -539,7 +539,8 @@
 <th>frac位数</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>单</td>
 <td>1</td>
 <td>8</td>
@@ -551,7 +552,9 @@
 <td>11</td>
 <td>52</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <p>给定位表示,根据exp的值,被编码的值可以分成三种不同的情况(最后一种有两个不同的变种),下图为单精度的数字表示:</p>
 <p><img src="image-20200323192300543.png" alt="image-20200323192300543"></p>
 <p>由上图有以下几个解码:</p>
@@ -614,8 +617,10 @@
 </li>
 <li><p>对加法不具有分配律</p>
 </li>
-<li><p>单调性:<br>$$<br>a \ge b 且 c \ge 0 \to a * ^f c\ge b<em>^fc\<br>a \ge b 且 c \le 0 \to a * ^f c\le b</em>^fc<br>$$</p>
-</li>
+<li><p>单调性:</p>
+<script type="math/tex; mode=display">
+a \ge b 且 c \ge 0 \to a * ^f c\ge b*^fc\\
+a \ge b 且 c \le 0 \to a * ^f c\le b*^fc</script></li>
 <li><p>平方大于等于0:</p>
 <p>若$a\ne 0:a*a\ge0$</p>
 </li>
@@ -1182,7 +1187,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">44.1k</span>&nbsp;字
+                class="white-color">39.9k</span>&nbsp;字
             
             
             

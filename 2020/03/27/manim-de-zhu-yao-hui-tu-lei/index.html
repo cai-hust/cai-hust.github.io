@@ -367,12 +367,12 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/manim/">
-                                <span class="chip bg-color">manim</span>
-                            </a>
-                        
                             <a href="/tags/%E6%95%99%E7%A8%8B/">
                                 <span class="chip bg-color">教程</span>
+                            </a>
+                        
+                            <a href="/tags/manim/">
+                                <span class="chip bg-color">manim</span>
                             </a>
                         
                     </div>
@@ -434,12 +434,13 @@
             <div id="articleContent">
                 <p>manim的整体结构解析</p>
 <h2 id="1-CONFIG是什么"><a href="#1-CONFIG是什么" class="headerlink" title="1. CONFIG是什么"></a>1. CONFIG是什么</h2><p>几乎任何的类都会有一个神奇的字典,叫<code>CONFIG</code>,这个字典的所有键值对都会被赋予给类的属性,原因是因为所有的绘图类都是继承自<strong>Container</strong>类(<em>位置:\manimlib\container\container.py</em>),这个类在初始化的时候执行代码如下:</p>
-<pre class=" language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Container</span><span class="token punctuation">(</span>object<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> <span class="token operator">**</span>kwargs<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        digest_config<span class="token punctuation">(</span>self<span class="token punctuation">,</span> kwargs<span class="token punctuation">)</span></code></pre>
-<p>而<em>digest_config<em>在</em>\manimlib\utils\config_ops.py</em>:</p>
-<pre class=" language-python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">digest_config</span><span class="token punctuation">(</span>obj<span class="token punctuation">,</span> kwargs<span class="token punctuation">,</span> caller_locals<span class="token operator">=</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token triple-quoted-string string">"""
+<pre class=" language-lang-python"><code class="language-lang-python">class Container(object):
+    def __init__(self, **kwargs):
+        digest_config(self, kwargs)
+</code></pre>
+<p>而<em>digest_config</em>在<em>\manimlib\utils\config_ops.py</em>:</p>
+<pre class=" language-lang-python"><code class="language-lang-python">def digest_config(obj, kwargs, caller_locals={}):
+    """
     Sets init args and CONFIG values as local variables
 
     The purpose of this function is to ensure that all
@@ -451,25 +452,25 @@
 
     此功能的目的是确保所有任何对象的配置都是可继承的，能够易于传
     递到实例化并附加作为对象的属性。
-    """</span>
+    """
 
-    <span class="token comment" spellcheck="true"># Assemble list of CONFIGs from all super classes</span>
-    <span class="token comment" spellcheck="true"># 将所有父类的CONFIG全部集中在static_configs</span>
-    classes_in_hierarchy <span class="token operator">=</span> <span class="token punctuation">[</span>obj<span class="token punctuation">.</span>__class__<span class="token punctuation">]</span>
-    static_configs <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
-    <span class="token keyword">while</span> len<span class="token punctuation">(</span>classes_in_hierarchy<span class="token punctuation">)</span> <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">:</span>
-        Class <span class="token operator">=</span> classes_in_hierarchy<span class="token punctuation">.</span>pop<span class="token punctuation">(</span><span class="token punctuation">)</span>
-        classes_in_hierarchy <span class="token operator">+=</span> Class<span class="token punctuation">.</span>__bases__
-        <span class="token keyword">if</span> hasattr<span class="token punctuation">(</span>Class<span class="token punctuation">,</span> <span class="token string">"CONFIG"</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-            static_configs<span class="token punctuation">.</span>append<span class="token punctuation">(</span>Class<span class="token punctuation">.</span>CONFIG<span class="token punctuation">)</span>
+    # Assemble list of CONFIGs from all super classes
+    # 将所有父类的CONFIG全部集中在static_configs
+    classes_in_hierarchy = [obj.__class__]
+    static_configs = []
+    while len(classes_in_hierarchy) > 0:
+        Class = classes_in_hierarchy.pop()
+        classes_in_hierarchy += Class.__bases__
+        if hasattr(Class, "CONFIG"):
+            static_configs.append(Class.CONFIG)
 
-    <span class="token comment" spellcheck="true"># Order matters a lot here, first dicts have higher priority</span>
-    <span class="token comment" spellcheck="true"># 顺序很重要,字典的靠前的键值对有更高的优先级(即如果有相同的,覆盖后面的键值对)</span>
-    <span class="token comment" spellcheck="true"># 优先级的处理是由merge_dicts_recursively函数处理的,具体自己读源代码</span>
-    caller_locals <span class="token operator">=</span> filtered_locals<span class="token punctuation">(</span>caller_locals<span class="token punctuation">)</span>
-    all_dicts <span class="token operator">=</span> <span class="token punctuation">[</span>kwargs<span class="token punctuation">,</span> caller_locals<span class="token punctuation">,</span> obj<span class="token punctuation">.</span>__dict__<span class="token punctuation">]</span>
-    all_dicts <span class="token operator">+=</span> static_configs
-    obj<span class="token punctuation">.</span>__dict__ <span class="token operator">=</span> merge_dicts_recursively<span class="token punctuation">(</span><span class="token operator">*</span>reversed<span class="token punctuation">(</span>all_dicts<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    # Order matters a lot here, first dicts have higher priority
+    # 顺序很重要,字典的靠前的键值对有更高的优先级(即如果有相同的,覆盖后面的键值对)
+    # 优先级的处理是由merge_dicts_recursively函数处理的,具体自己读源代码
+    caller_locals = filtered_locals(caller_locals)
+    all_dicts = [kwargs, caller_locals, obj.__dict__]
+    all_dicts += static_configs
+    obj.__dict__ = merge_dicts_recursively(*reversed(all_dicts))
 </code></pre>
 <p>上面的英文解释已经很清楚了,一句话概括这个函数:将CONFIG这个字典中的内容变成类的属性.<br>值得注意的是:<strong>这个字典的一些键的值可以继续为CONFIG字典</strong></p>
 <h2 id="2-主要类图"><a href="#2-主要类图" class="headerlink" title="2. 主要类图"></a>2. 主要类图</h2><p>Container类图:</p>
@@ -568,12 +569,12 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/manim/">
-                                    <span class="chip bg-color">manim</span>
-                                </a>
-                            
                                 <a href="/tags/%E6%95%99%E7%A8%8B/">
                                     <span class="chip bg-color">教程</span>
+                                </a>
+                            
+                                <a href="/tags/manim/">
+                                    <span class="chip bg-color">manim</span>
                                 </a>
                             
                         </div>
@@ -805,12 +806,12 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/manim/">
-                        <span class="chip bg-color">manim</span>
-                    </a>
-                    
                     <a href="/tags/%E6%95%99%E7%A8%8B/">
                         <span class="chip bg-color">教程</span>
+                    </a>
+                    
+                    <a href="/tags/manim/">
+                        <span class="chip bg-color">manim</span>
                     </a>
                     
                 </div>
@@ -1056,7 +1057,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">44.1k</span>&nbsp;字
+                class="white-color">39.9k</span>&nbsp;字
             
             
             

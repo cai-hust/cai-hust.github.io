@@ -444,7 +444,8 @@
 <p>（1）建立计算机网络的主要目的是<strong>实现计算机资源的共享</strong>；</p>
 <p>（2）互联的计算机是分布在不同地理位置的多台独立的“自治计算机”，<strong>互联的计算机之间没有明确的主从关系</strong>。</p>
 <p>（3）联网计算机之间的通信<strong>必须遵循共同的网络协议</strong>。</p>
-<h3 id="1-2-2-计算机网络的分类"><a href="#1-2-2-计算机网络的分类" class="headerlink" title="1.2.2 计算机网络的分类"></a>1.2.2 计算机网络的分类</h3><table>
+<h3 id="1-2-2-计算机网络的分类"><a href="#1-2-2-计算机网络的分类" class="headerlink" title="1.2.2 计算机网络的分类"></a>1.2.2 计算机网络的分类</h3><div class="table-container">
+<table>
 <thead>
 <tr>
 <th>0~10m</th>
@@ -454,7 +455,8 @@
 <th>10km~1000km</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>个人区域网（WPAN）最有名的为蓝牙</td>
 <td>个人局域网(PAN)</td>
 <td>局域网(LAN)</td>
@@ -480,54 +482,59 @@
 <td></td>
 <td></td>
 <td>IEEE 802.6</td>
-<td></td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <p>书中各种协议：</p>
 <p><strong>IEEE 802又称为LMSC，致力于研究局域网和城域网的物理层和MAC层中定义的服务和协议，对应OSI网络参考模型的最低两层（数据链路层和物理层），它针对不同的传输介质定义不同的介质标准。</strong></p>
 <p><strong>IEEE 802在介质访问控制（MAC）子层和物理层可以采用不同的协议，但是在逻辑链路控制（LLC）子层必须采用相同的协议，LLC子层与低层采用的传输介质，介质访问控制方法无关</strong></p>
 <p><strong>IEEE 802.11</strong> 是无线局域网(WLAN)的介质访问控制协议以及物理层技术规范</p>
 <p>IEEE 802.11标准采用的是层次结构模型，主要工作在OSI参考模型的最低两层：物理层和数据链路层。最初定义的三个物理层传输标准包括两个扩散频谱技术和一个红外传播规范。IEEE 802.11标准规定的MAC层是在一个共享媒体上支持多个用户共享资源，发送数据前需要进行<strong>冲突检测</strong>，访问控制支持<strong>无争用服务和争用服务两种</strong>方式。</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
-<th align="left">标准名称</th>
-<th align="left">标准描述</th>
+<th style="text-align:left">标准名称</th>
+<th style="text-align:left">标准描述</th>
 </tr>
 </thead>
-<tbody><tr>
-<td align="left">802.11a</td>
-<td align="left">5G Hz波段，速率54Mbps</td>
+<tbody>
+<tr>
+<td style="text-align:left">802.11a</td>
+<td style="text-align:left">5G Hz波段，速率54Mbps</td>
 </tr>
 <tr>
-<td align="left">802.11b</td>
-<td align="left">2.4G Hz波段，速率11Mbps</td>
+<td style="text-align:left">802.11b</td>
+<td style="text-align:left">2.4G Hz波段，速率11Mbps</td>
 </tr>
 <tr>
-<td align="left">802.11g</td>
-<td align="left">2.4G Hz波段，速率54Mbps</td>
+<td style="text-align:left">802.11g</td>
+<td style="text-align:left">2.4G Hz波段，速率54Mbps</td>
 </tr>
 <tr>
-<td align="left">802.11n</td>
-<td align="left">5G Hz波段，速率100Mbps</td>
+<td style="text-align:left">802.11n</td>
+<td style="text-align:left">5G Hz波段，速率100Mbps</td>
 </tr>
 <tr>
-<td align="left">802.11ac</td>
-<td align="left">5G Hz波段，速率1Gbps</td>
+<td style="text-align:left">802.11ac</td>
+<td style="text-align:left">5G Hz波段，速率1Gbps</td>
 </tr>
 <tr>
-<td align="left">802.11ad</td>
-<td align="left">60G Hz波段，速率7Gbps</td>
+<td style="text-align:left">802.11ad</td>
+<td style="text-align:left">60G Hz波段，速率7Gbps</td>
 </tr>
 <tr>
-<td align="left">802.11i</td>
-<td align="left">增强无线通信安全的规范</td>
+<td style="text-align:left">802.11i</td>
+<td style="text-align:left">增强无线通信安全的规范</td>
 </tr>
 <tr>
-<td align="left">802.11e</td>
-<td align="left">服务质量QoS</td>
+<td style="text-align:left">802.11e</td>
+<td style="text-align:left">服务质量QoS</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <p><strong>IEEE 802.1</strong>局域网体系结构，网络互联，以及网络管理与性能测试</p>
 <p><strong>IEEE 802.11</strong> 是无线局域网(WLAN)的访问控制子层以及物理层技术规范</p>
 <p><strong>IEEE 802.15</strong> 采用蓝牙技术（近距离）的无线个人网络技术规范</p>
@@ -535,8 +542,9 @@
 <p><strong>IEEE 802.2</strong>逻辑链路控制LLC子层功能与服务</p>
 <p><strong>IEEE802.3</strong> 定义MAC层载波侦听多路访问 （CSMA/CD ） 介质访问控制子层与物理层标准</p>
 <p><strong>IEEE802.4</strong> 定义了总线拓扑的令牌总线介质访问控制方法与相应的物理规范</p>
-<p>无线局域网标准802.11的MAC和802.3协议的MAC不同，传统的Ethernet网帧的结构中有前导码和帧前定界符，而802.11标准中用帧控制单元代替。传统的Ethernet网的数据段长度是46B<del>1500B，而802.11帧中的数据段长度是0</del>2312B。传统的Ethernet网中帧的类型字段表示当前帧使用协议的类型，而802.11帧中类型字段用来表示当前帧是数据帧、管理帧或控制帧。这两种帧均工作在数据链路层，<strong>采用的地址是MAC地址。</strong></p>
+<p>无线局域网标准802.11的MAC和802.3协议的MAC不同，传统的Ethernet网帧的结构中有前导码和帧前定界符，而802.11标准中用帧控制单元代替。传统的Ethernet网的数据段长度是46B~1500B，而802.11帧中的数据段长度是0~2312B。传统的Ethernet网中帧的类型字段表示当前帧使用协议的类型，而802.11帧中类型字段用来表示当前帧是数据帧、管理帧或控制帧。这两种帧均工作在数据链路层，<strong>采用的地址是MAC地址。</strong></p>
 <p>高速局域网技术：</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -545,7 +553,8 @@
 <th>速率</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>IEEE802.3u</td>
 <td>Fast Ethernet</td>
 <td>100Mbps</td>
@@ -563,9 +572,10 @@
 <tr>
 <td>IEEE802.3ba</td>
 <td>40&amp;100 Gigabit Ethernet</td>
-<td></td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <h3 id="1-2-3-计算机网络的拓扑结构"><a href="#1-2-3-计算机网络的拓扑结构" class="headerlink" title="1.2.3 计算机网络的拓扑结构"></a>1.2.3 计算机网络的拓扑结构</h3><ol>
 <li><p>星型结构</p>
 <p>结构简单易于实现便于管理</p>
@@ -595,12 +605,12 @@
 <ul>
 <li><p>速率为：$S=\frac{1}{T}(bps)$其中T为发送1比特所需要的时间</p>
 </li>
-<li><p>对于二进制数据信号的最大数据传输速率$R_{max}$与通信信道带宽B(B=f,单位Hz)的关系可以写为：$R_{max}=2\times f(bps)$</p>
+<li><p>对于二进制数据信号的最大数据传输速率$R<em>{max}$与通信信道带宽B(B=f,单位Hz)的关系可以写为：$R</em>{max}=2\times f(bps)$</p>
 </li>
 </ul>
 </li>
 <li><p>误码率的定义</p>
-<p>误码率指二进制码元在数据传输系统中被传错的概率数值上近似等于：$P_{e}=\frac{N_{e}}{N}$,其中N为传输的二进制码元总数，$N_{e}$为被传错的码元数</p>
+<p>误码率指二进制码元在数据传输系统中被传错的概率数值上近似等于：$P<em>{e}=\frac{N</em>{e}}{N}$,其中N为传输的二进制码元总数，$N_{e}$为被传错的码元数</p>
 <p>注意：</p>
 <ol>
 <li>误码率是<strong>正常工作状态</strong>下的传输可靠性参数</li>
@@ -646,6 +656,7 @@
 <p><strong>同一个节点下层为上层提供服务，相邻层通过接口通信</strong></p>
 <p>不同节点同等层之间通过通信协议通信</p>
 <p>各层实现技术互不影响  </p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -654,7 +665,8 @@
 <th>该层的设备与协议</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td><strong>物理层</strong></td>
 <td><strong>物理连接，比特流传输，单位为比特流</strong></td>
 <td>IEEE 802，中继器，网线，集线器</td>
@@ -689,7 +701,9 @@
 <td><strong>通信过程控制</strong></td>
 <td>Telnet,FTP,SNMP,HTTP，SIP，CMIP</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <p><strong>调制解调器</strong>是一种硬件，它能把计算机的数字信号翻译成模拟信号。</p>
 <p><strong>集线器</strong>的主要功能是对接收到的信号进行再生、整形、放大，以扩大网络的传输距离，同时把所有结点集中在以它为中心的结点上。</p>
 <p><strong>中继器</strong>是网络物理层上面的连接设备，适用于完全相同的两类网络的互连，主要功能是通过对数据信号的重新发送或者转发，来扩大网络传输的距离。</p>
@@ -697,6 +711,7 @@
 <p>TCP（传输控制协议）协议是一种<strong>面向连接</strong>的、可靠的、<strong>基于IP的传输层协议</strong>。TCP使用三次握手协议建立连接，而终止一个连接要经过四次握手。RTT（Round Trip Time）表示从发送端到接收端的一去一回需要的时间，TCP在数据传输过程中会<strong>对RTT进行采样，采用自适应的RTT计算方法</strong>。TCP协议利用窗口机制进行流量控制，端口采用<strong>16位的二进制数</strong>表示。</p>
 <h3 id="1-4-3-TCP-IP-参考模型"><a href="#1-4-3-TCP-IP-参考模型" class="headerlink" title="1.4.3 TCP/IP 参考模型"></a>1.4.3 TCP/IP 参考模型</h3><p>由IETF制定</p>
 <p>独立于特定的网络硬件</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -705,7 +720,8 @@
 <th>安全协议</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td><strong>主机-网络层</strong></td>
 <td><strong>发送，接收IP分组</strong></td>
 <td>PPTP,L2TP,L2F</td>
@@ -725,7 +741,9 @@
 <td><strong>包括各种标准协议</strong></td>
 <td>SET,PGP,S-HTTP,S/MIME</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <h3 id="1-4-4-OSI参考模型与TCP-IP参考模型的比较"><a href="#1-4-4-OSI参考模型与TCP-IP参考模型的比较" class="headerlink" title="1.4.4 OSI参考模型与TCP/IP参考模型的比较"></a>1.4.4 OSI参考模型与TCP/IP参考模型的比较</h3><table><tbody><tr><td>
             <p><strong>TCP/IP&nbsp;</strong></p>
             </td>
@@ -795,10 +813,10 @@
 <h3 id="2-2-2-Ethernet帧结构"><a href="#2-2-2-Ethernet帧结构" class="headerlink" title="2.2.2 Ethernet帧结构"></a>2.2.2 Ethernet帧结构</h3><ol>
 <li>Ethernet V2.0和IEEE802.3的Ethernet帧结构区别</li>
 </ol>
-<p><img src="%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C.assets/1232796-20171017084041287-1347335048.png" alt="img"></p>
+<p><img src="计算机网络.assets/1232796-20171017084041287-1347335048.png" alt="img"></p>
 <p>​    <strong>具体异同见书本</strong></p>
 <p>​    主要字段：<strong>前导码字段，目的地址和源地址字段，类型字段，数据字段，帧校验字段</strong></p>
-<ol start="2">
+<ol>
 <li><p>Ethernet帧结构分析</p>
 <ol>
 <li><p>前导码字段</p>
@@ -830,38 +848,7 @@
 </ol>
 <h3 id="2-2-4-Ethernet-组网方法"><a href="#2-2-4-Ethernet-组网方法" class="headerlink" title="2.2.4 Ethernet 组网方法"></a>2.2.4 Ethernet 组网方法</h3><ol>
 <li><p>Ethernet物理层标准</p>
-<table>
-<thead>
-<tr>
-<th>标准</th>
-<th>速率</th>
-<th>基带传输</th>
-<th></th>
-<th>最大长度</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>IEEE802.3 10BASE-5</td>
-<td>10Mbps</td>
-<td>是</td>
-<td>粗同轴线缆</td>
-<td>500m</td>
-</tr>
-<tr>
-<td>IEEE802.3 10BASE-2</td>
-<td>10Mbps</td>
-<td>是</td>
-<td>细同轴线缆</td>
-<td>200m</td>
-</tr>
-<tr>
-<td>IEEE802.3 10BASE-T</td>
-<td>10Mbps</td>
-<td>是</td>
-<td>双绞线</td>
-<td>？</td>
-</tr>
-</tbody></table>
+<p>| 标准               | 速率   | 基带传输 |            | 最大长度 |<br>| ————————— | ——— | ———— | ————— | ———— |<br>| IEEE802.3 10BASE-5 | 10Mbps | 是       | 粗同轴线缆 | 500m     |<br>| IEEE802.3 10BASE-2 | 10Mbps | 是       | 细同轴线缆 | 200m     |<br>| IEEE802.3 10BASE-T | 10Mbps | 是       | 双绞线     | ？       |</p>
 <p>字段总结：</p>
 <p>10:10Mbps </p>
 <p>5:500m 2:200m</p>
@@ -871,6 +858,7 @@
 <h2 id="2-3-交换式局域网与虚拟局域网"><a href="#2-3-交换式局域网与虚拟局域网" class="headerlink" title="2.3 交换式局域网与虚拟局域网"></a>2.3 交换式局域网与虚拟局域网</h2><h3 id="2-3-1-交换式局域网技术"><a href="#2-3-1-交换式局域网技术" class="headerlink" title="2.3.1 交换式局域网技术"></a>2.3.1 交换式局域网技术</h3><p>交换式以太网的<strong>核心设备是以太网交换机</strong>，它从根本上改变了“共享介质”的工作方式，<strong>可以在多个端口之间建立多个并发连接</strong>，实现多结点之间数据的并发传输，从而可以增加网络带宽，改善局域网的性能与服务质量，避免数据传输冲突的发生。<strong>以太网交换机利用“端口/MAC地址映射表”进行数据帧交换</strong>。</p>
 <h2 id="2-4-高速局域网技术发展"><a href="#2-4-高速局域网技术发展" class="headerlink" title="2.4 高速局域网技术发展"></a>2.4 高速局域网技术发展</h2><h3 id="2-4-1-Fast-Ethernet"><a href="#2-4-1-Fast-Ethernet" class="headerlink" title="2.4.1 Fast Ethernet"></a>2.4.1 Fast Ethernet</h3><p>保留传统的Ethernet帧格式</p>
 <p>介质专用接口（Media Indepandent Interface,MII）将ＭＡＣ子层与物理层分开</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -879,7 +867,8 @@
 <th>双功</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>100BASE-TX</td>
 <td>两对5类非屏蔽双绞线（UTP）或两对1类屏蔽双绞线（STP）一对用于发送一对用于接收</td>
 <td>全双工</td>
@@ -894,10 +883,13 @@
 <td>2芯单模或多模光纤</td>
 <td>全双工</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <p><em>光纤fiber</em></p>
 <h3 id="2-4-2-Gigabit-Ethernet"><a href="#2-4-2-Gigabit-Ethernet" class="headerlink" title="2.4.2 Gigabit Ethernet"></a>2.4.2 Gigabit Ethernet</h3><p>保留传统的Ethernet帧格式</p>
 <p>千兆介质专用接口（Gigabit Media Indepandent Interface,GMII）将MAC，子层与物理层分开</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -906,7 +898,8 @@
 <th>最大长度</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>1000BASE-CX</td>
 <td>两对屏蔽双绞线</td>
 <td>25m</td>
@@ -936,10 +929,13 @@
 <td>单模光纤</td>
 <td>70km</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <h3 id="2-4-3-10-Gigabit-Ethernet"><a href="#2-4-3-10-Gigabit-Ethernet" class="headerlink" title="2.4.3 10 Gigabit Ethernet"></a>2.4.3 10 Gigabit Ethernet</h3><p>保留传统的Ethernet帧格式</p>
 <p>介质专用接口（10 Gigabit Media Indepandent Interface,10GMII）将MAC子层与物理层分开</p>
 <p>不再采用传统的CSMA/CD协议，使10GbE的覆盖范围不受传统的Ethernet网的冲突窗口限制，传输距离仅仅由光纤通信系统的性能</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -948,7 +944,8 @@
 <th>最大长度</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>10GBASE-SR</td>
 <td>多模光纤</td>
 <td>300m</td>
@@ -978,7 +975,9 @@
 <td>单模光纤</td>
 <td>80km</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <p><strong>10 Gigabit Ethernet都是全双工，只支持光纤</strong></p>
 <h3 id="2-5-6-IEEE-802-11帧结构"><a href="#2-5-6-IEEE-802-11帧结构" class="headerlink" title="2.5.6 IEEE 802.11帧结构"></a>2.5.6 IEEE 802.11帧结构</h3><ol>
 <li><p>管理帧</p>
@@ -1008,7 +1007,7 @@
 </li>
 </ol>
 <h3 id="2-5-4-无线局域网拓扑结构"><a href="#2-5-4-无线局域网拓扑结构" class="headerlink" title="2.5.4 无线局域网拓扑结构"></a>2.5.4 无线局域网拓扑结构</h3><p>端站使用无线网卡，将计算机或嵌入设备接入WLAN，接入点AP按照无线接口标准使用无线链路与端站进行通信，接入控制器AC在WLAN与外部网络之间充当网关的作用，AAA服务器又称为RADIUS用户认证服务器，负责完成用户认证授权和计费功能，IEEE802.11认证有三种认证方式：基于IEEE802.1x的认证，基于PPPoE的认证和基于Web的认证</p>
-<ol start="3">
+<ol>
 <li><p>独立基本服务集</p>
 <p>Ad hoc 具有以下几个主要特点：<strong>自组织与自修复，无中心，多跳路由，动态拓扑,对等式，无线网络，无基站</strong></p>
 </li>
@@ -1102,14 +1101,14 @@
 <li>ICMP差错报告是伴随着抛弃出错IP数据报而产生的。</li>
 </ul>
 <p>ICMP差错报告报文共有如下5种。<br>（1）<strong>终点不可达</strong>：分为网络不可达、主机不可达、协议不可达、端口不可达、需要分片但DF比特已置为1、源路由失败等六种情况。<br>（2）<strong>源站抑制</strong>：当路由器或主机由于拥塞而丢弃数据报时，就向<strong>源站</strong>发送源站抑制报文，使源站知道应当将数据报的<strong>发送速率放慢</strong>。<br>（3）<strong>时间超时</strong>：当路由器收到生存时间为零的数据报时，除丢弃该数据报外，还要向<strong>源站</strong>发送时间超时报文。当目的站在预先规定的时间内不能收到一个数据报的全部数据报片时，就<strong>将已收到的数据报片都丢弃</strong>，并向源站发送时间超时报文。<br>（4）<strong>参数问题</strong>：当路由器或目的主机收到的数据报的首部中的字段的值不正确时，就<strong>丢弃该数据报</strong>，并向<strong>源站</strong>发送参数问题报文。<br>（5）<strong>重定向报文</strong>：改变路由（<strong>重定向</strong>）路由器将改变路由报文发送给主机，让主机知道下次应将数据报发送给另外的路由器。ICMP重定向报文机制是为了<strong>保证主机拥有一个动态的、既小且优的路由表</strong>。</p>
-<h2 id="3-6-路由器与路由选择"><a href="#3-6-路由器与路由选择" class="headerlink" title="3.6 路由器与路由选择"></a>3.6 路由器与路由选择</h2><h3 id="3-6-1-表驱动IP选路"><a href="#3-6-1-表驱动IP选路" class="headerlink" title="3.6.1 表驱动IP选路"></a>3.6.1 表驱动IP选路</h3><ol start="3">
+<h2 id="3-6-路由器与路由选择"><a href="#3-6-路由器与路由选择" class="headerlink" title="3.6 路由器与路由选择"></a>3.6 路由器与路由选择</h2><h3 id="3-6-1-表驱动IP选路"><a href="#3-6-1-表驱动IP选路" class="headerlink" title="3.6.1 表驱动IP选路"></a>3.6.1 表驱动IP选路</h3><ol>
 <li>路由表中的特殊路由<ol>
 <li>默认路由：是一种特殊的静态路由，指的是当路由表中与包的目的地址之间没有匹配的表项时路由器能够做出的选择，默认路由会大大简化路由器的配置，减轻管理员的工作负担，提高网络性能。</li>
 <li>特定主机路由：对单个主机指定一条特别的路径就是所谓的特定主机路由，可用于安全性，网络连通性调试及路由表正确性判断等目的</li>
 </ol>
 </li>
 </ol>
-<h3 id="3-6-3-RIP协议与向量-距离算法"><a href="#3-6-3-RIP协议与向量-距离算法" class="headerlink" title="3.6.3 RIP协议与向量-距离算法"></a>3.6.3 RIP协议与向量-距离算法</h3><ol start="2">
+<h3 id="3-6-3-RIP协议与向量-距离算法"><a href="#3-6-3-RIP协议与向量-距离算法" class="headerlink" title="3.6.3 RIP协议与向量-距离算法"></a>3.6.3 RIP协议与向量-距离算法</h3><ol>
 <li><p>RIP协议</p>
 <p>使用Bellman-Ford算法</p>
 <p>RIP协议规定路由器<strong>每30秒</strong>交换一次路由信息</p>
@@ -1173,9 +1172,9 @@
 <li>自动配置问题</li>
 <li>服务质量（QoS）保证问题</li>
 </ol>
-<h3 id="3-8-2-IPv6地址"><a href="#3-8-2-IPv6地址" class="headerlink" title="3.8.2 IPv6地址"></a>3.8.2 IPv6地址</h3><ol start="2">
+<h3 id="3-8-2-IPv6地址"><a href="#3-8-2-IPv6地址" class="headerlink" title="3.8.2 IPv6地址"></a>3.8.2 IPv6地址</h3><ol>
 <li><p>IPv6地址类型</p>
-<ol start="4">
+<ol>
 <li><p>特殊地址</p>
 <p><strong>全零地址：表示地址不存在</strong></p>
 <p><strong>回送地址：::1</strong></p>
@@ -1219,7 +1218,8 @@
 <li>如果解析器收到一条“非授权的”服务器响应，<strong>那么解析器可以认为该响应提供的信息可能不准确</strong></li>
 <li>解析器收到一个“非权威性”的映射时，<strong>解析器可以认为响应服务器不是该域名的授权管理者</strong></li>
 </ul>
-<h3 id="4-2-3-对象类型与资源记录"><a href="#4-2-3-对象类型与资源记录" class="headerlink" title="4.2.3 对象类型与资源记录"></a>4.2.3 对象类型与资源记录</h3><table>
+<h3 id="4-2-3-对象类型与资源记录"><a href="#4-2-3-对象类型与资源记录" class="headerlink" title="4.2.3 对象类型与资源记录"></a>4.2.3 对象类型与资源记录</h3><div class="table-container">
+<table>
 <thead>
 <tr>
 <th>类型</th>
@@ -1227,7 +1227,8 @@
 <th>内容</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>SOA（Start Of Authority）</td>
 <td>授权开始</td>
 <td>标识一个资源记录集合的开始</td>
@@ -1267,7 +1268,9 @@
 <td>文本</td>
 <td>ASCII字符串，不解释</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <h2 id="4-3-远程登录服务"><a href="#4-3-远程登录服务" class="headerlink" title="4.3 远程登录服务"></a>4.3 远程登录服务</h2><p><strong>Telnet协议是TCP/IP协议</strong>一部分，精确定义本地客户机与远程服务器之间的交互过程</p>
 <p>远程登录允许<strong>任意类型</strong>的计算机之间进行通信</p>
 <p>使用Telnet主要目的是使本地主机成为远程主机的仿真终端</p>
@@ -1281,14 +1284,16 @@
 <li><p>数据连接用于访问数据。<strong>建立方式有主动模式和被动模式</strong></p>
 </li>
 </ul>
-<h3 id="4-4-2-FTP命令和响应"><a href="#4-4-2-FTP命令和响应" class="headerlink" title="4.4.2 FTP命令和响应"></a>4.4.2 FTP命令和响应</h3><table>
+<h3 id="4-4-2-FTP命令和响应"><a href="#4-4-2-FTP命令和响应" class="headerlink" title="4.4.2 FTP命令和响应"></a>4.4.2 FTP命令和响应</h3><div class="table-container">
+<table>
 <thead>
 <tr>
 <th>命令</th>
 <th>描述</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>USER</td>
 <td>认证用户名</td>
 </tr>
@@ -1328,7 +1333,9 @@
 <td>QUIT</td>
 <td>从服务器注销</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <h3 id="4-4-3-文件格式"><a href="#4-4-3-文件格式" class="headerlink" title="4.4.3 文件格式"></a>4.4.3 文件格式</h3><p>FTP协议支持两种<strong>文件传输方式</strong>：<strong>文本文件传输和二进制文件传输</strong></p>
 <p>FTP<strong>数据连接建立模式</strong>有两种：<strong>主动模式与被动模式</strong></p>
 <h2 id="4-5-电子邮件系统"><a href="#4-5-电子邮件系统" class="headerlink" title="4.5 电子邮件系统"></a>4.5 电子邮件系统</h2><h3 id="4-5-1-电子邮件系统的基本知识"><a href="#4-5-1-电子邮件系统的基本知识" class="headerlink" title="4.5.1 电子邮件系统的基本知识"></a>4.5.1 电子邮件系统的基本知识</h3><ol>
@@ -1353,6 +1360,7 @@
 <p>SMTP常用命令：</p>
 </li>
 </ol>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -1360,7 +1368,8 @@
 <th>开始会话</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>MAIL FROM&lt;发送者的电子邮件地址&gt;</td>
 <td>开始一个邮递处理，指出邮件发送者</td>
 </tr>
@@ -1384,51 +1393,14 @@
 <td>QUIT</td>
 <td>结束会话</td>
 </tr>
-</tbody></table>
-<ol start="2">
+</tbody>
+</table>
+</div>
+<ol>
 <li><p>邮局协议POP3</p>
 <p>POP3本身也采用客户机/服务器模式，当用户需要下载邮件时候，POP客户机首先向POP服务器的TCP守候端口110发送建立连接请求</p>
 <p>POP3邮件传递过程可以分为三个阶段：<strong>认证阶段、事务处理阶段、更新阶段</strong></p>
-<table>
-<thead>
-<tr>
-<th>USER</th>
-<th>username 认证用户名</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>PASS</td>
-<td>password 认证密码认证，认证通过则状态转换</td>
-</tr>
-<tr>
-<td>STAT</td>
-<td>查询报文总数与长度</td>
-</tr>
-<tr>
-<td>LIST[&lt;邮件编号&gt;]</td>
-<td>处理 server 返回指定邮件的大小等</td>
-</tr>
-<tr>
-<td>RETR&lt;邮件编号&gt;</td>
-<td>请求服务器发送指定编号的邮件</td>
-</tr>
-<tr>
-<td>DELE&lt;邮件编号&gt;</td>
-<td>对指定编号的邮件做删除处理</td>
-</tr>
-<tr>
-<td>RSET</td>
-<td>复位操作，清除所有删除标记</td>
-</tr>
-<tr>
-<td>NOOP</td>
-<td>无操作</td>
-</tr>
-<tr>
-<td>QUIT</td>
-<td>删除那些标记成删除的邮件，关闭连接</td>
-</tr>
-</tbody></table>
+<p>| USER             | username 认证用户名                       |<br>| ———————— | ————————————————————- |<br>| PASS             | password 认证密码认证，认证通过则状态转换 |<br>| STAT             | 查询报文总数与长度                        |<br>| LIST[&lt;邮件编号&gt;] | 处理 server 返回指定邮件的大小等          |<br>| RETR&lt;邮件编号&gt;   | 请求服务器发送指定编号的邮件              |<br>| DELE&lt;邮件编号&gt;   | 对指定编号的邮件做删除处理                |<br>| RSET             | 复位操作，清除所有删除标记                |<br>| NOOP             | 无操作                                    |<br>| QUIT             | 删除那些标记成删除的邮件，关闭连接        |</p>
 </li>
 </ol>
 <h3 id="4-5-3-电子邮件的报文格式"><a href="#4-5-3-电子邮件的报文格式" class="headerlink" title="4.5.3 电子邮件的报文格式"></a>4.5.3 电子邮件的报文格式</h3><p>RFC822和多用途Internet邮件扩展协议(Multipurpose Internet Mail Extensions,MIME)对邮件报文格式作出了具体的规定</p>
@@ -1474,38 +1446,7 @@
 <p>SIP消息由<strong>一个起始行，消息头，一个标志消息头结束的空行，消息体组成</strong></p>
 <p><strong>起始行分为请求行和状态行</strong></p>
 <p>SIP协议虽然主要是为IP网络设计的，但它并<strong>不关心和依赖特定承载网络</strong>。SIP注册服务器用于接收和处理用户端的注册请求，完成用户地址的注册。在通话初始，需要发送方发送INVITE信息，而<strong>接收方不需要发送INVITE</strong>信息。在信息的传送过程中，可能会<strong>经历多个代理服务器</strong>才会完成信息发送。</p>
-<table>
-<thead>
-<tr>
-<th>请求方法</th>
-<th>功能</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>INVITE</td>
-<td>邀请用户或者服务器参加一个会话</td>
-</tr>
-<tr>
-<td>ACK</td>
-<td>UA向服务器证实它已经对INVITE请求的最终响应。ACK只和INVITE一起使用</td>
-</tr>
-<tr>
-<td>OPTIONS</td>
-<td>请求关于服务器能力的信息。如果服务器认为它能与用户联系，则可用一个能力集响应OPTIONS请求</td>
-</tr>
-<tr>
-<td>BYE</td>
-<td>用户终止一次会话，既可由主叫UA发送，也可由被叫UA发送</td>
-</tr>
-<tr>
-<td>CANCEL</td>
-<td>取消一个挂起的呼叫</td>
-</tr>
-<tr>
-<td>REGISTER</td>
-<td>向定位服务器注册UA的相关信息</td>
-</tr>
-</tbody></table>
+<p>| 请求方法 | 功能                                                         |<br>| ———— | —————————————————————————————— |<br>| INVITE   | 邀请用户或者服务器参加一个会话                               |<br>| ACK      | UA向服务器证实它已经对INVITE请求的最终响应。ACK只和INVITE一起使用 |<br>| OPTIONS  | 请求关于服务器能力的信息。如果服务器认为它能与用户联系，则可用一个能力集响应OPTIONS请求 |<br>| BYE      | 用户终止一次会话，既可由主叫UA发送，也可由被叫UA发送         |<br>| CANCEL   | 取消一个挂起的呼叫                                           |<br>| REGISTER | 向定位服务器注册UA的相关信息                                 |</p>
 <p>BYE:是一种请求消息，请求消息包含请求行，消息头，空行，和消息体。</p>
 </li>
 <li><p>SIMPLE协议</p>
@@ -1587,7 +1528,7 @@
 </li>
 </ol>
 <h2 id="5-4-VoIP"><a href="#5-4-VoIP" class="headerlink" title="5.4 VoIP"></a>5.4 VoIP</h2><p>VoIP（Voice over IP）俗称IP电话（Internet Protocol Phone）。IP电话系统有4个基本组件：终端设备、网关、多点控制单元和网守。终端设备（Terminal）是一个IP电话客户终端，可以是软件。网关是通过IP网络提供语音通信的关键设备，是IP网络和PSTN（Public Switched Telephone Network，公用电话交换网简称电话网）网络之间的接口设备，从网络的角度看，它就是一个H.323设备。多点控制单元MCU（Multipoint Control Unit）的功能在于利用IP网络实现多点通信。网守（Gatekeeper）主要负责用户的注册和管理等。</p>
-<h3 id="5-4-2-VoIP系统组成"><a href="#5-4-2-VoIP系统组成" class="headerlink" title="5.4.2 VoIP系统组成"></a>5.4.2 VoIP系统组成</h3><ol start="2">
+<h3 id="5-4-2-VoIP系统组成"><a href="#5-4-2-VoIP系统组成" class="headerlink" title="5.4.2 VoIP系统组成"></a>5.4.2 VoIP系统组成</h3><ol>
 <li><p>IP电话网关，是IP网络和电话网络之间的桥梁</p>
 <p>基本功能：<strong>号码查询，建立通信连接（信号调制），路由寻址</strong></p>
 </li>
@@ -1668,7 +1609,7 @@
 </ol>
 <h3 id="6-2-4-网络攻击的主要类型"><a href="#6-2-4-网络攻击的主要类型" class="headerlink" title="6.2.4 网络攻击的主要类型"></a>6.2.4 网络攻击的主要类型</h3><p><strong>主动攻击：拒绝服务攻击（DoS），分布式拒绝服务(DDoS)，信息篡改，资源使用，欺骗（如源路由攻击），伪装（如邮件炸弹），重放等攻击方法</strong></p>
 <p><strong>服务攻击(与主动攻击不是并列关系)：针对某特定网络服务攻击，如针对Email，FTP，HTTP等服务攻击，如对Telnet的23号端口，对HTTP的80端口，邮件炸弹等</strong></p>
-<ol start="3">
+<ol>
 <li><p>DoS与DDoS</p>
 <ol>
 <li><p>DoS的分类与特征</p>
@@ -1696,7 +1637,7 @@
 <p><strong>已知明文攻击</strong>指攻击者掌握了某段明文和对应密文，推断加密方式，从而破解后段密文的攻击方式。</p>
 <p><strong>选择明文攻击</strong>是指攻击者不仅已知加密算法和密文，而且还能够通过某种方式让发送者在发送的信息中插入一段由他选择的信息。</p>
 <p><strong>选择密文攻击</strong>的密码分析者事先任意搜集一定数量的密文，让这些密文透过被攻击的加密算法解密，透过未知的密钥获得解密后的明文。</p>
-<h3 id="6-3-2-对称密码体系"><a href="#6-3-2-对称密码体系" class="headerlink" title="6.3.2 对称密码体系"></a>6.3.2 对称密码体系</h3><ol start="2">
+<h3 id="6-3-2-对称密码体系"><a href="#6-3-2-对称密码体系" class="headerlink" title="6.3.2 对称密码体系"></a>6.3.2 对称密码体系</h3><ol>
 <li><p>典型的对称加密算法</p>
 <p>数据加密标准(Data Encrytion Stardard,DES)是最典型的<strong>对称加密算法</strong>，<strong>由IBM公司提出，经ISO认定的国际标准</strong>。DES每次处理一个<strong>64位的明文分组</strong>，并且每次生成一个64位的密文分组。</p>
 <p>DES有<strong>56位密钥长度</strong>。<strong>基于置换和代换技术</strong>，基于<strong>整数有限域离散对数难题</strong>，和RSA安全性差不多。DES算法加密过程中每轮操作都有置换和代换，<strong>每轮置换函数相同</strong></p>
@@ -1706,7 +1647,7 @@
 <p>背包加密算法是一种公钥加密算法，该算法中背包的物品总重量是公开的，所有可能的物品也是公开的，但是背包中的物品却是保密的，它是一个NP难度问题。目前大多数一次背包体制均被破译了，一次背包已不安全了</p>
 </li>
 </ol>
-<h3 id="6-3-3-非对称密码体系"><a href="#6-3-3-非对称密码体系" class="headerlink" title="6.3.3 非对称密码体系"></a>6.3.3 非对称密码体系</h3><ol start="2">
+<h3 id="6-3-3-非对称密码体系"><a href="#6-3-3-非对称密码体系" class="headerlink" title="6.3.3 非对称密码体系"></a>6.3.3 非对称密码体系</h3><ol>
 <li><p>典型的非对称加密算法</p>
 <p>RSA是一种典型的公钥加密算法，它在网络安全领域得到广泛应用，RSA算法的安全性建立在大素数分解极其困难的基础之上。是由Ron Rivest,Adi Shamir,Leonard Adleman设计的一种算法。</p>
 <p>其他非对称加密算法主要包括DSS,ElGamal与Diffie-Hellman等</p>
@@ -1718,9 +1659,9 @@
 <li><strong>公钥基础设施(Public Key Infrastructure,PKI)是利用公钥加密和数字签名技术建立的安全服务基础设施，以保证网络环境中的数据的秘密性完整性和不可抵赖性。</strong></li>
 </ol>
 <h3 id="6-3-5-数字签名技术"><a href="#6-3-5-数字签名技术" class="headerlink" title="6.3.5 数字签名技术"></a>6.3.5 数字签名技术</h3><p>数字签名是笔迹签名的模拟，<strong>公钥密码体制和私钥密码体制都可以用于数字签名</strong>，验证时需要使用相同的散列函数，并且<strong>通过比较消息摘要是否匹配</strong>来验证签名的正确性。</p>
-<ol start="2">
+<ol>
 <li><p>数字签名的工作原理</p>
-<ol start="6">
+<ol>
 <li><p>目前广泛使用的数字签名算法是消息摘要(Message Digest,MD5)</p>
 <p>MD5没有对数据进行加密或者修改，<strong>可对任意长度的数据生成128位散列值，没有对数据加密或者修改，只是生成一个用于判断完整性与真实性的散列值</strong></p>
 </li>
@@ -2167,12 +2108,12 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/manim/">
-                        <span class="chip bg-color">manim</span>
-                    </a>
-                    
                     <a href="/tags/%E6%95%99%E7%A8%8B/">
                         <span class="chip bg-color">教程</span>
+                    </a>
+                    
+                    <a href="/tags/manim/">
+                        <span class="chip bg-color">manim</span>
                     </a>
                     
                 </div>
@@ -2219,12 +2160,12 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/manim/">
-                        <span class="chip bg-color">manim</span>
-                    </a>
-                    
                     <a href="/tags/%E6%95%99%E7%A8%8B/">
                         <span class="chip bg-color">教程</span>
+                    </a>
+                    
+                    <a href="/tags/manim/">
+                        <span class="chip bg-color">manim</span>
                     </a>
                     
                 </div>
@@ -2421,7 +2362,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">44.1k</span>&nbsp;字
+                class="white-color">39.9k</span>&nbsp;字
             
             
             

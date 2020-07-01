@@ -367,12 +367,12 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/manim/">
-                                <span class="chip bg-color">manim</span>
-                            </a>
-                        
                             <a href="/tags/%E6%95%99%E7%A8%8B/">
                                 <span class="chip bg-color">教程</span>
+                            </a>
+                        
+                            <a href="/tags/manim/">
+                                <span class="chip bg-color">manim</span>
                             </a>
                         
                     </div>
@@ -433,44 +433,47 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <h2 id="1-Mobject所派生的子类"><a href="#1-Mobject所派生的子类" class="headerlink" title="1. Mobject所派生的子类"></a>1. Mobject所派生的子类</h2><p><img src="Mobject-1586013786368.png" alt="Mobject"></p>
-<h2 id="2-Mobject的主要变量与属性"><a href="#2-Mobject的主要变量与属性" class="headerlink" title="2. Mobject的主要变量与属性"></a>2. Mobject的主要变量与属性</h2><h3 id="2-1-CONFIG"><a href="#2-1-CONFIG" class="headerlink" title="2.1 CONFIG"></a>2.1 CONFIG</h3><pre class=" language-python"><code class="language-python">CONFIG <span class="token operator">=</span> <span class="token punctuation">{</span>
-        <span class="token string">"color"</span><span class="token punctuation">:</span> WHITE<span class="token punctuation">,</span>
-        <span class="token string">"name"</span><span class="token punctuation">:</span> None<span class="token punctuation">,</span>
-        <span class="token string">"dim"</span><span class="token punctuation">:</span> <span class="token number">3</span><span class="token punctuation">,</span>
-        <span class="token string">"target"</span><span class="token punctuation">:</span> None<span class="token punctuation">,</span>
-    <span class="token punctuation">}</span></code></pre>
+<h2 id="2-Mobject的主要变量与属性"><a href="#2-Mobject的主要变量与属性" class="headerlink" title="2. Mobject的主要变量与属性"></a>2. Mobject的主要变量与属性</h2><h3 id="2-1-CONFIG"><a href="#2-1-CONFIG" class="headerlink" title="2.1 CONFIG"></a>2.1 CONFIG</h3><pre class=" language-lang-python"><code class="language-lang-python">CONFIG = {
+        "color": WHITE,
+        "name": None,
+        "dim": 3,
+        "target": None,
+    }
+</code></pre>
 <h3 id="2-2-init-函数"><a href="#2-2-init-函数" class="headerlink" title="2.2 __init__()函数:"></a>2.2 <code>__init__()</code>函数:</h3><ul>
 <li><p><code>submobjects = []</code>:每个Mobject都有自己的submobjects列表,列表里面的每个元素也是Mobject,这样有利于对嵌套的Mobject进行整体操作,如对一群图形一起平移等等动画的实现</p>
 </li>
 <li><p><code>updaters = []</code>:一系列的更新函数组成,如:</p>
-<pre class=" language-python"><code class="language-python"> <span class="token keyword">def</span> <span class="token function">update_text</span><span class="token punctuation">(</span>obj<span class="token punctuation">)</span><span class="token punctuation">:</span>
-            obj<span class="token punctuation">.</span>next_to<span class="token punctuation">(</span>dot<span class="token punctuation">,</span>RIGHT<span class="token punctuation">,</span>buff<span class="token operator">=</span>SMALL_BUFF<span class="token punctuation">)</span></code></pre>
+<pre class=" language-lang-python"><code class="language-lang-python"> def update_text(obj):
+            obj.next_to(dot,RIGHT,buff=SMALL_BUFF)
+</code></pre>
 <p>就可以作为一个updater,有<code>add_updater()</code>方法进行添加:</p>
-<pre class=" language-python"><code class="language-python"><span class="token comment" spellcheck="true"># author:TB,由于3b1b的函数有改进,本代码进行了修改</span>
-<span class="token keyword">class</span> <span class="token class-name">AddUpdater</span><span class="token punctuation">(</span>Scene<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token keyword">def</span> <span class="token function">construct</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        dot <span class="token operator">=</span> Dot<span class="token punctuation">(</span><span class="token punctuation">)</span>
-        text <span class="token operator">=</span> TextMobject<span class="token punctuation">(</span><span class="token string">"Label"</span><span class="token punctuation">)</span><span class="token punctuation">.</span>next_to<span class="token punctuation">(</span>dot<span class="token punctuation">,</span>RIGHT<span class="token punctuation">,</span>buff<span class="token operator">=</span>SMALL_BUFF<span class="token punctuation">)</span>
+<pre class=" language-lang-python"><code class="language-lang-python"># author:TB,由于3b1b的函数有改进,本代码进行了修改
+class AddUpdater(Scene):
+    def construct(self):
+        dot = Dot()
+        text = TextMobject("Label").next_to(dot,RIGHT,buff=SMALL_BUFF)
 
-        self<span class="token punctuation">.</span>add<span class="token punctuation">(</span>dot<span class="token punctuation">,</span>text<span class="token punctuation">)</span>
+        self.add(dot,text)
 
-        <span class="token comment" spellcheck="true"># Update function 更新函数</span>
-        <span class="token keyword">def</span> <span class="token function">update_text</span><span class="token punctuation">(</span>obj<span class="token punctuation">)</span><span class="token punctuation">:</span>
-            obj<span class="token punctuation">.</span>next_to<span class="token punctuation">(</span>dot<span class="token punctuation">,</span>RIGHT<span class="token punctuation">,</span>buff<span class="token operator">=</span>SMALL_BUFF<span class="token punctuation">)</span>
+        # Update function 更新函数
+        def update_text(obj):
+            obj.next_to(dot,RIGHT,buff=SMALL_BUFF)
 
-        <span class="token comment" spellcheck="true"># Add update function to the objects</span>
-        <span class="token comment" spellcheck="true"># 把更新函数加给对象</span>
-        text<span class="token punctuation">.</span>add_updater<span class="token punctuation">(</span>update_text<span class="token punctuation">)</span>
+        # Add update function to the objects
+        # 把更新函数加给对象
+        text.add_updater(update_text)
 
-        <span class="token comment" spellcheck="true"># 如果想简洁，lambda表达式如下：</span>
-        <span class="token comment" spellcheck="true"># text.add_updater(lambda m: m.next_to(dot,RIGHT,buff=SMALL_BUFF))</span>
-        <span class="token comment" spellcheck="true"># 此时下面的remove_updater(update_text)不能继续使用，需要改为clear_updaters</span>
+        # 如果想简洁，lambda表达式如下：
+        # text.add_updater(lambda m: m.next_to(dot,RIGHT,buff=SMALL_BUFF))
+        # 此时下面的remove_updater(update_text)不能继续使用，需要改为clear_updaters
 
-        self<span class="token punctuation">.</span>play<span class="token punctuation">(</span>dot<span class="token punctuation">.</span>shift<span class="token punctuation">,</span>UP<span class="token operator">*</span><span class="token number">2</span><span class="token punctuation">)</span>
-        <span class="token comment" spellcheck="true"># Remove update function</span>
-        text<span class="token punctuation">.</span>remove_updater<span class="token punctuation">(</span>update_text<span class="token punctuation">)</span>
+        self.play(dot.shift,UP*2)
+        # Remove update function
+        text.remove_updater(update_text)
 
-        self<span class="token punctuation">.</span>wait<span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre>
+        self.wait()
+</code></pre>
 <p>效果如下:</p>
 <p><img src="AddUpdater-1586013786369.gif" alt="AddUpdater"></p>
 <p>详细见下面3.3.2的介绍</p>
@@ -488,14 +491,15 @@
 <h3 id="2-4-Mobject的一些抽象概念"><a href="#2-4-Mobject的一些抽象概念" class="headerlink" title="2.4 Mobject的一些抽象概念"></a>2.4 Mobject的一些抽象概念</h3><ul>
 <li><p>family:如果将Mobject看作父节点,submobjects列表中的Mobject看作子节点,则对每个Mobjects都会产生一棵树,这个树里面的所有节点成为这个Mobject的family</p>
 <p>family没有真正的实体,但是Mobject内有一个函数叫<code>get_family()</code>可以返回这个概念:</p>
-<pre class=" language-python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">get_family</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token comment" spellcheck="true"># 如果对map函数不理解,请自行查找Python map()函数</span>
-        <span class="token comment" spellcheck="true"># 递归得到submobjects,代码非常简洁</span>
-        sub_families <span class="token operator">=</span> list<span class="token punctuation">(</span>map<span class="token punctuation">(</span>Mobject<span class="token punctuation">.</span>get_family<span class="token punctuation">,</span> self<span class="token punctuation">.</span>submobjects<span class="token punctuation">)</span><span class="token punctuation">)</span>
-        <span class="token comment" spellcheck="true"># 使用chain的原因是可能每个submobject可能是不同的类型</span>
-        all_mobjects <span class="token operator">=</span> <span class="token punctuation">[</span>self<span class="token punctuation">]</span> <span class="token operator">+</span> list<span class="token punctuation">(</span>it<span class="token punctuation">.</span>chain<span class="token punctuation">(</span><span class="token operator">*</span>sub_families<span class="token punctuation">)</span><span class="token punctuation">)</span>
-        <span class="token comment" spellcheck="true"># 去重</span>
-        <span class="token keyword">return</span> remove_list_redundancies<span class="token punctuation">(</span>all_mobjects<span class="token punctuation">)</span></code></pre>
+<pre class=" language-lang-python"><code class="language-lang-python">def get_family(self):
+        # 如果对map函数不理解,请自行查找Python map()函数
+        # 递归得到submobjects,代码非常简洁
+        sub_families = list(map(Mobject.get_family, self.submobjects))
+        # 使用chain的原因是可能每个submobject可能是不同的类型
+        all_mobjects = [self] + list(it.chain(*sub_families))
+        # 去重
+        return remove_list_redundancies(all_mobjects)
+</code></pre>
 <p>Mobject的很多函数也用到了这个概念</p>
 </li>
 </ul>
@@ -544,7 +548,7 @@
 <li><code>copy()</code></li>
 </ol>
 <p>浅拷贝,与深拷贝对应</p>
-<ol start="2">
+<ol>
 <li><code>generate_target(use_deepcopy=False)</code></li>
 </ol>
 <h3 id="3-3-更新-跟踪-函数"><a href="#3-3-更新-跟踪-函数" class="headerlink" title="3.3 更新(跟踪)函数"></a>3.3 更新(跟踪)函数</h3><ol>
@@ -577,70 +581,72 @@
 <li><p>执行过程</p>
 <p>将自己的<code>updaters</code>列表加入<code>update_function</code>,位置在<code>index</code>,插入方法同python列表的insert方法,并决定是否立即执行</p>
 <p>例子:</p>
-<pre class=" language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">UpdateFunctionWithDt</span><span class="token punctuation">(</span>Scene<span class="token punctuation">)</span><span class="token punctuation">:</span>
-     <span class="token keyword">def</span> <span class="token function">construct</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
-         sun <span class="token operator">=</span> Dot<span class="token punctuation">(</span>color<span class="token operator">=</span>RED<span class="token punctuation">)</span><span class="token punctuation">.</span>scale<span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span>
+<pre class=" language-lang-python"><code class="language-lang-python">class UpdateFunctionWithDt(Scene):
+     def construct(self):
+         sun = Dot(color=RED).scale(3)
 
-         earthOrbit<span class="token operator">=</span>Circle<span class="token punctuation">(</span>color<span class="token operator">=</span>WHITE<span class="token punctuation">)</span><span class="token punctuation">.</span>scale<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span>
-         earth<span class="token operator">=</span>Dot<span class="token punctuation">(</span>color<span class="token operator">=</span>BLUE<span class="token punctuation">)</span><span class="token punctuation">.</span>scale<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span>
-         earth<span class="token punctuation">.</span>move_to<span class="token punctuation">(</span>earthOrbit<span class="token punctuation">.</span>point_from_proportion<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-         self<span class="token punctuation">.</span>earthOffset<span class="token operator">=</span><span class="token number">0</span>
+         earthOrbit=Circle(color=WHITE).scale(2)
+         earth=Dot(color=BLUE).scale(2)
+         earth.move_to(earthOrbit.point_from_proportion(0))
+         self.earthOffset=0
 
-         moonOrbit<span class="token operator">=</span> Circle<span class="token punctuation">(</span>color<span class="token operator">=</span>WHITE<span class="token punctuation">)</span><span class="token punctuation">.</span>move_to<span class="token punctuation">(</span>earth<span class="token punctuation">)</span>
-         moon <span class="token operator">=</span>Dot<span class="token punctuation">(</span>color<span class="token operator">=</span>YELLOW<span class="token punctuation">)</span>
-         moon<span class="token punctuation">.</span>move_to<span class="token punctuation">(</span>moonOrbit<span class="token punctuation">.</span>point_from_proportion<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-         self<span class="token punctuation">.</span>moonOffset<span class="token operator">=</span><span class="token number">0</span>
+         moonOrbit= Circle(color=WHITE).move_to(earth)
+         moon =Dot(color=YELLOW)
+         moon.move_to(moonOrbit.point_from_proportion(0))
+         self.moonOffset=0
 
-         <span class="token keyword">def</span> <span class="token function">update_earth</span><span class="token punctuation">(</span>mob<span class="token punctuation">,</span>dt<span class="token punctuation">)</span><span class="token punctuation">:</span>
-             rate<span class="token operator">=</span>dt<span class="token operator">*</span><span class="token number">0.1</span>
-             mob<span class="token punctuation">.</span>move_to<span class="token punctuation">(</span>earthOrbit<span class="token punctuation">.</span>point_from_proportion<span class="token punctuation">(</span><span class="token punctuation">(</span>self<span class="token punctuation">.</span>earthOffset <span class="token operator">+</span> rate<span class="token punctuation">)</span><span class="token operator">%</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-             self<span class="token punctuation">.</span>earthOffset <span class="token operator">+=</span> rate
+         def update_earth(mob,dt):
+             rate=dt*0.1
+             mob.move_to(earthOrbit.point_from_proportion((self.earthOffset + rate)%1))
+             self.earthOffset += rate
 
-         <span class="token keyword">def</span> <span class="token function">update_moonOrbit</span><span class="token punctuation">(</span>mob<span class="token punctuation">)</span><span class="token punctuation">:</span>
-             mob<span class="token punctuation">.</span>move_to<span class="token punctuation">(</span>earth<span class="token punctuation">)</span>
+         def update_moonOrbit(mob):
+             mob.move_to(earth)
 
-         <span class="token keyword">def</span> <span class="token function">update_moon</span><span class="token punctuation">(</span>mob<span class="token punctuation">,</span>dt<span class="token punctuation">)</span><span class="token punctuation">:</span>
-             rate<span class="token operator">=</span>dt<span class="token operator">*</span><span class="token number">0.2</span>
-             mob<span class="token punctuation">.</span>move_to<span class="token punctuation">(</span>moonOrbit<span class="token punctuation">.</span>point_from_proportion<span class="token punctuation">(</span><span class="token punctuation">(</span>self<span class="token punctuation">.</span>moonOffset <span class="token operator">+</span> rate<span class="token punctuation">)</span><span class="token operator">%</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-             self<span class="token punctuation">.</span>moonOffset <span class="token operator">+=</span> rate
+         def update_moon(mob,dt):
+             rate=dt*0.2
+             mob.move_to(moonOrbit.point_from_proportion((self.moonOffset + rate)%1))
+             self.moonOffset += rate
 
-         earth<span class="token punctuation">.</span>add_updater<span class="token punctuation">(</span>update_earth<span class="token punctuation">)</span>
-         moonOrbit<span class="token punctuation">.</span>add_updater<span class="token punctuation">(</span>update_moonOrbit<span class="token punctuation">)</span>
-         moon<span class="token punctuation">.</span>add_updater<span class="token punctuation">(</span>update_moon<span class="token punctuation">)</span>
-         self<span class="token punctuation">.</span>add<span class="token punctuation">(</span>earthOrbit<span class="token punctuation">,</span>moonOrbit<span class="token punctuation">,</span>sun<span class="token punctuation">,</span>earth<span class="token punctuation">,</span>moon<span class="token punctuation">)</span>
-         self<span class="token punctuation">.</span>wait<span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">)</span>
-         self<span class="token punctuation">.</span>wait<span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre>
+         earth.add_updater(update_earth)
+         moonOrbit.add_updater(update_moonOrbit)
+         moon.add_updater(update_moon)
+         self.add(earthOrbit,moonOrbit,sun,earth,moon)
+         self.wait(5)
+         self.wait()
+</code></pre>
 <p>效果如下:</p>
 <p><img src="UpdateFunctionWithDt-1586013786369.gif" alt="UpdateFunctionWithDt"></p>
 <p>dt的决定速度:</p>
-<pre class=" language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">WhatIsDt</span><span class="token punctuation">(</span>Scene<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token keyword">def</span> <span class="token function">construct</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        sun <span class="token operator">=</span> Dot<span class="token punctuation">(</span>color<span class="token operator">=</span>RED<span class="token punctuation">)</span><span class="token punctuation">.</span>scale<span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span>
-        earthOrbit<span class="token operator">=</span>Circle<span class="token punctuation">(</span>color<span class="token operator">=</span>WHITE<span class="token punctuation">)</span><span class="token punctuation">.</span>scale<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span>
+<pre class=" language-lang-python"><code class="language-lang-python">class WhatIsDt(Scene):
+    def construct(self):
+        sun = Dot(color=RED).scale(3)
+        earthOrbit=Circle(color=WHITE).scale(2)
 
-        earths <span class="token operator">=</span> <span class="token punctuation">[</span>Dot<span class="token punctuation">(</span>color<span class="token operator">=</span>i<span class="token punctuation">)</span><span class="token punctuation">.</span>scale<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span> <span class="token keyword">for</span> i <span class="token keyword">in</span><span class="token punctuation">[</span>RED<span class="token punctuation">,</span>BLUE<span class="token punctuation">]</span><span class="token punctuation">]</span>
-        earths <span class="token operator">=</span> VGroup<span class="token punctuation">(</span><span class="token operator">*</span>earths<span class="token punctuation">)</span>
-        earths<span class="token punctuation">.</span>move_to<span class="token punctuation">(</span>earthOrbit<span class="token punctuation">.</span>point_from_proportion<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-        self<span class="token punctuation">.</span>earthOffsets <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token operator">*</span><span class="token number">2</span>
-        texts <span class="token operator">=</span> VGroup<span class="token punctuation">(</span><span class="token operator">*</span><span class="token punctuation">[</span>Text<span class="token punctuation">(</span><span class="token string">"dt*0.%d"</span><span class="token operator">%</span>i<span class="token punctuation">,</span>size<span class="token operator">=</span><span class="token number">0.5</span><span class="token punctuation">,</span>font<span class="token operator">=</span><span class="token string">"Lucida Console"</span><span class="token punctuation">)</span> <span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+        earths = [Dot(color=i).scale(2) for i in[RED,BLUE]]
+        earths = VGroup(*earths)
+        earths.move_to(earthOrbit.point_from_proportion(0))
+        self.earthOffsets = [0]*2
+        texts = VGroup(*[Text("dt*0.%d"%i,size=0.5,font="Lucida Console") for i in [1,2]])
 
-        <span class="token keyword">def</span> <span class="token function">update_earth_factory</span><span class="token punctuation">(</span>index<span class="token punctuation">)</span><span class="token punctuation">:</span>
-            <span class="token keyword">def</span> <span class="token function">update_earth</span><span class="token punctuation">(</span>mob<span class="token punctuation">,</span>dt<span class="token punctuation">)</span><span class="token punctuation">:</span>
-                rate <span class="token operator">=</span> dt<span class="token operator">*</span><span class="token number">0.1</span><span class="token operator">*</span><span class="token punctuation">(</span>index<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span>
-                mob<span class="token punctuation">.</span>move_to<span class="token punctuation">(</span>earthOrbit<span class="token punctuation">.</span>point_from_proportion<span class="token punctuation">(</span><span class="token punctuation">(</span>self<span class="token punctuation">.</span>earthOffsets<span class="token punctuation">[</span>index<span class="token punctuation">]</span> <span class="token operator">+</span> rate<span class="token punctuation">)</span><span class="token operator">%</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-                self<span class="token punctuation">.</span>earthOffsets<span class="token punctuation">[</span>index<span class="token punctuation">]</span> <span class="token operator">+=</span> rate
-            <span class="token keyword">return</span> update_earth
+        def update_earth_factory(index):
+            def update_earth(mob,dt):
+                rate = dt*0.1*(index+1)
+                mob.move_to(earthOrbit.point_from_proportion((self.earthOffsets[index] + rate)%1))
+                self.earthOffsets[index] += rate
+            return update_earth
 
-        <span class="token keyword">def</span> <span class="token function">update_text_factory</span><span class="token punctuation">(</span>index<span class="token punctuation">)</span><span class="token punctuation">:</span>
-            <span class="token keyword">def</span> <span class="token function">update_text</span><span class="token punctuation">(</span>mob<span class="token punctuation">)</span><span class="token punctuation">:</span>
-                mob<span class="token punctuation">.</span>next_to<span class="token punctuation">(</span>earths<span class="token punctuation">[</span>index<span class="token punctuation">]</span><span class="token punctuation">,</span>LEFT<span class="token punctuation">,</span>SMALL_BUFF<span class="token punctuation">)</span>
-            <span class="token keyword">return</span> update_text
+        def update_text_factory(index):
+            def update_text(mob):
+                mob.next_to(earths[index],LEFT,SMALL_BUFF)
+            return update_text
 
-        <span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">:</span>
-            earths<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">.</span>add_updater<span class="token punctuation">(</span>update_earth_factory<span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">)</span>
-            texts<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">.</span>add_updater<span class="token punctuation">(</span>update_text_factory<span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">)</span>
-        self<span class="token punctuation">.</span>add<span class="token punctuation">(</span>earthOrbit<span class="token punctuation">,</span>sun<span class="token punctuation">,</span>earths<span class="token punctuation">,</span>texts<span class="token punctuation">)</span>
-        self<span class="token punctuation">.</span>wait<span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">)</span></code></pre>
+        for i in [0,1]:
+            earths[i].add_updater(update_earth_factory(i))
+            texts[i].add_updater(update_text_factory(i))
+        self.add(earthOrbit,sun,earths,texts)
+        self.wait(5)
+</code></pre>
 <p><img src="WhatIsDt-1586013786370.gif" alt="WhatIsDt"></p>
 </li>
 </ul>
@@ -684,44 +690,47 @@
 <p>默认行为是围绕mobject的中心进行缩放。参数about_edge可以是向量，指要围绕mobject的哪一侧进行缩放,否则，如果给about_point一个值，则相对于该点进行缩放。</p>
 <ul>
 <li><p><code>about_edge</code>:相对边</p>
-<pre class=" language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">AddUpdater</span><span class="token punctuation">(</span>Scene<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token keyword">def</span> <span class="token function">construct</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        circles <span class="token operator">=</span> <span class="token punctuation">[</span>Circle<span class="token punctuation">(</span>arc_center <span class="token operator">=</span> LEFT<span class="token operator">*</span>i<span class="token operator">*</span><span class="token number">2</span><span class="token punctuation">)</span> <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
-        vg <span class="token operator">=</span> VGroup<span class="token punctuation">(</span><span class="token operator">*</span>circles<span class="token punctuation">)</span>
-        line <span class="token operator">=</span> Line<span class="token punctuation">(</span>np<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">10</span><span class="token punctuation">,</span>vg<span class="token punctuation">.</span>get_top<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">,</span>np<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">10</span><span class="token punctuation">,</span>vg<span class="token punctuation">.</span>get_top<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-        text <span class="token operator">=</span> TextMobject<span class="token punctuation">(</span><span class="token string">"about\_edge"</span><span class="token punctuation">)</span>
-        text<span class="token punctuation">.</span>next_to<span class="token punctuation">(</span>line<span class="token punctuation">,</span>UP<span class="token punctuation">,</span>buff<span class="token operator">=</span>SMALL_BUFF<span class="token punctuation">)</span>
-        self<span class="token punctuation">.</span>add<span class="token punctuation">(</span>line<span class="token punctuation">,</span>vg<span class="token punctuation">,</span>text<span class="token punctuation">)</span>
-        self<span class="token punctuation">.</span>play<span class="token punctuation">(</span>vg<span class="token punctuation">.</span>scale<span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token punctuation">{</span><span class="token string">"about_edge"</span><span class="token punctuation">:</span>UP<span class="token punctuation">}</span><span class="token punctuation">)</span>
-        self<span class="token punctuation">.</span>wait<span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre>
+<pre class=" language-lang-python"><code class="language-lang-python">class AddUpdater(Scene):
+    def construct(self):
+        circles = [Circle(arc_center = LEFT*i*2) for i in range(3)]
+        vg = VGroup(*circles)
+        line = Line(np.array([-10,vg.get_top()[1],0]),np.array([10,vg.get_top()[1],0]))
+        text = TextMobject("about\_edge")
+        text.next_to(line,UP,buff=SMALL_BUFF)
+        self.add(line,vg,text)
+        self.play(vg.scale,2,{"about_edge":UP})
+        self.wait()
+</code></pre>
 <p><img src="about_edge-1586013786370.gif" alt="about_edge"></p>
 <p>如果<code>about_edge</code>为方向的线性组合,则会按照对应的边进行阻隔,以UP+RIGHT为例子:</p>
-<pre class=" language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">AddUpdater</span><span class="token punctuation">(</span>Scene<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token keyword">def</span> <span class="token function">construct</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        circles <span class="token operator">=</span> <span class="token punctuation">[</span>Circle<span class="token punctuation">(</span>arc_center <span class="token operator">=</span> LEFT<span class="token operator">*</span>i<span class="token operator">*</span><span class="token number">2</span><span class="token punctuation">)</span> <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
-        vg <span class="token operator">=</span> VGroup<span class="token punctuation">(</span><span class="token operator">*</span>circles<span class="token punctuation">)</span>
-        line <span class="token operator">=</span> Line<span class="token punctuation">(</span>np<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">10</span><span class="token punctuation">,</span>vg<span class="token punctuation">.</span>get_top<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">,</span>np<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">10</span><span class="token punctuation">,</span>vg<span class="token punctuation">.</span>get_top<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-        line1 <span class="token operator">=</span> Line<span class="token punctuation">(</span>np<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span>vg<span class="token punctuation">.</span>get_right<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token operator">-</span><span class="token number">10</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">,</span>np<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span>vg<span class="token punctuation">.</span>get_right<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token number">10</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-        text <span class="token operator">=</span> TextMobject<span class="token punctuation">(</span><span class="token string">"about\_edge1"</span><span class="token punctuation">)</span>
-        text<span class="token punctuation">.</span>next_to<span class="token punctuation">(</span>line<span class="token punctuation">,</span>UP<span class="token punctuation">,</span>buff<span class="token operator">=</span>SMALL_BUFF<span class="token punctuation">)</span>
-        text1 <span class="token operator">=</span> TextMobject<span class="token punctuation">(</span><span class="token string">"about\_edge2"</span><span class="token punctuation">)</span>
-        text1<span class="token punctuation">.</span>next_to<span class="token punctuation">(</span>line1<span class="token punctuation">,</span>RIGHT<span class="token punctuation">,</span>buff<span class="token operator">=</span>SMALL_BUFF<span class="token punctuation">)</span>
-        self<span class="token punctuation">.</span>add<span class="token punctuation">(</span>line<span class="token punctuation">,</span>line1<span class="token punctuation">,</span>vg<span class="token punctuation">,</span>text<span class="token punctuation">,</span>text1<span class="token punctuation">)</span>
-        self<span class="token punctuation">.</span>play<span class="token punctuation">(</span>vg<span class="token punctuation">.</span>scale<span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token punctuation">{</span><span class="token string">"about_edge"</span><span class="token punctuation">:</span>np<span class="token punctuation">.</span>array<span class="token punctuation">(</span>UP<span class="token operator">+</span>RIGHT<span class="token punctuation">)</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
-        self<span class="token punctuation">.</span>wait<span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre>
+<pre class=" language-lang-python"><code class="language-lang-python">class AddUpdater(Scene):
+    def construct(self):
+        circles = [Circle(arc_center = LEFT*i*2) for i in range(3)]
+        vg = VGroup(*circles)
+        line = Line(np.array([-10,vg.get_top()[1],0]),np.array([10,vg.get_top()[1],0]))
+        line1 = Line(np.array([vg.get_right()[0],-10,0]),np.array([vg.get_right()[0],10,0]))
+        text = TextMobject("about\_edge1")
+        text.next_to(line,UP,buff=SMALL_BUFF)
+        text1 = TextMobject("about\_edge2")
+        text1.next_to(line1,RIGHT,buff=SMALL_BUFF)
+        self.add(line,line1,vg,text,text1)
+        self.play(vg.scale,2,{"about_edge":np.array(UP+RIGHT)})
+        self.wait()
+</code></pre>
 <p><img src="UP_RIGHT-1586013786370.gif" alt="UP_RIGHT"></p>
 </li>
 <li><p><code>about_point</code>:相对点</p>
-<pre class=" language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">AddUpdater</span><span class="token punctuation">(</span>Scene<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token keyword">def</span> <span class="token function">construct</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        circles <span class="token operator">=</span> <span class="token punctuation">[</span>Circle<span class="token punctuation">(</span>arc_center <span class="token operator">=</span> LEFT<span class="token operator">*</span>i<span class="token operator">*</span><span class="token number">2</span><span class="token punctuation">)</span> <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
-        vg <span class="token operator">=</span> VGroup<span class="token punctuation">(</span><span class="token operator">*</span>circles<span class="token punctuation">)</span>
-        dot <span class="token operator">=</span> Dot<span class="token punctuation">(</span>point<span class="token operator">=</span>circles<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>get_center<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-        text <span class="token operator">=</span> TextMobject<span class="token punctuation">(</span><span class="token string">"about\_point"</span><span class="token punctuation">)</span>
-        text<span class="token punctuation">.</span>next_to<span class="token punctuation">(</span>dot<span class="token punctuation">,</span>DOWN<span class="token punctuation">,</span>buff<span class="token operator">=</span>SMALL_BUFF<span class="token punctuation">)</span>
-        self<span class="token punctuation">.</span>add<span class="token punctuation">(</span>dot<span class="token punctuation">,</span>vg<span class="token punctuation">,</span>text<span class="token punctuation">)</span>
-        self<span class="token punctuation">.</span>play<span class="token punctuation">(</span>vg<span class="token punctuation">.</span>scale<span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token punctuation">{</span><span class="token string">"about_point"</span><span class="token punctuation">:</span>dot<span class="token punctuation">.</span>get_center<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
-        self<span class="token punctuation">.</span>wait<span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre>
+<pre class=" language-lang-python"><code class="language-lang-python">class AddUpdater(Scene):
+    def construct(self):
+        circles = [Circle(arc_center = LEFT*i*2) for i in range(3)]
+        vg = VGroup(*circles)
+        dot = Dot(point=circles[0].get_center())
+        text = TextMobject("about\_point")
+        text.next_to(dot,DOWN,buff=SMALL_BUFF)
+        self.add(dot,vg,text)
+        self.play(vg.scale,2,{"about_point":dot.get_center()})
+        self.wait()
+</code></pre>
 <p><img src="about_point-1586013786370.gif" alt="about_point"></p>
 </li>
 </ul>
@@ -733,29 +742,31 @@
 </li>
 <li><p><code>rotate(angle, axis=OUT, **kwargs)</code>:</p>
 <p>学过初中物理就应该知道右手定则,在数学,物理中,旋转的方向就是右手定则中的(大拇指)方向</p>
-<pre class=" language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">myRotateScene</span><span class="token punctuation">(</span>ThreeDScene<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token keyword">def</span> <span class="token function">construct</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
-     dot <span class="token operator">=</span> Dot<span class="token punctuation">(</span><span class="token punctuation">)</span>
-        text <span class="token operator">=</span> TextMobject<span class="token punctuation">(</span><span class="token string">"about\_point"</span><span class="token punctuation">,</span>color<span class="token operator">=</span>RED<span class="token punctuation">)</span>
-        text<span class="token punctuation">.</span>next_to<span class="token punctuation">(</span>dot<span class="token punctuation">,</span>DOWN<span class="token punctuation">,</span>buff<span class="token operator">=</span>SMALL_BUFF<span class="token punctuation">)</span>
-        axes <span class="token operator">=</span> ThreeDAxes<span class="token punctuation">(</span><span class="token punctuation">)</span>
-        self<span class="token punctuation">.</span>add<span class="token punctuation">(</span>dot<span class="token punctuation">,</span>text<span class="token punctuation">,</span>axes<span class="token punctuation">)</span>
-        self<span class="token punctuation">.</span>set_camera_orientation<span class="token punctuation">(</span>theta<span class="token operator">=</span><span class="token operator">-</span>PI<span class="token operator">/</span><span class="token number">4</span><span class="token punctuation">,</span>phi<span class="token operator">=</span>PI<span class="token operator">/</span><span class="token number">4</span><span class="token punctuation">)</span>           
-        self<span class="token punctuation">.</span>play<span class="token punctuation">(</span>text<span class="token punctuation">.</span>rotate<span class="token punctuation">,</span>PI<span class="token operator">/</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token punctuation">{</span><span class="token string">"axis"</span><span class="token punctuation">:</span>OUT<span class="token punctuation">}</span><span class="token punctuation">)</span>
-        self<span class="token punctuation">.</span>wait<span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre>
+<pre class=" language-lang-python"><code class="language-lang-python">class myRotateScene(ThreeDScene):
+    def construct(self):
+     dot = Dot()
+        text = TextMobject("about\_point",color=RED)
+        text.next_to(dot,DOWN,buff=SMALL_BUFF)
+        axes = ThreeDAxes()
+        self.add(dot,text,axes)
+        self.set_camera_orientation(theta=-PI/4,phi=PI/4)           
+        self.play(text.rotate,PI/2,{"axis":OUT})
+        self.wait()
+</code></pre>
 <p><img src="Rotate-1586013786370.gif" alt="Rotate"></p>
 <p>上图text的起始平面是X-Y平面,UP为y轴正方向,大家可以自行尝试更改axis方向(注意self.play函数不代表角度从0到PI/2的渐近变化所以只要看起始帧和终止帧)</p>
 <p><code>**kwargs</code>还可以接受相对点<code>about_point</code>:</p>
-<pre class=" language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">myRotateScene</span><span class="token punctuation">(</span>ThreeDScene<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token keyword">def</span> <span class="token function">construct</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        dot <span class="token operator">=</span> Dot<span class="token punctuation">(</span><span class="token punctuation">)</span>
-        text <span class="token operator">=</span> TextMobject<span class="token punctuation">(</span><span class="token string">"about\_point"</span><span class="token punctuation">,</span>color<span class="token operator">=</span>RED<span class="token punctuation">)</span>
-        text<span class="token punctuation">.</span>next_to<span class="token punctuation">(</span>dot<span class="token punctuation">,</span>DOWN<span class="token punctuation">,</span>buff<span class="token operator">=</span>SMALL_BUFF<span class="token punctuation">)</span>
-        axes <span class="token operator">=</span> ThreeDAxes<span class="token punctuation">(</span><span class="token punctuation">)</span>
-        self<span class="token punctuation">.</span>add<span class="token punctuation">(</span>dot<span class="token punctuation">,</span>text<span class="token punctuation">,</span>axes<span class="token punctuation">)</span>
-        self<span class="token punctuation">.</span>set_camera_orientation<span class="token punctuation">(</span>theta<span class="token operator">=</span><span class="token operator">-</span>PI<span class="token operator">/</span><span class="token number">4</span><span class="token punctuation">,</span>phi<span class="token operator">=</span>PI<span class="token operator">/</span><span class="token number">4</span><span class="token punctuation">)</span>           
-        self<span class="token punctuation">.</span>play<span class="token punctuation">(</span>text<span class="token punctuation">.</span>rotate<span class="token punctuation">,</span>PI<span class="token punctuation">,</span><span class="token punctuation">{</span><span class="token string">"axis"</span><span class="token punctuation">:</span>OUT<span class="token punctuation">,</span><span class="token string">"about_point"</span><span class="token punctuation">:</span>dot<span class="token punctuation">.</span>get_center<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
-        self<span class="token punctuation">.</span>wait<span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre>
+<pre class=" language-lang-python"><code class="language-lang-python">class myRotateScene(ThreeDScene):
+    def construct(self):
+        dot = Dot()
+        text = TextMobject("about\_point",color=RED)
+        text.next_to(dot,DOWN,buff=SMALL_BUFF)
+        axes = ThreeDAxes()
+        self.add(dot,text,axes)
+        self.set_camera_orientation(theta=-PI/4,phi=PI/4)           
+        self.play(text.rotate,PI,{"axis":OUT,"about_point":dot.get_center()})
+        self.wait()
+</code></pre>
 <p>这个相对点旋转其实是线性代数里面的旋转矩阵造成的结果,如果角度是180度,效果是关于这个点对称</p>
 <p><img src="rotateAboutPoint-1586013786370.gif" alt="rotateAboutPoint"></p>
 </li>
@@ -765,41 +776,44 @@
 <li><p><code>stretch(factor, dim, **kwargs)</code>:</p>
 <p>在对应的维度伸缩<code>factor</code>倍</p>
 <p>这个函数与<code>scale</code>的用法一样,也会有<code>about_point</code>和<code>about_edge</code></p>
-<pre class=" language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Stretch</span><span class="token punctuation">(</span>Scene<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token keyword">def</span> <span class="token function">construct</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        text <span class="token operator">=</span> Text<span class="token punctuation">(</span><span class="token string">"stretch"</span><span class="token punctuation">)</span>
-        self<span class="token punctuation">.</span>play<span class="token punctuation">(</span>text<span class="token punctuation">.</span>stretch<span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">)</span>
-        self<span class="token punctuation">.</span>wait<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span></code></pre>
+<pre class=" language-lang-python"><code class="language-lang-python">class Stretch(Scene):
+    def construct(self):
+        text = Text("stretch")
+        self.play(text.stretch,2,1)
+        self.wait(2)
+</code></pre>
 </li>
 <li><p><code>apply_function(function, **kwargs)</code>:</p>
 <p>对所有family成员的点坐标都进行<code>function</code>处理,所以function必须是一个处理一个点的函数</p>
 <p>例如对于二维图形:</p>
-<pre class=" language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">myScene</span><span class="token punctuation">(</span>Scene<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token keyword">def</span> <span class="token function">func</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span>point<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token keyword">return</span> point<span class="token operator">*</span><span class="token number">2</span>
+<pre class=" language-lang-python"><code class="language-lang-python">class myScene(Scene):
+    def func(self,point):
+        return point*2
 
-    <span class="token keyword">def</span> <span class="token function">construct</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        circle <span class="token operator">=</span> Circle<span class="token punctuation">(</span><span class="token punctuation">)</span>
-        circle2 <span class="token operator">=</span> Circle<span class="token punctuation">(</span><span class="token punctuation">)</span>
-        self<span class="token punctuation">.</span>add<span class="token punctuation">(</span>circle<span class="token punctuation">,</span>circle2<span class="token punctuation">)</span>  
-        circle<span class="token punctuation">.</span>apply_function<span class="token punctuation">(</span>self<span class="token punctuation">.</span>func<span class="token punctuation">)</span>
-        self<span class="token punctuation">.</span>play<span class="token punctuation">(</span>Write<span class="token punctuation">(</span>circle<span class="token punctuation">)</span><span class="token punctuation">)</span>
-        self<span class="token punctuation">.</span>wait<span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre>
+    def construct(self):
+        circle = Circle()
+        circle2 = Circle()
+        self.add(circle,circle2)  
+        circle.apply_function(self.func)
+        self.play(Write(circle))
+        self.wait()
+</code></pre>
 <p>默认的<code>about_point</code>为<code>ORIGIN</code>,可以看出来实现了<code>apply_function</code>的会大一倍</p>
 <p><img src="applyFunc-1586013786370.gif" alt="applyFunc"></p>
 </li>
 <li><p><code>apply_function_to_position(function)</code>:</p>
 <p>移动图像中心到function(self.get_center())</p>
-<pre class=" language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">myWag</span><span class="token punctuation">(</span>Scene<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token keyword">def</span> <span class="token function">x2</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span>x<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token keyword">return</span> x<span class="token operator">*</span><span class="token number">2</span>
+<pre class=" language-lang-python"><code class="language-lang-python">class myWag(Scene):
+    def x2(self,x):
+        return x*2
 
-    <span class="token keyword">def</span> <span class="token function">construct</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        circle <span class="token operator">=</span> Circle<span class="token punctuation">(</span><span class="token punctuation">)</span>
-        circle<span class="token punctuation">.</span>move_to<span class="token punctuation">(</span>RIGHT<span class="token punctuation">)</span>
-        self<span class="token punctuation">.</span>add<span class="token punctuation">(</span>circle<span class="token punctuation">)</span>
-        self<span class="token punctuation">.</span>play<span class="token punctuation">(</span>circle<span class="token punctuation">.</span>apply_function_to_position<span class="token punctuation">,</span><span class="token punctuation">{</span><span class="token string">"function"</span><span class="token punctuation">:</span>self<span class="token punctuation">.</span>x2<span class="token punctuation">}</span><span class="token punctuation">)</span>
-        self<span class="token punctuation">.</span>wait<span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre>
+    def construct(self):
+        circle = Circle()
+        circle.move_to(RIGHT)
+        self.add(circle)
+        self.play(circle.apply_function_to_position,{"function":self.x2})
+        self.wait()
+</code></pre>
 </li>
 <li><p><code>apply_function_to_submobject_positions(function)</code>:</p>
 <p>略</p>
@@ -817,45 +831,49 @@
 </li>
 <li><p>向axis对应维度投影,如axis=UP/DOWN则向y轴投影,即保留y值不变,得到对应维度的向量列表alphas</p>
 </li>
-<li><p>将向量列表alphas归一化到[0,1],归一方法如下:<br>$$<br>\vec{alphas’}_i = \frac{\vec{alphas}_i-min(\vec{alphas})}{max(\vec{alphas})-min(\vec{alphas})}<br>$$</p>
-</li>
-<li><p>执行幂运算<br>$$<br>\vec{alphas}_i^{“}=(\vec{alphas’})^{wag_factor}<br>$$</p>
-</li>
+<li><p>将向量列表alphas归一化到[0,1],归一方法如下:</p>
+<script type="math/tex; mode=display">
+\vec{alphas'}_i = \frac{\vec{alphas}_i-min(\vec{alphas})}{max(\vec{alphas})-min(\vec{alphas})}</script></li>
+<li><p>执行幂运算</p>
+<script type="math/tex; mode=display">
+\vec{alphas}_i^{"}=(\vec{alphas'})^{wag\_factor}</script></li>
 <li><p>每个点在direction方向平移$\vec{alphas}_i^{“}$</p>
 </li>
 </ol>
 <p>例子:</p>
 <p>factor=1</p>
-<pre class=" language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">myWag</span><span class="token punctuation">(</span>Scene<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token keyword">def</span> <span class="token function">construct</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        squares <span class="token operator">=</span> <span class="token punctuation">[</span>Square<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
-        <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-            squares<span class="token punctuation">[</span><span class="token number">1</span><span class="token operator">+</span>i<span class="token punctuation">]</span><span class="token punctuation">.</span>move_to<span class="token punctuation">(</span>RIGHT<span class="token operator">*</span><span class="token number">3</span><span class="token operator">*</span>i<span class="token punctuation">)</span>
-        self<span class="token punctuation">.</span>add<span class="token punctuation">(</span><span class="token operator">*</span>squares<span class="token punctuation">)</span> 
-        self<span class="token punctuation">.</span>play<span class="token punctuation">(</span>squares<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>wag<span class="token punctuation">,</span><span class="token punctuation">{</span><span class="token string">"direction"</span><span class="token punctuation">:</span>UP<span class="token punctuation">,</span><span class="token string">"axis"</span><span class="token punctuation">:</span>RIGHT<span class="token punctuation">,</span><span class="token string">"wag_factor"</span><span class="token punctuation">:</span><span class="token number">0.1</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
-                  squares<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">.</span>wag<span class="token punctuation">,</span><span class="token punctuation">{</span><span class="token string">"direction"</span><span class="token punctuation">:</span>UP<span class="token punctuation">,</span><span class="token string">"axis"</span><span class="token punctuation">:</span>RIGHT<span class="token punctuation">,</span><span class="token string">"wag_factor"</span><span class="token punctuation">:</span><span class="token number">1</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
-                  squares<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">.</span>wag<span class="token punctuation">,</span><span class="token punctuation">{</span><span class="token string">"direction"</span><span class="token punctuation">:</span>UP<span class="token punctuation">,</span><span class="token string">"axis"</span><span class="token punctuation">:</span>RIGHT<span class="token punctuation">,</span><span class="token string">"wag_factor"</span><span class="token punctuation">:</span><span class="token number">2</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
-        self<span class="token punctuation">.</span>wait<span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre>
+<pre class=" language-lang-python"><code class="language-lang-python">class myWag(Scene):
+    def construct(self):
+        squares = [Square() for i in range(3)]
+        for i in range(-1,2):
+            squares[1+i].move_to(RIGHT*3*i)
+        self.add(*squares) 
+        self.play(squares[0].wag,{"direction":UP,"axis":RIGHT,"wag_factor":0.1},
+                  squares[1].wag,{"direction":UP,"axis":RIGHT,"wag_factor":1},
+                  squares[2].wag,{"direction":UP,"axis":RIGHT,"wag_factor":2})
+        self.wait()
+</code></pre>
 <p><img src="myWag1-1585643241928-1586013786370.gif" alt="myWag1"></p>
 <p>从左到右factor依次为0.1,1,2,都是向上wag的,具体怎么理解大家可以自己理解,比较难以表述</p>
 </li>
 <li><p><code>reverse_points()</code>:</p>
 <p>调换点的顺序:</p>
-<pre class=" language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">myWag</span><span class="token punctuation">(</span>Scene<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token keyword">def</span> <span class="token function">construct</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        circle <span class="token operator">=</span> Circle<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>scale<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span>
-        texts <span class="token operator">=</span> <span class="token punctuation">[</span>TextMobject<span class="token punctuation">(</span><span class="token string">"p"</span><span class="token operator">+</span>str<span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span>scale<span class="token punctuation">(</span><span class="token number">0.5</span><span class="token punctuation">)</span> <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span>len<span class="token punctuation">(</span>circle<span class="token punctuation">.</span>points<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
-        <span class="token keyword">def</span> <span class="token function">update_factory</span><span class="token punctuation">(</span>index<span class="token punctuation">)</span><span class="token punctuation">:</span>
-            <span class="token keyword">def</span> <span class="token function">update_func</span><span class="token punctuation">(</span>mob<span class="token punctuation">)</span><span class="token punctuation">:</span>
-                mob<span class="token punctuation">.</span>move_to<span class="token punctuation">(</span>circle<span class="token punctuation">.</span>points<span class="token punctuation">[</span>index<span class="token punctuation">]</span><span class="token punctuation">)</span>
-            <span class="token keyword">return</span> update_func
-        <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span>len<span class="token punctuation">(</span>texts<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-            texts<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">.</span>add_updater<span class="token punctuation">(</span>update_factory<span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<pre class=" language-lang-python"><code class="language-lang-python">class myWag(Scene):
+    def construct(self):
+        circle = Circle().scale(2)
+        texts = [TextMobject("p"+str(i)).scale(0.5) for i in range(len(circle.points))]
+        def update_factory(index):
+            def update_func(mob):
+                mob.move_to(circle.points[index])
+            return update_func
+        for i in range(len(texts)):
+            texts[i].add_updater(update_factory(i))
 
-        self<span class="token punctuation">.</span>add<span class="token punctuation">(</span>circle<span class="token punctuation">,</span><span class="token operator">*</span>texts<span class="token punctuation">)</span>
-        self<span class="token punctuation">.</span>wait<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
-        self<span class="token punctuation">.</span>play<span class="token punctuation">(</span>circle<span class="token punctuation">.</span>reverse_points<span class="token punctuation">)</span>
-        self<span class="token punctuation">.</span>wait<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span></code></pre>
+        self.add(circle,*texts)
+        self.wait(1)
+        self.play(circle.reverse_points)
+        self.wait(2)
+</code></pre>
 <p><img src="ReversePoint-1586013786371.gif" alt="ReversePoint"></p>
 <p>注意play函数不能很好表现reverse的现象,如果看顺序,上图顺序从逆时针变成了顺时针</p>
 </li>
@@ -870,25 +888,27 @@
 <h3 id="3-5-位置函数"><a href="#3-5-位置函数" class="headerlink" title="3.5 位置函数"></a>3.5 位置函数</h3><ol>
 <li><p><code>center()</code>:</p>
 <p>此处center为动词:到中心</p>
-<pre class=" language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Repeat</span><span class="token punctuation">(</span>Scene<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token keyword">def</span> <span class="token function">construct</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        square <span class="token operator">=</span> Square<span class="token punctuation">(</span><span class="token punctuation">)</span>
-        dot<span class="token operator">=</span>Dot<span class="token punctuation">(</span><span class="token punctuation">)</span>
-        self<span class="token punctuation">.</span>add<span class="token punctuation">(</span>square<span class="token punctuation">,</span>dot<span class="token punctuation">)</span>
-        self<span class="token punctuation">.</span>play<span class="token punctuation">(</span>square<span class="token punctuation">.</span>shift<span class="token punctuation">,</span>RIGHT<span class="token punctuation">)</span>
-        self<span class="token punctuation">.</span>play<span class="token punctuation">(</span>square<span class="token punctuation">.</span>shift<span class="token punctuation">,</span>RIGHT<span class="token punctuation">)</span>
-        self<span class="token punctuation">.</span>play<span class="token punctuation">(</span>square<span class="token punctuation">.</span>shift<span class="token punctuation">,</span>UP<span class="token punctuation">)</span>
-        self<span class="token punctuation">.</span>play<span class="token punctuation">(</span>square<span class="token punctuation">.</span>center<span class="token punctuation">)</span>
-        self<span class="token punctuation">.</span>wait<span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre>
+<pre class=" language-lang-python"><code class="language-lang-python">class Repeat(Scene):
+    def construct(self):
+        square = Square()
+        dot=Dot()
+        self.add(square,dot)
+        self.play(square.shift,RIGHT)
+        self.play(square.shift,RIGHT)
+        self.play(square.shift,UP)
+        self.play(square.center)
+        self.wait()
+</code></pre>
 <p><img src="Center-1586013786371.gif" alt="Center"></p>
 </li>
 <li><p><code>align_on_border(direction, buff=DEFAULT_MOBJECT_TO_EDGE_BUFFER)</code>:</p>
 <p>在边界对齐,buff为和边界的距离</p>
-<pre class=" language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Align</span><span class="token punctuation">(</span>Scene<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token keyword">def</span> <span class="token function">construct</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        square <span class="token operator">=</span> Square<span class="token punctuation">(</span><span class="token punctuation">)</span>
-        self<span class="token punctuation">.</span>play<span class="token punctuation">(</span>square<span class="token punctuation">.</span>align_on_border<span class="token punctuation">,</span>LEFT<span class="token operator">+</span>UP<span class="token punctuation">)</span>
-        self<span class="token punctuation">.</span>wait<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span></code></pre>
+<pre class=" language-lang-python"><code class="language-lang-python">class Align(Scene):
+    def construct(self):
+        square = Square()
+        self.play(square.align_on_border,LEFT+UP)
+        self.wait(2)
+</code></pre>
 <p><img src="Align-1586013786371.gif" alt="Align"></p>
 </li>
 <li><p><code>to_corner(corner=LEFT + DOWN, buff=DEFAULT_MOBJECT_TO_EDGE_BUFFER)</code>:</p>
@@ -915,7 +935,7 @@
 </ul>
 <p>执行过程:</p>
 <p>   如果<code>mobject_or_point</code>是点则next_to的对象就是点,否则为由参数决定的Mobject的中心</p>
-<ol start="6">
+<ol>
 <li><p><code>shift_onto_screen(**kwargs)</code>:</p>
 </li>
 <li><p><code>is_off_screen()</code>:</p>
@@ -923,12 +943,13 @@
 </li>
 <li><p><code>rescale_to_fit(length, dim, stretch=False, **kwargs)</code>:</p>
 <p>将某一个方向的长度拉伸至length,可以按照scale方式拉长或者stretch方式拉长</p>
-<pre class=" language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">RescaleToFit</span><span class="token punctuation">(</span>Scene<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token keyword">def</span> <span class="token function">construct</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        ellipse <span class="token operator">=</span> Ellipse<span class="token punctuation">(</span><span class="token punctuation">)</span>
-        length <span class="token operator">=</span> ellipse<span class="token punctuation">.</span>length_over_dim<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>
-        self<span class="token punctuation">.</span>play<span class="token punctuation">(</span>ellipse<span class="token punctuation">.</span>rescale_to_fit<span class="token punctuation">,</span>length<span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token punctuation">{</span><span class="token string">"stretch"</span><span class="token punctuation">:</span><span class="token boolean">True</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
-        self<span class="token punctuation">.</span>wait<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span></code></pre>
+<pre class=" language-lang-python"><code class="language-lang-python">class RescaleToFit(Scene):
+    def construct(self):
+        ellipse = Ellipse()
+        length = ellipse.length_over_dim(0)
+        self.play(ellipse.rescale_to_fit,length,1,{"stretch":True})
+        self.wait(2)
+</code></pre>
 <p><img src="RescaleToFit-1586013786371.gif" alt="RescaleToFit"></p>
 <ul>
 <li><code>stretch_to_fit_width(width, **kwargs)</code></li>
@@ -959,37 +980,40 @@
 </li>
 <li><p><code>surround(mobject,dim_to_match=0,stretch=False,buff=MED_SMALL_BUFF)</code>:</p>
 <p>包围(默认情况下,等边长的正多边形规则物体效果很好,对于不等变长的形状最好启用stretch)</p>
-<pre class=" language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Surround</span><span class="token punctuation">(</span>Scene<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token keyword">def</span> <span class="token function">construct</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        circle <span class="token operator">=</span> Circle<span class="token punctuation">(</span><span class="token punctuation">)</span>
-        square <span class="token operator">=</span> Square<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>shift<span class="token punctuation">(</span>UP<span class="token operator">*</span><span class="token number">2</span><span class="token punctuation">)</span>
-        self<span class="token punctuation">.</span>add<span class="token punctuation">(</span>circle<span class="token punctuation">,</span>square<span class="token punctuation">)</span>
-        self<span class="token punctuation">.</span>play<span class="token punctuation">(</span>circle<span class="token punctuation">.</span>surround<span class="token punctuation">,</span>square<span class="token punctuation">)</span>
-        self<span class="token punctuation">.</span>wait<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span></code></pre>
+<pre class=" language-lang-python"><code class="language-lang-python">class Surround(Scene):
+    def construct(self):
+        circle = Circle()
+        square = Square().shift(UP*2)
+        self.add(circle,square)
+        self.play(circle.surround,square)
+        self.wait(2)
+</code></pre>
 <p><img src="Surround-1586013786372.gif" alt="Surround"></p>
 </li>
 <li><p><code>put_start_and_end_on(start, end)</code>:</p>
 <p>将起点终点重置为start,end</p>
-<pre class=" language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">PutStartAndEndOn</span><span class="token punctuation">(</span>Scene<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token keyword">def</span> <span class="token function">construct</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        arc <span class="token operator">=</span> Arc<span class="token punctuation">(</span>PI<span class="token operator">/</span><span class="token number">3</span><span class="token punctuation">)</span>
-        texts <span class="token operator">=</span> <span class="token punctuation">[</span>TexMobject<span class="token punctuation">(</span>i<span class="token punctuation">,</span>color<span class="token operator">=</span>RED<span class="token punctuation">)</span> <span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token punctuation">[</span><span class="token string">"startPoint"</span><span class="token punctuation">,</span><span class="token string">"endPoint"</span><span class="token punctuation">]</span><span class="token punctuation">]</span>
-        texts<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>add_updater<span class="token punctuation">(</span><span class="token keyword">lambda</span> x<span class="token punctuation">:</span> x<span class="token punctuation">.</span>move_to<span class="token punctuation">(</span>arc<span class="token punctuation">.</span>get_start<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-        texts<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">.</span>add_updater<span class="token punctuation">(</span><span class="token keyword">lambda</span> x<span class="token punctuation">:</span> x<span class="token punctuation">.</span>move_to<span class="token punctuation">(</span>arc<span class="token punctuation">.</span>get_end<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-        self<span class="token punctuation">.</span>add<span class="token punctuation">(</span>arc<span class="token punctuation">,</span> <span class="token operator">*</span>texts<span class="token punctuation">)</span>
-        self<span class="token punctuation">.</span>play<span class="token punctuation">(</span>arc<span class="token punctuation">.</span>put_start_and_end_on<span class="token punctuation">,</span>ORIGIN<span class="token punctuation">,</span><span class="token punctuation">(</span>UP<span class="token operator">+</span>RIGHT<span class="token punctuation">)</span><span class="token operator">*</span><span class="token number">2</span><span class="token punctuation">)</span>
-        self<span class="token punctuation">.</span>wait<span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre>
+<pre class=" language-lang-python"><code class="language-lang-python">class PutStartAndEndOn(Scene):
+    def construct(self):
+        arc = Arc(PI/3)
+        texts = [TexMobject(i,color=RED) for i in ["startPoint","endPoint"]]
+        texts[0].add_updater(lambda x: x.move_to(arc.get_start()))
+        texts[1].add_updater(lambda x: x.move_to(arc.get_end()))
+        self.add(arc, *texts)
+        self.play(arc.put_start_and_end_on,ORIGIN,(UP+RIGHT)*2)
+        self.wait()
+</code></pre>
 <p><img src="PutStartAndEndOn-1586013786372.gif" alt="PutStartAndEndOn"></p>
 </li>
 <li><p><code>add_background_rectangle(color=BLACK, opacity=0.75, **kwargs)</code>:</p>
 <p>增加背景方块,此方块是可以随着Mobject变化而变化的</p>
-<pre class=" language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">BackgroundRectangle</span><span class="token punctuation">(</span>Scene<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token keyword">def</span> <span class="token function">construct</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        circle <span class="token operator">=</span> Circle<span class="token punctuation">(</span>color<span class="token operator">=</span>RED<span class="token punctuation">)</span>
-        circle<span class="token punctuation">.</span>add_background_rectangle<span class="token punctuation">(</span>color<span class="token operator">=</span>BLUE<span class="token punctuation">,</span>opacity<span class="token operator">=</span><span class="token number">0.4</span><span class="token punctuation">)</span>
-        self<span class="token punctuation">.</span>add<span class="token punctuation">(</span>circle<span class="token punctuation">)</span>
-        self<span class="token punctuation">.</span>play<span class="token punctuation">(</span>circle<span class="token punctuation">.</span>stretch<span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">)</span>
-        self<span class="token punctuation">.</span>wait<span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre>
+<pre class=" language-lang-python"><code class="language-lang-python">class BackgroundRectangle(Scene):
+    def construct(self):
+        circle = Circle(color=RED)
+        circle.add_background_rectangle(color=BLUE,opacity=0.4)
+        self.add(circle)
+        self.play(circle.stretch,2,1)
+        self.wait()
+</code></pre>
 <p><img src="BackgroundRectangle-1586013786372.gif" alt="BackgroundRectangle"></p>
 </li>
 <li><p><code>add_background_rectangle_to_submobjects(**kwargs)</code>:</p>
@@ -1005,12 +1029,13 @@
 </li>
 <li><p><code>set_color_by_gradient(*colors)</code>:</p>
 <p>渐变色,可以是两个或多个颜色的列表</p>
-<pre class=" language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">main</span><span class="token punctuation">(</span>Scene<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token keyword">def</span> <span class="token function">construct</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        qed <span class="token operator">=</span> TexMobject<span class="token punctuation">(</span><span class="token string">'This is a Text'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>scale<span class="token punctuation">(</span><span class="token number">1.25</span><span class="token punctuation">)</span>
-        qed<span class="token punctuation">.</span>set_color_by_gradient<span class="token punctuation">(</span>RED<span class="token punctuation">,</span>YELLOW<span class="token punctuation">,</span>GREEN<span class="token punctuation">,</span>BLUE<span class="token punctuation">)</span>
-        self<span class="token punctuation">.</span>play<span class="token punctuation">(</span>Write<span class="token punctuation">(</span>qed<span class="token punctuation">)</span><span class="token punctuation">)</span>
-        self<span class="token punctuation">.</span>wait<span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span></code></pre>
+<pre class=" language-lang-python"><code class="language-lang-python">class main(Scene):
+    def construct(self):
+        qed = TexMobject('This is a Text').scale(1.25)
+        qed.set_color_by_gradient(RED,YELLOW,GREEN,BLUE)
+        self.play(Write(qed))
+        self.wait(3)
+</code></pre>
 <p><img src="image-20200403201147347-1586013786372.png" alt="gradientColor"></p>
 </li>
 <li><p><code>set_colors_by_radial_gradient(center=None, radius=1, inner_color=WHITE, outer_color=BLACK)</code>:</p>
@@ -1024,13 +1049,14 @@
 </li>
 <li><p><code>fade_to(color, alpha, family=True)</code>:</p>
 <p>褪色为某一个颜色,alpha为插值系数,alpha在[0,1]之间,越接近1,褪色越厉害</p>
-<pre class=" language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">FadeTo</span><span class="token punctuation">(</span>Scene<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token keyword">def</span> <span class="token function">construct</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        text <span class="token operator">=</span> TexMobject<span class="token punctuation">(</span><span class="token string">"This is a Text"</span><span class="token punctuation">)</span>
-        self<span class="token punctuation">.</span>add<span class="token punctuation">(</span>text<span class="token punctuation">)</span>
-        self<span class="token punctuation">.</span>play<span class="token punctuation">(</span>text<span class="token punctuation">.</span>set_colors_by_radial_gradient<span class="token punctuation">,</span><span class="token punctuation">{</span><span class="token string">"inner_color"</span><span class="token punctuation">:</span>WHITE<span class="token punctuation">,</span><span class="token string">"outer_color"</span><span class="token punctuation">:</span>RED<span class="token punctuation">}</span><span class="token punctuation">)</span>
-        self<span class="token punctuation">.</span>play<span class="token punctuation">(</span>text<span class="token punctuation">.</span>fade_to<span class="token punctuation">,</span>BLUE<span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">)</span>
-        self<span class="token punctuation">.</span>wait<span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre>
+<pre class=" language-lang-python"><code class="language-lang-python">class FadeTo(Scene):
+    def construct(self):
+        text = TexMobject("This is a Text")
+        self.add(text)
+        self.play(text.set_colors_by_radial_gradient,{"inner_color":WHITE,"outer_color":RED})
+        self.play(text.fade_to,BLUE,1)
+        self.wait()
+</code></pre>
 <p><img src="FadeTo-1586013786373.gif" alt="FadeTo"></p>
 </li>
 <li><p><code>get_color()</code>:</p>
@@ -1086,20 +1112,21 @@
 </li>
 <li><p><code>get_boundary_point(direction)</code>:</p>
 <p>得到某个方向的最远的点</p>
-<pre class=" language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">FadeTo</span><span class="token punctuation">(</span>Scene<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token keyword">def</span> <span class="token function">construct</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        square <span class="token operator">=</span> Square<span class="token punctuation">(</span><span class="token punctuation">)</span>
-        circle <span class="token operator">=</span> Circle<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>shift<span class="token punctuation">(</span><span class="token number">2</span> <span class="token operator">*</span> RIGHT <span class="token operator">+</span> <span class="token number">1</span> <span class="token operator">*</span> DOWN<span class="token punctuation">)</span>
-        shapeGroup <span class="token operator">=</span> VGroup<span class="token punctuation">(</span>square<span class="token punctuation">,</span>circle<span class="token punctuation">)</span>
-        points <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
-        nums <span class="token operator">=</span> <span class="token number">10</span>
-        <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span>nums<span class="token punctuation">)</span><span class="token punctuation">:</span>
-            points<span class="token punctuation">.</span>append<span class="token punctuation">(</span>shapeGroup<span class="token punctuation">.</span>get_boundary_point<span class="token punctuation">(</span>np<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">(</span>np<span class="token punctuation">.</span>cos<span class="token punctuation">(</span><span class="token number">2</span><span class="token operator">*</span>PI<span class="token operator">*</span>i<span class="token operator">/</span>nums<span class="token punctuation">)</span><span class="token punctuation">,</span>np<span class="token punctuation">.</span>sin<span class="token punctuation">(</span><span class="token number">2</span><span class="token operator">*</span>PI<span class="token operator">*</span>i<span class="token operator">/</span>nums<span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-        polygon <span class="token operator">=</span> Polygon<span class="token punctuation">(</span><span class="token operator">*</span>points<span class="token punctuation">,</span>color<span class="token operator">=</span>BLUE<span class="token punctuation">)</span>
-        dots <span class="token operator">=</span> <span class="token punctuation">[</span>Dot<span class="token punctuation">(</span>point<span class="token operator">=</span>i<span class="token punctuation">)</span> <span class="token keyword">for</span> i <span class="token keyword">in</span> points<span class="token punctuation">]</span>
-        self<span class="token punctuation">.</span>add<span class="token punctuation">(</span>shapeGroup<span class="token punctuation">,</span><span class="token operator">*</span>dots<span class="token punctuation">)</span>
-        self<span class="token punctuation">.</span>play<span class="token punctuation">(</span>Write<span class="token punctuation">(</span>polygon<span class="token punctuation">)</span><span class="token punctuation">)</span>
-        self<span class="token punctuation">.</span>wait<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span></code></pre>
+<pre class=" language-lang-python"><code class="language-lang-python">class FadeTo(Scene):
+    def construct(self):
+        square = Square()
+        circle = Circle().shift(2 * RIGHT + 1 * DOWN)
+        shapeGroup = VGroup(square,circle)
+        points = []
+        nums = 10
+        for i in range(nums):
+            points.append(shapeGroup.get_boundary_point(np.array((np.cos(2*PI*i/nums),np.sin(2*PI*i/nums),0))))
+        polygon = Polygon(*points,color=BLUE)
+        dots = [Dot(point=i) for i in points]
+        self.add(shapeGroup,*dots)
+        self.play(Write(polygon))
+        self.wait(2)
+</code></pre>
 <p><img src="image-20200404172800256-1586013786373.png" alt="boundary_points"></p>
 </li>
 <li><p><code>length_over_dim(dim)</code>:</p>
@@ -1151,33 +1178,35 @@
 <li><p><code>arrange(direction=RIGHT, center=True, **kwargs)</code>:</p>
 <p>submobject列表的全部变量进行排队,按照direction的方式排队,center决定了是否排完队跑到中心</p>
 <p><code>**kwargs</code>参考next_to</p>
-<pre class=" language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Arrange</span><span class="token punctuation">(</span>Scene<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token keyword">def</span> <span class="token function">construct</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        square <span class="token operator">=</span> Square<span class="token punctuation">(</span><span class="token punctuation">)</span>
-        square<span class="token punctuation">.</span>add<span class="token punctuation">(</span>Dot<span class="token punctuation">(</span>point<span class="token operator">=</span>np<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token operator">-</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-        square<span class="token punctuation">.</span>add<span class="token punctuation">(</span>Square<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>move_to<span class="token punctuation">(</span>np<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-        square<span class="token punctuation">.</span>add<span class="token punctuation">(</span>Circle<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>move_to<span class="token punctuation">(</span>np<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-        self<span class="token punctuation">.</span>add<span class="token punctuation">(</span>square<span class="token punctuation">)</span>
-        self<span class="token punctuation">.</span>play<span class="token punctuation">(</span>square<span class="token punctuation">.</span>arrange<span class="token punctuation">,</span><span class="token punctuation">{</span><span class="token string">"center"</span><span class="token punctuation">:</span><span class="token boolean">False</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
-        self<span class="token punctuation">.</span>wait<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span>
-        self<span class="token punctuation">.</span>play<span class="token punctuation">(</span>square<span class="token punctuation">.</span>arrange<span class="token punctuation">,</span><span class="token punctuation">{</span><span class="token string">"direction"</span><span class="token punctuation">:</span>UP<span class="token punctuation">,</span><span class="token string">"center"</span><span class="token punctuation">:</span><span class="token boolean">False</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
-        self<span class="token punctuation">.</span>wait<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span></code></pre>
+<pre class=" language-lang-python"><code class="language-lang-python">class Arrange(Scene):
+    def construct(self):
+        square = Square()
+        square.add(Dot(point=np.array([-1,-2,0])))
+        square.add(Square().move_to(np.array([3,0,0])))
+        square.add(Circle().move_to(np.array([5, 2, 0])))
+        self.add(square)
+        self.play(square.arrange,{"center":False})
+        self.wait(2)
+        self.play(square.arrange,{"direction":UP,"center":False})
+        self.wait(2)
+</code></pre>
 <p><img src="Arrange-1586013786373.gif" alt="Arrange"></p>
 </li>
 <li><p><code>arrange_in_grid(n_rows=None, n_cols=None, **kwargs)</code>:</p>
 <p>对submobject列表重拍列</p>
 <p>如果默认无参数,重拍列至方阵,否则n_rows和n_cols最多选一个,排列为对应的行或列,如果都填,则排列为n_rows行</p>
 <p><code>**kwargs</code>参考next_to函数</p>
-<pre class=" language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">ArrangeInGrid</span><span class="token punctuation">(</span>Scene<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token keyword">def</span> <span class="token function">construct</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        square <span class="token operator">=</span> Square<span class="token punctuation">(</span><span class="token punctuation">)</span>
-        square<span class="token punctuation">.</span>add<span class="token punctuation">(</span>Circle<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>move_to<span class="token punctuation">(</span>np<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token operator">-</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-        square<span class="token punctuation">.</span>add<span class="token punctuation">(</span>Circle<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>move_to<span class="token punctuation">(</span>np<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-        square<span class="token punctuation">.</span>add<span class="token punctuation">(</span>Circle<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>move_to<span class="token punctuation">(</span>np<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-        square<span class="token punctuation">.</span>add<span class="token punctuation">(</span>Circle<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>move_to<span class="token punctuation">(</span>np<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">5</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-        self<span class="token punctuation">.</span>add<span class="token punctuation">(</span>square<span class="token punctuation">)</span>
-        self<span class="token punctuation">.</span>play<span class="token punctuation">(</span>square<span class="token punctuation">.</span>arrange_in_grid<span class="token punctuation">)</span>
-        self<span class="token punctuation">.</span>wait<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span></code></pre>
+<pre class=" language-lang-python"><code class="language-lang-python">class ArrangeInGrid(Scene):
+    def construct(self):
+        square = Square()
+        square.add(Circle().move_to(np.array([-1,-2,0])))
+        square.add(Circle().move_to(np.array([3,0,0])))
+        square.add(Circle().move_to(np.array([5, 2, 0])))
+        square.add(Circle().move_to(np.array([5, -3, 0])))
+        self.add(square)
+        self.play(square.arrange_in_grid)
+        self.wait(2)
+</code></pre>
 <p><img src="ArrangeInGrid-1586013786373.gif" alt="ArrangeInGrid"></p>
 </li>
 <li><p><code>sort(point_to_num_func=lambda p: p[0], submob_func=None)</code>:</p>
@@ -1191,13 +1220,14 @@
 <li><p><code>align_to(mobject_or_point, direction=ORIGIN, alignment_vect=UP)</code>:</p>
 <p>对齐,direction表示对齐的边是哪边</p>
 <p>mob1.align_to（mob2，UP）垂直移动mob1，以便其顶部边缘与mob2的顶部边缘对齐。 mob1.align_to（mob2，alignment_vect = RIGHT）水平移动mob1，使其中心位于mob2中心的正上方/正下方</p>
-<pre class=" language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">AlighTo</span><span class="token punctuation">(</span>Scene<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token keyword">def</span> <span class="token function">construct</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        square <span class="token operator">=</span> Square<span class="token punctuation">(</span><span class="token punctuation">)</span>
-        circle <span class="token operator">=</span> Circle<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>shift<span class="token punctuation">(</span><span class="token number">2</span> <span class="token operator">*</span> RIGHT <span class="token operator">+</span> <span class="token number">1</span> <span class="token operator">*</span> DOWN<span class="token punctuation">)</span><span class="token punctuation">.</span>scale<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span>
-        self<span class="token punctuation">.</span>add<span class="token punctuation">(</span>square<span class="token punctuation">,</span>circle<span class="token punctuation">)</span>
-        self<span class="token punctuation">.</span>play<span class="token punctuation">(</span>circle<span class="token punctuation">.</span>align_to<span class="token punctuation">,</span>square<span class="token punctuation">,</span>RIGHT<span class="token punctuation">)</span>
-        self<span class="token punctuation">.</span>wait<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span></code></pre>
+<pre class=" language-lang-python"><code class="language-lang-python">class AlighTo(Scene):
+    def construct(self):
+        square = Square()
+        circle = Circle().shift(2 * RIGHT + 1 * DOWN).scale(2)
+        self.add(square,circle)
+        self.play(circle.align_to,square,RIGHT)
+        self.wait(2)
+</code></pre>
 <p><img src="AlighTo-1586013786373.gif" alt="AlighTo"></p>
 </li>
 <li><p><code>add_n_more_submobjects(n)</code>:</p>
@@ -1229,18 +1259,19 @@
 </li>
 <li><p><code>become(mobject, copy_submobjects=True)</code>:</p>
 <p>变成另一个的样式</p>
-<pre class=" language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Become</span><span class="token punctuation">(</span>Scene<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token keyword">def</span> <span class="token function">construct</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        square <span class="token operator">=</span> Square<span class="token punctuation">(</span><span class="token punctuation">)</span>
-        square<span class="token punctuation">.</span>submobjects<span class="token punctuation">.</span>append<span class="token punctuation">(</span>Circle<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>move_to<span class="token punctuation">(</span>np<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token operator">-</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-        square<span class="token punctuation">.</span>submobjects<span class="token punctuation">.</span>append<span class="token punctuation">(</span>Circle<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>move_to<span class="token punctuation">(</span>np<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-        square<span class="token punctuation">.</span>submobjects<span class="token punctuation">.</span>append<span class="token punctuation">(</span>Circle<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>move_to<span class="token punctuation">(</span>np<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-        square<span class="token punctuation">.</span>submobjects<span class="token punctuation">.</span>append<span class="token punctuation">(</span>Circle<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>move_to<span class="token punctuation">(</span>np<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">5</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-        text <span class="token operator">=</span> Text<span class="token punctuation">(</span><span class="token string">"text"</span><span class="token punctuation">)</span>
-        self<span class="token punctuation">.</span>add<span class="token punctuation">(</span>square<span class="token punctuation">)</span>
-        self<span class="token punctuation">.</span>play<span class="token punctuation">(</span>square<span class="token punctuation">.</span>become<span class="token punctuation">,</span>text<span class="token punctuation">)</span>
-        self<span class="token punctuation">.</span>play<span class="token punctuation">(</span>text<span class="token punctuation">.</span>shift<span class="token punctuation">,</span>UP<span class="token punctuation">)</span>
-        self<span class="token punctuation">.</span>wait<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span></code></pre>
+<pre class=" language-lang-python"><code class="language-lang-python">class Become(Scene):
+    def construct(self):
+        square = Square()
+        square.submobjects.append(Circle().move_to(np.array([-1,-2,0])))
+        square.submobjects.append(Circle().move_to(np.array([3,0,0])))
+        square.submobjects.append(Circle().move_to(np.array([5, 2, 0])))
+        square.submobjects.append(Circle().move_to(np.array([5, -3, 0])))
+        text = Text("text")
+        self.add(square)
+        self.play(square.become,text)
+        self.play(text.shift,UP)
+        self.wait(2)
+</code></pre>
 <p><img src="Become-1586013786373.gif" alt="Become"></p>
 </li>
 </ol>
@@ -1326,12 +1357,12 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/manim/">
-                                    <span class="chip bg-color">manim</span>
-                                </a>
-                            
                                 <a href="/tags/%E6%95%99%E7%A8%8B/">
                                     <span class="chip bg-color">教程</span>
+                                </a>
+                            
+                                <a href="/tags/manim/">
+                                    <span class="chip bg-color">manim</span>
                                 </a>
                             
                         </div>
@@ -1615,12 +1646,12 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/manim/">
-                        <span class="chip bg-color">manim</span>
-                    </a>
-                    
                     <a href="/tags/%E6%95%99%E7%A8%8B/">
                         <span class="chip bg-color">教程</span>
+                    </a>
+                    
+                    <a href="/tags/manim/">
+                        <span class="chip bg-color">manim</span>
                     </a>
                     
                 </div>
@@ -1817,7 +1848,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">44.1k</span>&nbsp;字
+                class="white-color">39.9k</span>&nbsp;字
             
             
             
