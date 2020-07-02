@@ -1,0 +1,1861 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="mysql源码--main函数, cai">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>mysql源码--main函数 | cai</title>
+    <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="/favicon.ico">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery.min.js"></script>
+
+<meta name="generator" content="Hexo 4.2.1"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">cai</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">cai</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/images/MySQL.png')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">mysql源码--main函数</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        height: calc(100vh - 250px);
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">
+                                <span class="chip bg-color">数据库</span>
+                            </a>
+                        
+                            <a href="/tags/mysql/">
+                                <span class="chip bg-color">mysql</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" class="post-category">
+                                数据库
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2020-07-03
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2020-07-03
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    4.3k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    19 分
+                </div>
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h1 id="1-main函数的理解"><a href="#1-main函数的理解" class="headerlink" title="1. main函数的理解"></a>1. main函数的理解</h1><p>函数的入口在<code>mysqld/main.cc</code>里面：</p>
+<p><img src="image-20200627163326858.png" alt="mysqld/main.cc"></p>
+<p>而里面的函数在两个地方出现：</p>
+<p><img src="image-20200627163411816.png" alt="vs终端显示"></p>
+<p>第一处在<code>mysqld.cc</code>的4364行出现：</p>
+<p><img src="image-20200627165111499.png" alt="第一处"></p>
+<p>从上很明显看出，如果是WIN32系统，则函数名字是<code>win_main</code>,而我的系统是64位的系统，所以函数才会被命名为<code>mysqld_main</code>.</p>
+<p>第二个<code>mysqld_main</code>是在WIN32系统中定义的，在此不考虑：</p>
+<p><img src="image-20200627165736272.png" alt="第二处"></p>
+<p>查阅资料发现，Mysql为了实现可以在win32平台与类Uninx平台代码共用，将一些公用的函数抽象出来，但是win32和类unix平台启动方式不一样。细看win32的mysqld_main调用了mysql_service，mysql_service又调用了win_main函数，经过特殊操作处理后又回到了函数的公共定义内容：</p>
+<pre class=" language-lang-C++"><code class="language-lang-C++">//win32的mysqld_main
+int mysqld_main(int argc, char **argv)
+{
+    //...
+    mysql_service(NULL);
+    //...
+}
+int mysql_service(void *p)
+{
+    //...
+    if (use_opt_args)
+        win_main(opt_argc, opt_argv);
+      else
+        win_main(Service.my_argc, Service.my_argv);
+    //...
+}
+//此win_main，就是第一个mysqld_main的代码内容
+</code></pre>
+<h1 id="2-main函数的流程"><a href="#2-main函数的流程" class="headerlink" title="2. main函数的流程"></a>2. main函数的流程</h1><h2 id="2-1准备"><a href="#2-1准备" class="headerlink" title="2.1准备"></a>2.1准备</h2><ol>
+<li><p>执行基本的线程库和malloc初始化，读取默认文件和解析选项。</p>
+<pre class=" language-lang-c++"><code class="language-lang-c++">if (load_defaults(MYSQL_CONFIG_NAME, load_default_groups, &argc, &argv))
+  {
+    flush_error_log_messages();
+    return 1;
+  }
+</code></pre>
+</li>
+<li><p>是否使用PERFORMANCE_SCHEMA存储引擎</p>
+<pre class=" language-lang-c++"><code class="language-lang-c++">#ifdef WITH_PERFSCHEMA_STORAGE_ENGINE
+  /*
+    Initialize the array of performance schema instrument configurations.
+  */
+  init_pfs_instrument_array();
+#endif /* WITH_PERFSCHEMA_STORAGE_ENGINE */
+</code></pre>
+<p><img src="image-20200627203915117.png" alt="mysql架构"><br>图源自:<a href="https://draven.co/" target="_blank" rel="noopener">https://draven.co/</a></p>
+</li>
+<li><p>默认配置文件的加载</p>
+<pre class=" language-lang-c++"><code class="language-lang-c++">load_defaults(MYSQL_CONFIG_NAME, load_default_groups, &argc, &argv)
+</code></pre>
+<p>my.ini文件的加载顺序，它会这样加载：<br>C:/WINDOWS/my.cnf　C:/WINDOWS/my.ini　C:/my.cnf 　C:/my.ini</p>
+<p>如果指定了MYSQL_HOME，在找不到前边4个文件的时候，它会去查找$MYSQL_HOME$/my.cnf或my.ini</p>
+<p>对应的代码如下：</p>
+<pre class=" language-lang-c++"><code class="language-lang-c++">char fname_buffer[FN_REFLEN];
+//C:/WINDOWS/my.cnf
+if (my_get_system_windows_directory(fname_buffer, sizeof(fname_buffer)))
+   errors += add_directory(alloc, fname_buffer, dirs);
+//C:/WINDOWS/my.ini
+if (GetWindowsDirectory(fname_buffer, sizeof(fname_buffer)))
+   errors += add_directory(alloc, fname_buffer, dirs);
+
+//C:/my.cnf
+errors += add_directory(alloc, "C:/", dirs);
+//C:/my.ini
+if (my_get_module_parent(fname_buffer, sizeof(fname_buffer)) != NULL)
+   errors += add_directory(alloc, fname_buffer, dirs);
+//。。。如果是Linux系统。。。
+//如果上面的四个位置找不到，则进行下面查找
+if ((env= getenv("MYSQL_HOME")))
+    errors += add_directory(alloc, env, dirs);
+
+  /* Placeholder for --defaults-extra-file=<path> */
+  errors += add_directory(alloc, "", dirs);
+</code></pre>
+</li>
+</ol>
+<h2 id="2-1WITH-PERFSCHEMA-STORAGE-ENGINE宏定义"><a href="#2-1WITH-PERFSCHEMA-STORAGE-ENGINE宏定义" class="headerlink" title="2.1WITH_PERFSCHEMA_STORAGE_ENGINE宏定义"></a>2.1<code>WITH_PERFSCHEMA_STORAGE_ENGINE</code>宏定义</h2><pre class=" language-lang-C++"><code class="language-lang-C++">#ifdef WITH_PERFSCHEMA_STORAGE_ENGINE
+  /*
+    Initialize the array of performance schema instrument configurations.
+  */
+  init_pfs_instrument_array();
+#endif /* WITH_PERFSCHEMA_STORAGE_ENGINE */
+</code></pre>
+<p>对应的编译的参数为<code>-DWITH_ARCHIVE_STORAGE_ENGINE=1</code>，对应的详细信息在：</p>
+<p><a href="https://dev.mysql.com/doc/refman/5.7/en/performance-schema.html" target="_blank" rel="noopener">https://dev.mysql.com/doc/refman/5.7/en/performance-schema.html</a></p>
+<p><img src="image-20200628123338750.png" alt="文件位置"></p>
+<ol>
+<li><p>初始化一些线程会用到的锁、信号量、变量等，其中封装了一些pthread的函数</p>
+<p>接了下来调用了各种线程的初始化，过程感觉不是重点，没有继续看下去</p>
+<pre class=" language-lang-C++"><code class="language-lang-C++">if (my_init())
+  {
+    sql_print_error("my_init() failed.");
+    flush_error_log_messages();
+    return 1;
+  }
+</code></pre>
+</li>
+<li><p>初始化SQL statement</p>
+<p><code>init_sql_statement_names();</code></p>
+</li>
+<li><p>初始化系统变量</p>
+<pre class=" language-lang-C++"><code class="language-lang-C++">int sys_var_init()
+{
+  DBUG_ENTER("sys_var_init");
+
+  /* Must be already initialized. */
+  DBUG_ASSERT(system_charset_info != NULL);
+
+  if (my_hash_init(&system_variable_hash, system_charset_info, 100, 0,
+                   0, (my_hash_get_key) get_sys_var_length, 0, HASH_UNIQUE,
+                   PSI_INSTRUMENT_ME))
+    goto error;
+
+  if (mysql_add_sys_var_chain(all_sys_vars.first))
+    goto error;
+
+  DBUG_RETURN(0);
+
+error:
+  my_message_local(ERROR_LEVEL, "failed to initialize system variables");
+  DBUG_RETURN(1);
+}
+</code></pre>
+<p><code>system_variable_hash</code>是一个用于保存<code>sys_var</code>的哈希表</p>
+<p><code>mysql_add_sys_var_chain</code>这个函数的本意应该是将<code>all_sys_vars</code>中的数据都加入<code>system_variable_hash</code>这个哈希表中</p>
+</li>
+<li><p>调整相关的选项</p>
+<pre class=" language-lang-c++"><code class="language-lang-c++">adjust_related_options(&requested_open_files);
+</code></pre>
+<p>具体的内容不是很清楚，看方法名猜测是调整函数名字对应的几个参数：</p>
+<pre class=" language-lang-c++"><code class="language-lang-c++">void adjust_related_options(ulong *requested_open_files)
+{
+  /* In bootstrap, disable grant tables (we are about to create them) */
+  if (opt_bootstrap)
+    opt_noacl= 1;
+
+  /* The order is critical here, because of dependencies. */
+  adjust_open_files_limit(requested_open_files);
+  adjust_max_connections(*requested_open_files);
+  adjust_table_cache_size(*requested_open_files);
+  adjust_table_def_size();
+}
+</code></pre>
+<p>打开文件的数量，最大连接数，表缓存大小等等</p>
+<ul>
+<li><p>open_files_limit值：</p>
+<p>my.cnf里如果配置了open_files_limit，open_files_limit最后取值为 配置文件 open_files_limit，max_connections*5， wanted_files= 10+max_connections+table_cache_size*2 三者中的最大值。</p>
+<p>如果my.cnf里如果没配置open_files_limit，open_files_limit最后取值为max_connections*5，10+max_connections+table_cache_size*2，ulimit -n中的最大者</p>
+</li>
+<li><p>max_connections的限制：</p>
+<p>因为MySQL的最大连接数受到了安装平台的线程库、可用内存、每个连接需要使用的内存、每个连接的工作量、响应时间的影响，linux大概能承受500～1000并发请求，而Windows由于Posix通用接口层的限制，必须满足(open tables × 2 + open connections) &lt; 2048</p>
+<pre class=" language-lang-c++"><code class="language-lang-c++">void adjust_max_connections(ulong requested_open_files)
+{
+  ulong limit;
+
+  limit= requested_open_files - 10 - TABLE_OPEN_CACHE_MIN * 2;
+
+  if (limit < max_connections)
+  {
+    sql_print_warning("Changed limits: max_connections: %lu (requested %lu)",
+                      limit, max_connections);
+
+    // This can be done unprotected since it is only called on startup.
+    max_connections= limit;
+  }
+}
+</code></pre>
+<p>TABLE_OPEN_CACHE_MIN是写死的宏：400</p>
+</li>
+<li><p>table_open_cache</p>
+<p>table_open_cache受到了max_connections的限制，至少需要连接数*该链接执行的join表的个数</p>
+<pre class=" language-lang-c++"><code class="language-lang-c++">void adjust_table_cache_size(ulong requested_open_files)
+{
+  ulong limit;
+
+  limit= max<ulong>((requested_open_files - 10 - max_connections) / 2,
+                    TABLE_OPEN_CACHE_MIN);
+
+  if (limit < table_cache_size)
+  {
+    sql_print_warning("Changed limits: table_open_cache: %lu (requested %lu)",
+                      limit, table_cache_size);
+
+    table_cache_size= limit;
+  }
+
+  table_cache_size_per_instance= table_cache_size / table_cache_instances;
+}
+</code></pre>
+</li>
+<li><p>table_definition_cache</p>
+<p>table_definition_cache是能放在缓存中的表的定义的数量，表的定义在缓存中的时候能够加快打开表的速度，默认是400 + (table_open_cache / 2)</p>
+<pre class=" language-lang-c++"><code class="language-lang-c++">default_value= min<ulong> (400 + table_cache_size / 2, 2000);
+  var= intern_find_sys_var(STRING_WITH_LEN("table_definition_cache"));
+  DBUG_ASSERT(var != NULL);
+  var->update_default(default_value);
+</code></pre>
+</li>
+</ul>
+</li>
+<li><p>对相关的配置进行生效</p>
+<pre class=" language-lang-c++"><code class="language-lang-c++">if (ho_error == 0)
+  {
+    if (!opt_help && !opt_bootstrap)
+    {
+      /* Add sizing hints from the server sizing parameters. */
+      pfs_param.m_hints.m_table_definition_cache= table_def_size;
+      pfs_param.m_hints.m_table_open_cache= table_cache_size;
+      pfs_param.m_hints.m_max_connections= max_connections;
+      pfs_param.m_hints.m_open_files_limit= requested_open_files;
+      pfs_param.m_hints.m_max_prepared_stmt_count= max_prepared_stmt_count;
+
+      PSI_hook= initialize_performance_schema(&pfs_param);
+      if (PSI_hook == NULL && pfs_param.m_enabled)
+      {
+        pfs_param.m_enabled= false;
+        sql_print_warning("Performance schema disabled (reason: init failed).");
+      }
+    }
+  }
+</code></pre>
+</li>
+</ol>
+<h2 id="2-2HAVE-PSI-INTERFACE宏定义"><a href="#2-2HAVE-PSI-INTERFACE宏定义" class="headerlink" title="2.2HAVE_PSI_INTERFACE宏定义"></a>2.2<code>HAVE_PSI_INTERFACE</code>宏定义</h2><p>PSI代表：Performance schema instrumentation interface性能模式检测接口</p>
+<pre class=" language-lang-c++"><code class="language-lang-c++">#ifdef HAVE_PSI_INTERFACE
+  /*
+    获取当前的性能模式检测接口，如果可供使用的话。
+  */
+  if (PSI_hook)
+  {
+    PSI *psi_server= (PSI*) PSI_hook->get_interface(PSI_CURRENT_VERSION);
+    if (likely(psi_server != NULL))
+    {
+      set_psi_server(psi_server);
+
+      /*
+        2.1解析了命令行参数，并且已经初始化了性能模式(performance schema instrument)，接下来注册所有服务器检测
+      */
+      init_server_psi_keys();
+      /* 检测主要的线程 */
+      PSI_thread *psi= PSI_THREAD_CALL(new_thread)(key_thread_main, NULL, 0);
+      PSI_THREAD_CALL(set_thread_os_id)(psi);
+      PSI_THREAD_CALL(set_thread)(psi);
+
+      /*
+        一些检测已经到位,重新初始化在之前已经初始化的对象,以便更好的检测.
+      */
+      my_thread_global_reinit();
+    }
+  }
+#endif /* HAVE_PSI_INTERFACE */
+</code></pre>
+<h2 id="2-3-query日志初始化"><a href="#2-3-query日志初始化" class="headerlink" title="2.3 query日志初始化"></a>2.3 query日志初始化</h2><pre class=" language-lang-C++"><code class="language-lang-C++">init_error_log();
+
+  /* Initialize audit interface globals. Audit plugins are inited later. */
+  mysql_audit_initialize();
+
+#ifndef EMBEDDED_LIBRARY
+  Srv_session::module_init();
+#endif
+
+  /*
+    执行基本查询日志初始化。 应该在MY_INIT之后调用，因为它会初始化互斥量。
+  */
+  query_logger.init();
+</code></pre>
+<h2 id="2-4-如果错误则退出"><a href="#2-4-如果错误则退出" class="headerlink" title="2.4 如果错误则退出"></a>2.4 如果错误则退出</h2><pre class=" language-lang-C++"><code class="language-lang-C++">  if (ho_error)
+  {
+    /*
+     解析命令行选项失败，由于没有可行的剩下的_argc / remaining_argv来继续服务器初始化，因此代码已尽其所能。
+       这是记录有意义消息的最大努力：
+       -消息将打印到stderr，但尚未重定向，
+       -对于Windows，消息将打印在NT事件日志中。
+    */
+    flush_error_log_messages();
+    /*
+      Not enough initializations for unireg_abort()
+      Using exit() for windows.
+    */
+    exit (MYSQLD_ABORT_EXIT);
+  }
+
+  if (init_common_variables())
+    unireg_abort(MYSQLD_ABORT_EXIT);        // 如果初始化失败就直接退出SQL
+
+  my_init_signals();
+</code></pre>
+<h2 id="2-5-堆栈的大小初始化"><a href="#2-5-堆栈的大小初始化" class="headerlink" title="2.5 堆栈的大小初始化"></a>2.5 堆栈的大小初始化</h2><pre class=" language-lang-C++"><code class="language-lang-C++">my_thread_attr_setstacksize(&connection_attrib,
+                            my_thread_stack_size + guardize);
+
+  {
+    /* Retrieve used stack size;  Needed for checking stack overflows */
+    size_t stack_size= 0;
+    my_thread_attr_getstacksize(&connection_attrib, &stack_size);
+
+    /* We must check if stack_size = 0 as Solaris 2.9 can return 0 here */
+    if (stack_size && stack_size < (my_thread_stack_size + guardize))
+    {
+      sql_print_warning("Asked for %lu thread stack, but got %ld",
+                        my_thread_stack_size + guardize, (long) stack_size);
+#if defined(__ia64__) || defined(__ia64)
+      my_thread_stack_size= stack_size / 2;
+#else
+      my_thread_stack_size= static_cast<ulong>(stack_size - guardize);
+#endif
+    }
+  }
+</code></pre>
+<h2 id="2-6-开启binlog会检查server-id"><a href="#2-6-开启binlog会检查server-id" class="headerlink" title="2.6 开启binlog会检查server_id"></a>2.6 开启binlog会检查server_id</h2><pre class=" language-lang-python"><code class="language-lang-python">if (opt_bin_log && !(server_id_supplied) )
+  {
+    sql_print_error("You have enabled the binary log, but you haven't provided "
+                    "the mandatory server-id. Please refer to the proper "
+                    "server start-up parameters documentation");
+    unireg_abort(MYSQLD_ABORT_EXIT);
+  }
+</code></pre>
+<p>如果开启二进制日志但是没有提供操作服务器ID就会报错并退出</p>
+<h2 id="2-7-服务器组件初始化"><a href="#2-7-服务器组件初始化" class="headerlink" title="2.7 服务器组件初始化"></a>2.7 服务器组件初始化</h2><pre class=" language-lang-c++"><code class="language-lang-c++">if (init_server_components())
+    unireg_abort(MYSQLD_ABORT_EXIT);
+</code></pre>
+<h2 id="2-8检查data目录下是否有auto-cnf"><a href="#2-8检查data目录下是否有auto-cnf" class="headerlink" title="2.8检查data目录下是否有auto.cnf"></a>2.8检查data目录下是否有auto.cnf</h2><pre class=" language-lang-c++"><code class="language-lang-c++">  /*
+    Each server should have one UUID. We will create it automatically, if it
+    does not exist.
+   */
+  if (init_server_auto_options())
+  {
+    sql_print_error("Initialization of the server's UUID failed because it could"
+                    " not be read from the auto.cnf file. If this is a new"
+                    " server, the initialization failed because it was not"
+                    " possible to generate a new UUID.");
+    unireg_abort(MYSQLD_ABORT_EXIT);
+  }
+</code></pre>
+<h2 id="2-9将uuid加入sid-map-中"><a href="#2-9将uuid加入sid-map-中" class="headerlink" title="2.9将uuid加入sid_map()中"></a>2.9将uuid加入sid_map()中</h2><pre class=" language-lang-c++"><code class="language-lang-c++">  /*
+    Add server_uuid to the sid_map.  This must be done after
+    server_uuid has been initialized in init_server_auto_options and
+    after the binary log (and sid_map file) has been initialized in
+    init_server_components().
+
+    No error message is needed: init_sid_map() prints a message.
+
+    Strictly speaking, this is not currently needed when
+    opt_bin_log==0, since the variables that gtid_state->init
+    initializes are not currently used in that case.  But we call it
+    regardless to avoid possible future bugs if gtid_state ever
+    needs to do anything else.
+  */
+  global_sid_lock->wrlock();
+  int gtid_ret= gtid_state->init();
+  global_sid_lock->unlock();
+
+  if (gtid_ret)
+    unireg_abort(MYSQLD_ABORT_EXIT);
+</code></pre>
+<h2 id="2-10初始化gtid-state对象以及对应的操作"><a href="#2-10初始化gtid-state对象以及对应的操作" class="headerlink" title="2.10初始化gtid_state对象以及对应的操作"></a>2.10初始化gtid_state对象以及对应的操作</h2><pre class=" language-lang-c++"><code class="language-lang-c++">  // Initialize executed_gtids from mysql.gtid_executed table.
+  if (gtid_state->read_gtid_executed_from_table() == -1)
+    unireg_abort(1);
+</code></pre>
+<p>GTID (Global Transaction ID)是全局事务ID,当在主库上提交事务或者被从库应用时，可以定位和追踪每一个事务，对DBA来说意义就很大了，我们可以适当的解放出来，不用手工去可以找偏移量的值了，而是通过CHANGE MASTER TO MASTER_HOST=’xxx’, MASTER_AUTO_POSITION=1的即可方便的搭建从库，在故障修复中也可以采用MASTER_AUTO_POSITION=‘X’的方式。</p>
+<p>在以下四种情况下，将未保存的GTID保存到gtid_exected表中：</p>
+<ol>
+<li>升级</li>
+<li>从主服务器的备份中配置了一个从服务器，并且在此之前通过RESET MASTER和RESET SLAVE清除了从服务器。</li>
+<li>在崩溃前从服务器上的最后一个RESET MASTER没有发生二进制日志轮换</li>
+<li>如果服务器崩溃，则最后一个binlog的GTID集不会保存到gtid_exected表中，因此在从崩溃中恢复期间，我们将其保存到gtid_executed表和execute_gtids中。</li>
+</ol>
+<p>其中的代码我没有仔细研究</p>
+<h2 id="2-11-网络连接"><a href="#2-11-网络连接" class="headerlink" title="2.11 网络连接"></a>2.11 网络连接</h2><ul>
+<li><p>SSL支持与网络的初始化</p>
+<pre class=" language-lang-C++"><code class="language-lang-C++">  if (init_ssl())
+    unireg_abort(MYSQLD_ABORT_EXIT);
+  if (network_init())
+    unireg_abort(MYSQLD_ABORT_EXIT);
+</code></pre>
+<p>network_init主要做了以下几件事情：</p>
+<blockquote>
+<p><a href="https://blog.csdn.net/Martin201609/article/details/100747413" target="_blank" rel="noopener">https://blog.csdn.net/Martin201609/article/details/100747413</a></p>
+</blockquote>
+<p>set_ports() 进行相应的初始化端口,创建监听对象Mysqld_socket_listener，并对其进行相应的初始化操作。然后对listener进行相应的侦听动作</p>
+<pre class=" language-lang-C++"><code class="language-lang-C++">static bool network_init(void)
+{
+  if (opt_bootstrap)
+    return false;
+
+  set_ports(); //端口设置
+  //...
+ Mysqld_socket_listener *mysqld_socket_listener=
+      new (std::nothrow) Mysqld_socket_listener(bind_addr_str,
+                                                mysqld_port, back_log,
+                                                mysqld_port_timeout,
+                                                unix_sock_name);
+}//监听对象
+// ...
+mysqld_socket_acceptor=
+      new (std::nothrow) Connection_acceptor<Mysqld_socket_listener>(mysqld_socket_listener);//
+//...
+    if (mysqld_socket_acceptor->init_connection_acceptor())//实例化并监听
+      return true; // mysqld_socket_acceptor would be freed in unireg_abort.
+</code></pre>
+<p><code>set_port()</code>:</p>
+<pre class=" language-lang-c++"><code class="language-lang-c++">static void set_ports()
+{
+  char  *env;
+  if (!mysqld_port && !opt_disable_networking)
+  {         // Get port if not from commandline
+    mysqld_port= MYSQL_PORT;
+
+    /*
+      如果构建器明确要求使用默认端口，则使用该端口（即使它与默认值一致）。 只有在他们没有这样做的情况下，我们才        检查/etc/services（如果失败，则退回到出厂默认值3306）。 这两个默认值都可以被环境变量MYSQL_TCP_PORT        覆盖，而环境变量又可以由命令行选项覆盖。
+    */
+
+#if MYSQL_PORT_DEFAULT == 0 //这个参数是在make编译生成之后，在include/mysql_version.h生成，其值为 #define MYSQL_PORT_DEFAULT          @MYSQL_TCP_PORT_DEFAULT@
+    //MYSQL_TCP_PORT_DEFAULT这个值是在cmake/mysql_version.cmake的文件中配置的
+    /*
+    [root@pcserver mysql-5.7.27]# grep -rn "MYSQL_TCP_PORT_DEFAULT" *
+    cmake/mysql_version.cmake:88:SET(MYSQL_TCP_PORT_DEFAULT "3306")
+    cmake/mysql_version.cmake:91:  SET(MYSQL_TCP_PORT ${MYSQL_TCP_PORT_DEFAULT})
+    cmake/mysql_version.cmake:92:  SET(MYSQL_TCP_PORT_DEFAULT "0")
+    cmake/mysql_version.cmake:93:ELSEIF(MYSQL_TCP_PORT EQUAL MYSQL_TCP_PORT_DEFAULT)
+    cmake/mysql_version.cmake:94:  SET(MYSQL_TCP_PORT_DEFAULT "0")
+    include/mysql_version.h.in:18:#define MYSQL_PORT_DEFAULT          @MYSQL_TCP_PORT_DEFAULT@
+    scripts/mysql_config.pl.in:161:if ( '@MYSQL_TCP_PORT_DEFAULT@' == 0 ) {
+    scripts/mysql_config.sh:106:if [ @MYSQL_TCP_PORT_DEFAULT@ -eq 0 ]; then
+
+    */
+    struct  servent *serv_ptr;
+    if ((serv_ptr= getservbyname("mysql", "tcp")))
+      mysqld_port= ntohs((u_short) serv_ptr->s_port); /* purecov: inspected */
+#endif
+    if ((env = getenv("MYSQL_TCP_PORT"))) 
+      mysqld_port= (uint) atoi(env);    /* purecov: inspected 通过getenv获取启动配置命令行的端口*/
+  }
+  if (!mysqld_unix_port)
+  {
+#ifdef _WIN32
+    mysqld_unix_port= (char*) MYSQL_NAMEDPIPE;
+#else
+    mysqld_unix_port= (char*) MYSQL_UNIX_ADDR;
+#endif
+    if ((env = getenv("MYSQL_UNIX_PORT")))
+      mysqld_unix_port= env;      /* purecov: inspected */
+  }
+}
+</code></pre>
+<p>创建监听:</p>
+<p>创建 Mysqld_socket_listener 类型对象</p>
+<pre class=" language-lang-c++"><code class="language-lang-c++">Mysqld_socket_listener *mysqld_socket_listener=
+      new (std::nothrow) Mysqld_socket_listener(bind_addr_str,
+                                                mysqld_port, back_log,
+                                                mysqld_port_timeout,
+                                                unix_sock_name);
+</code></pre>
+<p>通过Connection_acceptor模板进行Mysqld_socket_listener的初始化，通过循环监控不同类型的client connection event的，也就是通过循环监听客户端来的连接</p>
+<p>创建mysql_socket_acceptor对象：</p>
+<pre class=" language-lang-c++"><code class="language-lang-c++">mysqld_socket_acceptor=
+      new (std::nothrow) Connection_acceptor<Mysqld_socket_listener>(mysqld_socket_listener);
+</code></pre>
+<p>初始化listener：</p>
+<pre class=" language-lang-c++"><code class="language-lang-c++"> if (mysqld_socket_acceptor->init_connection_acceptor())
+      return true; // mysqld_socket_acceptor would be freed in unireg_abort.
+</code></pre>
+<p>查看Mysqld_socket_listener中的setup_listener()具体的实现：<br>通过以下关键变量来记录listener的主要信息<br><strong>m_tcp_port</strong>:记录tcp socket连接<br><strong>m_unix_sockname</strong>: 使用的是std::string类型记录如果使用socket文件，则文件名（路径+文件）<br>通过使用m_socket_map来区分所使用的连接是tcp_socket还是unix socket的连接方式</p>
+<p>通过两个if判断，分别判断是否tcp还是socket文件连接，并记录于m_socket_map中然后通过迭代器循环实现监听事件的记录，代码通过pool_info_t实现监听相应的事件</p>
+</li>
+<li><p>UDP初始化</p>
+<pre class=" language-lang-C++"><code class="language-lang-C++">udf_init();
+</code></pre>
+</li>
+<li><p>slave初始化</p>
+</li>
+</ul>
+<pre class=" language-lang-c++"><code class="language-lang-c++">if (server_id != 0)
+      init_slave(); /* Ignoring errors while configuring replication. */
+</code></pre>
+<h2 id="2-12-初始化线程"><a href="#2-12-初始化线程" class="headerlink" title="2.12 初始化线程"></a>2.12 初始化线程</h2><pre class=" language-lang-C++"><code class="language-lang-C++">#ifdef _WIN32
+  create_shutdown_thread();
+#endif
+  start_handle_manager();
+
+  create_compress_gtid_table_thread();
+
+  sql_print_information(ER_DEFAULT(ER_STARTUP),
+                        my_progname,
+                        server_version,
+#ifdef HAVE_SYS_UN_H
+                        (opt_bootstrap ? (char*) "" : mysqld_unix_port),
+#else
+                        (char*) "",
+#endif
+                         mysqld_port,
+                         MYSQL_COMPILATION_COMMENT);
+#if defined(_WIN32)
+  Service.SetRunning();
+#endif
+start_processing_signals();
+</code></pre>
+<h2 id="2-13循环监听客户端"><a href="#2-13循环监听客户端" class="headerlink" title="2.13循环监听客户端"></a>2.13循环监听客户端</h2><p><strong>此处循环监听客户端,直到客户端选择退出再进行后续的操作,所以此函数一般情况是SQL的耗时最多,执行代码最多的地方,也是mysql的核心算法的代码</strong></p>
+<p>此时要分为两种系统讨论:windows和Linux</p>
+<pre class=" language-lang-c++"><code class="language-lang-c++">#if defined(_WIN32)
+  setup_conn_event_handler_threads();
+#else
+  mysql_mutex_lock(&LOCK_socket_listener_active);
+  // Make it possible for the signal handler to kill the listener.
+  socket_listener_active= true;
+  mysql_mutex_unlock(&LOCK_socket_listener_active);
+
+  if (opt_daemonize)
+    mysqld::runtime::signal_parent(pipe_write_fd,1);
+
+  mysqld_socket_acceptor->connection_event_loop();
+#endif /* _WIN32 */
+</code></pre>
+<h3 id="2-13-1-linux系统"><a href="#2-13-1-linux系统" class="headerlink" title="2.13.1 linux系统"></a>2.13.1 linux系统</h3><pre class=" language-lang-c++"><code class="language-lang-c++">  mysql_mutex_lock(&LOCK_socket_listener_active);
+  // Make it possible for the signal handler to kill the listener.
+  socket_listener_active= true;
+  //从这里开始，服务器启动线程一直等待，直到shutdown后，继续向下执行
+  mysql_mutex_unlock(&LOCK_socket_listener_active);
+
+  if (opt_daemonize)
+    mysqld::runtime::signal_parent(pipe_write_fd,1);
+
+  mysqld_socket_acceptor->connection_event_loop();
+</code></pre>
+<p>通过nysqld_socket_acceptor变量引用connect_event_loop()方法，循环监听客户端来的连接。通过模板调用如下 ：</p>
+<pre class=" language-lang-c++"><code class="language-lang-c++">/**
+    Connection acceptor loop to accept connections from clients.
+  */
+  void connection_event_loop()
+  {
+    Connection_handler_manager *mgr= Connection_handler_manager::get_instance();
+    while (!abort_loop)
+    {
+      Channel_info *channel_info= m_listener->listen_for_connection_event();
+      if (channel_info != NULL)
+        mgr->process_new_connection(channel_info);
+    }
+  }
+</code></pre>
+<p>通过查看Mysqld_socket_listener类中listen_for_connection_event()来得到Channel_info信息，然后通过process_new_connection创建新的连接来。再进一步查看Connection_handler_manager的process_new_connection的方法，发现有m_connection_handler-&gt;add_connection(channel_info)在connection_handler中增加一个connection,并记录数量增加:</p>
+<pre class=" language-lang-c++"><code class="language-lang-c++">void Connection_handler_manager::process_new_connection(Channel_info* channel_info)
+{
+  if (abort_loop || !check_and_incr_conn_count())
+  {
+    channel_info->send_error_and_close_channel(ER_CON_COUNT_ERROR, 0, true);
+    delete channel_info;
+    return;
+  }
+
+  if (m_connection_handler->add_connection(channel_info)) //增加一个connection
+  {
+    inc_aborted_connects(); //记录数量增加
+    delete channel_info;
+  }
+}
+</code></pre>
+<p>对于m_connection_handler的add_connection增加connection，看具体的实现：</p>
+<pre class=" language-lang-c++"><code class="language-lang-c++">bool Per_thread_connection_handler::add_connection(Channel_info* channel_info)
+{
+  int error= 0;
+  my_thread_handle id;
+
+  DBUG_ENTER("Per_thread_connection_handler::add_connection");
+
+  // Simulate thread creation for test case before we check thread cache
+  DBUG_EXECUTE_IF("fail_thread_create", error= 1; goto handle_error;);
+
+  if (!check_idle_thread_and_enqueue_connection(channel_info))
+    DBUG_RETURN(false);
+
+  /*
+    There are no idle threads avaliable to take up the new
+    connection. Create a new thread to handle the connection
+  */
+  channel_info->set_prior_thr_create_utime();
+  error= mysql_thread_create(key_thread_one_connection, &id,
+                             &connection_attrib,
+                             handle_connection,
+                             (void*) channel_info);//给定信息，创建thread进程
+
+#ifndef DBUG_OFF
+handle_error:
+#endif // !DBUG_OFF
+
+  if (error)
+  {
+    connection_errors_internal++;
+    if (!create_thd_err_log_throttle.log())
+      sql_print_error("Can't create thread to handle new connection(errno= %d)",
+                      error);
+    channel_info->send_error_and_close_channel(ER_CANT_CREATE_THREAD,
+                                               error, true);
+    Connection_handler_manager::dec_connection_count();
+    DBUG_RETURN(true);
+  }
+
+  Global_THD_manager::get_instance()->inc_thread_created();
+  DBUG_PRINT("info",("Thread created"));
+  DBUG_RETURN(false);
+}
+</code></pre>
+<p>创建mysql_thread_create创建thread，并接收一个方法参数 handle_connection，这个是一个函数:</p>
+<pre class=" language-lang-c++"><code class="language-lang-c++">extern "C" void *handle_connection(void *arg)
+{
+//...
+ THD *thd= init_new_thd(channel_info); //创建线程对象
+ //...
+mysql_thread_set_psi_id(thd->thread_id()); //初始化线程信息等
+    mysql_thread_set_psi_THD(thd);
+    mysql_socket_set_thread_owner(
+      thd->get_protocol_classic()->get_vio()->mysql_socket);
+
+    thd_manager->add_thd(thd);//向线程管理器增加一个线程信息
+
+    if (thd_prepare_connection(thd))
+      handler_manager->inc_aborted_connects();
+    else
+    {
+      while (thd_connection_alive(thd))//循环检测线程状态
+      {
+        if (do_command(thd)) // 执行相关参数命令
+          break;
+      }
+      end_connection(thd);
+    }
+    close_connection(thd, 0, false, false);
+
+    thd->get_stmt_da()->reset_diagnostics_area();
+    thd->release_resources();
+
+//...
+}
+</code></pre>
+<blockquote>
+<p><a href="https://www.itread01.com/content/1546137727.html" target="_blank" rel="noopener">https://www.itread01.com/content/1546137727.html</a></p>
+</blockquote>
+<p>在handle_connection中,通过while回圈呼叫sql_parse.cc中的do_command()，回圈的作用是从使用者输入的多个命令中依次选择一个命令去执行.在do_command()中，呼叫Protocol_classic::get_command()，进入Protocol_classic::parse_packet()读取一个数据包，解析为command命令,command命令有COM_QUERY、 COM_FIELD_LIST、COM_STMT_EXECUTE等。在在do_command()中继续呼叫sql_parse()档案中的dispatch_command().在dispatch_command()中包含了各种型别的command怎么处理的switch case。比如select的进入case COM_QUERY.先alloc_query()复制执行绪执行绪过来的查询命令。再进入sql_parse.cc档案中的mysql_parse()方法,开始sql语法解析.</p>
+<p><strong>sql语法解析阶段</strong>:</p>
+<ul>
+<li>在mysql_parse()中,主要完成三个工作。检查查询快取里是否有以前执行过的某个查询。呼叫词法解析器(通过parse_sql()方法)，呼叫查询优化器(通过mysql_execute_command()方法).</li>
+<li>依次进入sql_parse.cc中的parse_sql(),进入sql_class.cc中的THD::sql_parser() ,进入MYSQLparse().MYSQLparse是个巨集定义,为#define yyparse MYSQLparse.这时进入yacc的sql_yacc.cc档案中的语法解析器函式yyparse()开始语法解析.解析器基于sql_yacc.yy档案通过yacc生成.Mysql的词法解析器没有用flex,自己编写的。语法解析器用的Bison.</li>
+<li>在mysql_parse()中继续呼叫sql_parse()档案中的mysql_execute_command()方法,为sql优化做准备.在该方法中,通过switch case为各种sql命令优化做准备.如果是select查询，进入case SQLCOM_SELECT，进入Sql_cmd_dml::execute()方法.在execute()方法中,先呼叫precheck()查询是否有许可权，然后呼叫open_tables_for_query()开启要查询的表，然后呼叫lock_tables()锁定相关的表，然后呼叫Sql_cmd_dml::execute_inner(),进入真正的查询优化.</li>
+</ul>
+<p><strong>sql查询优化阶段</strong>:</p>
+<ul>
+<li>在Sql_cmd_dml::execute_inner()方法中，先进入sql_optimizer.cc档案中的JOIN::optimize(),再进入sql_executor.cc档案中的JOIN::exec()开始查询执行器。</li>
+</ul>
+<p><strong>sql查询执行器</strong>:</p>
+<ul>
+<li>在sql_executor.cc档案中的JOIN::exec()中.先呼叫send_result_set_metadata()生成查询标题，再进入sql_executor.cc中的do_select()生成查询结果.在do_select()中呼叫sub_select ().在sub_select()中，先判断是否是最后一条记录.然后while回圈每次读取一条记录。</li>
+</ul>
+<p><strong>sql查询优化阶段</strong>:</p>
+<ul>
+<li>在Sql_cmd_dml::execute_inner()方法中，先进入sql_optimizer.cc档案中的JOIN::optimize(),再进入sql_executor.cc档案中的JOIN::exec()开始查询执行器。</li>
+</ul>
+<p><strong>sql查询执行器</strong>:</p>
+<ul>
+<li>在sql_executor.cc档案中的JOIN::exec()中.先呼叫send_result_set_metadata()生成查询标题，再进入sql_executor.cc中的do_select()生成查询结果.在do_select()中呼叫sub_select ().在sub_select()中，先判断是否是最后一条记录.然后while回圈每次读取一条记录。</li>
+</ul>
+<h3 id="2-13-2-windows系统"><a href="#2-13-2-windows系统" class="headerlink" title="2.13.2 windows系统"></a>2.13.2 windows系统</h3><p>调用函数<code>setup_conn_event_handler_threads();</code>,此时创建监听线程,启动三个单独线程处理不同的连接方式，即Mysqld_socket_listener/Named_pipe_listener/Shared_mem_listener,函数执行了的操作如下:</p>
+<pre class=" language-lang-c++"><code class="language-lang-c++">void setup_conn_event_handler_threads()
+{
+  my_thread_handle hThread;
+
+  //...
+
+  //互斥锁
+  mysql_mutex_lock(&LOCK_handler_count);
+  handler_count=0;
+
+  //类似于上面Linux的`对于m_connection_handler的add_connection增加connection`
+  if (opt_enable_named_pipe)
+  {
+    int error= mysql_thread_create(key_thread_handle_con_namedpipes,
+                                   &hThread, &connection_attrib,
+                                   named_pipe_conn_event_handler,
+                                   named_pipe_acceptor);
+    if (!error)
+      handler_count++;
+    else
+      sql_print_warning("Can't create thread to handle named pipes"
+                        " (errno= %d)", error);
+  }
+
+  if (have_tcpip && !opt_disable_networking)
+  {
+    int error= mysql_thread_create(key_thread_handle_con_sockets,
+                                   &hThread, &connection_attrib,
+                                   socket_conn_event_handler,
+                                   mysqld_socket_acceptor);
+    if (!error)
+      handler_count++;
+    else
+      sql_print_warning("Can't create thread to handle TCP/IP (errno= %d)",
+                        error);
+  }
+
+  if (opt_enable_shared_memory)
+  {
+    int error= mysql_thread_create(key_thread_handle_con_sharedmem,
+                                   &hThread, &connection_attrib,
+                                   shared_mem_conn_event_handler,
+                                   shared_mem_acceptor);
+    if (!error)
+      handler_count++;
+    else
+      sql_print_warning("Can't create thread to handle shared memory"
+                        " (errno= %d)", error);
+  }
+
+  // Block until all connection listener threads have exited.
+  while (handler_count > 0)
+    mysql_cond_wait(&COND_handler_count, &LOCK_handler_count);
+  mysql_mutex_unlock(&LOCK_handler_count);
+  DBUG_VOID_RETURN;
+}
+</code></pre>
+<p>拿第一个<code>opt_enable_named_pipe</code>为例,调用了’死’循环函数<code>named_pipe_conn_event_handler</code>:</p>
+<pre class=" language-lang-c++"><code class="language-lang-c++">extern "C" void *named_pipe_conn_event_handler(void *arg)
+{
+  my_thread_init();
+
+  Connection_acceptor<Named_pipe_listener> *conn_acceptor=
+    static_cast<Connection_acceptor<Named_pipe_listener>*>(arg);
+  conn_acceptor->connection_event_loop();
+
+  decrement_handler_count();
+  my_thread_end();
+  return 0;
+}
+</code></pre>
+<p>和Linux分析一样,<code>conn_acceptor-&gt;connection_event_loop();</code>进行’通过nysqld_socket_acceptor变量引用connect_event_loop()方法，循环监听客户端来的连接’,接着就回到了Linux的分析</p>
+<h2 id="2-14-后续的结束收尾工作"><a href="#2-14-后续的结束收尾工作" class="headerlink" title="2.14 后续的结束收尾工作"></a>2.14 后续的结束收尾工作</h2><p>略</p>
+<h1 id="3-总结"><a href="#3-总结" class="headerlink" title="3. 总结"></a>3. 总结</h1><p>本次源码的分析主要是针对main函数的分析,初步了解了main函数的工作流程,后续将会主要针对Innodb引擎进行分析</p>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">cai</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="http://yoursite.com/2020/07/03/mysql-yuan-ma-main-han-shu/">http://yoursite.com/2020/07/03/mysql-yuan-ma-main-han-shu/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">cai</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">
+                                    <span class="chip bg-color">数据库</span>
+                                </a>
+                            
+                                <a href="/tags/mysql/">
+                                    <span class="chip bg-color">mysql</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.4rem;
+        line-height: 38px;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.png" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+        <link rel="stylesheet" href="/libs/gitalk/gitalk.css">
+<link rel="stylesheet" href="/css/my-gitalk.css">
+
+<div class="card gitalk-card" data-aos="fade-up">
+    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
+        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+        <span>评论</span>
+    </div>
+    <div id="gitalk-container" class="card-content"></div>
+</div>
+
+<script src="/libs/gitalk/gitalk.min.js"></script>
+<script>
+    let gitalk = new Gitalk({
+        clientID: '567ab5f0da87cd87c36c',
+        clientSecret: '6c660baacd461151d3b40ea2aa7c24e6b7dd8b3a',
+        repo: 'cai-hust.github.io',
+        owner: 'cai-hust',
+        admin: "cai-hust",
+        id: '2020-07-03T02-16-32',
+        distractionFreeMode: false  // Facebook-like distraction free mode
+    });
+
+    gitalk.render('gitalk-container');
+</script>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
+            <div class="card">
+                <a href="/2020/07/03/mysql-yuan-ma-main-han-shu/">
+                    <div class="card-image">
+                        
+                        <img src="/images/MySQL.png" class="responsive-img" alt="mysql源码--main函数">
+                        
+                        <span class="card-title">mysql源码--main函数</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            mysql的main函数粗略解读,如果有不正确的地方,欢迎指出,期间参考一些文章的一部分因为没有及时记住,所以没有找到链接,如有发现欢迎留言
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-07-03
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" class="post-category">
+                                    数据库
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">
+                        <span class="chip bg-color">数据库</span>
+                    </a>
+                    
+                    <a href="/tags/mysql/">
+                        <span class="chip bg-color">mysql</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2020/07/03/mysql5-7-vs-an-zhuang-yuan-ma-diao-shi-huan-jing/">
+                    <div class="card-image">
+                        
+                        <img src="/images/MySQL.png" class="responsive-img" alt="mysql5.7+vs安装源码调试环境">
+                        
+                        <span class="card-title">mysql5.7+vs安装源码调试环境</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            mysql5.7.19,visual studio 2019环境,源码安装mysql并调试
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-07-03
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" class="post-category">
+                                    数据库
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/MySQL/">
+                        <span class="chip bg-color">MySQL</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">
+                        <span class="chip bg-color">数据库</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('60')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: cai<br />'
+            + '文章作者: cai<br />'
+            + '文章链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+<!-- 代码块折行 -->
+
+<style type="text/css">
+code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
+</style>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+    <div class="container row center-align" style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            <span id="year">2019</span>
+            <a href="/about" target="_blank">cai</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                class="white-color">45.7k</span>&nbsp;字
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/cai-hust" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/search.xml", 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

@@ -1,233 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>csapp-chapter02</title>
-    <url>/2020/03/25/chapter02/</url>
-    <content><![CDATA[<h2 id="2-1-信息存储"><a href="#2-1-信息存储" class="headerlink" title="2.1 信息存储"></a>2.1 信息存储</h2><h3 id="2-1-2-字数据大小"><a href="#2-1-2-字数据大小" class="headerlink" title="2.1.2 字数据大小"></a>2.1.2 字数据大小</h3><p><img src="image-20200320224158463.png" alt="image-20200320224158463" style="zoom:50%;"></p>
-<h3 id="2-1-3-寻址和字节顺序"><a href="#2-1-3-寻址和字节顺序" class="headerlink" title="2.1.3 寻址和字节顺序"></a>2.1.3 寻址和字节顺序</h3><p>在计算机内存中，通常是以字节（Byte），也就是 8 个位（Bit）为基本存储单元（也有以 16 位为基本存储单元的）。对于跨越多个字节的数据类型（比如 int 长 4 个字节），如何在内存中对这些字节进行排序有两种常见的方法：大端法（Big-endian）和小端法（Little-endian）。</p>
-<p><strong>【注】不管是大端法还是小端法存储，计算机在内存中存放数据的顺序都是从低地址到高地址，所不同的是首先取低字节的数据存放在低地址还是取高字节数据存放在低地址。</strong></p>
-<ul>
-<li>若首先取高字节的数据存放在低地址，则是大端法</li>
-<li>若首先取低字节的数据存放在低地址，则是小端法</li>
-</ul>
-<p><img src="image-20200321000815181.png" alt="image-20200321000815181" style="zoom:50%;"></p>
-<p>大多数Intel兼容机是小端法</p>
-<h3 id="2-1-9-C语言中的移位运算"><a href="#2-1-9-C语言中的移位运算" class="headerlink" title="2.1.9 C语言中的移位运算"></a>2.1.9 C语言中的移位运算</h3><p><img src="image-20200321181504713.png" alt="image-20200321181504713" style="zoom:50%;"></p>
-<p><strong>遇到一行多个移位运算的时候要记得打括号</strong></p>
-<h2 id="2-2-整数表示"><a href="#2-2-整数表示" class="headerlink" title="2.2 整数表示"></a>2.2 整数表示</h2><h3 id="2-2-3-补码编码"><a href="#2-2-3-补码编码" class="headerlink" title="2.2.3 补码编码"></a>2.2.3 补码编码</h3><p>为了表示负数,最常见的计算机表示方式就是补码,将最高位表示为负权:</p>
-<p><img src="image-20200322211917167.png" alt="image-20200322211917167"></p>
-<p>最高位表示的权重为$-2^{w-1}$.</p>
-<p>补码和计算机表示的二进制码的转换是一一对应的(双射)</p>
-<blockquote>
-<p>为什么不用原码和反码表示负数:</p>
-<ul>
-<li>原码:最高位表示符号,剩下位表示数字</li>
-<li>反码:和补码类似,不过最高位表示的权重为$-(2^{w-1}-1)$</li>
-</ul>
-<p>这两个编码有一个不好的性质,对数字0有两个不同的编码:</p>
-<ul>
-<li>原码中[00..0]表示+0,[10..0]表示-0</li>
-<li>反码中[00..0]表示+0,[11..1]表示-0</li>
-</ul>
-<p>即表示的编码不是一一对应的双射关系</p>
-</blockquote>
-<h3 id="2-2-4-C语言中有符号数和无符号数之间的转换"><a href="#2-2-4-C语言中有符号数和无符号数之间的转换" class="headerlink" title="2.2.4 C语言中有符号数和无符号数之间的转换"></a>2.2.4 C语言中有符号数和无符号数之间的转换</h3><p>强制转换对于有一点编程经验的人来说,看似习以为常,但是在设计强制转换的时候可以选择很多规则,C语言转换规则是:从位级来看,而不是从数值来看.即对应的二进制不变.</p>
-<h3 id="2-2-6-扩展一个数字的位表示"><a href="#2-2-6-扩展一个数字的位表示" class="headerlink" title="2.2.6 扩展一个数字的位表示"></a>2.2.6 扩展一个数字的位表示</h3><p>较大的数据类型转换位较小的可能会出错,但是从较小的数字转换为较大的应该是可以实现的.</p>
-<ul>
-<li><p>将一个无符号数转换为更大的数据类型,只需在开头加0即可,称为<strong>零扩展</strong>:</p>
-<p><img src="image-20200322153501910.png" alt="image-20200322153501910"></p>
-</li>
-<li><p>将一个补码数字转换为更大的数据类型,可以在在前面填充最高有效位的值,称为符号扩展:</p>
-<p><img src="image-20200322153834509.png" alt="image-20200322153834509"></p>
-<p>其中$x_{w-1}$为符号位</p>
-</li>
-</ul>
-<h2 id="2-3-整数运算"><a href="#2-3-整数运算" class="headerlink" title="2.3 整数运算"></a>2.3 整数运算</h2><h3 id="2-3-1-无符号加法"><a href="#2-3-1-无符号加法" class="headerlink" title="2.3.1 无符号加法"></a>2.3.1 无符号加法</h3><p>考虑两个非负数x,y,满足$0 \le x,y\le 2^w-1$,每个数都能表示为w位无符号数,则有$0 \le x+y\le 2^{w+1}-2$,表示这个和可能需要w+1位表示.</p>
-<p>一般常见的编程语言仅仅支持固定精度的计算,因此会产生溢出:</p>
-<p><img src="image-20200322175257127.png" alt="image-20200322175257127"></p>
-<p>上述的也可以称为模数加法,形成了一个数学结构,阿贝尔群,满足如下性质:</p>
-<ul>
-<li>可交换</li>
-<li>仅有一个单位元(这里单位元是0)</li>
-<li>每个元素有一个加法逆元</li>
-</ul>
-<p>所以对于无符号数$x$都有唯一一个逆元$-_w^u x$:</p>
-<p><img src="image-20200322181059389.png" alt="image-20200322181059389"></p>
-<h3 id="2-3-2-补码加法"><a href="#2-3-2-补码加法" class="headerlink" title="2.3.2 补码加法"></a>2.3.2 补码加法</h3><p>补码加法和无符号加法,对于计算机来说处理是一样的,即截断,然后计算机会将截断后的数字当做补码进行解读.</p>
-<p><img src="image-20200322195842080.png" alt="image-20200322195842080"></p>
-<h3 id="2-3-3-补码的非"><a href="#2-3-3-补码的非" class="headerlink" title="2.3.3 补码的非"></a>2.3.3 补码的非</h3><p>范围在$TMin_w \le x\le TMax_w$中的每个数字x都有$+^t_w$下的加法逆元$-^t_w$,称为补码的非:</p>
-<p><img src="image-20200322211418982.png" alt="image-20200322211418982"></p>
-<h3 id="2-3-4-无符号乘法"><a href="#2-3-4-无符号乘法" class="headerlink" title="2.3.4 无符号乘法"></a>2.3.4 无符号乘法</h3><p>范围在$0\le x,y\le2^w-1$内的整数x,y可以被表示为w位的无符号数,对应的乘积$x \cdot y$的取值范围为$[0,2^{2w}-2^{w+1}+1]$需要2w位表示,但是C语言是用w位表示的,所以有截断:</p>
-<p><img src="image-20200322214057227.png" alt="image-20200322214057227"></p>
-<h3 id="2-3-5-补码乘法"><a href="#2-3-5-补码乘法" class="headerlink" title="2.3.5 补码乘法"></a>2.3.5 补码乘法</h3><p>范围在$-2^{w-1}\le x,y\le 2^{w-1}-1$内的整数x,y可以被表示位w位的补码,但是成乘积范围在$-2^{w-1}\cdot (2^{w-1}-1)=-2^{2w-2}+2^{w-1}$到$-2^{w-1}\cdot -2^{w-1}=2^{2w-2}$之间,这个范围需要2w位表示,C语言将其截断为w位,将其记为$x*_w^t y$.</p>
-<p>上述机器计算的结果,可以用算法表示为:先将乘积得到的值模$2^w$,得到的无符号数转换为补码:</p>
-<p><img src="image-20200322223742838.png" alt="image-20200322223742838"></p>
-<p>根据书上的证明有如下结论:相同位表示的无符号数乘法和补码乘法得到的二进制数结果是一样的:</p>
-<p><img src="image-20200322230146529.png" alt="image-20200322230146529"></p>
-<h3 id="2-3-6-乘以常数"><a href="#2-3-6-乘以常数" class="headerlink" title="2.3.6 乘以常数"></a>2.3.6 乘以常数</h3><p>大多数机器上整数乘法指令相当慢,大多需要10+个时钟周期,编译器因此进行了一定的优化:试着用位移和加法运算的组合来代替乘以常数因子的乘法.</p>
-<p>下面首先说说乘以2的幂的情况:</p>
-<p><img src="image-20200322231300422.png" alt="image-20200322231300422"></p>
-<p>因此,左移一个数值等价于一个与2的幂相乘的无符号乘法:</p>
-<p><img src="image-20200322231444005.png" alt="image-20200322231444005"></p>
-<p>无论是无符号还是补码运算,乘以2的幂都会导致溢出,但是即使溢出,通过移位的结果都是一样的</p>
-<p>为了减少代价,许多C语言编译器试图以位移,加法减法消除很多整数乘以常数的情况,例如x*14可以重写为:(x&lt;&lt;3)+(x&lt;&lt;2)+(x&lt;&lt;1),更好地有:(x&lt;&lt;4)-(x&lt;&lt;1)</p>
-<p><strong>选择上述的方法还是使用乘法指令,取决于指令的相对速度,而这个与机器高度相关,一般只在仅需要少量位移,加法减法就足够的时候使用这种优化</strong></p>
-<h3 id="2-3-7-除以2的幂"><a href="#2-3-7-除以2的幂" class="headerlink" title="2.3.7 除以2的幂"></a>2.3.7 除以2的幂</h3><p>一般地,整数除法比整数乘法更慢—需要30+个周期,但是除以2的运算可以通过右移计算.无符号和补码数分别通过逻辑右移和算数右移实现.</p>
-<ol>
-<li><p>无符号右移非常简单,因为一定是逻辑右移:</p>
-<p><img src="image-20200322234628390.png" alt="image-20200322234628390"></p>
-</li>
-<li><p>除以2的幂的补码运算,情况稍有复杂,首先为了保证为负,需要算术右移:</p>
-<p><img src="image-20200322235518595.png" alt="image-20200322235518595"></p>
-<p><img src="image-20200323000249985.png" alt="image-20200323000249985"></p>
-<p><strong>注意:上图中向上舍入原理,经过与英文版比较,最后应为”产生数值$\lceil  x/2^k\rceil$”</strong>,定义偏量为$(1&lt;&lt;k)-1$,下面有几个例子:</p>
-<p><img src="image-20200323003738528.png" alt="image-20200323003738528"></p>
-<p>根据下图的几个数据与相关的证明可以知道:</p>
-<ul>
-<li>对于不需要舍入的情况,加上偏量只会影响最后被移掉的位</li>
-<li>对于需要舍入的情况,加上偏量会导致较高的位加1,这个会导致向0舍入</li>
-</ul>
-<blockquote>
-<p>偏置技术用的数学知识:$\lceil x/y\rceil=\lfloor (x+y-1)/y\rfloor$(x,y为整数)</p>
-<p>所以上面的式子:(x+(1&lt;<k)-1)>&gt;k,中,y为$2^k$,$(x+2^k-1)/2^k$就表示$\lceil  x/2^k\rceil$</k)-1)></p>
-</blockquote>
-</li>
-</ol>
-<p>综合1,2两个情况,得到C的算术右移的补码机器,计算$x/2^k$:</p>
-<pre class=" language-lang-c++"><code class="language-lang-c++">(x<0 ? x+(1<<k)-1 : x)>>k
-</code></pre>
-<p>可惜的是,不能将除以2的幂推广到一般除法.</p>
-<h2 id="2-4-浮点数"><a href="#2-4-浮点数" class="headerlink" title="2.4 浮点数"></a>2.4 浮点数</h2><p>与十进制类似,形如$b<em>mb</em>{m-1}…b<em>1b_0.b</em>{-1}b<em>{-2}…b</em>{-n-1}b_{-n}$的二进制数,其对应的十进制的值为:</p>
-<script type="math/tex; mode=display">
-b=\sum_{i=-n}^{m}2^i\times b_i</script><p>有限长度的编码不能表示如$\frac{1}{3},\frac{5}{7}$的数字,小数的二进制表示法仅能表示能被写成$x\times2^y$的数.</p>
-<h3 id="2-4-2-IEEE浮点表示"><a href="#2-4-2-IEEE浮点表示" class="headerlink" title="2.4.2 IEEE浮点表示"></a>2.4.2 IEEE浮点表示</h3><p><img src="image-20200323182025508.png" alt="image-20200323182025508"></p>
-<p>下图是常见的单双精度的浮点数的格式:</p>
-<p><img src="image-20200323183711302.png" alt="image-20200323183711302"></p>
-<p>上图说明了:</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>精度</th>
-<th>s位数</th>
-<th>exp位数</th>
-<th>frac位数</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>单</td>
-<td>1</td>
-<td>8</td>
-<td>23</td>
-</tr>
-<tr>
-<td>双</td>
-<td>1</td>
-<td>11</td>
-<td>52</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>给定位表示,根据exp的值,被编码的值可以分成三种不同的情况(最后一种有两个不同的变种),下图为单精度的数字表示:</p>
-<p><img src="image-20200323192300543.png" alt="image-20200323192300543"></p>
-<p>由上图有以下几个解码:</p>
-<ol>
-<li><p>规格化的数值</p>
-<p>此时,阶码的值E=e-Bias,e是exp字段对应的无符号数,Bias为$2^{k-1}-1$,其中k为exp的位数,因此产生的指数E的范围对于单精度为-126~+127,对于双精度为-1022~+1023</p>
-<p>frac是小数值$f$,$0\le f &lt; 1$,二进制表示为$0.f_{n-1}…f_1f_0$,为数M定义为$M=1+f$,因为对于二进制来说,按照十进制的科学计数法的规则,二进制科学计数法第一位一定为1,为了节省比特位,直接将其隐藏,这种方法也叫隐含的以1开头的表示.</p>
-</li>
-<li><p>非规格化的值</p>
-<p>当阶码域exp全部是0的时候,所表示的数字是非规格化的形式,此时阶码$E=1-Bias$,尾数的值是$M=f$,也就是小数字段的值,不包含隐含的1</p>
-<blockquote>
-<p>为什么要对于非规格化的值设置这样的偏置值:</p>
-<p>这样可以让从非规格化到规格化的转换平滑</p>
-</blockquote>
-<p>非规格化的用途:</p>
-<ul>
-<li><p>提供一种表示0的方法,如果使用规格化数,必须$M\ge 1$,所以不能表示0,$+0.0$的浮点表示位模式为所有位为0,此时$M=f=0$,当符号位为1,其他所有位为0的的时候,表示$-0.0$.</p>
-<p>IEEE的浮点格式表示,$+0.0$和$-0.0$在某些方面是不同的</p>
-</li>
-<li><p>表示那些非常接近0.0的数,非规格化提供一种属性:逐渐溢出(gradual underflow),表示一个数与0的距离非常小</p>
-</li>
-</ul>
-</li>
-<li><p>特殊值</p>
-<ul>
-<li>3a: 当阶码域exp全是1,小数域全是0,得到的值表示无穷,s决定是正无穷还是负无穷,当把两个非常大的数字相乘或者进行了除以0的操作后,无穷能表示溢出</li>
-<li>3b: 当小数域非0的时候,结果值为NaN(Not a Number),这用于表示不是实数或者无穷:$\sqrt{-1}或\infty - \infty $等</li>
-</ul>
-</li>
-</ol>
-<h3 id="2-4-3-数字示例"><a href="#2-4-3-数字示例" class="headerlink" title="2.4.3 数字示例"></a>2.4.3 数字示例</h3><p><img src="image-20200323232701819.png" alt="image-20200323232701819"></p>
-<p><img src="image-20200323232716933.png" alt="image-20200323232716933"></p>
-<h3 id="2-4-4-舍入"><a href="#2-4-4-舍入" class="headerlink" title="2.4.4 舍入"></a>2.4.4 舍入</h3><p>默认的方式为:向偶数舍入,也被称为向最近的值舍入(round-to-nearest),又叫向偶数舍入(round-to-even).方法为”四舍六入五成双”,使得到的最低有效位为偶数</p>
-<p>其他的几种有:向零舍入,向下舍入,向上舍入</p>
-<p>向偶舍入的原因:为了将50%的几率向上舍入和50%几率向下舍入</p>
-<p>向偶舍入也可以应用到二进制:将最低有效位的值为0认为是偶数,1为奇数</p>
-<h3 id="2-4-5-浮点运算"><a href="#2-4-5-浮点运算" class="headerlink" title="2.4.5 浮点运算"></a>2.4.5 浮点运算</h3><p>IEEE标准制定了简单的规则确定加法乘法这样的算术运算结果:</p>
-<p>由于精度的限制,对于两个浮点数x,y,某个运算$x\bigodot y$产生的值,计算机会再进行舍入:$Round(x\bigodot y)$</p>
-<p>当其中有一个为特殊值的时候(如-0,无穷,NaN),IEEE定义了一些更合理的规则:1/-0产生$-\infty$,1/+0产生$+\infty$.</p>
-<p>整数加法形成了阿贝尔群,IEEE标准实数加法也构成了阿贝尔群,但是证明过程需要加上Round()函数的证明:</p>
-<p>将$x+^fy$定义为$Round(x+y)$,如果不考虑溢出则直接可以得到就是阿贝尔群,但是如果考虑溢出:</p>
-<ol>
-<li><p>交换律</p>
-<p>交换律:交换x,y是都会同样的方式溢出,所以$+^f$是可交换的;</p>
-</li>
-<li><p>不可结合:例如,使用单精度浮点(3.14+1e10)-1e10=0.0因为3.14作为尾数被舍入,减去1e10变为0,而3.14+(1e10-1e10)=3.14）</p>
-</li>
-<li><p>逆元</p>
-<p>对于x,不考虑溢出明显有逆元-x,如果考虑溢出:$x+^f(-x)$一般都为0,但是有例外$+\infty+^f(-\infty)=NaN$,$NaN+^fx=NaN$</p>
-<p>可见这个逆元不能普适,所以也不存在单位元,所以$+^{f}$不是阿贝尔群</p>
-</li>
-<li><p>另外浮点加法的性质还包含单调性</p>
-</li>
-</ol>
-<p>浮点乘法具有:</p>
-<ol>
-<li><p>交换律</p>
-</li>
-<li><p>不可结合</p>
-</li>
-<li><p>对加法不具有分配律</p>
-</li>
-<li><p>单调性:</p>
-<script type="math/tex; mode=display">
-a \ge b 且 c \ge 0 \to a * ^f c\ge b*^fc\\
-a \ge b 且 c \le 0 \to a * ^f c\le b*^fc</script></li>
-<li><p>平方大于等于0:</p>
-<p>若$a\ne 0:a*a\ge0$</p>
-</li>
-</ol>
-<p>缺乏结合性和分配性对科学计算程序员和编译器的编写造成麻烦</p>
-<script>
-        document.querySelectorAll('.github-emoji')
-          .forEach(el => {
-            if (!el.dataset.src) { return; }
-            const img = document.createElement('img');
-            img.style = 'display:none !important;';
-            img.src = el.dataset.src;
-            img.addEventListener('error', () => {
-              img.remove();
-              el.style.color = 'inherit';
-              el.style.backgroundImage = 'none';
-              el.style.background = 'none';
-            });
-            img.addEventListener('load', () => {
-              img.remove();
-            });
-            document.body.appendChild(img);
-          });
-      </script>]]></content>
-      <categories>
-        <category>深入理解计算机系统</category>
-      </categories>
-      <tags>
-        <tag>深入理解计算机系统读书笔记</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Latex入门</title>
     <url>/2020/07/01/latex-ru-men/</url>
     <content><![CDATA[<h1 id="1-Latex框架和总体设置"><a href="#1-Latex框架和总体设置" class="headerlink" title="1. Latex框架和总体设置"></a>1. Latex框架和总体设置</h1><h2 id="1-1-框架"><a href="#1-1-框架" class="headerlink" title="1.1 框架"></a>1.1 框架</h2><pre class=" language-lang-latex"><code class="language-lang-latex">\documentclass[UTF8,a4paper,12pt]{ctexart}
@@ -832,6 +605,1911 @@ T=
             document.body.appendChild(img);
           });
       </script>]]></content>
+  </entry>
+  <entry>
+    <title>manim学习--camera类(一)</title>
+    <url>/2020/07/02/manim-xue-xi-camera-lei/</url>
+    <content><![CDATA[<h2 id="1-camera的所有子类以及相关的类"><a href="#1-camera的所有子类以及相关的类" class="headerlink" title="1. camera的所有子类以及相关的类"></a>1. camera的所有子类以及相关的类</h2><p><img src="Camera.png" alt="Camera"></p>
+<h2 id="2-camera主要的变量与属性"><a href="#2-camera主要的变量与属性" class="headerlink" title="2. camera主要的变量与属性"></a>2. camera主要的变量与属性</h2><h3 id="2-1-CONFIG"><a href="#2-1-CONFIG" class="headerlink" title="2.1 CONFIG"></a>2.1 CONFIG</h3><pre class=" language-lang-python"><code class="language-lang-python">CONFIG = {
+        "background_image": None,
+        "pixel_height": DEFAULT_PIXEL_HEIGHT,
+        "pixel_width": DEFAULT_PIXEL_WIDTH,
+        "frame_rate": DEFAULT_FRAME_RATE,
+        # Note: 帧的高度和宽度将被调整大小以匹配像素长宽比
+        #         这个在constant.py中可以看到：
+        #         FRAME_WIDTH = FRAME_HEIGHT * DEFAULT_PIXEL_WIDTH / DEFAULT_PIXEL_HEIGHT
+        "frame_height": FRAME_HEIGHT,
+        "frame_width": FRAME_WIDTH,
+        "frame_center": ORIGIN,
+        "background_color": BLACK,
+        "background_opacity": 1,
+        # vectorized mobjects的点在大于下面的范围时候会缩小
+        "max_allowable_norm": FRAME_WIDTH,
+        # 图像的模式，此处默认是RGBA，参见数字图像处理
+        "image_mode": "RGBA",
+        # 图像通道，参见数字图像处理
+        "n_channels": 4,
+        "pixel_array_dtype": 'uint8',
+        # z_buff_func is only used if the flag above is set to True.
+        # 比较时将z坐标舍入到最接近的百分之一
+        "z_buff_func": lambda m: np.round(m.get_center()[2], 2),
+        "cairo_line_width_multiple": 0.01,
+    }
+</code></pre>
+<h3 id="2-2-init-函数"><a href="#2-2-init-函数" class="headerlink" title="2.2__init__()函数"></a>2.2<code>__init__()</code>函数</h3><ul>
+<li><p><code>rgb_max_val</code>RGB色彩的取值的最大值，默认的<code>uint8</code>取值最大值是255</p>
+</li>
+<li><p><code>pixel_array_to_cairo_context</code>将像素变成cairo能处理的形式</p>
+</li>
+</ul>
+<h2 id="3-camera的主要方法"><a href="#3-camera的主要方法" class="headerlink" title="3. camera的主要方法"></a>3. camera的主要方法</h2><ol>
+<li><p><code>reset_pixel_shape(new_height, new_width)</code>设置帧的像素宽与高</p>
+<pre class=" language-lang-python"><code class="language-lang-python">class Test_pixel(ThreeDScene):
+    def construct(self):
+        axes = ThreeDAxes()
+        cube = Cube(fill_color=GREEN).scale([2, 0.5, 0.5])
+
+        theta_0 = 0 # 起始角度
+        theta =  -120 * DEGREES # 目标角度
+
+        self.set_camera(ThreeDCamera(background_color=BLUE))
+        self.camera.reset_pixel_shape(854,854)
+        self.set_camera_orientation(60 * DEGREES, theta=theta_0)
+        self.add(axes, cube)
+        self.wait()
+        dt = 1/15
+        delta_theta = (theta - theta_0) / 60
+        for i in range(60):
+            theta_0 += delta_theta
+            self.set_camera_orientation(theta=theta_0)
+            self.wait(dt)
+        self.wait(2)
+</code></pre>
+<p>上面代码设置宽高为854*854，最后就会产生大小为854*854的视频：</p>
+<p><img src="Test_pixel.gif" alt="Test_pixel"></p>
+</li>
+<li><p>一些get,set函数：</p>
+<pre class=" language-lang-python"><code class="language-lang-python">    def get_pixel_height(self):
+        return self.pixel_height
+
+    def get_pixel_width(self):
+        return self.pixel_width
+
+    def get_frame_height(self):
+        return self.frame_height
+
+    def get_frame_width(self):
+        return self.frame_width
+
+    def get_frame_center(self):
+        return self.frame_center
+
+    def set_frame_height(self, frame_height):
+        self.frame_height = frame_height
+
+    def set_frame_width(self, frame_width):
+        self.frame_width = frame_width
+
+    def set_frame_center(self, frame_center):
+        self.frame_center = frame_center
+</code></pre>
+<p>frame和pixel的区别是：一个是将帧分为多少格，一个是将帧的大小设置为多少，前者仅仅会改变坐标的间隔，后者会改变视频的宽高</p>
+<p>原始的默认为frame_width=14，frame_height=8：</p>
+<pre class=" language-lang-python"><code class="language-lang-python">class Set_frame1(Scene):
+    def construct(self):
+        numberplane = NumberPlane()
+        numberplane.add_coordinates()
+        text = Text("frame_width=14\nframe_height=8").shift(LEFT*5+UP*3)
+        self.add(numberplane,text)
+        self.wait(2)
+</code></pre>
+<p><img src="set_frame14.png" alt="set_frame14"></p>
+<p>重新设置frame_width:</p>
+<pre class=" language-lang-python"><code class="language-lang-python">class Set_frame1(Scene):
+    def construct(self):
+        numberplane = NumberPlane()
+        numberplane.add_coordinates()
+        self.camera.set_frame_width(8)
+        text = Text("frame_width=8\nframe_height=8").shift(UP*3)
+        self.add(numberplane,text)
+        self.wait(2)
+</code></pre>
+<p>可以看到宽也被拉长了：</p>
+<p><img src="set_frame8.png" alt="set_frame8"></p>
+</li>
+<li><p><code>resize_frame_shape(fixed_dimension=0)</code>:</p>
+<p>更改frame_shape以匹配像素的长宽比，其中fixed_dimension确定frame_height或frame_width是否保持固定，而其他值则相应改变。</p>
+<pre class=" language-lang-python"><code class="language-lang-python">class Set_frame1(Scene):
+    def construct(self):
+        numberplane = NumberPlane()
+        numberplane.add_coordinates()
+        self.camera.set_frame_width(8)
+        self.camera.resize_frame_shape()
+        text = Text("frame_width=8")
+        self.add(numberplane,text)
+        self.wait(2)
+</code></pre>
+<p><img src="resize_frame_shape.png" alt="resize_frame_shape"></p>
+</li>
+<li><p><code>get_image(pixel_array=None)</code></p>
+<p>返回<code>pixel_array</code>对应的Image类型的对象，如果<code>pixel_array</code>为空,则返回自身的<code>pixel_array</code>对应的Image图像,此函数一般不用</p>
+</li>
+<li><p><code>get_pixel_array()</code></p>
+<p>返回自身的<code>pixel_array</code></p>
+</li>
+<li><p><code>convert_pixel_array(pixel_array, convert_from_floats=False)</code></p>
+<p>将格式为<code>PIL</code> 的<code>pixel_array</code>图片转换为<code>np.array</code>的格式</p>
+<p>其中<code>pixel_array</code>的形式可能有两种,第一种是RGB的格式进行表示,第二种是被归一化到[0,1]的小数形式,此时需要启用<code>convert_from_floats=True</code></p>
+</li>
+<li><p><code>set_pixel_array(pixel_array, convert_from_floats=False)</code></p>
+<p>设置camera的<code>pixel_array</code>为参数中的pixel_array,对应的选项同理于`convert_pixel_array</p>
+</li>
+<li><p><code>set_background(pixel_array, convert_from_floats=False)</code></p>
+<p>设置背景(本人没有成功尝试出来换背景图片不知道出了什么问题,代码如下)</p>
+<pre class=" language-lang-python"><code class="language-lang-python">class Set_background(Scene):
+    def construct(self):
+        image = Image.open(r"XXX.png")
+        self.camera.set_background(image)
+        # self.camera.init_background()
+        numberplane = NumberPlane()
+        numberplane.add_coordinates()
+        self.add(numberplane)
+        self.wait(2)
+</code></pre>
+<p>上面就是随便加了个物体,不知道为什么出现这个问题</p>
+</li>
+<li><p><code>make_background_from_func(coords_to_colors_func)</code></p>
+<p>另一个函数是<code>set_background_from_func(coords_to_colors_func)</code>功能一样</p>
+<p>使用coords_to_colors_func设置背景以确定每个像素的颜色。 coords_to_colors_func的每个输入在空间中都是（x，y）对（在frame对应的普通空间坐标,不是像素坐标），并且每个输出应为4个浮点数的RGBA数组。</p>
+<pre class=" language-lang-python"><code class="language-lang-python">def coords_to_colors_func(point):
+    return (int)(255*(point[0]+7)/17),(int)(255*(point[1]+4)/8),(int)(255*(point[0]+11)/22),1
+
+class Set_bacground_func(Scene):
+    def construct(self):
+        self.camera.set_background_from_func(coords_to_colors_func)
+        square = Square()
+        self.add(square)
+        self.wait(2)
+</code></pre>
+<p><img src="set_background_func.jpg" alt="set_background_func"></p>
+</li>
+<li><p><code>reset()</code></p>
+<p>重设背景</p>
+</li>
+<li><p><code>get_mobjects_to_display()</code></p>
+<p>得到要展示的mobject</p>
+</li>
+<li><p><code>is_in_frame(mobject)</code></p>
+<p>判断mobject是否在frame里面</p>
+</li>
+<li><p><code>points_to_pixel_coords(mobject, points)</code></p>
+<p>将普通坐标,转换为像素坐标</p>
+</li>
+</ol>
+<p>其他的函数本人也没有很理解,而且涉及到cairo库的学习,个人觉得没有必要深入了解其他的函数,因为有的函数3b1b仅仅是用来子类实现或者根本没有用过,如果需要请自行阅读源码</p>
+<h2 id="4-小结"><a href="#4-小结" class="headerlink" title="4. 小结"></a>4. 小结</h2><p>本次学习camera很多函数偏于底层,我们平时绘制的时候应该用不上,camera的很多关于背景(background)的函数感觉很多都难以使用或者有各种bug(不知道是不是我自己不会用的原因),如果有人发现错误欢迎评论留言<span class="github-emoji" style="color: transparent;background:no-repeat url(https://github.githubassets.com/images/icons/emoji/unicode/1f604.png?v8) center/contain" data-src="https://github.githubassets.com/images/icons/emoji/unicode/1f604.png?v8">😄</span></p>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>]]></content>
+      <categories>
+        <category>manim</category>
+      </categories>
+      <tags>
+        <tag>教程</tag>
+        <tag>manim</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>manim学习--Mobject类(一)</title>
+    <url>/2020/03/30/manim-xue-xi-mobject-lei/</url>
+    <content><![CDATA[<h2 id="1-Mobject所派生的子类"><a href="#1-Mobject所派生的子类" class="headerlink" title="1. Mobject所派生的子类"></a>1. Mobject所派生的子类</h2><p><img src="Mobject-1586013786368.png" alt="Mobject"></p>
+<h2 id="2-Mobject的主要变量与属性"><a href="#2-Mobject的主要变量与属性" class="headerlink" title="2. Mobject的主要变量与属性"></a>2. Mobject的主要变量与属性</h2><h3 id="2-1-CONFIG"><a href="#2-1-CONFIG" class="headerlink" title="2.1 CONFIG"></a>2.1 CONFIG</h3><pre class=" language-lang-python"><code class="language-lang-python">CONFIG = {
+        "color": WHITE,
+        "name": None,
+        "dim": 3,
+        "target": None,
+    }
+</code></pre>
+<h3 id="2-2-init-函数"><a href="#2-2-init-函数" class="headerlink" title="2.2 __init__()函数:"></a>2.2 <code>__init__()</code>函数:</h3><ul>
+<li><p><code>submobjects = []</code>:每个Mobject都有自己的submobjects列表,列表里面的每个元素也是Mobject,这样有利于对嵌套的Mobject进行整体操作,如对一群图形一起平移等等动画的实现</p>
+</li>
+<li><p><code>updaters = []</code>:一系列的更新函数组成,如:</p>
+<pre class=" language-lang-python"><code class="language-lang-python"> def update_text(obj):
+            obj.next_to(dot,RIGHT,buff=SMALL_BUFF)
+</code></pre>
+<p>就可以作为一个updater,有<code>add_updater()</code>方法进行添加:</p>
+<pre class=" language-lang-python"><code class="language-lang-python"># author:TB,由于3b1b的函数有改进,本代码进行了修改
+class AddUpdater(Scene):
+    def construct(self):
+        dot = Dot()
+        text = TextMobject("Label").next_to(dot,RIGHT,buff=SMALL_BUFF)
+
+        self.add(dot,text)
+
+        # Update function 更新函数
+        def update_text(obj):
+            obj.next_to(dot,RIGHT,buff=SMALL_BUFF)
+
+        # Add update function to the objects
+        # 把更新函数加给对象
+        text.add_updater(update_text)
+
+        # 如果想简洁，lambda表达式如下：
+        # text.add_updater(lambda m: m.next_to(dot,RIGHT,buff=SMALL_BUFF))
+        # 此时下面的remove_updater(update_text)不能继续使用，需要改为clear_updaters
+
+        self.play(dot.shift,UP*2)
+        # Remove update function
+        text.remove_updater(update_text)
+
+        self.wait()
+</code></pre>
+<p>效果如下:</p>
+<p><img src="AddUpdater-1586013786369.gif" alt="AddUpdater"></p>
+<p>详细见下面3.3.2的介绍</p>
+</li>
+<li><p><code>updating_suspended = False</code>:是否暂停更新</p>
+</li>
+<li><p><code>points = np.zeros((0, self.dim))</code>:坐标,默认为原点,维度由属性<code>dim</code>决定</p>
+</li>
+</ul>
+<h3 id="2-3-其他函数里面产生的变量"><a href="#2-3-其他函数里面产生的变量" class="headerlink" title="2.3 其他函数里面产生的变量"></a>2.3 其他函数里面产生的变量</h3><ul>
+<li><code>saved_state</code>:自己的一份备份,可以用来恢复之前的状态</li>
+<li><code>array_attr</code>:初始为<code>["points"]</code>列表</li>
+<li><code>z_index_group</code>:暂时不知道有什么用</li>
+</ul>
+<h3 id="2-4-Mobject的一些抽象概念"><a href="#2-4-Mobject的一些抽象概念" class="headerlink" title="2.4 Mobject的一些抽象概念"></a>2.4 Mobject的一些抽象概念</h3><ul>
+<li><p>family:如果将Mobject看作父节点,submobjects列表中的Mobject看作子节点,则对每个Mobjects都会产生一棵树,这个树里面的所有节点成为这个Mobject的family</p>
+<p>family没有真正的实体,但是Mobject内有一个函数叫<code>get_family()</code>可以返回这个概念:</p>
+<pre class=" language-lang-python"><code class="language-lang-python">def get_family(self):
+        # 如果对map函数不理解,请自行查找Python map()函数
+        # 递归得到submobjects,代码非常简洁
+        sub_families = list(map(Mobject.get_family, self.submobjects))
+        # 使用chain的原因是可能每个submobject可能是不同的类型
+        all_mobjects = [self] + list(it.chain(*sub_families))
+        # 去重
+        return remove_list_redundancies(all_mobjects)
+</code></pre>
+<p>Mobject的很多函数也用到了这个概念</p>
+</li>
+</ul>
+<h3 id="2-5-Mobject的属性"><a href="#2-5-Mobject的属性" class="headerlink" title="2.5 Mobject的属性"></a>2.5 Mobject的属性</h3><ol>
+<li><p>自身可迭代</p>
+<p>假如有Mobject变量mob,则mob[0]是self本身,mob[1]以及更大的索引是subMobject</p>
+</li>
+<li><p>自身有长度</p>
+<p>自身长度为submobject列表长度+1</p>
+</li>
+</ol>
+<h2 id="3-Mobject的主要方法"><a href="#3-Mobject的主要方法" class="headerlink" title="3. Mobject的主要方法"></a>3. Mobject的主要方法</h2><h3 id="3-1-属性的处理"><a href="#3-1-属性的处理" class="headerlink" title="3.1 属性的处理"></a>3.1 属性的处理</h3><ol>
+<li><p><code>reset_points()</code></p>
+<p>self.points = np.zeros((0, self.dim))</p>
+</li>
+<li><p><code>add(*mobjects)</code></p>
+<p>将自己的submobjects列表中加入mobjects</p>
+<p><strong>注意:不能加入自己</strong></p>
+</li>
+<li><p><code>add_to_back(*mobjects)</code></p>
+<p>将自己的submobjects列表末尾加入mobjects</p>
+<p><strong>注意:如果加入的mobjects中有的在自己的列表中已经存在,则按照加入的mobjects顺序存放</strong></p>
+</li>
+<li><p><code>remove(*mobjects)</code></p>
+<p>submobjects列表移除对应的mobjects</p>
+<p><strong>注意:如果mobjects某些元素不在submobjects列表则不会有任何反应</strong></p>
+</li>
+<li></li>
+</ol>
+<h3 id="3-2-图像静态显示"><a href="#3-2-图像静态显示" class="headerlink" title="3.2 图像静态显示"></a>3.2 图像静态显示</h3><ol>
+<li><p><code>get_image(camera=None)</code></p>
+<p>根据传入的camera类对应的参数(如角度,距离等等)返回一个图像(以PIL.Image的格式)</p>
+<p><strong>注意:应该用不到这个(如果不是自己开发代码)</strong></p>
+</li>
+<li><p><code>show(camera=None)</code></p>
+<p>无动画根据传入的camera类对应的参数(如角度,距离等等)显示自己</p>
+</li>
+<li><p><code>save_image(name=None)</code></p>
+<p>将自己图像保存到宏定义<code>VIDEO_DIR</code>位置,名字为<code>name</code>如果未传入名字,则默认名字为自己的str方法得到的数值</p>
+</li>
+<li><p><code>deepcopy()</code></p>
+</li>
+</ol>
+<p>返回一个自己的副本,副本的改变与不会影响到自己</p>
+<ol>
+<li><code>copy()</code></li>
+</ol>
+<p>浅拷贝,与深拷贝对应</p>
+<ol>
+<li><code>generate_target(use_deepcopy=False)</code></li>
+</ol>
+<h3 id="3-3-更新-跟踪-函数"><a href="#3-3-更新-跟踪-函数" class="headerlink" title="3.3 更新(跟踪)函数"></a>3.3 更新(跟踪)函数</h3><ol>
+<li><p>$ ^{^*}$<code>update(dt=0, recursive=True)</code></p>
+<p><em>底层函数,一般制作的时候用不到,但是仍然列举出来以备不时之需</em></p>
+<ul>
+<li><p>参数含义</p>
+<p><code>dt</code>:每帧运动速率是多少</p>
+<p><code>recursive</code>:递归进行submobjects列表的Mobject的<code>update</code>函数</p>
+</li>
+<li><p>执行过程</p>
+<p>如果updaters的某一项<code>update_function</code>列表里面有参数<code>dt</code>,则执行update_function(dt),否则执行update_function(),并根据recursive判断是否递归到submobjects列表中的每一项</p>
+</li>
+</ul>
+</li>
+<li><p><code>get_updaters()</code>:</p>
+<p>得到updaters[]</p>
+</li>
+<li><p><code>get_family_updaters()</code>:</p>
+<p>得到family的所有updaters</p>
+</li>
+<li><p><code>add_updater(update_function, index=None, call_updater=True)</code></p>
+<ul>
+<li><p>参数含义</p>
+<p><code>update_function</code>:更新函数</p>
+<p><code>index</code>:更新函数的索引</p>
+<p><code>call_updater</code>:我也不知道这个有啥用(¦3[▓▓],3b1b的代码也没找到一个用过这个参数的</p>
+<p><em>TODO:<code>call_updater</code>什么意思,欢迎留言</em></p>
+</li>
+<li><p>执行过程</p>
+<p>将自己的<code>updaters</code>列表加入<code>update_function</code>,位置在<code>index</code>,插入方法同python列表的insert方法,并决定是否立即执行</p>
+<p>例子:</p>
+<pre class=" language-lang-python"><code class="language-lang-python">class UpdateFunctionWithDt(Scene):
+     def construct(self):
+         sun = Dot(color=RED).scale(3)
+
+         earthOrbit=Circle(color=WHITE).scale(2)
+         earth=Dot(color=BLUE).scale(2)
+         earth.move_to(earthOrbit.point_from_proportion(0))
+         self.earthOffset=0
+
+         moonOrbit= Circle(color=WHITE).move_to(earth)
+         moon =Dot(color=YELLOW)
+         moon.move_to(moonOrbit.point_from_proportion(0))
+         self.moonOffset=0
+
+         def update_earth(mob,dt):
+             rate=dt*0.1
+             mob.move_to(earthOrbit.point_from_proportion((self.earthOffset + rate)%1))
+             self.earthOffset += rate
+
+         def update_moonOrbit(mob):
+             mob.move_to(earth)
+
+         def update_moon(mob,dt):
+             rate=dt*0.2
+             mob.move_to(moonOrbit.point_from_proportion((self.moonOffset + rate)%1))
+             self.moonOffset += rate
+
+         earth.add_updater(update_earth)
+         moonOrbit.add_updater(update_moonOrbit)
+         moon.add_updater(update_moon)
+         self.add(earthOrbit,moonOrbit,sun,earth,moon)
+         self.wait(5)
+         self.wait()
+</code></pre>
+<p>效果如下:</p>
+<p><img src="UpdateFunctionWithDt-1586013786369.gif" alt="UpdateFunctionWithDt"></p>
+<p>dt的决定速度:</p>
+<pre class=" language-lang-python"><code class="language-lang-python">class WhatIsDt(Scene):
+    def construct(self):
+        sun = Dot(color=RED).scale(3)
+        earthOrbit=Circle(color=WHITE).scale(2)
+
+        earths = [Dot(color=i).scale(2) for i in[RED,BLUE]]
+        earths = VGroup(*earths)
+        earths.move_to(earthOrbit.point_from_proportion(0))
+        self.earthOffsets = [0]*2
+        texts = VGroup(*[Text("dt*0.%d"%i,size=0.5,font="Lucida Console") for i in [1,2]])
+
+        def update_earth_factory(index):
+            def update_earth(mob,dt):
+                rate = dt*0.1*(index+1)
+                mob.move_to(earthOrbit.point_from_proportion((self.earthOffsets[index] + rate)%1))
+                self.earthOffsets[index] += rate
+            return update_earth
+
+        def update_text_factory(index):
+            def update_text(mob):
+                mob.next_to(earths[index],LEFT,SMALL_BUFF)
+            return update_text
+
+        for i in [0,1]:
+            earths[i].add_updater(update_earth_factory(i))
+            texts[i].add_updater(update_text_factory(i))
+        self.add(earthOrbit,sun,earths,texts)
+        self.wait(5)
+</code></pre>
+<p><img src="WhatIsDt-1586013786370.gif" alt="WhatIsDt"></p>
+</li>
+</ul>
+</li>
+<li><p><code>remove_updater(update_function)</code>:</p>
+<p>很明显与<code>add_updater</code>相反</p>
+</li>
+<li><p><code>clear_updaters(recursive=True)</code>:</p>
+<p>清除所有的<code>update_function</code>,如果<code>recursive</code>为<code>True</code>则submobjects列表的所有<code>update_function</code>清除</p>
+<p><strong>存疑:<code>recursive</code>为<code>True</code>貌似如果subMobjects里面还套有subMobjects,则内层的不能被清除?</strong></p>
+</li>
+<li><p><code>match_updaters(mobject)</code>:</p>
+<p>将mobject的updater全部复制给自己(自己的原来的updaters失效)</p>
+</li>
+<li><p><code>suspend_updating(recursive=True)</code>:</p>
+<p>略</p>
+</li>
+<li><p><code>resume_updating(recursive=True)</code></p>
+<p>略</p>
+</li>
+<li><p><code>get_time_based_updaters()</code>:</p>
+<p>得到参数含有<code>dt</code>的updater</p>
+</li>
+<li><p><code>has_time_based_updater()</code>:</p>
+<p>有参数含有<code>dt</code>的updater</p>
+</li>
+</ol>
+<h3 id="3-4-变换函数"><a href="#3-4-变换函数" class="headerlink" title="3.4 变换函数"></a>3.4 变换函数</h3><ol>
+<li><p><code>apply_to_family(func)</code>:</p>
+<p>对每个家庭成员实行func函数</p>
+</li>
+<li><p><code>shift(*vectors)</code>:</p>
+<p>平移,vector的维数为dim,如果输入多个vector则平移的终点为这几个vector的向量和</p>
+<p>如<code>.shift(UP*2,LEFT)</code>和<code>shift(UP*2+LEFT)</code>是一个效果</p>
+</li>
+<li><p><code>scale(scale_factor, **kwargs)</code>:</p>
+<ul>
+<li><p>参数:</p>
+<p><code>scale_factor</code>:缩放因子</p>
+<p><code>**kwargs</code>:</p>
+<p>默认行为是围绕mobject的中心进行缩放。参数about_edge可以是向量，指要围绕mobject的哪一侧进行缩放,否则，如果给about_point一个值，则相对于该点进行缩放。</p>
+<ul>
+<li><p><code>about_edge</code>:相对边</p>
+<pre class=" language-lang-python"><code class="language-lang-python">class AddUpdater(Scene):
+    def construct(self):
+        circles = [Circle(arc_center = LEFT*i*2) for i in range(3)]
+        vg = VGroup(*circles)
+        line = Line(np.array([-10,vg.get_top()[1],0]),np.array([10,vg.get_top()[1],0]))
+        text = TextMobject("about\_edge")
+        text.next_to(line,UP,buff=SMALL_BUFF)
+        self.add(line,vg,text)
+        self.play(vg.scale,2,{"about_edge":UP})
+        self.wait()
+</code></pre>
+<p><img src="about_edge-1586013786370.gif" alt="about_edge"></p>
+<p>如果<code>about_edge</code>为方向的线性组合,则会按照对应的边进行阻隔,以UP+RIGHT为例子:</p>
+<pre class=" language-lang-python"><code class="language-lang-python">class AddUpdater(Scene):
+    def construct(self):
+        circles = [Circle(arc_center = LEFT*i*2) for i in range(3)]
+        vg = VGroup(*circles)
+        line = Line(np.array([-10,vg.get_top()[1],0]),np.array([10,vg.get_top()[1],0]))
+        line1 = Line(np.array([vg.get_right()[0],-10,0]),np.array([vg.get_right()[0],10,0]))
+        text = TextMobject("about\_edge1")
+        text.next_to(line,UP,buff=SMALL_BUFF)
+        text1 = TextMobject("about\_edge2")
+        text1.next_to(line1,RIGHT,buff=SMALL_BUFF)
+        self.add(line,line1,vg,text,text1)
+        self.play(vg.scale,2,{"about_edge":np.array(UP+RIGHT)})
+        self.wait()
+</code></pre>
+<p><img src="UP_RIGHT-1586013786370.gif" alt="UP_RIGHT"></p>
+</li>
+<li><p><code>about_point</code>:相对点</p>
+<pre class=" language-lang-python"><code class="language-lang-python">class AddUpdater(Scene):
+    def construct(self):
+        circles = [Circle(arc_center = LEFT*i*2) for i in range(3)]
+        vg = VGroup(*circles)
+        dot = Dot(point=circles[0].get_center())
+        text = TextMobject("about\_point")
+        text.next_to(dot,DOWN,buff=SMALL_BUFF)
+        self.add(dot,vg,text)
+        self.play(vg.scale,2,{"about_point":dot.get_center()})
+        self.wait()
+</code></pre>
+<p><img src="about_point-1586013786370.gif" alt="about_point"></p>
+</li>
+</ul>
+</li>
+<li><p>执行过程</p>
+<p>放大或缩小指定的因子</p>
+</li>
+</ul>
+</li>
+<li><p><code>rotate(angle, axis=OUT, **kwargs)</code>:</p>
+<p>学过初中物理就应该知道右手定则,在数学,物理中,旋转的方向就是右手定则中的(大拇指)方向</p>
+<pre class=" language-lang-python"><code class="language-lang-python">class myRotateScene(ThreeDScene):
+    def construct(self):
+     dot = Dot()
+        text = TextMobject("about\_point",color=RED)
+        text.next_to(dot,DOWN,buff=SMALL_BUFF)
+        axes = ThreeDAxes()
+        self.add(dot,text,axes)
+        self.set_camera_orientation(theta=-PI/4,phi=PI/4)           
+        self.play(text.rotate,PI/2,{"axis":OUT})
+        self.wait()
+</code></pre>
+<p><img src="Rotate-1586013786370.gif" alt="Rotate"></p>
+<p>上图text的起始平面是X-Y平面,UP为y轴正方向,大家可以自行尝试更改axis方向(注意self.play函数不代表角度从0到PI/2的渐近变化所以只要看起始帧和终止帧)</p>
+<p><code>**kwargs</code>还可以接受相对点<code>about_point</code>:</p>
+<pre class=" language-lang-python"><code class="language-lang-python">class myRotateScene(ThreeDScene):
+    def construct(self):
+        dot = Dot()
+        text = TextMobject("about\_point",color=RED)
+        text.next_to(dot,DOWN,buff=SMALL_BUFF)
+        axes = ThreeDAxes()
+        self.add(dot,text,axes)
+        self.set_camera_orientation(theta=-PI/4,phi=PI/4)           
+        self.play(text.rotate,PI,{"axis":OUT,"about_point":dot.get_center()})
+        self.wait()
+</code></pre>
+<p>这个相对点旋转其实是线性代数里面的旋转矩阵造成的结果,如果角度是180度,效果是关于这个点对称</p>
+<p><img src="rotateAboutPoint-1586013786370.gif" alt="rotateAboutPoint"></p>
+</li>
+<li><p><code>flip(axis=UP, **kwargs)</code>:</p>
+<p>翻转,其实就是<code>rotate</code>180度,其他参数同<code>rotate</code></p>
+</li>
+<li><p><code>stretch(factor, dim, **kwargs)</code>:</p>
+<p>在对应的维度伸缩<code>factor</code>倍</p>
+<p>这个函数与<code>scale</code>的用法一样,也会有<code>about_point</code>和<code>about_edge</code></p>
+<pre class=" language-lang-python"><code class="language-lang-python">class Stretch(Scene):
+    def construct(self):
+        text = Text("stretch")
+        self.play(text.stretch,2,1)
+        self.wait(2)
+</code></pre>
+</li>
+<li><p><code>apply_function(function, **kwargs)</code>:</p>
+<p>对所有family成员的点坐标都进行<code>function</code>处理,所以function必须是一个处理一个点的函数</p>
+<p>例如对于二维图形:</p>
+<pre class=" language-lang-python"><code class="language-lang-python">class myScene(Scene):
+    def func(self,point):
+        return point*2
+
+    def construct(self):
+        circle = Circle()
+        circle2 = Circle()
+        self.add(circle,circle2)  
+        circle.apply_function(self.func)
+        self.play(Write(circle))
+        self.wait()
+</code></pre>
+<p>默认的<code>about_point</code>为<code>ORIGIN</code>,可以看出来实现了<code>apply_function</code>的会大一倍</p>
+<p><img src="applyFunc-1586013786370.gif" alt="applyFunc"></p>
+</li>
+<li><p><code>apply_function_to_position(function)</code>:</p>
+<p>移动图像中心到function(self.get_center())</p>
+<pre class=" language-lang-python"><code class="language-lang-python">class myWag(Scene):
+    def x2(self,x):
+        return x*2
+
+    def construct(self):
+        circle = Circle()
+        circle.move_to(RIGHT)
+        self.add(circle)
+        self.play(circle.apply_function_to_position,{"function":self.x2})
+        self.wait()
+</code></pre>
+</li>
+<li><p><code>apply_function_to_submobject_positions(function)</code>:</p>
+<p>略</p>
+</li>
+<li><p><code>apply_matrix(matrix, **kwargs)</code>:</p>
+<p><code>matrix</code>为变换矩阵,这个就是对Mobject点对应的向量乘以<code>matrix</code>变换矩阵,学过线性代数或者计算机视觉或者看过3b1b的线性代数的人应该不陌生</p>
+</li>
+<li><p><code>apply_complex_function(function, **kwargs)</code>:</p>
+<p>同理于<code>apply_function(function, **kwargs)</code>,只不过这里的<code>function</code>接受一个平面复数,即<code>complex(x, y)</code></p>
+</li>
+<li><p><code>wag(direction=RIGHT, axis=DOWN, wag_factor=1.0)</code>:</p>
+<p>分析源码得到如下处理步骤:</p>
+<ol>
+<li><p>对所有含有坐标属性家庭成员进行步骤2到5的操作</p>
+</li>
+<li><p>向axis对应维度投影,如axis=UP/DOWN则向y轴投影,即保留y值不变,得到对应维度的向量列表alphas</p>
+</li>
+<li><p>将向量列表alphas归一化到[0,1],归一方法如下:</p>
+<script type="math/tex; mode=display">
+\vec{alphas'}_i = \frac{\vec{alphas}_i-min(\vec{alphas})}{max(\vec{alphas})-min(\vec{alphas})}</script></li>
+<li><p>执行幂运算</p>
+<script type="math/tex; mode=display">
+\vec{alphas}_i^{"}=(\vec{alphas'})^{wag\_factor}</script></li>
+<li><p>每个点在direction方向平移$\vec{alphas}_i^{“}$</p>
+</li>
+</ol>
+<p>例子:</p>
+<p>factor=1</p>
+<pre class=" language-lang-python"><code class="language-lang-python">class myWag(Scene):
+    def construct(self):
+        squares = [Square() for i in range(3)]
+        for i in range(-1,2):
+            squares[1+i].move_to(RIGHT*3*i)
+        self.add(*squares) 
+        self.play(squares[0].wag,{"direction":UP,"axis":RIGHT,"wag_factor":0.1},
+                  squares[1].wag,{"direction":UP,"axis":RIGHT,"wag_factor":1},
+                  squares[2].wag,{"direction":UP,"axis":RIGHT,"wag_factor":2})
+        self.wait()
+</code></pre>
+<p><img src="myWag1-1585643241928-1586013786370.gif" alt="myWag1"></p>
+<p>从左到右factor依次为0.1,1,2,都是向上wag的,具体怎么理解大家可以自己理解,比较难以表述</p>
+</li>
+<li><p><code>reverse_points()</code>:</p>
+<p>调换点的顺序:</p>
+<pre class=" language-lang-python"><code class="language-lang-python">class myWag(Scene):
+    def construct(self):
+        circle = Circle().scale(2)
+        texts = [TextMobject("p"+str(i)).scale(0.5) for i in range(len(circle.points))]
+        def update_factory(index):
+            def update_func(mob):
+                mob.move_to(circle.points[index])
+            return update_func
+        for i in range(len(texts)):
+            texts[i].add_updater(update_factory(i))
+
+        self.add(circle,*texts)
+        self.wait(1)
+        self.play(circle.reverse_points)
+        self.wait(2)
+</code></pre>
+<p><img src="ReversePoint-1586013786371.gif" alt="ReversePoint"></p>
+<p>注意play函数不能很好表现reverse的现象,如果看顺序,上图顺序从逆时针变成了顺时针</p>
+</li>
+<li><p><code>repeat(count)</code>:</p>
+<p>会出现重影的特效</p>
+<p><img src="Repeat-1586013786371.gif" alt="Repeat"></p>
+</li>
+<li><p><code>apply_points_function_about_point(func, about_point=None, about_edge=None)</code>:</p>
+<p>相对点或边对自己的所有点左边应用函数</p>
+</li>
+</ol>
+<h3 id="3-5-位置函数"><a href="#3-5-位置函数" class="headerlink" title="3.5 位置函数"></a>3.5 位置函数</h3><ol>
+<li><p><code>center()</code>:</p>
+<p>此处center为动词:到中心</p>
+<pre class=" language-lang-python"><code class="language-lang-python">class Repeat(Scene):
+    def construct(self):
+        square = Square()
+        dot=Dot()
+        self.add(square,dot)
+        self.play(square.shift,RIGHT)
+        self.play(square.shift,RIGHT)
+        self.play(square.shift,UP)
+        self.play(square.center)
+        self.wait()
+</code></pre>
+<p><img src="Center-1586013786371.gif" alt="Center"></p>
+</li>
+<li><p><code>align_on_border(direction, buff=DEFAULT_MOBJECT_TO_EDGE_BUFFER)</code>:</p>
+<p>在边界对齐,buff为和边界的距离</p>
+<pre class=" language-lang-python"><code class="language-lang-python">class Align(Scene):
+    def construct(self):
+        square = Square()
+        self.play(square.align_on_border,LEFT+UP)
+        self.wait(2)
+</code></pre>
+<p><img src="Align-1586013786371.gif" alt="Align"></p>
+</li>
+<li><p><code>to_corner(corner=LEFT + DOWN, buff=DEFAULT_MOBJECT_TO_EDGE_BUFFER)</code>:</p>
+<p>到某一个角</p>
+<p><img src="to-1586013786371.png" alt="to_corner author:Elteoremadebeethoven"></p>
+</li>
+<li><p><code>to_edge(edge=LEFT, buff=DEFAULT_MOBJECT_TO_EDGE_BUFFER)</code>:</p>
+<p>到某一边</p>
+</li>
+<li><p><code>next_to(mobject_or_point,direction=RIGHT, buff=DEFAULT_MOBJECT_TO_MOBJECT_BUFFER,aligned_edge=ORIGIN,submobject_to_align=None,index_of_submobject_to_align=None, coor_mask=np.array([1, 1, 1]),)</code>:</p>
+<p>参数分析:</p>
+<ul>
+<li><code>mobject_or_point</code>:Mobject或者一个点坐标</li>
+<li><code>direction</code>:方向</li>
+<li><code>buff</code>:相聚的距离</li>
+<li><code>aligned_edge</code>:对齐的边</li>
+<li><code>submobject_to_align</code>:对齐的子Mobject,此参数要求Mobject是一个列表性质的Mobject</li>
+<li><code>index_of_submobject_to_align</code>:如果<code>submobject_to_align</code>不为空,则需要指定对应的是哪一个Mobject</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li><code>coor_mask</code>:掩膜,术语来自数字信号处理/数字图像处理,不懂可以自行搜索,在这里即为1的地方才进行next_to,如果为0,则对应的坐标不进行next_to变换</li>
+</ul>
+<p>执行过程:</p>
+<p>   如果<code>mobject_or_point</code>是点则next_to的对象就是点,否则为由参数决定的Mobject的中心</p>
+<ol>
+<li><p><code>shift_onto_screen(**kwargs)</code>:</p>
+</li>
+<li><p><code>is_off_screen()</code>:</p>
+<p>是否超出屏幕范围</p>
+</li>
+<li><p><code>rescale_to_fit(length, dim, stretch=False, **kwargs)</code>:</p>
+<p>将某一个方向的长度拉伸至length,可以按照scale方式拉长或者stretch方式拉长</p>
+<pre class=" language-lang-python"><code class="language-lang-python">class RescaleToFit(Scene):
+    def construct(self):
+        ellipse = Ellipse()
+        length = ellipse.length_over_dim(0)
+        self.play(ellipse.rescale_to_fit,length,1,{"stretch":True})
+        self.wait(2)
+</code></pre>
+<p><img src="RescaleToFit-1586013786371.gif" alt="RescaleToFit"></p>
+<ul>
+<li><code>stretch_to_fit_width(width, **kwargs)</code></li>
+<li><code>stretch_to_fit_height(height, **kwargs)</code></li>
+<li><code>stretch_to_fit_depth(depth, **kwargs)</code></li>
+<li><code>set_width(width, stretch=False, **kwargs)</code></li>
+<li><code>set_height(height, stretch=False, **kwargs)</code></li>
+<li><code>set_depth(depth, stretch=False, **kwargs)</code></li>
+</ul>
+</li>
+<li><p><code>set_coord(value, dim, direction=ORIGIN)</code>:</p>
+<p>将dim对应的坐标设置为value,direction表示设置什么的坐标,如direction为RIGHT则表示设置图像的最右端点的dim维度的坐标为value</p>
+<ul>
+<li><code>set_x(x, direction=ORIGIN)</code></li>
+<li><code>set_y(y, direction=ORIGIN)</code></li>
+<li><code>set_z(z, direction=ORIGIN)</code></li>
+</ul>
+</li>
+<li><p><code>space_out_submobjects(factor=1.5, **kwargs)</code>:</p>
+<p>自己scale factor倍,子mobject缩小1/factor倍</p>
+</li>
+<li><p><code>move_to(point_or_mobject, aligned_edge=ORIGIN,coor_mask=np.array([1, 1, 1]))</code>:</p>
+<p>与next_to相近,不过区别是:next_to表示的是边界的距离，而不是中心距离</p>
+<p><img src="move_next_to-1586013786372.png" alt="move_next_to author:Elteoremadebeethoven"></p>
+</li>
+<li><p><code>replace(mobject, dim_to_match=0, stretch=False)</code>:</p>
+<p>将位置移动到mobject,并且大小做一些改变,具体看源码</p>
+</li>
+<li><p><code>surround(mobject,dim_to_match=0,stretch=False,buff=MED_SMALL_BUFF)</code>:</p>
+<p>包围(默认情况下,等边长的正多边形规则物体效果很好,对于不等变长的形状最好启用stretch)</p>
+<pre class=" language-lang-python"><code class="language-lang-python">class Surround(Scene):
+    def construct(self):
+        circle = Circle()
+        square = Square().shift(UP*2)
+        self.add(circle,square)
+        self.play(circle.surround,square)
+        self.wait(2)
+</code></pre>
+<p><img src="Surround-1586013786372.gif" alt="Surround"></p>
+</li>
+<li><p><code>put_start_and_end_on(start, end)</code>:</p>
+<p>将起点终点重置为start,end</p>
+<pre class=" language-lang-python"><code class="language-lang-python">class PutStartAndEndOn(Scene):
+    def construct(self):
+        arc = Arc(PI/3)
+        texts = [TexMobject(i,color=RED) for i in ["startPoint","endPoint"]]
+        texts[0].add_updater(lambda x: x.move_to(arc.get_start()))
+        texts[1].add_updater(lambda x: x.move_to(arc.get_end()))
+        self.add(arc, *texts)
+        self.play(arc.put_start_and_end_on,ORIGIN,(UP+RIGHT)*2)
+        self.wait()
+</code></pre>
+<p><img src="PutStartAndEndOn-1586013786372.gif" alt="PutStartAndEndOn"></p>
+</li>
+<li><p><code>add_background_rectangle(color=BLACK, opacity=0.75, **kwargs)</code>:</p>
+<p>增加背景方块,此方块是可以随着Mobject变化而变化的</p>
+<pre class=" language-lang-python"><code class="language-lang-python">class BackgroundRectangle(Scene):
+    def construct(self):
+        circle = Circle(color=RED)
+        circle.add_background_rectangle(color=BLUE,opacity=0.4)
+        self.add(circle)
+        self.play(circle.stretch,2,1)
+        self.wait()
+</code></pre>
+<p><img src="BackgroundRectangle-1586013786372.gif" alt="BackgroundRectangle"></p>
+</li>
+<li><p><code>add_background_rectangle_to_submobjects(**kwargs)</code>:</p>
+<p>略</p>
+</li>
+<li><p><code>add_background_rectangle_to_family_members_with_points(**kwargs)</code>:</p>
+<p>略</p>
+</li>
+</ol>
+<h3 id="3-6-颜色函数"><a href="#3-6-颜色函数" class="headerlink" title="3.6 颜色函数"></a>3.6 颜色函数</h3><ol>
+<li><p><code>set_color(color=YELLOW_C, family=True)</code>:</p>
+<p>设置颜色,family指家庭成员是否也跟着变色</p>
+</li>
+<li><p><code>set_color_by_gradient(*colors)</code>:</p>
+<p>渐变色,可以是两个或多个颜色的列表</p>
+<pre class=" language-lang-python"><code class="language-lang-python">class main(Scene):
+    def construct(self):
+        qed = TexMobject('This is a Text').scale(1.25)
+        qed.set_color_by_gradient(RED,YELLOW,GREEN,BLUE)
+        self.play(Write(qed))
+        self.wait(3)
+</code></pre>
+<p><img src="image-20200403201147347-1586013786372.png" alt="gradientColor"></p>
+</li>
+<li><p><code>set_colors_by_radial_gradient(center=None, radius=1, inner_color=WHITE, outer_color=BLACK)</code>:</p>
+<p>辐射状渐变颜色,半径为radius</p>
+</li>
+<li><p><code>set_submobject_colors_by_gradient(*colors)</code>:</p>
+<p>给子Mobject设置渐变颜色</p>
+</li>
+<li><p><code>set_submobject_colors_by_radial_gradient(center=None, radius=1, inner_color=WHITE, outer_color=BLACK)</code>:</p>
+<p>同理,略</p>
+</li>
+<li><p><code>fade_to(color, alpha, family=True)</code>:</p>
+<p>褪色为某一个颜色,alpha为插值系数,alpha在[0,1]之间,越接近1,褪色越厉害</p>
+<pre class=" language-lang-python"><code class="language-lang-python">class FadeTo(Scene):
+    def construct(self):
+        text = TexMobject("This is a Text")
+        self.add(text)
+        self.play(text.set_colors_by_radial_gradient,{"inner_color":WHITE,"outer_color":RED})
+        self.play(text.fade_to,BLUE,1)
+        self.wait()
+</code></pre>
+<p><img src="FadeTo-1586013786373.gif" alt="FadeTo"></p>
+</li>
+<li><p><code>get_color()</code>:</p>
+<p>返回颜色</p>
+</li>
+<li><p><code>fade(darkness=0.5, family=True)</code>:</p>
+<p>褪色为黑色,darkness为灰度</p>
+</li>
+</ol>
+<h3 id="3-7-恢复函数"><a href="#3-7-恢复函数" class="headerlink" title="3.7 恢复函数"></a>3.7 恢复函数</h3><ol>
+<li><p><code>save_state(use_deepcopy=False)</code>:</p>
+<p>保存状态,并确定是否使用深拷贝</p>
+</li>
+<li><p><code>restore()</code>:</p>
+<p>恢复之前状态</p>
+</li>
+</ol>
+<h3 id="3-8-其他的getter方法"><a href="#3-8-其他的getter方法" class="headerlink" title="3.8 其他的getter方法"></a>3.8 其他的getter方法</h3><ol>
+<li><p><code>reduce_across_dimension(points_func, reduce_func, dim)</code>:</p>
+</li>
+<li><p><code>nonempty_submobjects()</code>:</p>
+<p>返回Submobject的subSubMobject不为空的Submobject</p>
+</li>
+<li><p><code>get_merged_array(array_attr)</code>:</p>
+<p>得到Mobject以及其子Mobject的array_attr属性的列表</p>
+</li>
+<li><p><code>get_all_points()</code>:</p>
+<p>得到Mobject与其子Mobject属性所有的点</p>
+</li>
+<li><p><code>get_num_points()</code>:</p>
+<p>得到自己的点的数量(不包含子Mobject)</p>
+</li>
+<li><p><code>get_extremum_along_dim(points=None, dim=0, key=0)</code>:</p>
+<p>沿着dim方向(dim为0表示x方向,1表示y方向….),给出坐标的极值,key&lt;0表示得到最小值,key&gt;0表示得到最大值,key=0表示得到中值</p>
+</li>
+<li><p><code>get_critical_point(direction)</code>:</p>
+<p>画一个框，框住mobject。 这样的盒子有9个“关键点”：4个角，4个边缘中心，中心。 这将返回其中之一。</p>
+<p>direction什么方向就返回什么</p>
+<p>对其进行封装有如下的函数:</p>
+<ul>
+<li><code>get_edge_center</code><ul>
+<li><code>get_top</code></li>
+<li><code>get_bottom</code></li>
+<li><code>get_right</code></li>
+<li><code>get_left</code></li>
+<li><code>get_zenith</code></li>
+<li><code>get_nadir</code></li>
+</ul>
+</li>
+<li><code>get_corner</code></li>
+<li><code>get_center</code></li>
+</ul>
+</li>
+<li><p><code>get_boundary_point(direction)</code>:</p>
+<p>得到某个方向的最远的点</p>
+<pre class=" language-lang-python"><code class="language-lang-python">class FadeTo(Scene):
+    def construct(self):
+        square = Square()
+        circle = Circle().shift(2 * RIGHT + 1 * DOWN)
+        shapeGroup = VGroup(square,circle)
+        points = []
+        nums = 10
+        for i in range(nums):
+            points.append(shapeGroup.get_boundary_point(np.array((np.cos(2*PI*i/nums),np.sin(2*PI*i/nums),0))))
+        polygon = Polygon(*points,color=BLUE)
+        dots = [Dot(point=i) for i in points]
+        self.add(shapeGroup,*dots)
+        self.play(Write(polygon))
+        self.wait(2)
+</code></pre>
+<p><img src="image-20200404172800256-1586013786373.png" alt="boundary_points"></p>
+</li>
+<li><p><code>length_over_dim(dim)</code>:</p>
+<p>dim方向的长度</p>
+<p>此方法封装的方法:</p>
+<ul>
+<li><code>get_width</code></li>
+<li><code>get_height</code></li>
+<li><code>get_depth</code></li>
+</ul>
+</li>
+<li><p><code>get_coord(dim, direction=ORIGIN)</code>:</p>
+<p>在dim方向得到direction对应的极值,直接使用意义不大</p>
+<ul>
+<li><code>get_x(direction=ORIGIN)</code></li>
+<li><code>get_y(direction=ORIGIN)</code></li>
+<li><code>get_z(direction=ORIGIN)</code></li>
+</ul>
+</li>
+<li><p><code>get_start</code>,<code>get_end</code>,<code>get_start_and_end</code>:</p>
+<p>得到点的起点终点,起点和终点</p>
+</li>
+<li><p><code>has_points</code>,<code>has_no_points</code>:</p>
+<p>是否有点这属性</p>
+</li>
+</ol>
+<h3 id="3-9-匹配函数"><a href="#3-9-匹配函数" class="headerlink" title="3.9 匹配函数"></a>3.9 匹配函数</h3><ol>
+<li><p><code>match_color(mobject)</code>:</p>
+<p>匹配mobject的颜色</p>
+</li>
+<li><p><code>match_dim_size(mobject, dim, **kwargs)</code>:</p>
+<p>匹配dim方向的长度,<code>**kwargs</code>和<code>rescale_to_fit()</code>使用方法相同</p>
+<ul>
+<li><code>match_width</code></li>
+<li><code>match_height</code></li>
+<li><code>match_depth</code></li>
+</ul>
+</li>
+<li><p><code>match_coord(mobject, dim, direction=ORIGIN)</code>:</p>
+<p>按照get_coord()得到对应的Mobject坐标,然后设置</p>
+<ul>
+<li><code>match_x</code></li>
+<li><code>match_y</code></li>
+<li><code>match_z</code></li>
+</ul>
+</li>
+</ol>
+<h3 id="3-10-排列函数"><a href="#3-10-排列函数" class="headerlink" title="3.10 排列函数"></a>3.10 排列函数</h3><ol>
+<li><p><code>arrange(direction=RIGHT, center=True, **kwargs)</code>:</p>
+<p>submobject列表的全部变量进行排队,按照direction的方式排队,center决定了是否排完队跑到中心</p>
+<p><code>**kwargs</code>参考next_to</p>
+<pre class=" language-lang-python"><code class="language-lang-python">class Arrange(Scene):
+    def construct(self):
+        square = Square()
+        square.add(Dot(point=np.array([-1,-2,0])))
+        square.add(Square().move_to(np.array([3,0,0])))
+        square.add(Circle().move_to(np.array([5, 2, 0])))
+        self.add(square)
+        self.play(square.arrange,{"center":False})
+        self.wait(2)
+        self.play(square.arrange,{"direction":UP,"center":False})
+        self.wait(2)
+</code></pre>
+<p><img src="Arrange-1586013786373.gif" alt="Arrange"></p>
+</li>
+<li><p><code>arrange_in_grid(n_rows=None, n_cols=None, **kwargs)</code>:</p>
+<p>对submobject列表重拍列</p>
+<p>如果默认无参数,重拍列至方阵,否则n_rows和n_cols最多选一个,排列为对应的行或列,如果都填,则排列为n_rows行</p>
+<p><code>**kwargs</code>参考next_to函数</p>
+<pre class=" language-lang-python"><code class="language-lang-python">class ArrangeInGrid(Scene):
+    def construct(self):
+        square = Square()
+        square.add(Circle().move_to(np.array([-1,-2,0])))
+        square.add(Circle().move_to(np.array([3,0,0])))
+        square.add(Circle().move_to(np.array([5, 2, 0])))
+        square.add(Circle().move_to(np.array([5, -3, 0])))
+        self.add(square)
+        self.play(square.arrange_in_grid)
+        self.wait(2)
+</code></pre>
+<p><img src="ArrangeInGrid-1586013786373.gif" alt="ArrangeInGrid"></p>
+</li>
+<li><p><code>sort(point_to_num_func=lambda p: p[0], submob_func=None)</code>:</p>
+<p>对点进行排序,这个一般意义不大,可以自己编写排序方法</p>
+</li>
+<li><p><code>shuffle(recursive=False)</code>:</p>
+<p>打乱submobject的列表排序,以及是否递归进行</p>
+</li>
+</ol>
+<h3 id="3-11-对齐函数"><a href="#3-11-对齐函数" class="headerlink" title="3.11 对齐函数"></a>3.11 对齐函数</h3><ol>
+<li><p><code>align_to(mobject_or_point, direction=ORIGIN, alignment_vect=UP)</code>:</p>
+<p>对齐,direction表示对齐的边是哪边</p>
+<p>mob1.align_to（mob2，UP）垂直移动mob1，以便其顶部边缘与mob2的顶部边缘对齐。 mob1.align_to（mob2，alignment_vect = RIGHT）水平移动mob1，使其中心位于mob2中心的正上方/正下方</p>
+<pre class=" language-lang-python"><code class="language-lang-python">class AlighTo(Scene):
+    def construct(self):
+        square = Square()
+        circle = Circle().shift(2 * RIGHT + 1 * DOWN).scale(2)
+        self.add(square,circle)
+        self.play(circle.align_to,square,RIGHT)
+        self.wait(2)
+</code></pre>
+<p><img src="AlighTo-1586013786373.gif" alt="AlighTo"></p>
+</li>
+<li><p><code>add_n_more_submobjects(n)</code>:</p>
+<p>加入n个submoject</p>
+</li>
+</ol>
+<h3 id="3-12-抽象方法"><a href="#3-12-抽象方法" class="headerlink" title="3.12 抽象方法"></a>3.12 抽象方法</h3><ol>
+<li><p><code>align_data(mobject)</code>:</p>
+</li>
+<li><p><code>align_points(mobject)</code>:</p>
+</li>
+<li><p><code>align_submobjects(mobject)</code>:</p>
+<p>对齐submobjects</p>
+</li>
+<li><p><code>null_point_align(mobject)</code>:</p>
+</li>
+<li><p><code>get_point_mobject(center=None)</code></p>
+</li>
+<li><p><code>align_points_with_larger(larger_mobject)</code></p>
+</li>
+<li><p><code>interpolate_color(mobject1, mobject2, alpha)</code>:</p>
+<p>颜色插值</p>
+</li>
+<li><p><code>interpolate(mobject1,mobject2,alpha, path_func=straight_path)</code>:</p>
+<p>Mobject插值</p>
+</li>
+<li><p><code>become_partial(mobject, a, b)</code>:</p>
+<p>以仅成为mobject一部分的方式设置点。 输入0 &lt;= a &lt;b &lt;= 1确定要成为mobject的哪一部分。</p>
+</li>
+<li><p><code>become(mobject, copy_submobjects=True)</code>:</p>
+<p>变成另一个的样式</p>
+<pre class=" language-lang-python"><code class="language-lang-python">class Become(Scene):
+    def construct(self):
+        square = Square()
+        square.submobjects.append(Circle().move_to(np.array([-1,-2,0])))
+        square.submobjects.append(Circle().move_to(np.array([3,0,0])))
+        square.submobjects.append(Circle().move_to(np.array([5, 2, 0])))
+        square.submobjects.append(Circle().move_to(np.array([5, -3, 0])))
+        text = Text("text")
+        self.add(square)
+        self.play(square.become,text)
+        self.play(text.shift,UP)
+        self.wait(2)
+</code></pre>
+<p><img src="Become-1586013786373.gif" alt="Become"></p>
+</li>
+</ol>
+<h2 id="4-小结"><a href="#4-小结" class="headerlink" title="4. 小结"></a>4. 小结</h2><p>Mobject的用法还是很多的,空闲时间写了很多天才写完,希望自己能用熟练</p>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>]]></content>
+      <categories>
+        <category>manim</category>
+      </categories>
+      <tags>
+        <tag>教程</tag>
+        <tag>manim</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>mysql5.7+vs安装源码调试环境</title>
+    <url>/2020/07/03/mysql5-7-vs-an-zhuang-yuan-ma-diao-shi-huan-jing/</url>
+    <content><![CDATA[<h1 id="1-源码以及软件下载"><a href="#1-源码以及软件下载" class="headerlink" title="1. 源码以及软件下载"></a>1. 源码以及软件下载</h1><ol>
+<li>Visual Code community 2019</li>
+<li>MySQL源码5.7.19</li>
+<li>与MySQL5.7.19配套的boost_1_59_0-msvc-14.0-64</li>
+<li>ActivePerl-5.28</li>
+<li>cmake-3.18.0</li>
+</ol>
+<h1 id="2-源码的编译"><a href="#2-源码的编译" class="headerlink" title="2. 源码的编译"></a>2. 源码的编译</h1><p><img src="image-20200626142031305.png" alt="源码的编译"></p>
+<h1 id="3-VS编译遇到的报错问题"><a href="#3-VS编译遇到的报错问题" class="headerlink" title="3. VS编译遇到的报错问题"></a>3. VS编译遇到的报错问题</h1><h2 id="3-1-Call-Stack-most-recent-call-first-cmake-boost-cmake-238-COULD-NOT-FIND-BOOST-CMakeList"><a href="#3-1-Call-Stack-most-recent-call-first-cmake-boost-cmake-238-COULD-NOT-FIND-BOOST-CMakeList" class="headerlink" title="3.1 Call Stack (most recent call first): cmake/boost.cmake:238 (COULD_NOT_FIND_BOOST) CMakeList"></a>3.1 Call Stack (most recent call first): cmake/boost.cmake:238 (COULD_NOT_FIND_BOOST) CMakeList</h2><p>boost的版本不对,改为boost_1_59_0就成功编译</p>
+<h2 id="3-2-“对COM-组件的调用返回了错误-HRESULT-E-FAIL”无法加载项目"><a href="#3-2-“对COM-组件的调用返回了错误-HRESULT-E-FAIL”无法加载项目" class="headerlink" title="3.2 “对COM 组件的调用返回了错误 HRESULT E_FAIL”无法加载项目"></a>3.2 “对COM 组件的调用返回了错误 HRESULT E_FAIL”无法加载项目</h2><ol>
+<li><p><img src="20200607002041265.png" alt="1"></p>
+</li>
+<li><p><img src="20200607002123675.png" alt="2"></p>
+</li>
+<li><p><img src="20200607002217417.png" alt="3"></p>
+</li>
+</ol>
+<h2 id="3-3-“该文件包含不能在当前代码页-936-中表示的字符。请将该文件保存为-Unicode-格式以防止数据丢失”"><a href="#3-3-“该文件包含不能在当前代码页-936-中表示的字符。请将该文件保存为-Unicode-格式以防止数据丢失”" class="headerlink" title="3.3 “该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失”"></a>3.3 “该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失”</h2><p><a href="https://www.cnblogs.com/leokale-zz/p/11423953.html" target="_blank" rel="noopener">https://www.cnblogs.com/leokale-zz/p/11423953.html</a></p>
+<h2 id="3-4-运行报错"><a href="#3-4-运行报错" class="headerlink" title="3.4 运行报错"></a>3.4 运行报错</h2><p>mysql.cc 文件中函数test_lc_time_sz 最后的DBUG_ASSERT(0); 需要改成DBUG_ASSERT(1);</p>
+<h2 id="3-5-编译成功后运行：mysqld-Could-not-create-or-access-the-registry-key-needed-for-the-MySQL-app"><a href="#3-5-编译成功后运行：mysqld-Could-not-create-or-access-the-registry-key-needed-for-the-MySQL-app" class="headerlink" title="3.5 编译成功后运行：mysqld: Could not create or access the registry key needed for the MySQL app"></a>3.5 编译成功后运行：mysqld: Could not create or access the registry key needed for the MySQL app</h2><p>以管理员方式进行运行程序</p>
+<p><a href="https://blog.csdn.net/zeqi1991/article/details/96195127" target="_blank" rel="noopener">https://blog.csdn.net/zeqi1991/article/details/96195127</a></p>
+<h2 id="3-6-运行报错Table-‘mysql-plugin’-doesn’t-exist"><a href="#3-6-运行报错Table-‘mysql-plugin’-doesn’t-exist" class="headerlink" title="3.6 运行报错Table ‘mysql.plugin’ doesn’t exist"></a>3.6 运行报错Table ‘mysql.plugin’ doesn’t exist</h2><ol>
+<li><p>删除data的文件夹内的所有的内容</p>
+</li>
+<li><p>sql \Debug \ .\mysqld —initialize</p>
+<p><img src="image-20200627012830324.png" alt="sql \Debug \ .\mysqld --initialize"></p>
+</li>
+</ol>
+<h1 id="4-结果"><a href="#4-结果" class="headerlink" title="4. 结果"></a>4. 结果</h1><p><img src="image-20200626150116025.png" alt="结果"></p>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>]]></content>
+      <categories>
+        <category>数据库</category>
+      </categories>
+      <tags>
+        <tag>MySQL</tag>
+        <tag>数据库</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>mysql源码--main函数</title>
+    <url>/2020/07/03/mysql-yuan-ma-main-han-shu/</url>
+    <content><![CDATA[<h1 id="1-main函数的理解"><a href="#1-main函数的理解" class="headerlink" title="1. main函数的理解"></a>1. main函数的理解</h1><p>函数的入口在<code>mysqld/main.cc</code>里面：</p>
+<p><img src="image-20200627163326858.png" alt="mysqld/main.cc"></p>
+<p>而里面的函数在两个地方出现：</p>
+<p><img src="image-20200627163411816.png" alt="vs终端显示"></p>
+<p>第一处在<code>mysqld.cc</code>的4364行出现：</p>
+<p><img src="image-20200627165111499.png" alt="第一处"></p>
+<p>从上很明显看出，如果是WIN32系统，则函数名字是<code>win_main</code>,而我的系统是64位的系统，所以函数才会被命名为<code>mysqld_main</code>.</p>
+<p>第二个<code>mysqld_main</code>是在WIN32系统中定义的，在此不考虑：</p>
+<p><img src="image-20200627165736272.png" alt="第二处"></p>
+<p>查阅资料发现，Mysql为了实现可以在win32平台与类Uninx平台代码共用，将一些公用的函数抽象出来，但是win32和类unix平台启动方式不一样。细看win32的mysqld_main调用了mysql_service，mysql_service又调用了win_main函数，经过特殊操作处理后又回到了函数的公共定义内容：</p>
+<pre class=" language-lang-C++"><code class="language-lang-C++">//win32的mysqld_main
+int mysqld_main(int argc, char **argv)
+{
+    //...
+    mysql_service(NULL);
+    //...
+}
+int mysql_service(void *p)
+{
+    //...
+    if (use_opt_args)
+        win_main(opt_argc, opt_argv);
+      else
+        win_main(Service.my_argc, Service.my_argv);
+    //...
+}
+//此win_main，就是第一个mysqld_main的代码内容
+</code></pre>
+<h1 id="2-main函数的流程"><a href="#2-main函数的流程" class="headerlink" title="2. main函数的流程"></a>2. main函数的流程</h1><h2 id="2-1准备"><a href="#2-1准备" class="headerlink" title="2.1准备"></a>2.1准备</h2><ol>
+<li><p>执行基本的线程库和malloc初始化，读取默认文件和解析选项。</p>
+<pre class=" language-lang-c++"><code class="language-lang-c++">if (load_defaults(MYSQL_CONFIG_NAME, load_default_groups, &argc, &argv))
+  {
+    flush_error_log_messages();
+    return 1;
+  }
+</code></pre>
+</li>
+<li><p>是否使用PERFORMANCE_SCHEMA存储引擎</p>
+<pre class=" language-lang-c++"><code class="language-lang-c++">#ifdef WITH_PERFSCHEMA_STORAGE_ENGINE
+  /*
+    Initialize the array of performance schema instrument configurations.
+  */
+  init_pfs_instrument_array();
+#endif /* WITH_PERFSCHEMA_STORAGE_ENGINE */
+</code></pre>
+<p><img src="image-20200627203915117.png" alt="mysql架构"><br>图源自:<a href="https://draven.co/" target="_blank" rel="noopener">https://draven.co/</a></p>
+</li>
+<li><p>默认配置文件的加载</p>
+<pre class=" language-lang-c++"><code class="language-lang-c++">load_defaults(MYSQL_CONFIG_NAME, load_default_groups, &argc, &argv)
+</code></pre>
+<p>my.ini文件的加载顺序，它会这样加载：<br>C:/WINDOWS/my.cnf　C:/WINDOWS/my.ini　C:/my.cnf 　C:/my.ini</p>
+<p>如果指定了MYSQL_HOME，在找不到前边4个文件的时候，它会去查找$MYSQL_HOME$/my.cnf或my.ini</p>
+<p>对应的代码如下：</p>
+<pre class=" language-lang-c++"><code class="language-lang-c++">char fname_buffer[FN_REFLEN];
+//C:/WINDOWS/my.cnf
+if (my_get_system_windows_directory(fname_buffer, sizeof(fname_buffer)))
+   errors += add_directory(alloc, fname_buffer, dirs);
+//C:/WINDOWS/my.ini
+if (GetWindowsDirectory(fname_buffer, sizeof(fname_buffer)))
+   errors += add_directory(alloc, fname_buffer, dirs);
+
+//C:/my.cnf
+errors += add_directory(alloc, "C:/", dirs);
+//C:/my.ini
+if (my_get_module_parent(fname_buffer, sizeof(fname_buffer)) != NULL)
+   errors += add_directory(alloc, fname_buffer, dirs);
+//。。。如果是Linux系统。。。
+//如果上面的四个位置找不到，则进行下面查找
+if ((env= getenv("MYSQL_HOME")))
+    errors += add_directory(alloc, env, dirs);
+
+  /* Placeholder for --defaults-extra-file=<path> */
+  errors += add_directory(alloc, "", dirs);
+</code></pre>
+</li>
+</ol>
+<h2 id="2-1WITH-PERFSCHEMA-STORAGE-ENGINE宏定义"><a href="#2-1WITH-PERFSCHEMA-STORAGE-ENGINE宏定义" class="headerlink" title="2.1WITH_PERFSCHEMA_STORAGE_ENGINE宏定义"></a>2.1<code>WITH_PERFSCHEMA_STORAGE_ENGINE</code>宏定义</h2><pre class=" language-lang-C++"><code class="language-lang-C++">#ifdef WITH_PERFSCHEMA_STORAGE_ENGINE
+  /*
+    Initialize the array of performance schema instrument configurations.
+  */
+  init_pfs_instrument_array();
+#endif /* WITH_PERFSCHEMA_STORAGE_ENGINE */
+</code></pre>
+<p>对应的编译的参数为<code>-DWITH_ARCHIVE_STORAGE_ENGINE=1</code>，对应的详细信息在：</p>
+<p><a href="https://dev.mysql.com/doc/refman/5.7/en/performance-schema.html" target="_blank" rel="noopener">https://dev.mysql.com/doc/refman/5.7/en/performance-schema.html</a></p>
+<p><img src="image-20200628123338750.png" alt="文件位置"></p>
+<ol>
+<li><p>初始化一些线程会用到的锁、信号量、变量等，其中封装了一些pthread的函数</p>
+<p>接了下来调用了各种线程的初始化，过程感觉不是重点，没有继续看下去</p>
+<pre class=" language-lang-C++"><code class="language-lang-C++">if (my_init())
+  {
+    sql_print_error("my_init() failed.");
+    flush_error_log_messages();
+    return 1;
+  }
+</code></pre>
+</li>
+<li><p>初始化SQL statement</p>
+<p><code>init_sql_statement_names();</code></p>
+</li>
+<li><p>初始化系统变量</p>
+<pre class=" language-lang-C++"><code class="language-lang-C++">int sys_var_init()
+{
+  DBUG_ENTER("sys_var_init");
+
+  /* Must be already initialized. */
+  DBUG_ASSERT(system_charset_info != NULL);
+
+  if (my_hash_init(&system_variable_hash, system_charset_info, 100, 0,
+                   0, (my_hash_get_key) get_sys_var_length, 0, HASH_UNIQUE,
+                   PSI_INSTRUMENT_ME))
+    goto error;
+
+  if (mysql_add_sys_var_chain(all_sys_vars.first))
+    goto error;
+
+  DBUG_RETURN(0);
+
+error:
+  my_message_local(ERROR_LEVEL, "failed to initialize system variables");
+  DBUG_RETURN(1);
+}
+</code></pre>
+<p><code>system_variable_hash</code>是一个用于保存<code>sys_var</code>的哈希表</p>
+<p><code>mysql_add_sys_var_chain</code>这个函数的本意应该是将<code>all_sys_vars</code>中的数据都加入<code>system_variable_hash</code>这个哈希表中</p>
+</li>
+<li><p>调整相关的选项</p>
+<pre class=" language-lang-c++"><code class="language-lang-c++">adjust_related_options(&requested_open_files);
+</code></pre>
+<p>具体的内容不是很清楚，看方法名猜测是调整函数名字对应的几个参数：</p>
+<pre class=" language-lang-c++"><code class="language-lang-c++">void adjust_related_options(ulong *requested_open_files)
+{
+  /* In bootstrap, disable grant tables (we are about to create them) */
+  if (opt_bootstrap)
+    opt_noacl= 1;
+
+  /* The order is critical here, because of dependencies. */
+  adjust_open_files_limit(requested_open_files);
+  adjust_max_connections(*requested_open_files);
+  adjust_table_cache_size(*requested_open_files);
+  adjust_table_def_size();
+}
+</code></pre>
+<p>打开文件的数量，最大连接数，表缓存大小等等</p>
+<ul>
+<li><p>open_files_limit值：</p>
+<p>my.cnf里如果配置了open_files_limit，open_files_limit最后取值为 配置文件 open_files_limit，max_connections*5， wanted_files= 10+max_connections+table_cache_size*2 三者中的最大值。</p>
+<p>如果my.cnf里如果没配置open_files_limit，open_files_limit最后取值为max_connections*5，10+max_connections+table_cache_size*2，ulimit -n中的最大者</p>
+</li>
+<li><p>max_connections的限制：</p>
+<p>因为MySQL的最大连接数受到了安装平台的线程库、可用内存、每个连接需要使用的内存、每个连接的工作量、响应时间的影响，linux大概能承受500～1000并发请求，而Windows由于Posix通用接口层的限制，必须满足(open tables × 2 + open connections) &lt; 2048</p>
+<pre class=" language-lang-c++"><code class="language-lang-c++">void adjust_max_connections(ulong requested_open_files)
+{
+  ulong limit;
+
+  limit= requested_open_files - 10 - TABLE_OPEN_CACHE_MIN * 2;
+
+  if (limit < max_connections)
+  {
+    sql_print_warning("Changed limits: max_connections: %lu (requested %lu)",
+                      limit, max_connections);
+
+    // This can be done unprotected since it is only called on startup.
+    max_connections= limit;
+  }
+}
+</code></pre>
+<p>TABLE_OPEN_CACHE_MIN是写死的宏：400</p>
+</li>
+<li><p>table_open_cache</p>
+<p>table_open_cache受到了max_connections的限制，至少需要连接数*该链接执行的join表的个数</p>
+<pre class=" language-lang-c++"><code class="language-lang-c++">void adjust_table_cache_size(ulong requested_open_files)
+{
+  ulong limit;
+
+  limit= max<ulong>((requested_open_files - 10 - max_connections) / 2,
+                    TABLE_OPEN_CACHE_MIN);
+
+  if (limit < table_cache_size)
+  {
+    sql_print_warning("Changed limits: table_open_cache: %lu (requested %lu)",
+                      limit, table_cache_size);
+
+    table_cache_size= limit;
+  }
+
+  table_cache_size_per_instance= table_cache_size / table_cache_instances;
+}
+</code></pre>
+</li>
+<li><p>table_definition_cache</p>
+<p>table_definition_cache是能放在缓存中的表的定义的数量，表的定义在缓存中的时候能够加快打开表的速度，默认是400 + (table_open_cache / 2)</p>
+<pre class=" language-lang-c++"><code class="language-lang-c++">default_value= min<ulong> (400 + table_cache_size / 2, 2000);
+  var= intern_find_sys_var(STRING_WITH_LEN("table_definition_cache"));
+  DBUG_ASSERT(var != NULL);
+  var->update_default(default_value);
+</code></pre>
+</li>
+</ul>
+</li>
+<li><p>对相关的配置进行生效</p>
+<pre class=" language-lang-c++"><code class="language-lang-c++">if (ho_error == 0)
+  {
+    if (!opt_help && !opt_bootstrap)
+    {
+      /* Add sizing hints from the server sizing parameters. */
+      pfs_param.m_hints.m_table_definition_cache= table_def_size;
+      pfs_param.m_hints.m_table_open_cache= table_cache_size;
+      pfs_param.m_hints.m_max_connections= max_connections;
+      pfs_param.m_hints.m_open_files_limit= requested_open_files;
+      pfs_param.m_hints.m_max_prepared_stmt_count= max_prepared_stmt_count;
+
+      PSI_hook= initialize_performance_schema(&pfs_param);
+      if (PSI_hook == NULL && pfs_param.m_enabled)
+      {
+        pfs_param.m_enabled= false;
+        sql_print_warning("Performance schema disabled (reason: init failed).");
+      }
+    }
+  }
+</code></pre>
+</li>
+</ol>
+<h2 id="2-2HAVE-PSI-INTERFACE宏定义"><a href="#2-2HAVE-PSI-INTERFACE宏定义" class="headerlink" title="2.2HAVE_PSI_INTERFACE宏定义"></a>2.2<code>HAVE_PSI_INTERFACE</code>宏定义</h2><p>PSI代表：Performance schema instrumentation interface性能模式检测接口</p>
+<pre class=" language-lang-c++"><code class="language-lang-c++">#ifdef HAVE_PSI_INTERFACE
+  /*
+    获取当前的性能模式检测接口，如果可供使用的话。
+  */
+  if (PSI_hook)
+  {
+    PSI *psi_server= (PSI*) PSI_hook->get_interface(PSI_CURRENT_VERSION);
+    if (likely(psi_server != NULL))
+    {
+      set_psi_server(psi_server);
+
+      /*
+        2.1解析了命令行参数，并且已经初始化了性能模式(performance schema instrument)，接下来注册所有服务器检测
+      */
+      init_server_psi_keys();
+      /* 检测主要的线程 */
+      PSI_thread *psi= PSI_THREAD_CALL(new_thread)(key_thread_main, NULL, 0);
+      PSI_THREAD_CALL(set_thread_os_id)(psi);
+      PSI_THREAD_CALL(set_thread)(psi);
+
+      /*
+        一些检测已经到位,重新初始化在之前已经初始化的对象,以便更好的检测.
+      */
+      my_thread_global_reinit();
+    }
+  }
+#endif /* HAVE_PSI_INTERFACE */
+</code></pre>
+<h2 id="2-3-query日志初始化"><a href="#2-3-query日志初始化" class="headerlink" title="2.3 query日志初始化"></a>2.3 query日志初始化</h2><pre class=" language-lang-C++"><code class="language-lang-C++">init_error_log();
+
+  /* Initialize audit interface globals. Audit plugins are inited later. */
+  mysql_audit_initialize();
+
+#ifndef EMBEDDED_LIBRARY
+  Srv_session::module_init();
+#endif
+
+  /*
+    执行基本查询日志初始化。 应该在MY_INIT之后调用，因为它会初始化互斥量。
+  */
+  query_logger.init();
+</code></pre>
+<h2 id="2-4-如果错误则退出"><a href="#2-4-如果错误则退出" class="headerlink" title="2.4 如果错误则退出"></a>2.4 如果错误则退出</h2><pre class=" language-lang-C++"><code class="language-lang-C++">  if (ho_error)
+  {
+    /*
+     解析命令行选项失败，由于没有可行的剩下的_argc / remaining_argv来继续服务器初始化，因此代码已尽其所能。
+       这是记录有意义消息的最大努力：
+       -消息将打印到stderr，但尚未重定向，
+       -对于Windows，消息将打印在NT事件日志中。
+    */
+    flush_error_log_messages();
+    /*
+      Not enough initializations for unireg_abort()
+      Using exit() for windows.
+    */
+    exit (MYSQLD_ABORT_EXIT);
+  }
+
+  if (init_common_variables())
+    unireg_abort(MYSQLD_ABORT_EXIT);        // 如果初始化失败就直接退出SQL
+
+  my_init_signals();
+</code></pre>
+<h2 id="2-5-堆栈的大小初始化"><a href="#2-5-堆栈的大小初始化" class="headerlink" title="2.5 堆栈的大小初始化"></a>2.5 堆栈的大小初始化</h2><pre class=" language-lang-C++"><code class="language-lang-C++">my_thread_attr_setstacksize(&connection_attrib,
+                            my_thread_stack_size + guardize);
+
+  {
+    /* Retrieve used stack size;  Needed for checking stack overflows */
+    size_t stack_size= 0;
+    my_thread_attr_getstacksize(&connection_attrib, &stack_size);
+
+    /* We must check if stack_size = 0 as Solaris 2.9 can return 0 here */
+    if (stack_size && stack_size < (my_thread_stack_size + guardize))
+    {
+      sql_print_warning("Asked for %lu thread stack, but got %ld",
+                        my_thread_stack_size + guardize, (long) stack_size);
+#if defined(__ia64__) || defined(__ia64)
+      my_thread_stack_size= stack_size / 2;
+#else
+      my_thread_stack_size= static_cast<ulong>(stack_size - guardize);
+#endif
+    }
+  }
+</code></pre>
+<h2 id="2-6-开启binlog会检查server-id"><a href="#2-6-开启binlog会检查server-id" class="headerlink" title="2.6 开启binlog会检查server_id"></a>2.6 开启binlog会检查server_id</h2><pre class=" language-lang-python"><code class="language-lang-python">if (opt_bin_log && !(server_id_supplied) )
+  {
+    sql_print_error("You have enabled the binary log, but you haven't provided "
+                    "the mandatory server-id. Please refer to the proper "
+                    "server start-up parameters documentation");
+    unireg_abort(MYSQLD_ABORT_EXIT);
+  }
+</code></pre>
+<p>如果开启二进制日志但是没有提供操作服务器ID就会报错并退出</p>
+<h2 id="2-7-服务器组件初始化"><a href="#2-7-服务器组件初始化" class="headerlink" title="2.7 服务器组件初始化"></a>2.7 服务器组件初始化</h2><pre class=" language-lang-c++"><code class="language-lang-c++">if (init_server_components())
+    unireg_abort(MYSQLD_ABORT_EXIT);
+</code></pre>
+<h2 id="2-8检查data目录下是否有auto-cnf"><a href="#2-8检查data目录下是否有auto-cnf" class="headerlink" title="2.8检查data目录下是否有auto.cnf"></a>2.8检查data目录下是否有auto.cnf</h2><pre class=" language-lang-c++"><code class="language-lang-c++">  /*
+    Each server should have one UUID. We will create it automatically, if it
+    does not exist.
+   */
+  if (init_server_auto_options())
+  {
+    sql_print_error("Initialization of the server's UUID failed because it could"
+                    " not be read from the auto.cnf file. If this is a new"
+                    " server, the initialization failed because it was not"
+                    " possible to generate a new UUID.");
+    unireg_abort(MYSQLD_ABORT_EXIT);
+  }
+</code></pre>
+<h2 id="2-9将uuid加入sid-map-中"><a href="#2-9将uuid加入sid-map-中" class="headerlink" title="2.9将uuid加入sid_map()中"></a>2.9将uuid加入sid_map()中</h2><pre class=" language-lang-c++"><code class="language-lang-c++">  /*
+    Add server_uuid to the sid_map.  This must be done after
+    server_uuid has been initialized in init_server_auto_options and
+    after the binary log (and sid_map file) has been initialized in
+    init_server_components().
+
+    No error message is needed: init_sid_map() prints a message.
+
+    Strictly speaking, this is not currently needed when
+    opt_bin_log==0, since the variables that gtid_state->init
+    initializes are not currently used in that case.  But we call it
+    regardless to avoid possible future bugs if gtid_state ever
+    needs to do anything else.
+  */
+  global_sid_lock->wrlock();
+  int gtid_ret= gtid_state->init();
+  global_sid_lock->unlock();
+
+  if (gtid_ret)
+    unireg_abort(MYSQLD_ABORT_EXIT);
+</code></pre>
+<h2 id="2-10初始化gtid-state对象以及对应的操作"><a href="#2-10初始化gtid-state对象以及对应的操作" class="headerlink" title="2.10初始化gtid_state对象以及对应的操作"></a>2.10初始化gtid_state对象以及对应的操作</h2><pre class=" language-lang-c++"><code class="language-lang-c++">  // Initialize executed_gtids from mysql.gtid_executed table.
+  if (gtid_state->read_gtid_executed_from_table() == -1)
+    unireg_abort(1);
+</code></pre>
+<p>GTID (Global Transaction ID)是全局事务ID,当在主库上提交事务或者被从库应用时，可以定位和追踪每一个事务，对DBA来说意义就很大了，我们可以适当的解放出来，不用手工去可以找偏移量的值了，而是通过CHANGE MASTER TO MASTER_HOST=’xxx’, MASTER_AUTO_POSITION=1的即可方便的搭建从库，在故障修复中也可以采用MASTER_AUTO_POSITION=‘X’的方式。</p>
+<p>在以下四种情况下，将未保存的GTID保存到gtid_exected表中：</p>
+<ol>
+<li>升级</li>
+<li>从主服务器的备份中配置了一个从服务器，并且在此之前通过RESET MASTER和RESET SLAVE清除了从服务器。</li>
+<li>在崩溃前从服务器上的最后一个RESET MASTER没有发生二进制日志轮换</li>
+<li>如果服务器崩溃，则最后一个binlog的GTID集不会保存到gtid_exected表中，因此在从崩溃中恢复期间，我们将其保存到gtid_executed表和execute_gtids中。</li>
+</ol>
+<p>其中的代码我没有仔细研究</p>
+<h2 id="2-11-网络连接"><a href="#2-11-网络连接" class="headerlink" title="2.11 网络连接"></a>2.11 网络连接</h2><ul>
+<li><p>SSL支持与网络的初始化</p>
+<pre class=" language-lang-C++"><code class="language-lang-C++">  if (init_ssl())
+    unireg_abort(MYSQLD_ABORT_EXIT);
+  if (network_init())
+    unireg_abort(MYSQLD_ABORT_EXIT);
+</code></pre>
+<p>network_init主要做了以下几件事情：</p>
+<blockquote>
+<p><a href="https://blog.csdn.net/Martin201609/article/details/100747413" target="_blank" rel="noopener">https://blog.csdn.net/Martin201609/article/details/100747413</a></p>
+</blockquote>
+<p>set_ports() 进行相应的初始化端口,创建监听对象Mysqld_socket_listener，并对其进行相应的初始化操作。然后对listener进行相应的侦听动作</p>
+<pre class=" language-lang-C++"><code class="language-lang-C++">static bool network_init(void)
+{
+  if (opt_bootstrap)
+    return false;
+
+  set_ports(); //端口设置
+  //...
+ Mysqld_socket_listener *mysqld_socket_listener=
+      new (std::nothrow) Mysqld_socket_listener(bind_addr_str,
+                                                mysqld_port, back_log,
+                                                mysqld_port_timeout,
+                                                unix_sock_name);
+}//监听对象
+// ...
+mysqld_socket_acceptor=
+      new (std::nothrow) Connection_acceptor<Mysqld_socket_listener>(mysqld_socket_listener);//
+//...
+    if (mysqld_socket_acceptor->init_connection_acceptor())//实例化并监听
+      return true; // mysqld_socket_acceptor would be freed in unireg_abort.
+</code></pre>
+<p><code>set_port()</code>:</p>
+<pre class=" language-lang-c++"><code class="language-lang-c++">static void set_ports()
+{
+  char  *env;
+  if (!mysqld_port && !opt_disable_networking)
+  {         // Get port if not from commandline
+    mysqld_port= MYSQL_PORT;
+
+    /*
+      如果构建器明确要求使用默认端口，则使用该端口（即使它与默认值一致）。 只有在他们没有这样做的情况下，我们才        检查/etc/services（如果失败，则退回到出厂默认值3306）。 这两个默认值都可以被环境变量MYSQL_TCP_PORT        覆盖，而环境变量又可以由命令行选项覆盖。
+    */
+
+#if MYSQL_PORT_DEFAULT == 0 //这个参数是在make编译生成之后，在include/mysql_version.h生成，其值为 #define MYSQL_PORT_DEFAULT          @MYSQL_TCP_PORT_DEFAULT@
+    //MYSQL_TCP_PORT_DEFAULT这个值是在cmake/mysql_version.cmake的文件中配置的
+    /*
+    [root@pcserver mysql-5.7.27]# grep -rn "MYSQL_TCP_PORT_DEFAULT" *
+    cmake/mysql_version.cmake:88:SET(MYSQL_TCP_PORT_DEFAULT "3306")
+    cmake/mysql_version.cmake:91:  SET(MYSQL_TCP_PORT ${MYSQL_TCP_PORT_DEFAULT})
+    cmake/mysql_version.cmake:92:  SET(MYSQL_TCP_PORT_DEFAULT "0")
+    cmake/mysql_version.cmake:93:ELSEIF(MYSQL_TCP_PORT EQUAL MYSQL_TCP_PORT_DEFAULT)
+    cmake/mysql_version.cmake:94:  SET(MYSQL_TCP_PORT_DEFAULT "0")
+    include/mysql_version.h.in:18:#define MYSQL_PORT_DEFAULT          @MYSQL_TCP_PORT_DEFAULT@
+    scripts/mysql_config.pl.in:161:if ( '@MYSQL_TCP_PORT_DEFAULT@' == 0 ) {
+    scripts/mysql_config.sh:106:if [ @MYSQL_TCP_PORT_DEFAULT@ -eq 0 ]; then
+
+    */
+    struct  servent *serv_ptr;
+    if ((serv_ptr= getservbyname("mysql", "tcp")))
+      mysqld_port= ntohs((u_short) serv_ptr->s_port); /* purecov: inspected */
+#endif
+    if ((env = getenv("MYSQL_TCP_PORT"))) 
+      mysqld_port= (uint) atoi(env);    /* purecov: inspected 通过getenv获取启动配置命令行的端口*/
+  }
+  if (!mysqld_unix_port)
+  {
+#ifdef _WIN32
+    mysqld_unix_port= (char*) MYSQL_NAMEDPIPE;
+#else
+    mysqld_unix_port= (char*) MYSQL_UNIX_ADDR;
+#endif
+    if ((env = getenv("MYSQL_UNIX_PORT")))
+      mysqld_unix_port= env;      /* purecov: inspected */
+  }
+}
+</code></pre>
+<p>创建监听:</p>
+<p>创建 Mysqld_socket_listener 类型对象</p>
+<pre class=" language-lang-c++"><code class="language-lang-c++">Mysqld_socket_listener *mysqld_socket_listener=
+      new (std::nothrow) Mysqld_socket_listener(bind_addr_str,
+                                                mysqld_port, back_log,
+                                                mysqld_port_timeout,
+                                                unix_sock_name);
+</code></pre>
+<p>通过Connection_acceptor模板进行Mysqld_socket_listener的初始化，通过循环监控不同类型的client connection event的，也就是通过循环监听客户端来的连接</p>
+<p>创建mysql_socket_acceptor对象：</p>
+<pre class=" language-lang-c++"><code class="language-lang-c++">mysqld_socket_acceptor=
+      new (std::nothrow) Connection_acceptor<Mysqld_socket_listener>(mysqld_socket_listener);
+</code></pre>
+<p>初始化listener：</p>
+<pre class=" language-lang-c++"><code class="language-lang-c++"> if (mysqld_socket_acceptor->init_connection_acceptor())
+      return true; // mysqld_socket_acceptor would be freed in unireg_abort.
+</code></pre>
+<p>查看Mysqld_socket_listener中的setup_listener()具体的实现：<br>通过以下关键变量来记录listener的主要信息<br><strong>m_tcp_port</strong>:记录tcp socket连接<br><strong>m_unix_sockname</strong>: 使用的是std::string类型记录如果使用socket文件，则文件名（路径+文件）<br>通过使用m_socket_map来区分所使用的连接是tcp_socket还是unix socket的连接方式</p>
+<p>通过两个if判断，分别判断是否tcp还是socket文件连接，并记录于m_socket_map中然后通过迭代器循环实现监听事件的记录，代码通过pool_info_t实现监听相应的事件</p>
+</li>
+<li><p>UDP初始化</p>
+<pre class=" language-lang-C++"><code class="language-lang-C++">udf_init();
+</code></pre>
+</li>
+<li><p>slave初始化</p>
+</li>
+</ul>
+<pre class=" language-lang-c++"><code class="language-lang-c++">if (server_id != 0)
+      init_slave(); /* Ignoring errors while configuring replication. */
+</code></pre>
+<h2 id="2-12-初始化线程"><a href="#2-12-初始化线程" class="headerlink" title="2.12 初始化线程"></a>2.12 初始化线程</h2><pre class=" language-lang-C++"><code class="language-lang-C++">#ifdef _WIN32
+  create_shutdown_thread();
+#endif
+  start_handle_manager();
+
+  create_compress_gtid_table_thread();
+
+  sql_print_information(ER_DEFAULT(ER_STARTUP),
+                        my_progname,
+                        server_version,
+#ifdef HAVE_SYS_UN_H
+                        (opt_bootstrap ? (char*) "" : mysqld_unix_port),
+#else
+                        (char*) "",
+#endif
+                         mysqld_port,
+                         MYSQL_COMPILATION_COMMENT);
+#if defined(_WIN32)
+  Service.SetRunning();
+#endif
+start_processing_signals();
+</code></pre>
+<h2 id="2-13循环监听客户端"><a href="#2-13循环监听客户端" class="headerlink" title="2.13循环监听客户端"></a>2.13循环监听客户端</h2><p><strong>此处循环监听客户端,直到客户端选择退出再进行后续的操作,所以此函数一般情况是SQL的耗时最多,执行代码最多的地方,也是mysql的核心算法的代码</strong></p>
+<p>此时要分为两种系统讨论:windows和Linux</p>
+<pre class=" language-lang-c++"><code class="language-lang-c++">#if defined(_WIN32)
+  setup_conn_event_handler_threads();
+#else
+  mysql_mutex_lock(&LOCK_socket_listener_active);
+  // Make it possible for the signal handler to kill the listener.
+  socket_listener_active= true;
+  mysql_mutex_unlock(&LOCK_socket_listener_active);
+
+  if (opt_daemonize)
+    mysqld::runtime::signal_parent(pipe_write_fd,1);
+
+  mysqld_socket_acceptor->connection_event_loop();
+#endif /* _WIN32 */
+</code></pre>
+<h3 id="2-13-1-linux系统"><a href="#2-13-1-linux系统" class="headerlink" title="2.13.1 linux系统"></a>2.13.1 linux系统</h3><pre class=" language-lang-c++"><code class="language-lang-c++">  mysql_mutex_lock(&LOCK_socket_listener_active);
+  // Make it possible for the signal handler to kill the listener.
+  socket_listener_active= true;
+  //从这里开始，服务器启动线程一直等待，直到shutdown后，继续向下执行
+  mysql_mutex_unlock(&LOCK_socket_listener_active);
+
+  if (opt_daemonize)
+    mysqld::runtime::signal_parent(pipe_write_fd,1);
+
+  mysqld_socket_acceptor->connection_event_loop();
+</code></pre>
+<p>通过nysqld_socket_acceptor变量引用connect_event_loop()方法，循环监听客户端来的连接。通过模板调用如下 ：</p>
+<pre class=" language-lang-c++"><code class="language-lang-c++">/**
+    Connection acceptor loop to accept connections from clients.
+  */
+  void connection_event_loop()
+  {
+    Connection_handler_manager *mgr= Connection_handler_manager::get_instance();
+    while (!abort_loop)
+    {
+      Channel_info *channel_info= m_listener->listen_for_connection_event();
+      if (channel_info != NULL)
+        mgr->process_new_connection(channel_info);
+    }
+  }
+</code></pre>
+<p>通过查看Mysqld_socket_listener类中listen_for_connection_event()来得到Channel_info信息，然后通过process_new_connection创建新的连接来。再进一步查看Connection_handler_manager的process_new_connection的方法，发现有m_connection_handler-&gt;add_connection(channel_info)在connection_handler中增加一个connection,并记录数量增加:</p>
+<pre class=" language-lang-c++"><code class="language-lang-c++">void Connection_handler_manager::process_new_connection(Channel_info* channel_info)
+{
+  if (abort_loop || !check_and_incr_conn_count())
+  {
+    channel_info->send_error_and_close_channel(ER_CON_COUNT_ERROR, 0, true);
+    delete channel_info;
+    return;
+  }
+
+  if (m_connection_handler->add_connection(channel_info)) //增加一个connection
+  {
+    inc_aborted_connects(); //记录数量增加
+    delete channel_info;
+  }
+}
+</code></pre>
+<p>对于m_connection_handler的add_connection增加connection，看具体的实现：</p>
+<pre class=" language-lang-c++"><code class="language-lang-c++">bool Per_thread_connection_handler::add_connection(Channel_info* channel_info)
+{
+  int error= 0;
+  my_thread_handle id;
+
+  DBUG_ENTER("Per_thread_connection_handler::add_connection");
+
+  // Simulate thread creation for test case before we check thread cache
+  DBUG_EXECUTE_IF("fail_thread_create", error= 1; goto handle_error;);
+
+  if (!check_idle_thread_and_enqueue_connection(channel_info))
+    DBUG_RETURN(false);
+
+  /*
+    There are no idle threads avaliable to take up the new
+    connection. Create a new thread to handle the connection
+  */
+  channel_info->set_prior_thr_create_utime();
+  error= mysql_thread_create(key_thread_one_connection, &id,
+                             &connection_attrib,
+                             handle_connection,
+                             (void*) channel_info);//给定信息，创建thread进程
+
+#ifndef DBUG_OFF
+handle_error:
+#endif // !DBUG_OFF
+
+  if (error)
+  {
+    connection_errors_internal++;
+    if (!create_thd_err_log_throttle.log())
+      sql_print_error("Can't create thread to handle new connection(errno= %d)",
+                      error);
+    channel_info->send_error_and_close_channel(ER_CANT_CREATE_THREAD,
+                                               error, true);
+    Connection_handler_manager::dec_connection_count();
+    DBUG_RETURN(true);
+  }
+
+  Global_THD_manager::get_instance()->inc_thread_created();
+  DBUG_PRINT("info",("Thread created"));
+  DBUG_RETURN(false);
+}
+</code></pre>
+<p>创建mysql_thread_create创建thread，并接收一个方法参数 handle_connection，这个是一个函数:</p>
+<pre class=" language-lang-c++"><code class="language-lang-c++">extern "C" void *handle_connection(void *arg)
+{
+//...
+ THD *thd= init_new_thd(channel_info); //创建线程对象
+ //...
+mysql_thread_set_psi_id(thd->thread_id()); //初始化线程信息等
+    mysql_thread_set_psi_THD(thd);
+    mysql_socket_set_thread_owner(
+      thd->get_protocol_classic()->get_vio()->mysql_socket);
+
+    thd_manager->add_thd(thd);//向线程管理器增加一个线程信息
+
+    if (thd_prepare_connection(thd))
+      handler_manager->inc_aborted_connects();
+    else
+    {
+      while (thd_connection_alive(thd))//循环检测线程状态
+      {
+        if (do_command(thd)) // 执行相关参数命令
+          break;
+      }
+      end_connection(thd);
+    }
+    close_connection(thd, 0, false, false);
+
+    thd->get_stmt_da()->reset_diagnostics_area();
+    thd->release_resources();
+
+//...
+}
+</code></pre>
+<blockquote>
+<p><a href="https://www.itread01.com/content/1546137727.html" target="_blank" rel="noopener">https://www.itread01.com/content/1546137727.html</a></p>
+</blockquote>
+<p>在handle_connection中,通过while回圈呼叫sql_parse.cc中的do_command()，回圈的作用是从使用者输入的多个命令中依次选择一个命令去执行.在do_command()中，呼叫Protocol_classic::get_command()，进入Protocol_classic::parse_packet()读取一个数据包，解析为command命令,command命令有COM_QUERY、 COM_FIELD_LIST、COM_STMT_EXECUTE等。在在do_command()中继续呼叫sql_parse()档案中的dispatch_command().在dispatch_command()中包含了各种型别的command怎么处理的switch case。比如select的进入case COM_QUERY.先alloc_query()复制执行绪执行绪过来的查询命令。再进入sql_parse.cc档案中的mysql_parse()方法,开始sql语法解析.</p>
+<p><strong>sql语法解析阶段</strong>:</p>
+<ul>
+<li>在mysql_parse()中,主要完成三个工作。检查查询快取里是否有以前执行过的某个查询。呼叫词法解析器(通过parse_sql()方法)，呼叫查询优化器(通过mysql_execute_command()方法).</li>
+<li>依次进入sql_parse.cc中的parse_sql(),进入sql_class.cc中的THD::sql_parser() ,进入MYSQLparse().MYSQLparse是个巨集定义,为#define yyparse MYSQLparse.这时进入yacc的sql_yacc.cc档案中的语法解析器函式yyparse()开始语法解析.解析器基于sql_yacc.yy档案通过yacc生成.Mysql的词法解析器没有用flex,自己编写的。语法解析器用的Bison.</li>
+<li>在mysql_parse()中继续呼叫sql_parse()档案中的mysql_execute_command()方法,为sql优化做准备.在该方法中,通过switch case为各种sql命令优化做准备.如果是select查询，进入case SQLCOM_SELECT，进入Sql_cmd_dml::execute()方法.在execute()方法中,先呼叫precheck()查询是否有许可权，然后呼叫open_tables_for_query()开启要查询的表，然后呼叫lock_tables()锁定相关的表，然后呼叫Sql_cmd_dml::execute_inner(),进入真正的查询优化.</li>
+</ul>
+<p><strong>sql查询优化阶段</strong>:</p>
+<ul>
+<li>在Sql_cmd_dml::execute_inner()方法中，先进入sql_optimizer.cc档案中的JOIN::optimize(),再进入sql_executor.cc档案中的JOIN::exec()开始查询执行器。</li>
+</ul>
+<p><strong>sql查询执行器</strong>:</p>
+<ul>
+<li>在sql_executor.cc档案中的JOIN::exec()中.先呼叫send_result_set_metadata()生成查询标题，再进入sql_executor.cc中的do_select()生成查询结果.在do_select()中呼叫sub_select ().在sub_select()中，先判断是否是最后一条记录.然后while回圈每次读取一条记录。</li>
+</ul>
+<p><strong>sql查询优化阶段</strong>:</p>
+<ul>
+<li>在Sql_cmd_dml::execute_inner()方法中，先进入sql_optimizer.cc档案中的JOIN::optimize(),再进入sql_executor.cc档案中的JOIN::exec()开始查询执行器。</li>
+</ul>
+<p><strong>sql查询执行器</strong>:</p>
+<ul>
+<li>在sql_executor.cc档案中的JOIN::exec()中.先呼叫send_result_set_metadata()生成查询标题，再进入sql_executor.cc中的do_select()生成查询结果.在do_select()中呼叫sub_select ().在sub_select()中，先判断是否是最后一条记录.然后while回圈每次读取一条记录。</li>
+</ul>
+<h3 id="2-13-2-windows系统"><a href="#2-13-2-windows系统" class="headerlink" title="2.13.2 windows系统"></a>2.13.2 windows系统</h3><p>调用函数<code>setup_conn_event_handler_threads();</code>,此时创建监听线程,启动三个单独线程处理不同的连接方式，即Mysqld_socket_listener/Named_pipe_listener/Shared_mem_listener,函数执行了的操作如下:</p>
+<pre class=" language-lang-c++"><code class="language-lang-c++">void setup_conn_event_handler_threads()
+{
+  my_thread_handle hThread;
+
+  //...
+
+  //互斥锁
+  mysql_mutex_lock(&LOCK_handler_count);
+  handler_count=0;
+
+  //类似于上面Linux的`对于m_connection_handler的add_connection增加connection`
+  if (opt_enable_named_pipe)
+  {
+    int error= mysql_thread_create(key_thread_handle_con_namedpipes,
+                                   &hThread, &connection_attrib,
+                                   named_pipe_conn_event_handler,
+                                   named_pipe_acceptor);
+    if (!error)
+      handler_count++;
+    else
+      sql_print_warning("Can't create thread to handle named pipes"
+                        " (errno= %d)", error);
+  }
+
+  if (have_tcpip && !opt_disable_networking)
+  {
+    int error= mysql_thread_create(key_thread_handle_con_sockets,
+                                   &hThread, &connection_attrib,
+                                   socket_conn_event_handler,
+                                   mysqld_socket_acceptor);
+    if (!error)
+      handler_count++;
+    else
+      sql_print_warning("Can't create thread to handle TCP/IP (errno= %d)",
+                        error);
+  }
+
+  if (opt_enable_shared_memory)
+  {
+    int error= mysql_thread_create(key_thread_handle_con_sharedmem,
+                                   &hThread, &connection_attrib,
+                                   shared_mem_conn_event_handler,
+                                   shared_mem_acceptor);
+    if (!error)
+      handler_count++;
+    else
+      sql_print_warning("Can't create thread to handle shared memory"
+                        " (errno= %d)", error);
+  }
+
+  // Block until all connection listener threads have exited.
+  while (handler_count > 0)
+    mysql_cond_wait(&COND_handler_count, &LOCK_handler_count);
+  mysql_mutex_unlock(&LOCK_handler_count);
+  DBUG_VOID_RETURN;
+}
+</code></pre>
+<p>拿第一个<code>opt_enable_named_pipe</code>为例,调用了’死’循环函数<code>named_pipe_conn_event_handler</code>:</p>
+<pre class=" language-lang-c++"><code class="language-lang-c++">extern "C" void *named_pipe_conn_event_handler(void *arg)
+{
+  my_thread_init();
+
+  Connection_acceptor<Named_pipe_listener> *conn_acceptor=
+    static_cast<Connection_acceptor<Named_pipe_listener>*>(arg);
+  conn_acceptor->connection_event_loop();
+
+  decrement_handler_count();
+  my_thread_end();
+  return 0;
+}
+</code></pre>
+<p>和Linux分析一样,<code>conn_acceptor-&gt;connection_event_loop();</code>进行’通过nysqld_socket_acceptor变量引用connect_event_loop()方法，循环监听客户端来的连接’,接着就回到了Linux的分析</p>
+<h2 id="2-14-后续的结束收尾工作"><a href="#2-14-后续的结束收尾工作" class="headerlink" title="2.14 后续的结束收尾工作"></a>2.14 后续的结束收尾工作</h2><p>略</p>
+<h1 id="3-总结"><a href="#3-总结" class="headerlink" title="3. 总结"></a>3. 总结</h1><p>本次源码的分析主要是针对main函数的分析,初步了解了main函数的工作流程,后续将会主要针对Innodb引擎进行分析</p>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>]]></content>
+      <categories>
+        <category>数据库</category>
+      </categories>
+      <tags>
+        <tag>数据库</tag>
+        <tag>mysql</tag>
+      </tags>
   </entry>
   <entry>
     <title>manimTutorial</title>
@@ -2159,6 +3837,233 @@ DEFAULT_MOBJECT_TO_MOBJECT_BUFFER = MED_SMALL_BUFF
       </tags>
   </entry>
   <entry>
+    <title>csapp-chapter02</title>
+    <url>/2020/03/25/chapter02/</url>
+    <content><![CDATA[<h2 id="2-1-信息存储"><a href="#2-1-信息存储" class="headerlink" title="2.1 信息存储"></a>2.1 信息存储</h2><h3 id="2-1-2-字数据大小"><a href="#2-1-2-字数据大小" class="headerlink" title="2.1.2 字数据大小"></a>2.1.2 字数据大小</h3><p><img src="image-20200320224158463.png" alt="image-20200320224158463" style="zoom:50%;"></p>
+<h3 id="2-1-3-寻址和字节顺序"><a href="#2-1-3-寻址和字节顺序" class="headerlink" title="2.1.3 寻址和字节顺序"></a>2.1.3 寻址和字节顺序</h3><p>在计算机内存中，通常是以字节（Byte），也就是 8 个位（Bit）为基本存储单元（也有以 16 位为基本存储单元的）。对于跨越多个字节的数据类型（比如 int 长 4 个字节），如何在内存中对这些字节进行排序有两种常见的方法：大端法（Big-endian）和小端法（Little-endian）。</p>
+<p><strong>【注】不管是大端法还是小端法存储，计算机在内存中存放数据的顺序都是从低地址到高地址，所不同的是首先取低字节的数据存放在低地址还是取高字节数据存放在低地址。</strong></p>
+<ul>
+<li>若首先取高字节的数据存放在低地址，则是大端法</li>
+<li>若首先取低字节的数据存放在低地址，则是小端法</li>
+</ul>
+<p><img src="image-20200321000815181.png" alt="image-20200321000815181" style="zoom:50%;"></p>
+<p>大多数Intel兼容机是小端法</p>
+<h3 id="2-1-9-C语言中的移位运算"><a href="#2-1-9-C语言中的移位运算" class="headerlink" title="2.1.9 C语言中的移位运算"></a>2.1.9 C语言中的移位运算</h3><p><img src="image-20200321181504713.png" alt="image-20200321181504713" style="zoom:50%;"></p>
+<p><strong>遇到一行多个移位运算的时候要记得打括号</strong></p>
+<h2 id="2-2-整数表示"><a href="#2-2-整数表示" class="headerlink" title="2.2 整数表示"></a>2.2 整数表示</h2><h3 id="2-2-3-补码编码"><a href="#2-2-3-补码编码" class="headerlink" title="2.2.3 补码编码"></a>2.2.3 补码编码</h3><p>为了表示负数,最常见的计算机表示方式就是补码,将最高位表示为负权:</p>
+<p><img src="image-20200322211917167.png" alt="image-20200322211917167"></p>
+<p>最高位表示的权重为$-2^{w-1}$.</p>
+<p>补码和计算机表示的二进制码的转换是一一对应的(双射)</p>
+<blockquote>
+<p>为什么不用原码和反码表示负数:</p>
+<ul>
+<li>原码:最高位表示符号,剩下位表示数字</li>
+<li>反码:和补码类似,不过最高位表示的权重为$-(2^{w-1}-1)$</li>
+</ul>
+<p>这两个编码有一个不好的性质,对数字0有两个不同的编码:</p>
+<ul>
+<li>原码中[00..0]表示+0,[10..0]表示-0</li>
+<li>反码中[00..0]表示+0,[11..1]表示-0</li>
+</ul>
+<p>即表示的编码不是一一对应的双射关系</p>
+</blockquote>
+<h3 id="2-2-4-C语言中有符号数和无符号数之间的转换"><a href="#2-2-4-C语言中有符号数和无符号数之间的转换" class="headerlink" title="2.2.4 C语言中有符号数和无符号数之间的转换"></a>2.2.4 C语言中有符号数和无符号数之间的转换</h3><p>强制转换对于有一点编程经验的人来说,看似习以为常,但是在设计强制转换的时候可以选择很多规则,C语言转换规则是:从位级来看,而不是从数值来看.即对应的二进制不变.</p>
+<h3 id="2-2-6-扩展一个数字的位表示"><a href="#2-2-6-扩展一个数字的位表示" class="headerlink" title="2.2.6 扩展一个数字的位表示"></a>2.2.6 扩展一个数字的位表示</h3><p>较大的数据类型转换位较小的可能会出错,但是从较小的数字转换为较大的应该是可以实现的.</p>
+<ul>
+<li><p>将一个无符号数转换为更大的数据类型,只需在开头加0即可,称为<strong>零扩展</strong>:</p>
+<p><img src="image-20200322153501910.png" alt="image-20200322153501910"></p>
+</li>
+<li><p>将一个补码数字转换为更大的数据类型,可以在在前面填充最高有效位的值,称为符号扩展:</p>
+<p><img src="image-20200322153834509.png" alt="image-20200322153834509"></p>
+<p>其中$x_{w-1}$为符号位</p>
+</li>
+</ul>
+<h2 id="2-3-整数运算"><a href="#2-3-整数运算" class="headerlink" title="2.3 整数运算"></a>2.3 整数运算</h2><h3 id="2-3-1-无符号加法"><a href="#2-3-1-无符号加法" class="headerlink" title="2.3.1 无符号加法"></a>2.3.1 无符号加法</h3><p>考虑两个非负数x,y,满足$0 \le x,y\le 2^w-1$,每个数都能表示为w位无符号数,则有$0 \le x+y\le 2^{w+1}-2$,表示这个和可能需要w+1位表示.</p>
+<p>一般常见的编程语言仅仅支持固定精度的计算,因此会产生溢出:</p>
+<p><img src="image-20200322175257127.png" alt="image-20200322175257127"></p>
+<p>上述的也可以称为模数加法,形成了一个数学结构,阿贝尔群,满足如下性质:</p>
+<ul>
+<li>可交换</li>
+<li>仅有一个单位元(这里单位元是0)</li>
+<li>每个元素有一个加法逆元</li>
+</ul>
+<p>所以对于无符号数$x$都有唯一一个逆元$-_w^u x$:</p>
+<p><img src="image-20200322181059389.png" alt="image-20200322181059389"></p>
+<h3 id="2-3-2-补码加法"><a href="#2-3-2-补码加法" class="headerlink" title="2.3.2 补码加法"></a>2.3.2 补码加法</h3><p>补码加法和无符号加法,对于计算机来说处理是一样的,即截断,然后计算机会将截断后的数字当做补码进行解读.</p>
+<p><img src="image-20200322195842080.png" alt="image-20200322195842080"></p>
+<h3 id="2-3-3-补码的非"><a href="#2-3-3-补码的非" class="headerlink" title="2.3.3 补码的非"></a>2.3.3 补码的非</h3><p>范围在$TMin_w \le x\le TMax_w$中的每个数字x都有$+^t_w$下的加法逆元$-^t_w$,称为补码的非:</p>
+<p><img src="image-20200322211418982.png" alt="image-20200322211418982"></p>
+<h3 id="2-3-4-无符号乘法"><a href="#2-3-4-无符号乘法" class="headerlink" title="2.3.4 无符号乘法"></a>2.3.4 无符号乘法</h3><p>范围在$0\le x,y\le2^w-1$内的整数x,y可以被表示为w位的无符号数,对应的乘积$x \cdot y$的取值范围为$[0,2^{2w}-2^{w+1}+1]$需要2w位表示,但是C语言是用w位表示的,所以有截断:</p>
+<p><img src="image-20200322214057227.png" alt="image-20200322214057227"></p>
+<h3 id="2-3-5-补码乘法"><a href="#2-3-5-补码乘法" class="headerlink" title="2.3.5 补码乘法"></a>2.3.5 补码乘法</h3><p>范围在$-2^{w-1}\le x,y\le 2^{w-1}-1$内的整数x,y可以被表示位w位的补码,但是成乘积范围在$-2^{w-1}\cdot (2^{w-1}-1)=-2^{2w-2}+2^{w-1}$到$-2^{w-1}\cdot -2^{w-1}=2^{2w-2}$之间,这个范围需要2w位表示,C语言将其截断为w位,将其记为$x*_w^t y$.</p>
+<p>上述机器计算的结果,可以用算法表示为:先将乘积得到的值模$2^w$,得到的无符号数转换为补码:</p>
+<p><img src="image-20200322223742838.png" alt="image-20200322223742838"></p>
+<p>根据书上的证明有如下结论:相同位表示的无符号数乘法和补码乘法得到的二进制数结果是一样的:</p>
+<p><img src="image-20200322230146529.png" alt="image-20200322230146529"></p>
+<h3 id="2-3-6-乘以常数"><a href="#2-3-6-乘以常数" class="headerlink" title="2.3.6 乘以常数"></a>2.3.6 乘以常数</h3><p>大多数机器上整数乘法指令相当慢,大多需要10+个时钟周期,编译器因此进行了一定的优化:试着用位移和加法运算的组合来代替乘以常数因子的乘法.</p>
+<p>下面首先说说乘以2的幂的情况:</p>
+<p><img src="image-20200322231300422.png" alt="image-20200322231300422"></p>
+<p>因此,左移一个数值等价于一个与2的幂相乘的无符号乘法:</p>
+<p><img src="image-20200322231444005.png" alt="image-20200322231444005"></p>
+<p>无论是无符号还是补码运算,乘以2的幂都会导致溢出,但是即使溢出,通过移位的结果都是一样的</p>
+<p>为了减少代价,许多C语言编译器试图以位移,加法减法消除很多整数乘以常数的情况,例如x*14可以重写为:(x&lt;&lt;3)+(x&lt;&lt;2)+(x&lt;&lt;1),更好地有:(x&lt;&lt;4)-(x&lt;&lt;1)</p>
+<p><strong>选择上述的方法还是使用乘法指令,取决于指令的相对速度,而这个与机器高度相关,一般只在仅需要少量位移,加法减法就足够的时候使用这种优化</strong></p>
+<h3 id="2-3-7-除以2的幂"><a href="#2-3-7-除以2的幂" class="headerlink" title="2.3.7 除以2的幂"></a>2.3.7 除以2的幂</h3><p>一般地,整数除法比整数乘法更慢—需要30+个周期,但是除以2的运算可以通过右移计算.无符号和补码数分别通过逻辑右移和算数右移实现.</p>
+<ol>
+<li><p>无符号右移非常简单,因为一定是逻辑右移:</p>
+<p><img src="image-20200322234628390.png" alt="image-20200322234628390"></p>
+</li>
+<li><p>除以2的幂的补码运算,情况稍有复杂,首先为了保证为负,需要算术右移:</p>
+<p><img src="image-20200322235518595.png" alt="image-20200322235518595"></p>
+<p><img src="image-20200323000249985.png" alt="image-20200323000249985"></p>
+<p><strong>注意:上图中向上舍入原理,经过与英文版比较,最后应为”产生数值$\lceil  x/2^k\rceil$”</strong>,定义偏量为$(1&lt;&lt;k)-1$,下面有几个例子:</p>
+<p><img src="image-20200323003738528.png" alt="image-20200323003738528"></p>
+<p>根据下图的几个数据与相关的证明可以知道:</p>
+<ul>
+<li>对于不需要舍入的情况,加上偏量只会影响最后被移掉的位</li>
+<li>对于需要舍入的情况,加上偏量会导致较高的位加1,这个会导致向0舍入</li>
+</ul>
+<blockquote>
+<p>偏置技术用的数学知识:$\lceil x/y\rceil=\lfloor (x+y-1)/y\rfloor$(x,y为整数)</p>
+<p>所以上面的式子:(x+(1&lt;<k)-1)>&gt;k,中,y为$2^k$,$(x+2^k-1)/2^k$就表示$\lceil  x/2^k\rceil$</k)-1)></p>
+</blockquote>
+</li>
+</ol>
+<p>综合1,2两个情况,得到C的算术右移的补码机器,计算$x/2^k$:</p>
+<pre class=" language-lang-c++"><code class="language-lang-c++">(x<0 ? x+(1<<k)-1 : x)>>k
+</code></pre>
+<p>可惜的是,不能将除以2的幂推广到一般除法.</p>
+<h2 id="2-4-浮点数"><a href="#2-4-浮点数" class="headerlink" title="2.4 浮点数"></a>2.4 浮点数</h2><p>与十进制类似,形如$b<em>mb</em>{m-1}…b<em>1b_0.b</em>{-1}b<em>{-2}…b</em>{-n-1}b_{-n}$的二进制数,其对应的十进制的值为:</p>
+<script type="math/tex; mode=display">
+b=\sum_{i=-n}^{m}2^i\times b_i</script><p>有限长度的编码不能表示如$\frac{1}{3},\frac{5}{7}$的数字,小数的二进制表示法仅能表示能被写成$x\times2^y$的数.</p>
+<h3 id="2-4-2-IEEE浮点表示"><a href="#2-4-2-IEEE浮点表示" class="headerlink" title="2.4.2 IEEE浮点表示"></a>2.4.2 IEEE浮点表示</h3><p><img src="image-20200323182025508.png" alt="image-20200323182025508"></p>
+<p>下图是常见的单双精度的浮点数的格式:</p>
+<p><img src="image-20200323183711302.png" alt="image-20200323183711302"></p>
+<p>上图说明了:</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>精度</th>
+<th>s位数</th>
+<th>exp位数</th>
+<th>frac位数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>单</td>
+<td>1</td>
+<td>8</td>
+<td>23</td>
+</tr>
+<tr>
+<td>双</td>
+<td>1</td>
+<td>11</td>
+<td>52</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>给定位表示,根据exp的值,被编码的值可以分成三种不同的情况(最后一种有两个不同的变种),下图为单精度的数字表示:</p>
+<p><img src="image-20200323192300543.png" alt="image-20200323192300543"></p>
+<p>由上图有以下几个解码:</p>
+<ol>
+<li><p>规格化的数值</p>
+<p>此时,阶码的值E=e-Bias,e是exp字段对应的无符号数,Bias为$2^{k-1}-1$,其中k为exp的位数,因此产生的指数E的范围对于单精度为-126~+127,对于双精度为-1022~+1023</p>
+<p>frac是小数值$f$,$0\le f &lt; 1$,二进制表示为$0.f_{n-1}…f_1f_0$,为数M定义为$M=1+f$,因为对于二进制来说,按照十进制的科学计数法的规则,二进制科学计数法第一位一定为1,为了节省比特位,直接将其隐藏,这种方法也叫隐含的以1开头的表示.</p>
+</li>
+<li><p>非规格化的值</p>
+<p>当阶码域exp全部是0的时候,所表示的数字是非规格化的形式,此时阶码$E=1-Bias$,尾数的值是$M=f$,也就是小数字段的值,不包含隐含的1</p>
+<blockquote>
+<p>为什么要对于非规格化的值设置这样的偏置值:</p>
+<p>这样可以让从非规格化到规格化的转换平滑</p>
+</blockquote>
+<p>非规格化的用途:</p>
+<ul>
+<li><p>提供一种表示0的方法,如果使用规格化数,必须$M\ge 1$,所以不能表示0,$+0.0$的浮点表示位模式为所有位为0,此时$M=f=0$,当符号位为1,其他所有位为0的的时候,表示$-0.0$.</p>
+<p>IEEE的浮点格式表示,$+0.0$和$-0.0$在某些方面是不同的</p>
+</li>
+<li><p>表示那些非常接近0.0的数,非规格化提供一种属性:逐渐溢出(gradual underflow),表示一个数与0的距离非常小</p>
+</li>
+</ul>
+</li>
+<li><p>特殊值</p>
+<ul>
+<li>3a: 当阶码域exp全是1,小数域全是0,得到的值表示无穷,s决定是正无穷还是负无穷,当把两个非常大的数字相乘或者进行了除以0的操作后,无穷能表示溢出</li>
+<li>3b: 当小数域非0的时候,结果值为NaN(Not a Number),这用于表示不是实数或者无穷:$\sqrt{-1}或\infty - \infty $等</li>
+</ul>
+</li>
+</ol>
+<h3 id="2-4-3-数字示例"><a href="#2-4-3-数字示例" class="headerlink" title="2.4.3 数字示例"></a>2.4.3 数字示例</h3><p><img src="image-20200323232701819.png" alt="image-20200323232701819"></p>
+<p><img src="image-20200323232716933.png" alt="image-20200323232716933"></p>
+<h3 id="2-4-4-舍入"><a href="#2-4-4-舍入" class="headerlink" title="2.4.4 舍入"></a>2.4.4 舍入</h3><p>默认的方式为:向偶数舍入,也被称为向最近的值舍入(round-to-nearest),又叫向偶数舍入(round-to-even).方法为”四舍六入五成双”,使得到的最低有效位为偶数</p>
+<p>其他的几种有:向零舍入,向下舍入,向上舍入</p>
+<p>向偶舍入的原因:为了将50%的几率向上舍入和50%几率向下舍入</p>
+<p>向偶舍入也可以应用到二进制:将最低有效位的值为0认为是偶数,1为奇数</p>
+<h3 id="2-4-5-浮点运算"><a href="#2-4-5-浮点运算" class="headerlink" title="2.4.5 浮点运算"></a>2.4.5 浮点运算</h3><p>IEEE标准制定了简单的规则确定加法乘法这样的算术运算结果:</p>
+<p>由于精度的限制,对于两个浮点数x,y,某个运算$x\bigodot y$产生的值,计算机会再进行舍入:$Round(x\bigodot y)$</p>
+<p>当其中有一个为特殊值的时候(如-0,无穷,NaN),IEEE定义了一些更合理的规则:1/-0产生$-\infty$,1/+0产生$+\infty$.</p>
+<p>整数加法形成了阿贝尔群,IEEE标准实数加法也构成了阿贝尔群,但是证明过程需要加上Round()函数的证明:</p>
+<p>将$x+^fy$定义为$Round(x+y)$,如果不考虑溢出则直接可以得到就是阿贝尔群,但是如果考虑溢出:</p>
+<ol>
+<li><p>交换律</p>
+<p>交换律:交换x,y是都会同样的方式溢出,所以$+^f$是可交换的;</p>
+</li>
+<li><p>不可结合:例如,使用单精度浮点(3.14+1e10)-1e10=0.0因为3.14作为尾数被舍入,减去1e10变为0,而3.14+(1e10-1e10)=3.14）</p>
+</li>
+<li><p>逆元</p>
+<p>对于x,不考虑溢出明显有逆元-x,如果考虑溢出:$x+^f(-x)$一般都为0,但是有例外$+\infty+^f(-\infty)=NaN$,$NaN+^fx=NaN$</p>
+<p>可见这个逆元不能普适,所以也不存在单位元,所以$+^{f}$不是阿贝尔群</p>
+</li>
+<li><p>另外浮点加法的性质还包含单调性</p>
+</li>
+</ol>
+<p>浮点乘法具有:</p>
+<ol>
+<li><p>交换律</p>
+</li>
+<li><p>不可结合</p>
+</li>
+<li><p>对加法不具有分配律</p>
+</li>
+<li><p>单调性:</p>
+<script type="math/tex; mode=display">
+a \ge b 且 c \ge 0 \to a * ^f c\ge b*^fc\\
+a \ge b 且 c \le 0 \to a * ^f c\le b*^fc</script></li>
+<li><p>平方大于等于0:</p>
+<p>若$a\ne 0:a*a\ge0$</p>
+</li>
+</ol>
+<p>缺乏结合性和分配性对科学计算程序员和编译器的编写造成麻烦</p>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>]]></content>
+      <categories>
+        <category>深入理解计算机系统</category>
+      </categories>
+      <tags>
+        <tag>深入理解计算机系统读书笔记</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>manim的主要绘图类</title>
     <url>/2020/03/27/manim-de-zhu-yao-hui-tu-lei/</url>
     <content><![CDATA[<p>manim的整体结构解析</p>
@@ -2217,880 +4122,6 @@ DEFAULT_MOBJECT_TO_MOBJECT_BUFFER = MED_SMALL_BUFF
 <h2 id="3-小结"><a href="#3-小结" class="headerlink" title="3. 小结"></a>3. 小结</h2><p>时隔几个月,我又重新更新并看了一下manim的repo,这次我仅仅是粗略看了一下manim的结构,发现变化还是很明显的,相比几个月前的难以阅读,到现在几乎是很好阅读了.</p>
 <p>我在此也对整个文件结构的所有类图内容扫描了一遍,发现整个代码里面几乎能想到的形式都有对应的类实现,有的类的继承实现甚至非常多余,因为就改了一两个参数,这几乎可以自己写,不过这manim本身目的就不是给公开使用,而是Grant Sanderson用来做视频的.</p>
 <p>如果有时间我会对几个最基本的类进行解释,如果把最基本的类用法解释清楚接下来就可以很好的制作3b1b风格视频了.</p>
-<script>
-        document.querySelectorAll('.github-emoji')
-          .forEach(el => {
-            if (!el.dataset.src) { return; }
-            const img = document.createElement('img');
-            img.style = 'display:none !important;';
-            img.src = el.dataset.src;
-            img.addEventListener('error', () => {
-              img.remove();
-              el.style.color = 'inherit';
-              el.style.backgroundImage = 'none';
-              el.style.background = 'none';
-            });
-            img.addEventListener('load', () => {
-              img.remove();
-            });
-            document.body.appendChild(img);
-          });
-      </script>]]></content>
-      <categories>
-        <category>manim</category>
-      </categories>
-      <tags>
-        <tag>教程</tag>
-        <tag>manim</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>manim学习--Mobject类(一)</title>
-    <url>/2020/03/30/manim-xue-xi-mobject-lei/</url>
-    <content><![CDATA[<h2 id="1-Mobject所派生的子类"><a href="#1-Mobject所派生的子类" class="headerlink" title="1. Mobject所派生的子类"></a>1. Mobject所派生的子类</h2><p><img src="Mobject-1586013786368.png" alt="Mobject"></p>
-<h2 id="2-Mobject的主要变量与属性"><a href="#2-Mobject的主要变量与属性" class="headerlink" title="2. Mobject的主要变量与属性"></a>2. Mobject的主要变量与属性</h2><h3 id="2-1-CONFIG"><a href="#2-1-CONFIG" class="headerlink" title="2.1 CONFIG"></a>2.1 CONFIG</h3><pre class=" language-lang-python"><code class="language-lang-python">CONFIG = {
-        "color": WHITE,
-        "name": None,
-        "dim": 3,
-        "target": None,
-    }
-</code></pre>
-<h3 id="2-2-init-函数"><a href="#2-2-init-函数" class="headerlink" title="2.2 __init__()函数:"></a>2.2 <code>__init__()</code>函数:</h3><ul>
-<li><p><code>submobjects = []</code>:每个Mobject都有自己的submobjects列表,列表里面的每个元素也是Mobject,这样有利于对嵌套的Mobject进行整体操作,如对一群图形一起平移等等动画的实现</p>
-</li>
-<li><p><code>updaters = []</code>:一系列的更新函数组成,如:</p>
-<pre class=" language-lang-python"><code class="language-lang-python"> def update_text(obj):
-            obj.next_to(dot,RIGHT,buff=SMALL_BUFF)
-</code></pre>
-<p>就可以作为一个updater,有<code>add_updater()</code>方法进行添加:</p>
-<pre class=" language-lang-python"><code class="language-lang-python"># author:TB,由于3b1b的函数有改进,本代码进行了修改
-class AddUpdater(Scene):
-    def construct(self):
-        dot = Dot()
-        text = TextMobject("Label").next_to(dot,RIGHT,buff=SMALL_BUFF)
-
-        self.add(dot,text)
-
-        # Update function 更新函数
-        def update_text(obj):
-            obj.next_to(dot,RIGHT,buff=SMALL_BUFF)
-
-        # Add update function to the objects
-        # 把更新函数加给对象
-        text.add_updater(update_text)
-
-        # 如果想简洁，lambda表达式如下：
-        # text.add_updater(lambda m: m.next_to(dot,RIGHT,buff=SMALL_BUFF))
-        # 此时下面的remove_updater(update_text)不能继续使用，需要改为clear_updaters
-
-        self.play(dot.shift,UP*2)
-        # Remove update function
-        text.remove_updater(update_text)
-
-        self.wait()
-</code></pre>
-<p>效果如下:</p>
-<p><img src="AddUpdater-1586013786369.gif" alt="AddUpdater"></p>
-<p>详细见下面3.3.2的介绍</p>
-</li>
-<li><p><code>updating_suspended = False</code>:是否暂停更新</p>
-</li>
-<li><p><code>points = np.zeros((0, self.dim))</code>:坐标,默认为原点,维度由属性<code>dim</code>决定</p>
-</li>
-</ul>
-<h3 id="2-3-其他函数里面产生的变量"><a href="#2-3-其他函数里面产生的变量" class="headerlink" title="2.3 其他函数里面产生的变量"></a>2.3 其他函数里面产生的变量</h3><ul>
-<li><code>saved_state</code>:自己的一份备份,可以用来恢复之前的状态</li>
-<li><code>array_attr</code>:初始为<code>["points"]</code>列表</li>
-<li><code>z_index_group</code>:暂时不知道有什么用</li>
-</ul>
-<h3 id="2-4-Mobject的一些抽象概念"><a href="#2-4-Mobject的一些抽象概念" class="headerlink" title="2.4 Mobject的一些抽象概念"></a>2.4 Mobject的一些抽象概念</h3><ul>
-<li><p>family:如果将Mobject看作父节点,submobjects列表中的Mobject看作子节点,则对每个Mobjects都会产生一棵树,这个树里面的所有节点成为这个Mobject的family</p>
-<p>family没有真正的实体,但是Mobject内有一个函数叫<code>get_family()</code>可以返回这个概念:</p>
-<pre class=" language-lang-python"><code class="language-lang-python">def get_family(self):
-        # 如果对map函数不理解,请自行查找Python map()函数
-        # 递归得到submobjects,代码非常简洁
-        sub_families = list(map(Mobject.get_family, self.submobjects))
-        # 使用chain的原因是可能每个submobject可能是不同的类型
-        all_mobjects = [self] + list(it.chain(*sub_families))
-        # 去重
-        return remove_list_redundancies(all_mobjects)
-</code></pre>
-<p>Mobject的很多函数也用到了这个概念</p>
-</li>
-</ul>
-<h3 id="2-5-Mobject的属性"><a href="#2-5-Mobject的属性" class="headerlink" title="2.5 Mobject的属性"></a>2.5 Mobject的属性</h3><ol>
-<li><p>自身可迭代</p>
-<p>假如有Mobject变量mob,则mob[0]是self本身,mob[1]以及更大的索引是subMobject</p>
-</li>
-<li><p>自身有长度</p>
-<p>自身长度为submobject列表长度+1</p>
-</li>
-</ol>
-<h2 id="3-Mobject的主要方法"><a href="#3-Mobject的主要方法" class="headerlink" title="3. Mobject的主要方法"></a>3. Mobject的主要方法</h2><h3 id="3-1-属性的处理"><a href="#3-1-属性的处理" class="headerlink" title="3.1 属性的处理"></a>3.1 属性的处理</h3><ol>
-<li><p><code>reset_points()</code></p>
-<p>self.points = np.zeros((0, self.dim))</p>
-</li>
-<li><p><code>add(*mobjects)</code></p>
-<p>将自己的submobjects列表中加入mobjects</p>
-<p><strong>注意:不能加入自己</strong></p>
-</li>
-<li><p><code>add_to_back(*mobjects)</code></p>
-<p>将自己的submobjects列表末尾加入mobjects</p>
-<p><strong>注意:如果加入的mobjects中有的在自己的列表中已经存在,则按照加入的mobjects顺序存放</strong></p>
-</li>
-<li><p><code>remove(*mobjects)</code></p>
-<p>submobjects列表移除对应的mobjects</p>
-<p><strong>注意:如果mobjects某些元素不在submobjects列表则不会有任何反应</strong></p>
-</li>
-<li></li>
-</ol>
-<h3 id="3-2-图像静态显示"><a href="#3-2-图像静态显示" class="headerlink" title="3.2 图像静态显示"></a>3.2 图像静态显示</h3><ol>
-<li><p><code>get_image(camera=None)</code></p>
-<p>根据传入的camera类对应的参数(如角度,距离等等)返回一个图像(以PIL.Image的格式)</p>
-<p><strong>注意:应该用不到这个(如果不是自己开发代码)</strong></p>
-</li>
-<li><p><code>show(camera=None)</code></p>
-<p>无动画根据传入的camera类对应的参数(如角度,距离等等)显示自己</p>
-</li>
-<li><p><code>save_image(name=None)</code></p>
-<p>将自己图像保存到宏定义<code>VIDEO_DIR</code>位置,名字为<code>name</code>如果未传入名字,则默认名字为自己的str方法得到的数值</p>
-</li>
-<li><p><code>deepcopy()</code></p>
-</li>
-</ol>
-<p>返回一个自己的副本,副本的改变与不会影响到自己</p>
-<ol>
-<li><code>copy()</code></li>
-</ol>
-<p>浅拷贝,与深拷贝对应</p>
-<ol>
-<li><code>generate_target(use_deepcopy=False)</code></li>
-</ol>
-<h3 id="3-3-更新-跟踪-函数"><a href="#3-3-更新-跟踪-函数" class="headerlink" title="3.3 更新(跟踪)函数"></a>3.3 更新(跟踪)函数</h3><ol>
-<li><p>$ ^{^*}$<code>update(dt=0, recursive=True)</code></p>
-<p><em>底层函数,一般制作的时候用不到,但是仍然列举出来以备不时之需</em></p>
-<ul>
-<li><p>参数含义</p>
-<p><code>dt</code>:每帧运动速率是多少</p>
-<p><code>recursive</code>:递归进行submobjects列表的Mobject的<code>update</code>函数</p>
-</li>
-<li><p>执行过程</p>
-<p>如果updaters的某一项<code>update_function</code>列表里面有参数<code>dt</code>,则执行update_function(dt),否则执行update_function(),并根据recursive判断是否递归到submobjects列表中的每一项</p>
-</li>
-</ul>
-</li>
-<li><p><code>get_updaters()</code>:</p>
-<p>得到updaters[]</p>
-</li>
-<li><p><code>get_family_updaters()</code>:</p>
-<p>得到family的所有updaters</p>
-</li>
-<li><p><code>add_updater(update_function, index=None, call_updater=True)</code></p>
-<ul>
-<li><p>参数含义</p>
-<p><code>update_function</code>:更新函数</p>
-<p><code>index</code>:更新函数的索引</p>
-<p><code>call_updater</code>:我也不知道这个有啥用(¦3[▓▓],3b1b的代码也没找到一个用过这个参数的</p>
-<p><em>TODO:<code>call_updater</code>什么意思,欢迎留言</em></p>
-</li>
-<li><p>执行过程</p>
-<p>将自己的<code>updaters</code>列表加入<code>update_function</code>,位置在<code>index</code>,插入方法同python列表的insert方法,并决定是否立即执行</p>
-<p>例子:</p>
-<pre class=" language-lang-python"><code class="language-lang-python">class UpdateFunctionWithDt(Scene):
-     def construct(self):
-         sun = Dot(color=RED).scale(3)
-
-         earthOrbit=Circle(color=WHITE).scale(2)
-         earth=Dot(color=BLUE).scale(2)
-         earth.move_to(earthOrbit.point_from_proportion(0))
-         self.earthOffset=0
-
-         moonOrbit= Circle(color=WHITE).move_to(earth)
-         moon =Dot(color=YELLOW)
-         moon.move_to(moonOrbit.point_from_proportion(0))
-         self.moonOffset=0
-
-         def update_earth(mob,dt):
-             rate=dt*0.1
-             mob.move_to(earthOrbit.point_from_proportion((self.earthOffset + rate)%1))
-             self.earthOffset += rate
-
-         def update_moonOrbit(mob):
-             mob.move_to(earth)
-
-         def update_moon(mob,dt):
-             rate=dt*0.2
-             mob.move_to(moonOrbit.point_from_proportion((self.moonOffset + rate)%1))
-             self.moonOffset += rate
-
-         earth.add_updater(update_earth)
-         moonOrbit.add_updater(update_moonOrbit)
-         moon.add_updater(update_moon)
-         self.add(earthOrbit,moonOrbit,sun,earth,moon)
-         self.wait(5)
-         self.wait()
-</code></pre>
-<p>效果如下:</p>
-<p><img src="UpdateFunctionWithDt-1586013786369.gif" alt="UpdateFunctionWithDt"></p>
-<p>dt的决定速度:</p>
-<pre class=" language-lang-python"><code class="language-lang-python">class WhatIsDt(Scene):
-    def construct(self):
-        sun = Dot(color=RED).scale(3)
-        earthOrbit=Circle(color=WHITE).scale(2)
-
-        earths = [Dot(color=i).scale(2) for i in[RED,BLUE]]
-        earths = VGroup(*earths)
-        earths.move_to(earthOrbit.point_from_proportion(0))
-        self.earthOffsets = [0]*2
-        texts = VGroup(*[Text("dt*0.%d"%i,size=0.5,font="Lucida Console") for i in [1,2]])
-
-        def update_earth_factory(index):
-            def update_earth(mob,dt):
-                rate = dt*0.1*(index+1)
-                mob.move_to(earthOrbit.point_from_proportion((self.earthOffsets[index] + rate)%1))
-                self.earthOffsets[index] += rate
-            return update_earth
-
-        def update_text_factory(index):
-            def update_text(mob):
-                mob.next_to(earths[index],LEFT,SMALL_BUFF)
-            return update_text
-
-        for i in [0,1]:
-            earths[i].add_updater(update_earth_factory(i))
-            texts[i].add_updater(update_text_factory(i))
-        self.add(earthOrbit,sun,earths,texts)
-        self.wait(5)
-</code></pre>
-<p><img src="WhatIsDt-1586013786370.gif" alt="WhatIsDt"></p>
-</li>
-</ul>
-</li>
-<li><p><code>remove_updater(update_function)</code>:</p>
-<p>很明显与<code>add_updater</code>相反</p>
-</li>
-<li><p><code>clear_updaters(recursive=True)</code>:</p>
-<p>清除所有的<code>update_function</code>,如果<code>recursive</code>为<code>True</code>则submobjects列表的所有<code>update_function</code>清除</p>
-<p><strong>存疑:<code>recursive</code>为<code>True</code>貌似如果subMobjects里面还套有subMobjects,则内层的不能被清除?</strong></p>
-</li>
-<li><p><code>match_updaters(mobject)</code>:</p>
-<p>将mobject的updater全部复制给自己(自己的原来的updaters失效)</p>
-</li>
-<li><p><code>suspend_updating(recursive=True)</code>:</p>
-<p>略</p>
-</li>
-<li><p><code>resume_updating(recursive=True)</code></p>
-<p>略</p>
-</li>
-<li><p><code>get_time_based_updaters()</code>:</p>
-<p>得到参数含有<code>dt</code>的updater</p>
-</li>
-<li><p><code>has_time_based_updater()</code>:</p>
-<p>有参数含有<code>dt</code>的updater</p>
-</li>
-</ol>
-<h3 id="3-4-变换函数"><a href="#3-4-变换函数" class="headerlink" title="3.4 变换函数"></a>3.4 变换函数</h3><ol>
-<li><p><code>apply_to_family(func)</code>:</p>
-<p>对每个家庭成员实行func函数</p>
-</li>
-<li><p><code>shift(*vectors)</code>:</p>
-<p>平移,vector的维数为dim,如果输入多个vector则平移的终点为这几个vector的向量和</p>
-<p>如<code>.shift(UP*2,LEFT)</code>和<code>shift(UP*2+LEFT)</code>是一个效果</p>
-</li>
-<li><p><code>scale(scale_factor, **kwargs)</code>:</p>
-<ul>
-<li><p>参数:</p>
-<p><code>scale_factor</code>:缩放因子</p>
-<p><code>**kwargs</code>:</p>
-<p>默认行为是围绕mobject的中心进行缩放。参数about_edge可以是向量，指要围绕mobject的哪一侧进行缩放,否则，如果给about_point一个值，则相对于该点进行缩放。</p>
-<ul>
-<li><p><code>about_edge</code>:相对边</p>
-<pre class=" language-lang-python"><code class="language-lang-python">class AddUpdater(Scene):
-    def construct(self):
-        circles = [Circle(arc_center = LEFT*i*2) for i in range(3)]
-        vg = VGroup(*circles)
-        line = Line(np.array([-10,vg.get_top()[1],0]),np.array([10,vg.get_top()[1],0]))
-        text = TextMobject("about\_edge")
-        text.next_to(line,UP,buff=SMALL_BUFF)
-        self.add(line,vg,text)
-        self.play(vg.scale,2,{"about_edge":UP})
-        self.wait()
-</code></pre>
-<p><img src="about_edge-1586013786370.gif" alt="about_edge"></p>
-<p>如果<code>about_edge</code>为方向的线性组合,则会按照对应的边进行阻隔,以UP+RIGHT为例子:</p>
-<pre class=" language-lang-python"><code class="language-lang-python">class AddUpdater(Scene):
-    def construct(self):
-        circles = [Circle(arc_center = LEFT*i*2) for i in range(3)]
-        vg = VGroup(*circles)
-        line = Line(np.array([-10,vg.get_top()[1],0]),np.array([10,vg.get_top()[1],0]))
-        line1 = Line(np.array([vg.get_right()[0],-10,0]),np.array([vg.get_right()[0],10,0]))
-        text = TextMobject("about\_edge1")
-        text.next_to(line,UP,buff=SMALL_BUFF)
-        text1 = TextMobject("about\_edge2")
-        text1.next_to(line1,RIGHT,buff=SMALL_BUFF)
-        self.add(line,line1,vg,text,text1)
-        self.play(vg.scale,2,{"about_edge":np.array(UP+RIGHT)})
-        self.wait()
-</code></pre>
-<p><img src="UP_RIGHT-1586013786370.gif" alt="UP_RIGHT"></p>
-</li>
-<li><p><code>about_point</code>:相对点</p>
-<pre class=" language-lang-python"><code class="language-lang-python">class AddUpdater(Scene):
-    def construct(self):
-        circles = [Circle(arc_center = LEFT*i*2) for i in range(3)]
-        vg = VGroup(*circles)
-        dot = Dot(point=circles[0].get_center())
-        text = TextMobject("about\_point")
-        text.next_to(dot,DOWN,buff=SMALL_BUFF)
-        self.add(dot,vg,text)
-        self.play(vg.scale,2,{"about_point":dot.get_center()})
-        self.wait()
-</code></pre>
-<p><img src="about_point-1586013786370.gif" alt="about_point"></p>
-</li>
-</ul>
-</li>
-<li><p>执行过程</p>
-<p>放大或缩小指定的因子</p>
-</li>
-</ul>
-</li>
-<li><p><code>rotate(angle, axis=OUT, **kwargs)</code>:</p>
-<p>学过初中物理就应该知道右手定则,在数学,物理中,旋转的方向就是右手定则中的(大拇指)方向</p>
-<pre class=" language-lang-python"><code class="language-lang-python">class myRotateScene(ThreeDScene):
-    def construct(self):
-     dot = Dot()
-        text = TextMobject("about\_point",color=RED)
-        text.next_to(dot,DOWN,buff=SMALL_BUFF)
-        axes = ThreeDAxes()
-        self.add(dot,text,axes)
-        self.set_camera_orientation(theta=-PI/4,phi=PI/4)           
-        self.play(text.rotate,PI/2,{"axis":OUT})
-        self.wait()
-</code></pre>
-<p><img src="Rotate-1586013786370.gif" alt="Rotate"></p>
-<p>上图text的起始平面是X-Y平面,UP为y轴正方向,大家可以自行尝试更改axis方向(注意self.play函数不代表角度从0到PI/2的渐近变化所以只要看起始帧和终止帧)</p>
-<p><code>**kwargs</code>还可以接受相对点<code>about_point</code>:</p>
-<pre class=" language-lang-python"><code class="language-lang-python">class myRotateScene(ThreeDScene):
-    def construct(self):
-        dot = Dot()
-        text = TextMobject("about\_point",color=RED)
-        text.next_to(dot,DOWN,buff=SMALL_BUFF)
-        axes = ThreeDAxes()
-        self.add(dot,text,axes)
-        self.set_camera_orientation(theta=-PI/4,phi=PI/4)           
-        self.play(text.rotate,PI,{"axis":OUT,"about_point":dot.get_center()})
-        self.wait()
-</code></pre>
-<p>这个相对点旋转其实是线性代数里面的旋转矩阵造成的结果,如果角度是180度,效果是关于这个点对称</p>
-<p><img src="rotateAboutPoint-1586013786370.gif" alt="rotateAboutPoint"></p>
-</li>
-<li><p><code>flip(axis=UP, **kwargs)</code>:</p>
-<p>翻转,其实就是<code>rotate</code>180度,其他参数同<code>rotate</code></p>
-</li>
-<li><p><code>stretch(factor, dim, **kwargs)</code>:</p>
-<p>在对应的维度伸缩<code>factor</code>倍</p>
-<p>这个函数与<code>scale</code>的用法一样,也会有<code>about_point</code>和<code>about_edge</code></p>
-<pre class=" language-lang-python"><code class="language-lang-python">class Stretch(Scene):
-    def construct(self):
-        text = Text("stretch")
-        self.play(text.stretch,2,1)
-        self.wait(2)
-</code></pre>
-</li>
-<li><p><code>apply_function(function, **kwargs)</code>:</p>
-<p>对所有family成员的点坐标都进行<code>function</code>处理,所以function必须是一个处理一个点的函数</p>
-<p>例如对于二维图形:</p>
-<pre class=" language-lang-python"><code class="language-lang-python">class myScene(Scene):
-    def func(self,point):
-        return point*2
-
-    def construct(self):
-        circle = Circle()
-        circle2 = Circle()
-        self.add(circle,circle2)  
-        circle.apply_function(self.func)
-        self.play(Write(circle))
-        self.wait()
-</code></pre>
-<p>默认的<code>about_point</code>为<code>ORIGIN</code>,可以看出来实现了<code>apply_function</code>的会大一倍</p>
-<p><img src="applyFunc-1586013786370.gif" alt="applyFunc"></p>
-</li>
-<li><p><code>apply_function_to_position(function)</code>:</p>
-<p>移动图像中心到function(self.get_center())</p>
-<pre class=" language-lang-python"><code class="language-lang-python">class myWag(Scene):
-    def x2(self,x):
-        return x*2
-
-    def construct(self):
-        circle = Circle()
-        circle.move_to(RIGHT)
-        self.add(circle)
-        self.play(circle.apply_function_to_position,{"function":self.x2})
-        self.wait()
-</code></pre>
-</li>
-<li><p><code>apply_function_to_submobject_positions(function)</code>:</p>
-<p>略</p>
-</li>
-<li><p><code>apply_matrix(matrix, **kwargs)</code>:</p>
-<p><code>matrix</code>为变换矩阵,这个就是对Mobject点对应的向量乘以<code>matrix</code>变换矩阵,学过线性代数或者计算机视觉或者看过3b1b的线性代数的人应该不陌生</p>
-</li>
-<li><p><code>apply_complex_function(function, **kwargs)</code>:</p>
-<p>同理于<code>apply_function(function, **kwargs)</code>,只不过这里的<code>function</code>接受一个平面复数,即<code>complex(x, y)</code></p>
-</li>
-<li><p><code>wag(direction=RIGHT, axis=DOWN, wag_factor=1.0)</code>:</p>
-<p>分析源码得到如下处理步骤:</p>
-<ol>
-<li><p>对所有含有坐标属性家庭成员进行步骤2到5的操作</p>
-</li>
-<li><p>向axis对应维度投影,如axis=UP/DOWN则向y轴投影,即保留y值不变,得到对应维度的向量列表alphas</p>
-</li>
-<li><p>将向量列表alphas归一化到[0,1],归一方法如下:</p>
-<script type="math/tex; mode=display">
-\vec{alphas'}_i = \frac{\vec{alphas}_i-min(\vec{alphas})}{max(\vec{alphas})-min(\vec{alphas})}</script></li>
-<li><p>执行幂运算</p>
-<script type="math/tex; mode=display">
-\vec{alphas}_i^{"}=(\vec{alphas'})^{wag\_factor}</script></li>
-<li><p>每个点在direction方向平移$\vec{alphas}_i^{“}$</p>
-</li>
-</ol>
-<p>例子:</p>
-<p>factor=1</p>
-<pre class=" language-lang-python"><code class="language-lang-python">class myWag(Scene):
-    def construct(self):
-        squares = [Square() for i in range(3)]
-        for i in range(-1,2):
-            squares[1+i].move_to(RIGHT*3*i)
-        self.add(*squares) 
-        self.play(squares[0].wag,{"direction":UP,"axis":RIGHT,"wag_factor":0.1},
-                  squares[1].wag,{"direction":UP,"axis":RIGHT,"wag_factor":1},
-                  squares[2].wag,{"direction":UP,"axis":RIGHT,"wag_factor":2})
-        self.wait()
-</code></pre>
-<p><img src="myWag1-1585643241928-1586013786370.gif" alt="myWag1"></p>
-<p>从左到右factor依次为0.1,1,2,都是向上wag的,具体怎么理解大家可以自己理解,比较难以表述</p>
-</li>
-<li><p><code>reverse_points()</code>:</p>
-<p>调换点的顺序:</p>
-<pre class=" language-lang-python"><code class="language-lang-python">class myWag(Scene):
-    def construct(self):
-        circle = Circle().scale(2)
-        texts = [TextMobject("p"+str(i)).scale(0.5) for i in range(len(circle.points))]
-        def update_factory(index):
-            def update_func(mob):
-                mob.move_to(circle.points[index])
-            return update_func
-        for i in range(len(texts)):
-            texts[i].add_updater(update_factory(i))
-
-        self.add(circle,*texts)
-        self.wait(1)
-        self.play(circle.reverse_points)
-        self.wait(2)
-</code></pre>
-<p><img src="ReversePoint-1586013786371.gif" alt="ReversePoint"></p>
-<p>注意play函数不能很好表现reverse的现象,如果看顺序,上图顺序从逆时针变成了顺时针</p>
-</li>
-<li><p><code>repeat(count)</code>:</p>
-<p>会出现重影的特效</p>
-<p><img src="Repeat-1586013786371.gif" alt="Repeat"></p>
-</li>
-<li><p><code>apply_points_function_about_point(func, about_point=None, about_edge=None)</code>:</p>
-<p>相对点或边对自己的所有点左边应用函数</p>
-</li>
-</ol>
-<h3 id="3-5-位置函数"><a href="#3-5-位置函数" class="headerlink" title="3.5 位置函数"></a>3.5 位置函数</h3><ol>
-<li><p><code>center()</code>:</p>
-<p>此处center为动词:到中心</p>
-<pre class=" language-lang-python"><code class="language-lang-python">class Repeat(Scene):
-    def construct(self):
-        square = Square()
-        dot=Dot()
-        self.add(square,dot)
-        self.play(square.shift,RIGHT)
-        self.play(square.shift,RIGHT)
-        self.play(square.shift,UP)
-        self.play(square.center)
-        self.wait()
-</code></pre>
-<p><img src="Center-1586013786371.gif" alt="Center"></p>
-</li>
-<li><p><code>align_on_border(direction, buff=DEFAULT_MOBJECT_TO_EDGE_BUFFER)</code>:</p>
-<p>在边界对齐,buff为和边界的距离</p>
-<pre class=" language-lang-python"><code class="language-lang-python">class Align(Scene):
-    def construct(self):
-        square = Square()
-        self.play(square.align_on_border,LEFT+UP)
-        self.wait(2)
-</code></pre>
-<p><img src="Align-1586013786371.gif" alt="Align"></p>
-</li>
-<li><p><code>to_corner(corner=LEFT + DOWN, buff=DEFAULT_MOBJECT_TO_EDGE_BUFFER)</code>:</p>
-<p>到某一个角</p>
-<p><img src="to-1586013786371.png" alt="to_corner author:Elteoremadebeethoven"></p>
-</li>
-<li><p><code>to_edge(edge=LEFT, buff=DEFAULT_MOBJECT_TO_EDGE_BUFFER)</code>:</p>
-<p>到某一边</p>
-</li>
-<li><p><code>next_to(mobject_or_point,direction=RIGHT, buff=DEFAULT_MOBJECT_TO_MOBJECT_BUFFER,aligned_edge=ORIGIN,submobject_to_align=None,index_of_submobject_to_align=None, coor_mask=np.array([1, 1, 1]),)</code>:</p>
-<p>参数分析:</p>
-<ul>
-<li><code>mobject_or_point</code>:Mobject或者一个点坐标</li>
-<li><code>direction</code>:方向</li>
-<li><code>buff</code>:相聚的距离</li>
-<li><code>aligned_edge</code>:对齐的边</li>
-<li><code>submobject_to_align</code>:对齐的子Mobject,此参数要求Mobject是一个列表性质的Mobject</li>
-<li><code>index_of_submobject_to_align</code>:如果<code>submobject_to_align</code>不为空,则需要指定对应的是哪一个Mobject</li>
-</ul>
-</li>
-</ol>
-<ul>
-<li><code>coor_mask</code>:掩膜,术语来自数字信号处理/数字图像处理,不懂可以自行搜索,在这里即为1的地方才进行next_to,如果为0,则对应的坐标不进行next_to变换</li>
-</ul>
-<p>执行过程:</p>
-<p>   如果<code>mobject_or_point</code>是点则next_to的对象就是点,否则为由参数决定的Mobject的中心</p>
-<ol>
-<li><p><code>shift_onto_screen(**kwargs)</code>:</p>
-</li>
-<li><p><code>is_off_screen()</code>:</p>
-<p>是否超出屏幕范围</p>
-</li>
-<li><p><code>rescale_to_fit(length, dim, stretch=False, **kwargs)</code>:</p>
-<p>将某一个方向的长度拉伸至length,可以按照scale方式拉长或者stretch方式拉长</p>
-<pre class=" language-lang-python"><code class="language-lang-python">class RescaleToFit(Scene):
-    def construct(self):
-        ellipse = Ellipse()
-        length = ellipse.length_over_dim(0)
-        self.play(ellipse.rescale_to_fit,length,1,{"stretch":True})
-        self.wait(2)
-</code></pre>
-<p><img src="RescaleToFit-1586013786371.gif" alt="RescaleToFit"></p>
-<ul>
-<li><code>stretch_to_fit_width(width, **kwargs)</code></li>
-<li><code>stretch_to_fit_height(height, **kwargs)</code></li>
-<li><code>stretch_to_fit_depth(depth, **kwargs)</code></li>
-<li><code>set_width(width, stretch=False, **kwargs)</code></li>
-<li><code>set_height(height, stretch=False, **kwargs)</code></li>
-<li><code>set_depth(depth, stretch=False, **kwargs)</code></li>
-</ul>
-</li>
-<li><p><code>set_coord(value, dim, direction=ORIGIN)</code>:</p>
-<p>将dim对应的坐标设置为value,direction表示设置什么的坐标,如direction为RIGHT则表示设置图像的最右端点的dim维度的坐标为value</p>
-<ul>
-<li><code>set_x(x, direction=ORIGIN)</code></li>
-<li><code>set_y(y, direction=ORIGIN)</code></li>
-<li><code>set_z(z, direction=ORIGIN)</code></li>
-</ul>
-</li>
-<li><p><code>space_out_submobjects(factor=1.5, **kwargs)</code>:</p>
-<p>自己scale factor倍,子mobject缩小1/factor倍</p>
-</li>
-<li><p><code>move_to(point_or_mobject, aligned_edge=ORIGIN,coor_mask=np.array([1, 1, 1]))</code>:</p>
-<p>与next_to相近,不过区别是:next_to表示的是边界的距离，而不是中心距离</p>
-<p><img src="move_next_to-1586013786372.png" alt="move_next_to author:Elteoremadebeethoven"></p>
-</li>
-<li><p><code>replace(mobject, dim_to_match=0, stretch=False)</code>:</p>
-<p>将位置移动到mobject,并且大小做一些改变,具体看源码</p>
-</li>
-<li><p><code>surround(mobject,dim_to_match=0,stretch=False,buff=MED_SMALL_BUFF)</code>:</p>
-<p>包围(默认情况下,等边长的正多边形规则物体效果很好,对于不等变长的形状最好启用stretch)</p>
-<pre class=" language-lang-python"><code class="language-lang-python">class Surround(Scene):
-    def construct(self):
-        circle = Circle()
-        square = Square().shift(UP*2)
-        self.add(circle,square)
-        self.play(circle.surround,square)
-        self.wait(2)
-</code></pre>
-<p><img src="Surround-1586013786372.gif" alt="Surround"></p>
-</li>
-<li><p><code>put_start_and_end_on(start, end)</code>:</p>
-<p>将起点终点重置为start,end</p>
-<pre class=" language-lang-python"><code class="language-lang-python">class PutStartAndEndOn(Scene):
-    def construct(self):
-        arc = Arc(PI/3)
-        texts = [TexMobject(i,color=RED) for i in ["startPoint","endPoint"]]
-        texts[0].add_updater(lambda x: x.move_to(arc.get_start()))
-        texts[1].add_updater(lambda x: x.move_to(arc.get_end()))
-        self.add(arc, *texts)
-        self.play(arc.put_start_and_end_on,ORIGIN,(UP+RIGHT)*2)
-        self.wait()
-</code></pre>
-<p><img src="PutStartAndEndOn-1586013786372.gif" alt="PutStartAndEndOn"></p>
-</li>
-<li><p><code>add_background_rectangle(color=BLACK, opacity=0.75, **kwargs)</code>:</p>
-<p>增加背景方块,此方块是可以随着Mobject变化而变化的</p>
-<pre class=" language-lang-python"><code class="language-lang-python">class BackgroundRectangle(Scene):
-    def construct(self):
-        circle = Circle(color=RED)
-        circle.add_background_rectangle(color=BLUE,opacity=0.4)
-        self.add(circle)
-        self.play(circle.stretch,2,1)
-        self.wait()
-</code></pre>
-<p><img src="BackgroundRectangle-1586013786372.gif" alt="BackgroundRectangle"></p>
-</li>
-<li><p><code>add_background_rectangle_to_submobjects(**kwargs)</code>:</p>
-<p>略</p>
-</li>
-<li><p><code>add_background_rectangle_to_family_members_with_points(**kwargs)</code>:</p>
-<p>略</p>
-</li>
-</ol>
-<h3 id="3-6-颜色函数"><a href="#3-6-颜色函数" class="headerlink" title="3.6 颜色函数"></a>3.6 颜色函数</h3><ol>
-<li><p><code>set_color(color=YELLOW_C, family=True)</code>:</p>
-<p>设置颜色,family指家庭成员是否也跟着变色</p>
-</li>
-<li><p><code>set_color_by_gradient(*colors)</code>:</p>
-<p>渐变色,可以是两个或多个颜色的列表</p>
-<pre class=" language-lang-python"><code class="language-lang-python">class main(Scene):
-    def construct(self):
-        qed = TexMobject('This is a Text').scale(1.25)
-        qed.set_color_by_gradient(RED,YELLOW,GREEN,BLUE)
-        self.play(Write(qed))
-        self.wait(3)
-</code></pre>
-<p><img src="image-20200403201147347-1586013786372.png" alt="gradientColor"></p>
-</li>
-<li><p><code>set_colors_by_radial_gradient(center=None, radius=1, inner_color=WHITE, outer_color=BLACK)</code>:</p>
-<p>辐射状渐变颜色,半径为radius</p>
-</li>
-<li><p><code>set_submobject_colors_by_gradient(*colors)</code>:</p>
-<p>给子Mobject设置渐变颜色</p>
-</li>
-<li><p><code>set_submobject_colors_by_radial_gradient(center=None, radius=1, inner_color=WHITE, outer_color=BLACK)</code>:</p>
-<p>同理,略</p>
-</li>
-<li><p><code>fade_to(color, alpha, family=True)</code>:</p>
-<p>褪色为某一个颜色,alpha为插值系数,alpha在[0,1]之间,越接近1,褪色越厉害</p>
-<pre class=" language-lang-python"><code class="language-lang-python">class FadeTo(Scene):
-    def construct(self):
-        text = TexMobject("This is a Text")
-        self.add(text)
-        self.play(text.set_colors_by_radial_gradient,{"inner_color":WHITE,"outer_color":RED})
-        self.play(text.fade_to,BLUE,1)
-        self.wait()
-</code></pre>
-<p><img src="FadeTo-1586013786373.gif" alt="FadeTo"></p>
-</li>
-<li><p><code>get_color()</code>:</p>
-<p>返回颜色</p>
-</li>
-<li><p><code>fade(darkness=0.5, family=True)</code>:</p>
-<p>褪色为黑色,darkness为灰度</p>
-</li>
-</ol>
-<h3 id="3-7-恢复函数"><a href="#3-7-恢复函数" class="headerlink" title="3.7 恢复函数"></a>3.7 恢复函数</h3><ol>
-<li><p><code>save_state(use_deepcopy=False)</code>:</p>
-<p>保存状态,并确定是否使用深拷贝</p>
-</li>
-<li><p><code>restore()</code>:</p>
-<p>恢复之前状态</p>
-</li>
-</ol>
-<h3 id="3-8-其他的getter方法"><a href="#3-8-其他的getter方法" class="headerlink" title="3.8 其他的getter方法"></a>3.8 其他的getter方法</h3><ol>
-<li><p><code>reduce_across_dimension(points_func, reduce_func, dim)</code>:</p>
-</li>
-<li><p><code>nonempty_submobjects()</code>:</p>
-<p>返回Submobject的subSubMobject不为空的Submobject</p>
-</li>
-<li><p><code>get_merged_array(array_attr)</code>:</p>
-<p>得到Mobject以及其子Mobject的array_attr属性的列表</p>
-</li>
-<li><p><code>get_all_points()</code>:</p>
-<p>得到Mobject与其子Mobject属性所有的点</p>
-</li>
-<li><p><code>get_num_points()</code>:</p>
-<p>得到自己的点的数量(不包含子Mobject)</p>
-</li>
-<li><p><code>get_extremum_along_dim(points=None, dim=0, key=0)</code>:</p>
-<p>沿着dim方向(dim为0表示x方向,1表示y方向….),给出坐标的极值,key&lt;0表示得到最小值,key&gt;0表示得到最大值,key=0表示得到中值</p>
-</li>
-<li><p><code>get_critical_point(direction)</code>:</p>
-<p>画一个框，框住mobject。 这样的盒子有9个“关键点”：4个角，4个边缘中心，中心。 这将返回其中之一。</p>
-<p>direction什么方向就返回什么</p>
-<p>对其进行封装有如下的函数:</p>
-<ul>
-<li><code>get_edge_center</code><ul>
-<li><code>get_top</code></li>
-<li><code>get_bottom</code></li>
-<li><code>get_right</code></li>
-<li><code>get_left</code></li>
-<li><code>get_zenith</code></li>
-<li><code>get_nadir</code></li>
-</ul>
-</li>
-<li><code>get_corner</code></li>
-<li><code>get_center</code></li>
-</ul>
-</li>
-<li><p><code>get_boundary_point(direction)</code>:</p>
-<p>得到某个方向的最远的点</p>
-<pre class=" language-lang-python"><code class="language-lang-python">class FadeTo(Scene):
-    def construct(self):
-        square = Square()
-        circle = Circle().shift(2 * RIGHT + 1 * DOWN)
-        shapeGroup = VGroup(square,circle)
-        points = []
-        nums = 10
-        for i in range(nums):
-            points.append(shapeGroup.get_boundary_point(np.array((np.cos(2*PI*i/nums),np.sin(2*PI*i/nums),0))))
-        polygon = Polygon(*points,color=BLUE)
-        dots = [Dot(point=i) for i in points]
-        self.add(shapeGroup,*dots)
-        self.play(Write(polygon))
-        self.wait(2)
-</code></pre>
-<p><img src="image-20200404172800256-1586013786373.png" alt="boundary_points"></p>
-</li>
-<li><p><code>length_over_dim(dim)</code>:</p>
-<p>dim方向的长度</p>
-<p>此方法封装的方法:</p>
-<ul>
-<li><code>get_width</code></li>
-<li><code>get_height</code></li>
-<li><code>get_depth</code></li>
-</ul>
-</li>
-<li><p><code>get_coord(dim, direction=ORIGIN)</code>:</p>
-<p>在dim方向得到direction对应的极值,直接使用意义不大</p>
-<ul>
-<li><code>get_x(direction=ORIGIN)</code></li>
-<li><code>get_y(direction=ORIGIN)</code></li>
-<li><code>get_z(direction=ORIGIN)</code></li>
-</ul>
-</li>
-<li><p><code>get_start</code>,<code>get_end</code>,<code>get_start_and_end</code>:</p>
-<p>得到点的起点终点,起点和终点</p>
-</li>
-<li><p><code>has_points</code>,<code>has_no_points</code>:</p>
-<p>是否有点这属性</p>
-</li>
-</ol>
-<h3 id="3-9-匹配函数"><a href="#3-9-匹配函数" class="headerlink" title="3.9 匹配函数"></a>3.9 匹配函数</h3><ol>
-<li><p><code>match_color(mobject)</code>:</p>
-<p>匹配mobject的颜色</p>
-</li>
-<li><p><code>match_dim_size(mobject, dim, **kwargs)</code>:</p>
-<p>匹配dim方向的长度,<code>**kwargs</code>和<code>rescale_to_fit()</code>使用方法相同</p>
-<ul>
-<li><code>match_width</code></li>
-<li><code>match_height</code></li>
-<li><code>match_depth</code></li>
-</ul>
-</li>
-<li><p><code>match_coord(mobject, dim, direction=ORIGIN)</code>:</p>
-<p>按照get_coord()得到对应的Mobject坐标,然后设置</p>
-<ul>
-<li><code>match_x</code></li>
-<li><code>match_y</code></li>
-<li><code>match_z</code></li>
-</ul>
-</li>
-</ol>
-<h3 id="3-10-排列函数"><a href="#3-10-排列函数" class="headerlink" title="3.10 排列函数"></a>3.10 排列函数</h3><ol>
-<li><p><code>arrange(direction=RIGHT, center=True, **kwargs)</code>:</p>
-<p>submobject列表的全部变量进行排队,按照direction的方式排队,center决定了是否排完队跑到中心</p>
-<p><code>**kwargs</code>参考next_to</p>
-<pre class=" language-lang-python"><code class="language-lang-python">class Arrange(Scene):
-    def construct(self):
-        square = Square()
-        square.add(Dot(point=np.array([-1,-2,0])))
-        square.add(Square().move_to(np.array([3,0,0])))
-        square.add(Circle().move_to(np.array([5, 2, 0])))
-        self.add(square)
-        self.play(square.arrange,{"center":False})
-        self.wait(2)
-        self.play(square.arrange,{"direction":UP,"center":False})
-        self.wait(2)
-</code></pre>
-<p><img src="Arrange-1586013786373.gif" alt="Arrange"></p>
-</li>
-<li><p><code>arrange_in_grid(n_rows=None, n_cols=None, **kwargs)</code>:</p>
-<p>对submobject列表重拍列</p>
-<p>如果默认无参数,重拍列至方阵,否则n_rows和n_cols最多选一个,排列为对应的行或列,如果都填,则排列为n_rows行</p>
-<p><code>**kwargs</code>参考next_to函数</p>
-<pre class=" language-lang-python"><code class="language-lang-python">class ArrangeInGrid(Scene):
-    def construct(self):
-        square = Square()
-        square.add(Circle().move_to(np.array([-1,-2,0])))
-        square.add(Circle().move_to(np.array([3,0,0])))
-        square.add(Circle().move_to(np.array([5, 2, 0])))
-        square.add(Circle().move_to(np.array([5, -3, 0])))
-        self.add(square)
-        self.play(square.arrange_in_grid)
-        self.wait(2)
-</code></pre>
-<p><img src="ArrangeInGrid-1586013786373.gif" alt="ArrangeInGrid"></p>
-</li>
-<li><p><code>sort(point_to_num_func=lambda p: p[0], submob_func=None)</code>:</p>
-<p>对点进行排序,这个一般意义不大,可以自己编写排序方法</p>
-</li>
-<li><p><code>shuffle(recursive=False)</code>:</p>
-<p>打乱submobject的列表排序,以及是否递归进行</p>
-</li>
-</ol>
-<h3 id="3-11-对齐函数"><a href="#3-11-对齐函数" class="headerlink" title="3.11 对齐函数"></a>3.11 对齐函数</h3><ol>
-<li><p><code>align_to(mobject_or_point, direction=ORIGIN, alignment_vect=UP)</code>:</p>
-<p>对齐,direction表示对齐的边是哪边</p>
-<p>mob1.align_to（mob2，UP）垂直移动mob1，以便其顶部边缘与mob2的顶部边缘对齐。 mob1.align_to（mob2，alignment_vect = RIGHT）水平移动mob1，使其中心位于mob2中心的正上方/正下方</p>
-<pre class=" language-lang-python"><code class="language-lang-python">class AlighTo(Scene):
-    def construct(self):
-        square = Square()
-        circle = Circle().shift(2 * RIGHT + 1 * DOWN).scale(2)
-        self.add(square,circle)
-        self.play(circle.align_to,square,RIGHT)
-        self.wait(2)
-</code></pre>
-<p><img src="AlighTo-1586013786373.gif" alt="AlighTo"></p>
-</li>
-<li><p><code>add_n_more_submobjects(n)</code>:</p>
-<p>加入n个submoject</p>
-</li>
-</ol>
-<h3 id="3-12-抽象方法"><a href="#3-12-抽象方法" class="headerlink" title="3.12 抽象方法"></a>3.12 抽象方法</h3><ol>
-<li><p><code>align_data(mobject)</code>:</p>
-</li>
-<li><p><code>align_points(mobject)</code>:</p>
-</li>
-<li><p><code>align_submobjects(mobject)</code>:</p>
-<p>对齐submobjects</p>
-</li>
-<li><p><code>null_point_align(mobject)</code>:</p>
-</li>
-<li><p><code>get_point_mobject(center=None)</code></p>
-</li>
-<li><p><code>align_points_with_larger(larger_mobject)</code></p>
-</li>
-<li><p><code>interpolate_color(mobject1, mobject2, alpha)</code>:</p>
-<p>颜色插值</p>
-</li>
-<li><p><code>interpolate(mobject1,mobject2,alpha, path_func=straight_path)</code>:</p>
-<p>Mobject插值</p>
-</li>
-<li><p><code>become_partial(mobject, a, b)</code>:</p>
-<p>以仅成为mobject一部分的方式设置点。 输入0 &lt;= a &lt;b &lt;= 1确定要成为mobject的哪一部分。</p>
-</li>
-<li><p><code>become(mobject, copy_submobjects=True)</code>:</p>
-<p>变成另一个的样式</p>
-<pre class=" language-lang-python"><code class="language-lang-python">class Become(Scene):
-    def construct(self):
-        square = Square()
-        square.submobjects.append(Circle().move_to(np.array([-1,-2,0])))
-        square.submobjects.append(Circle().move_to(np.array([3,0,0])))
-        square.submobjects.append(Circle().move_to(np.array([5, 2, 0])))
-        square.submobjects.append(Circle().move_to(np.array([5, -3, 0])))
-        text = Text("text")
-        self.add(square)
-        self.play(square.become,text)
-        self.play(text.shift,UP)
-        self.wait(2)
-</code></pre>
-<p><img src="Become-1586013786373.gif" alt="Become"></p>
-</li>
-</ol>
-<h2 id="4-小结"><a href="#4-小结" class="headerlink" title="4. 小结"></a>4. 小结</h2><p>Mobject的用法还是很多的,空闲时间写了很多天才写完,希望自己能用熟练</p>
 <script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
@@ -4931,215 +5962,6 @@ def str2int(s):
         <tag>计算机网络</tag>
         <tag>计算机四级</tag>
         <tag>知识点整理</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>manim学习--camera类(一)</title>
-    <url>/2020/07/02/manim-xue-xi-camera-lei/</url>
-    <content><![CDATA[<h2 id="1-camera的所有子类以及相关的类"><a href="#1-camera的所有子类以及相关的类" class="headerlink" title="1. camera的所有子类以及相关的类"></a>1. camera的所有子类以及相关的类</h2><p><img src="Camera.png" alt="Camera"></p>
-<h2 id="2-camera主要的变量与属性"><a href="#2-camera主要的变量与属性" class="headerlink" title="2. camera主要的变量与属性"></a>2. camera主要的变量与属性</h2><h3 id="2-1-CONFIG"><a href="#2-1-CONFIG" class="headerlink" title="2.1 CONFIG"></a>2.1 CONFIG</h3><pre class=" language-lang-python"><code class="language-lang-python">CONFIG = {
-        "background_image": None,
-        "pixel_height": DEFAULT_PIXEL_HEIGHT,
-        "pixel_width": DEFAULT_PIXEL_WIDTH,
-        "frame_rate": DEFAULT_FRAME_RATE,
-        # Note: 帧的高度和宽度将被调整大小以匹配像素长宽比
-        #         这个在constant.py中可以看到：
-        #         FRAME_WIDTH = FRAME_HEIGHT * DEFAULT_PIXEL_WIDTH / DEFAULT_PIXEL_HEIGHT
-        "frame_height": FRAME_HEIGHT,
-        "frame_width": FRAME_WIDTH,
-        "frame_center": ORIGIN,
-        "background_color": BLACK,
-        "background_opacity": 1,
-        # vectorized mobjects的点在大于下面的范围时候会缩小
-        "max_allowable_norm": FRAME_WIDTH,
-        # 图像的模式，此处默认是RGBA，参见数字图像处理
-        "image_mode": "RGBA",
-        # 图像通道，参见数字图像处理
-        "n_channels": 4,
-        "pixel_array_dtype": 'uint8',
-        # z_buff_func is only used if the flag above is set to True.
-        # 比较时将z坐标舍入到最接近的百分之一
-        "z_buff_func": lambda m: np.round(m.get_center()[2], 2),
-        "cairo_line_width_multiple": 0.01,
-    }
-</code></pre>
-<h3 id="2-2-init-函数"><a href="#2-2-init-函数" class="headerlink" title="2.2__init__()函数"></a>2.2<code>__init__()</code>函数</h3><ul>
-<li><p><code>rgb_max_val</code>RGB色彩的取值的最大值，默认的<code>uint8</code>取值最大值是255</p>
-</li>
-<li><p><code>pixel_array_to_cairo_context</code>将像素变成cairo能处理的形式</p>
-</li>
-</ul>
-<h2 id="3-camera的主要方法"><a href="#3-camera的主要方法" class="headerlink" title="3. camera的主要方法"></a>3. camera的主要方法</h2><ol>
-<li><p><code>reset_pixel_shape(new_height, new_width)</code>设置帧的像素宽与高</p>
-<pre class=" language-lang-python"><code class="language-lang-python">class Test_pixel(ThreeDScene):
-    def construct(self):
-        axes = ThreeDAxes()
-        cube = Cube(fill_color=GREEN).scale([2, 0.5, 0.5])
-
-        theta_0 = 0 # 起始角度
-        theta =  -120 * DEGREES # 目标角度
-
-        self.set_camera(ThreeDCamera(background_color=BLUE))
-        self.camera.reset_pixel_shape(854,854)
-        self.set_camera_orientation(60 * DEGREES, theta=theta_0)
-        self.add(axes, cube)
-        self.wait()
-        dt = 1/15
-        delta_theta = (theta - theta_0) / 60
-        for i in range(60):
-            theta_0 += delta_theta
-            self.set_camera_orientation(theta=theta_0)
-            self.wait(dt)
-        self.wait(2)
-</code></pre>
-<p>上面代码设置宽高为854*854，最后就会产生大小为854*854的视频：</p>
-<p><img src="Test_pixel.mp4" alt="Test_pixel"></p>
-</li>
-<li><p>一些get,set函数：</p>
-<pre class=" language-lang-python"><code class="language-lang-python">    def get_pixel_height(self):
-        return self.pixel_height
-
-    def get_pixel_width(self):
-        return self.pixel_width
-
-    def get_frame_height(self):
-        return self.frame_height
-
-    def get_frame_width(self):
-        return self.frame_width
-
-    def get_frame_center(self):
-        return self.frame_center
-
-    def set_frame_height(self, frame_height):
-        self.frame_height = frame_height
-
-    def set_frame_width(self, frame_width):
-        self.frame_width = frame_width
-
-    def set_frame_center(self, frame_center):
-        self.frame_center = frame_center
-</code></pre>
-<p>frame和pixel的区别是：一个是将帧分为多少格，一个是将帧的大小设置为多少，前者仅仅会改变坐标的间隔，后者会改变视频的宽高</p>
-<p>原始的默认为frame_width=14，frame_height=8：</p>
-<pre class=" language-lang-python"><code class="language-lang-python">class Set_frame1(Scene):
-    def construct(self):
-        numberplane = NumberPlane()
-        numberplane.add_coordinates()
-        text = Text("frame_width=14\nframe_height=8").shift(LEFT*5+UP*3)
-        self.add(numberplane,text)
-        self.wait(2)
-</code></pre>
-<p><img src="set_frame14.png" alt="set_frame14"></p>
-<p>重新设置frame_width:</p>
-<pre class=" language-lang-python"><code class="language-lang-python">class Set_frame1(Scene):
-    def construct(self):
-        numberplane = NumberPlane()
-        numberplane.add_coordinates()
-        self.camera.set_frame_width(8)
-        text = Text("frame_width=8\nframe_height=8").shift(UP*3)
-        self.add(numberplane,text)
-        self.wait(2)
-</code></pre>
-<p>可以看到宽也被拉长了：</p>
-<p><img src="set_frame8.png" alt="set_frame8"></p>
-</li>
-<li><p><code>resize_frame_shape(fixed_dimension=0)</code>:</p>
-<p>更改frame_shape以匹配像素的长宽比，其中fixed_dimension确定frame_height或frame_width是否保持固定，而其他值则相应改变。</p>
-<pre class=" language-lang-python"><code class="language-lang-python">class Set_frame1(Scene):
-    def construct(self):
-        numberplane = NumberPlane()
-        numberplane.add_coordinates()
-        self.camera.set_frame_width(8)
-        self.camera.resize_frame_shape()
-        text = Text("frame_width=8")
-        self.add(numberplane,text)
-        self.wait(2)
-</code></pre>
-<p><img src="resize_frame_shape.png" alt="resize_frame_shape"></p>
-</li>
-<li><p><code>get_image(pixel_array=None)</code></p>
-<p>返回<code>pixel_array</code>对应的Image类型的对象，如果<code>pixel_array</code>为空,则返回自身的<code>pixel_array</code>对应的Image图像,此函数一般不用</p>
-</li>
-<li><p><code>get_pixel_array()</code></p>
-<p>返回自身的<code>pixel_array</code></p>
-</li>
-<li><p><code>convert_pixel_array(pixel_array, convert_from_floats=False)</code></p>
-<p>将格式为<code>PIL</code> 的<code>pixel_array</code>图片转换为<code>np.array</code>的格式</p>
-<p>其中<code>pixel_array</code>的形式可能有两种,第一种是RGB的格式进行表示,第二种是被归一化到[0,1]的小数形式,此时需要启用<code>convert_from_floats=True</code></p>
-</li>
-<li><p><code>set_pixel_array(pixel_array, convert_from_floats=False)</code></p>
-<p>设置camera的<code>pixel_array</code>为参数中的pixel_array,对应的选项同理于`convert_pixel_array</p>
-</li>
-<li><p><code>set_background(pixel_array, convert_from_floats=False)</code></p>
-<p>设置背景(本人没有成功尝试出来换背景图片不知道出了什么问题,代码如下)</p>
-<pre class=" language-lang-python"><code class="language-lang-python">class Set_background(Scene):
-    def construct(self):
-        image = Image.open(r"XXX.png")
-        self.camera.set_background(image)
-        # self.camera.init_background()
-        numberplane = NumberPlane()
-        numberplane.add_coordinates()
-        self.add(numberplane)
-        self.wait(2)
-</code></pre>
-<p>上面就是随便加了个物体,不知道为什么出现这个问题</p>
-</li>
-<li><p><code>make_background_from_func(coords_to_colors_func)</code></p>
-<p>另一个函数是<code>set_background_from_func(coords_to_colors_func)</code>功能一样</p>
-<p>使用coords_to_colors_func设置背景以确定每个像素的颜色。 coords_to_colors_func的每个输入在空间中都是（x，y）对（在frame对应的普通空间坐标,不是像素坐标），并且每个输出应为4个浮点数的RGBA数组。</p>
-<pre class=" language-lang-python"><code class="language-lang-python">def coords_to_colors_func(point):
-    return (int)(255*(point[0]+7)/17),(int)(255*(point[1]+4)/8),(int)(255*(point[0]+11)/22),1
-
-class Set_bacground_func(Scene):
-    def construct(self):
-        self.camera.set_background_from_func(coords_to_colors_func)
-        square = Square()
-        self.add(square)
-        self.wait(2)
-</code></pre>
-<p><img src="set_background_func.jpg" alt="set_background_func"></p>
-</li>
-<li><p><code>reset()</code></p>
-<p>重设背景</p>
-</li>
-<li><p><code>get_mobjects_to_display()</code></p>
-<p>得到要展示的mobject</p>
-</li>
-<li><p><code>is_in_frame(mobject)</code></p>
-<p>判断mobject是否在frame里面</p>
-</li>
-<li><p><code>points_to_pixel_coords(mobject, points)</code></p>
-<p>将普通坐标,转换为像素坐标</p>
-</li>
-</ol>
-<p>其他的函数本人也没有很理解,而且涉及到cairo库的学习,个人觉得没有必要深入了解其他的函数,因为有的函数3b1b仅仅是用来子类实现或者根本没有用过,如果需要请自行阅读源码</p>
-<h2 id="4-小结"><a href="#4-小结" class="headerlink" title="4. 小结"></a>4. 小结</h2><p>本次学习camera很多函数偏于底层,我们平时绘制的时候应该用不上,camera的很多关于背景(background)的函数感觉很多都难以使用或者有各种bug(不知道是不是我自己不会用的原因),如果有人发现错误欢迎评论留言<span class="github-emoji" style="color: transparent;background:no-repeat url(https://github.githubassets.com/images/icons/emoji/unicode/1f604.png?v8) center/contain" data-src="https://github.githubassets.com/images/icons/emoji/unicode/1f604.png?v8">😄</span></p>
-<script>
-        document.querySelectorAll('.github-emoji')
-          .forEach(el => {
-            if (!el.dataset.src) { return; }
-            const img = document.createElement('img');
-            img.style = 'display:none !important;';
-            img.src = el.dataset.src;
-            img.addEventListener('error', () => {
-              img.remove();
-              el.style.color = 'inherit';
-              el.style.backgroundImage = 'none';
-              el.style.background = 'none';
-            });
-            img.addEventListener('load', () => {
-              img.remove();
-            });
-            document.body.appendChild(img);
-          });
-      </script>]]></content>
-      <categories>
-        <category>manim</category>
-      </categories>
-      <tags>
-        <tag>教程</tag>
-        <tag>manim</tag>
       </tags>
   </entry>
 </search>
