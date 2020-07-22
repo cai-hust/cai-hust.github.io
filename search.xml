@@ -5992,13 +5992,13 @@ struct dict_table_t {
 
     /** Memory heap. If you allocate from this heap after the table has
     been created then be sure to account the allocation into
-    dict_sys->size. When closing the table we do something like
-    dict_sys->size -= mem_heap_get_size(table->heap) and if that is going
+    dict_sys-&gt;size. When closing the table we do something like
+    dict_sys-&gt;size -= mem_heap_get_size(table-&gt;heap) and if that is going
     to become negative then we would assert. Something like this should do:
     old_size = mem_heap_get_size()
     mem_heap_alloc()
     new_size = mem_heap_get_size()
-    dict_sys->size += new_size - old_size. */
+    dict_sys-&gt;size += new_size - old_size. */
     mem_heap_t*                heap;
 
     /** Table name. */
@@ -6103,7 +6103,7 @@ struct dict_table_t {
     /** Column names packed in a character string
     "name1\0name2\0...nameN\0". Until the string contains n_cols, it will
     be allocated from a temporary heap. The final string will be allocated
-    from table->heap. */
+    from table-&gt;heap. */
     const char*                col_names;
 
     /** Virtual column names */
@@ -6153,11 +6153,11 @@ struct dict_table_t {
     commit, and rollback phases). */
     trx_id_t                def_trx_id;
 
-    /*!< set of foreign key constraints in the table; these refer to
+    /*!&lt; set of foreign key constraints in the table; these refer to
     columns in other tables */
     dict_foreign_set            foreign_set;
 
-    /*!< set of foreign key constraints which refer to this table */
+    /*!&lt; set of foreign key constraints which refer to this table */
     dict_foreign_set            referenced_set;
 
 #ifdef UNIV_DEBUG
@@ -6208,8 +6208,8 @@ struct dict_table_t {
     3. _ON=1, _OFF=0, persistent stats are explicitly enabled for this
     table, regardless of the value of the global srv_stats_persistent
     4. _ON=1, _OFF=1, not allowed, we assert if this ever happens. */
-    #define DICT_STATS_PERSISTENT_ON    (1 << 1)
-    #define DICT_STATS_PERSISTENT_OFF    (1 << 2)
+    #define DICT_STATS_PERSISTENT_ON    (1 &lt;&lt; 1)
+    #define DICT_STATS_PERSISTENT_OFF    (1 &lt;&lt; 2)
 
     /** Indicates whether the table uses persistent stats or not. See
     DICT_STATS_PERSISTENT_ON and DICT_STATS_PERSISTENT_OFF. */
@@ -6225,8 +6225,8 @@ struct dict_table_t {
     3. _ON=1, _OFF=0, auto recalc is explicitly enabled for this table,
     regardless of the value of the global srv_stats_persistent_auto_recalc
     4. _ON=1, _OFF=1, not allowed, we assert if this ever happens. */
-    #define DICT_STATS_AUTO_RECALC_ON    (1 << 1)
-    #define DICT_STATS_AUTO_RECALC_OFF    (1 << 2)
+    #define DICT_STATS_AUTO_RECALC_ON    (1 &lt;&lt; 1)
+    #define DICT_STATS_AUTO_RECALC_OFF    (1 &lt;&lt; 2)
 
     /** Indicates whether the table uses automatic recalc for persistent
     stats or not. See DICT_STATS_AUTO_RECALC_ON and
@@ -6262,16 +6262,16 @@ struct dict_table_t {
     /** Set in 'stats_bg_flag' when the background stats code is working
     on this table. The DROP TABLE code waits for this to be cleared before
     proceeding. */
-    #define BG_STAT_IN_PROGRESS        (1 << 0)
+    #define BG_STAT_IN_PROGRESS        (1 &lt;&lt; 0)
 
     /** Set in 'stats_bg_flag' when DROP TABLE starts waiting on
     BG_STAT_IN_PROGRESS to be cleared. The background stats thread will
     detect this and will eventually quit sooner. */
-    #define BG_STAT_SHOULD_QUIT        (1 << 1)
+    #define BG_STAT_SHOULD_QUIT        (1 &lt;&lt; 1)
 
     /** The state of the background stats thread wrt this table.
     See BG_STAT_NONE, BG_STAT_IN_PROGRESS and BG_STAT_SHOULD_QUIT.
-    Writes are covered by dict_sys->mutex. Dirty reads are possible. */
+    Writes are covered by dict_sys-&gt;mutex. Dirty reads are possible. */
     byte                    stats_bg_flag;
 
     /* @} */
@@ -6312,7 +6312,7 @@ struct dict_table_t {
     ulong                    n_waiting_or_granted_auto_inc_locks;
 
     /** The transaction that currently holds the the AUTOINC lock on this
-    table. Protected by lock_sys->mutex. */
+    table. Protected by lock_sys-&gt;mutex. */
     const trx_t*                autoinc_trx;
 
     /* @} */
@@ -6333,7 +6333,7 @@ struct dict_table_t {
 
     /** Count of the number of record locks on this table. We use this to
     determine whether we can evict the table from the dictionary cache.
-    It is protected by lock_sys->mutex. */
+    It is protected by lock_sys-&gt;mutex. */
     ulint                    n_rec_locks;
 
 #ifndef UNIV_DEBUG
@@ -6345,7 +6345,7 @@ private:
     ulint                    n_ref_count;
 
 public:
-    /** List of locks on the table. Protected by lock_sys->mutex. */
+    /** List of locks on the table. Protected by lock_sys-&gt;mutex. */
     table_lock_list_t            locks;
 
     /** Timestamp of the last modification of this table. */
@@ -6385,92 +6385,57 @@ public:
 <h3 id="index的数据结构"><a href="#index的数据结构" class="headerlink" title="index的数据结构"></a>index的数据结构</h3><pre class=" language-lang-c++"><code class="language-lang-c++">/** Data structure for an index.  Most fields will be
 initialized to 0, NULL or FALSE in dict_mem_index_create(). */
 struct dict_index_t{
-    index_id_t    id;    /*!< id of the index */
-    mem_heap_t*    heap;    /*!< memory heap */
-    id_name_t    name;    /*!< index name */
-    const char*    table_name;/*!< table name */
-    dict_table_t*    table;    /*!< back pointer to table */
+    index_id_t    id;    /*!&lt; id of the index */
+    mem_heap_t*    heap;    /*!&lt; memory heap */
+    id_name_t    name;    /*!&lt; index name */
+    const char*    table_name;/*!&lt; table name */
+    dict_table_t*    table;    /*!&lt; back pointer to table */
 #ifndef UNIV_HOTBACKUP
     unsigned    space:32;
-                /*!< space where the index tree is placed */
-    unsigned    page:32;/*!< index tree root page number */
+                /*!&lt; space where the index tree is placed */
+    unsigned    page:32;/*!&lt; index tree root page number */
     unsigned    merge_threshold:6;
-                /*!< In the pessimistic delete, if the page
+                /*!&lt; In the pessimistic delete, if the page
                 data size drops below this limit in percent,
                 merging it to a neighbor is tried */
 # define DICT_INDEX_MERGE_THRESHOLD_DEFAULT 50
 #endif /* !UNIV_HOTBACKUP */
     unsigned    type:DICT_IT_BITS;
-                /*!< index type (DICT_CLUSTERED, DICT_UNIQUE,
+                /*!&lt; index type (DICT_CLUSTERED, DICT_UNIQUE,
                 DICT_IBUF, DICT_CORRUPT) */
 #define MAX_KEY_LENGTH_BITS 12
     unsigned    trx_id_offset:MAX_KEY_LENGTH_BITS;
-                /*!< position of the trx id column
+                /*!&lt; position of the trx id column
                 in a clustered index record, if the fields
                 before it are known to be of a fixed size,
                 0 otherwise */
-#if (1<<MAX_KEY_LENGTH_BITS) < MAX_KEY_LENGTH
-# error (1<<MAX_KEY_LENGTH_BITS) < MAX_KEY_LENGTH
-#endif
-    unsigned    n_user_defined_cols:10;
-                /*!< number of columns the user defined to
-                be in the index: in the internal
-                representation we add more columns */
-    unsigned    allow_duplicates:1;
-                /*!< if true, allow duplicate values
-                even if index is created with unique
-                constraint */
-    unsigned    nulls_equal:1;
-                /*!< if true, SQL NULL == SQL NULL */
-    unsigned    disable_ahi:1;
-                /*!< in true, then disable AHI.
-                Currently limited to intrinsic
-                temporary table as index id is not
-                unqiue for such table which is one of the
-                validation criterion for ahi. */
-    unsigned    n_uniq:10;/*!< number of fields from the beginning
-                which are enough to determine an index
-                entry uniquely */
-    unsigned    n_def:10;/*!< number of fields defined so far */
-    unsigned    n_fields:10;/*!< number of fields in the index */
-    unsigned    n_nullable:10;/*!< number of nullable fields */
-    unsigned    cached:1;/*!< TRUE if the index object is in the
-                dictionary cache */
-    unsigned    to_be_dropped:1;
-                /*!< TRUE if the index is to be dropped;
-                protected by dict_operation_lock */
-    unsigned    online_status:2;
-                /*!< enum online_index_status.
-                Transitions from ONLINE_INDEX_COMPLETE (to
-                ONLINE_INDEX_CREATION) are protected
-                by dict_operation_lock and
-                dict_sys->mutex. Other changes are
-                protected by index->lock. */
+#if (1&lt;<max_key_length_bits) <="" max_key_length="" #="" error="" (1<<max_key_length_bits)="" #endif="" unsigned="" n_user_defined_cols:10;="" *!<="" number="" of="" columns="" the="" user="" defined="" to="" be="" in="" index:="" internal="" representation="" we="" add="" more="" *="" allow_duplicates:1;="" if="" true,="" allow="" duplicate="" values="" even="" index="" is="" created="" with="" unique="" constraint="" nulls_equal:1;="" sql="" null="=" disable_ahi:1;="" then="" disable="" ahi.="" currently="" limited="" intrinsic="" temporary="" table="" as="" id="" not="" unqiue="" for="" such="" which="" one="" validation="" criterion="" n_uniq:10;="" fields="" from="" beginning="" are="" enough="" determine="" an="" entry="" uniquely="" n_def:10;="" so="" far="" n_fields:10;="" n_nullable:10;="" nullable="" cached:1;="" true="" object="" dictionary="" cache="" to_be_dropped:1;="" dropped;="" protected="" by="" dict_operation_lock="" online_status:2;="" enum="" online_index_status.="" transitions="" online_index_complete="" (to="" online_index_creation)="" and="" dict_sys-="">mutex. Other changes are
+                protected by index-&gt;lock. */
     unsigned    uncommitted:1;
-                /*!< a flag that is set for secondary indexes
+                /*!&lt; a flag that is set for secondary indexes
                 that have not been committed to the
                 data dictionary yet */
 
 #ifdef UNIV_DEBUG
-    uint32_t    magic_n;/*!< magic number */
+    uint32_t    magic_n;/*!&lt; magic number */
 /** Value of dict_index_t::magic_n */
 # define DICT_INDEX_MAGIC_N    76789786
 #endif
-    dict_field_t*    fields;    /*!< array of field descriptions */
+    dict_field_t*    fields;    /*!&lt; array of field descriptions */
     st_mysql_ftparser*
-            parser;    /*!< fulltext parser plugin */
+            parser;    /*!&lt; fulltext parser plugin */
     bool        is_ngram;
-                /*!< true if it's ngram parser */
+                /*!&lt; true if it's ngram parser */
     bool        has_new_v_col;
-                /*!< whether it has a newly added virtual
+                /*!&lt; whether it has a newly added virtual
                 column in ALTER */
 #ifndef UNIV_HOTBACKUP
     UT_LIST_NODE_T(dict_index_t)
-            indexes;/*!< list of indexes of the table */
+            indexes;/*!&lt; list of indexes of the table */
     btr_search_t*    search_info;
-                /*!< info used in optimistic searches */
+                /*!&lt; info used in optimistic searches */
     row_log_t*    online_log;
-                /*!< the log of modifications
+                /*!&lt; the log of modifications
                 during online index creation;
                 valid when online_status is
                 ONLINE_INDEX_CREATION */
@@ -6478,54 +6443,54 @@ struct dict_index_t{
     /** Statistics for query optimization */
     /* @{ */
     ib_uint64_t*    stat_n_diff_key_vals;
-                /*!< approximate number of different
+                /*!&lt; approximate number of different
                 key values for this index, for each
-                n-column prefix where 1 <= n <=
+                n-column prefix where 1 &lt;= n &lt;=
                 dict_get_n_unique(index) (the array is
                 indexed from 0 to n_uniq-1); we
                 periodically calculate new
                 estimates */
     ib_uint64_t*    stat_n_sample_sizes;
-                /*!< number of pages that were sampled
+                /*!&lt; number of pages that were sampled
                 to calculate each of stat_n_diff_key_vals[],
                 e.g. stat_n_sample_sizes[3] pages were sampled
                 to get the number stat_n_diff_key_vals[3]. */
     ib_uint64_t*    stat_n_non_null_key_vals;
                 /* approximate number of non-null key values
                 for this index, for each column where
-                1 <= n <= dict_get_n_unique(index) (the array
+                1 &lt;= n &lt;= dict_get_n_unique(index) (the array
                 is indexed from 0 to n_uniq-1); This
                 is used when innodb_stats_method is
                 "nulls_ignored". */
     ulint        stat_index_size;
-                /*!< approximate index size in
+                /*!&lt; approximate index size in
                 database pages */
     ulint        stat_n_leaf_pages;
-                /*!< approximate number of leaf pages in the
+                /*!&lt; approximate number of leaf pages in the
                 index tree */
     /* @} */
     last_ops_cur_t*    last_ins_cur;
-                /*!< cache the last insert position.
+                /*!&lt; cache the last insert position.
                 Currently limited to auto-generated
                 clustered index on intrinsic table only. */
     last_ops_cur_t*    last_sel_cur;
-                /*!< cache the last selected position
+                /*!&lt; cache the last selected position
                 Currently limited to intrinsic table only. */
     rec_cache_t    rec_cache;
-                /*!< cache the field that needs to be
+                /*!&lt; cache the field that needs to be
                 re-computed on each insert.
                 Limited to intrinsic table as this is common
                 share and can't be used without protection
                 if table is accessible to multiple-threads. */
-    rtr_ssn_t    rtr_ssn;/*!< Node sequence number for RTree */
+    rtr_ssn_t    rtr_ssn;/*!&lt; Node sequence number for RTree */
     rtr_info_track_t*
-            rtr_track;/*!< tracking all R-Tree search cursors */
-    trx_id_t    trx_id; /*!< id of the transaction that created this
+            rtr_track;/*!&lt; tracking all R-Tree search cursors */
+    trx_id_t    trx_id; /*!&lt; id of the transaction that created this
                 index, or 0 if the index existed
                 when InnoDB was started up */
-    zip_pad_info_t    zip_pad;/*!< Information about state of
+    zip_pad_info_t    zip_pad;/*!&lt; Information about state of
                 compression failures and successes */
-    rw_lock_t    lock;    /*!< read-write lock protecting the
+    rw_lock_t    lock;    /*!&lt; read-write lock protecting the
                 upper levels of the index tree */
 
     /** Determine if the index has been committed to the
@@ -6533,7 +6498,7 @@ struct dict_index_t{
     @return whether the index definition has been committed */
     bool is_committed() const
     {
-        ut_ad(!uncommitted || !(type & DICT_CLUSTERED));
+        ut_ad(!uncommitted || !(type &amp; DICT_CLUSTERED));
         return(UNIV_LIKELY(!uncommitted));
     }
 
@@ -6542,39 +6507,39 @@ struct dict_index_t{
     void set_committed(bool committed)
     {
         ut_ad(!to_be_dropped);
-        ut_ad(committed || !(type & DICT_CLUSTERED));
+        ut_ad(committed || !(type &amp; DICT_CLUSTERED));
         uncommitted = !committed;
     }
 #endif /* !UNIV_HOTBACKUP */
 };
-</code></pre>
+</max_key_length_bits)></code></pre>
 <h3 id="column的数据结构"><a href="#column的数据结构" class="headerlink" title="column的数据结构"></a>column的数据结构</h3><pre class=" language-lang-c++"><code class="language-lang-c++">/** Data structure for a column in a table */
 struct dict_col_t{
     /*----------------------*/
     /** The following are copied from dtype_t,
     so that all bit-fields can be packed tightly. */
     /* @{ */
-    unsigned    prtype:32;    /*!< precise type; MySQL data
+    unsigned    prtype:32;    /*!&lt; precise type; MySQL data
                     type, charset code, flags to
                     indicate nullability,
                     signedness, whether this is a
                     binary string, whether this is
                     a true VARCHAR where MySQL
                     uses 2 bytes to store the length */
-    unsigned    mtype:8;    /*!< main data type */
+    unsigned    mtype:8;    /*!&lt; main data type */
 
     /* the remaining fields do not affect alphabetical ordering: */
 
-    unsigned    len:16;        /*!< length; for MySQL data this
-                    is field->pack_length(),
-                    except that for a >= 5.0.3
+    unsigned    len:16;        /*!&lt; length; for MySQL data this
+                    is field-&gt;pack_length(),
+                    except that for a &gt;= 5.0.3
                     type true VARCHAR this is the
                     maximum byte length of the
                     string data (in addition to
                     the string, MySQL uses 1 or 2
                     bytes to store the string length) */
 
-    unsigned    mbminmaxlen:5;    /*!< minimum and maximum length of a
+    unsigned    mbminmaxlen:5;    /*!&lt; minimum and maximum length of a
                     character, in bytes;
                     DATA_MBMINMAXLEN(mbminlen,mbmaxlen);
                     mbminlen=DATA_MBMINLEN(mbminmaxlen);
@@ -6583,12 +6548,12 @@ struct dict_col_t{
     /* End of definitions copied from dtype_t */
     /* @} */
 
-    unsigned    ind:10;        /*!< table column position
+    unsigned    ind:10;        /*!&lt; table column position
                     (starting from 0) */
-    unsigned    ord_part:1;    /*!< nonzero if this column
+    unsigned    ord_part:1;    /*!&lt; nonzero if this column
                     appears in the ordering fields
                     of an index */
-    unsigned    max_prefix:12;    /*!< maximum index prefix length on
+    unsigned    max_prefix:12;    /*!&lt; maximum index prefix length on
                     this column. Our current max limit is
                     3072 for Barracuda table */
 };
@@ -6610,7 +6575,7 @@ struct dict_col_t{
     directory does not exist, exists but is empty, exists with InnoDB
     system tablespaces present etc.
   */
-  if (plugin_init(&remaining_argc, remaining_argv,
+  if (plugin_init(&amp;remaining_argc, remaining_argv,
                   (opt_noacl ? PLUGIN_INIT_SKIP_PLUGIN_TABLE : 0) |
                   (opt_help ? (PLUGIN_INIT_SKIP_INITIALIZATION |
                                PLUGIN_INIT_SKIP_PLUGIN_TABLE) : 0)))
@@ -6626,24 +6591,24 @@ struct dict_col_t{
 {
     //...
       /* Register all dynamic plugins */
-  if (!(flags & PLUGIN_INIT_SKIP_DYNAMIC_LOADING))
+  if (!(flags &amp; PLUGIN_INIT_SKIP_DYNAMIC_LOADING))
   {
     I_List_iterator<i_string> iter(opt_plugin_load_list);
     i_string *item;
     while (NULL != (item= iter++))
-      plugin_load_list(&tmp_root, argc, argv, item->ptr);
+      plugin_load_list(&amp;tmp_root, argc, argv, item-&gt;ptr);
 
-    if (!(flags & PLUGIN_INIT_SKIP_PLUGIN_TABLE))
-      plugin_load(&tmp_root, argc, argv);
+    if (!(flags &amp; PLUGIN_INIT_SKIP_PLUGIN_TABLE))
+      plugin_load(&amp;tmp_root, argc, argv);
   }
     //...
 }
-</code></pre>
+</i_string></code></pre>
 <p>其中加载插件函数:</p>
 <pre class=" language-lang-c++"><code class="language-lang-c++">static void plugin_load(MEM_ROOT *tmp_root, int *argc, char **argv)
 {
     //...
-     if (plugin_add(tmp_root, &name, &dl, argc, argv, REPORT_TO_LOG))
+     if (plugin_add(tmp_root, &amp;name, &amp;dl, argc, argv, REPORT_TO_LOG))
       sql_print_warning("Couldn't load plugin named '%s' with soname '%s'.",
                         str_name.c_ptr(), str_dl.c_ptr());
     //...
@@ -6657,7 +6622,7 @@ struct dict_col_t{
     st_plugin_int tmp;
       st_mysql_plugin *plugin;
       DBUG_ENTER("plugin_add");
-      LEX_CSTRING name_cstr= {name->str, name->length};
+      LEX_CSTRING name_cstr= {name-&gt;str, name-&gt;length};
     //...
 }
 </code></pre>
@@ -6691,7 +6656,7 @@ struct st_mysql_plugin
 <pre class=" language-lang-c++"><code class="language-lang-c++">mysql_declare_plugin(innobase)
 {
   MYSQL_STORAGE_ENGINE_PLUGIN,
-  &innobase_storage_engine,
+  &amp;innobase_storage_engine,
   innobase_hton_name,
   plugin_author,
   "Supports transactions, row-level locking, and foreign keys",
@@ -6717,7 +6682,7 @@ mysql_declare_plugin_end;
 int
 innobase_init(
 /*==========*/
-    void    *p)    /*!< in: InnoDB handlerton */
+    void    *p)    /*!&lt; in: InnoDB handlerton */
 {
     //...
     /* Since we in this module access directly the fields of a trx
@@ -6763,7 +6728,7 @@ os_thread_ret_t
 DECLARE_THREAD(srv_master_thread)(
 /*==============================*/
     void*    arg MY_ATTRIBUTE((unused)))
-            /*!< in: a dummy parameter required by
+            /*!&lt; in: a dummy parameter required by
             os_thread_create */;
 </code></pre>
 <p>由此进入master线程</p>
@@ -6775,12 +6740,12 @@ os_thread_ret_t
 DECLARE_THREAD(srv_master_thread)(
 /*==============================*/
     void*    arg MY_ATTRIBUTE((unused)))
-            /*!< in: a dummy parameter required by
+            /*!&lt; in: a dummy parameter required by
             os_thread_create */
 {
     //...线程初始化
 loop:
-    if (srv_force_recovery >= SRV_FORCE_NO_BACKGROUND) {
+    if (srv_force_recovery &gt;= SRV_FORCE_NO_BACKGROUND) {
         /*出现故障需要回复时候,如果设置恢复级别为SRV_FORCE_NO_BACKGROUND则会挂起主线程的运行,所以进入挂起*/
         goto suspend_thread;
     }
@@ -6797,10 +6762,10 @@ loop:
     }
 
     while (srv_shutdown_state != SRV_SHUTDOWN_EXIT_THREADS
-           && srv_master_do_shutdown_tasks(&last_print_time)) {
+           &amp;&amp; srv_master_do_shutdown_tasks(&amp;last_print_time)) {
         /**/
         /* Shouldn't loop here in case of very fast shutdown */
-        ut_ad(srv_fast_shutdown < 2);
+        ut_ad(srv_fast_shutdown &lt; 2);
     }
 
 suspend_thread:
@@ -6809,12 +6774,12 @@ suspend_thread:
     srv_suspend_thread(slot);
 
     /* DO NOT CHANGE THIS STRING. innobase_start_or_create_for_mysql()
-    waits for database activity to die down when converting < 4.1.x
+    waits for database activity to die down when converting &lt; 4.1.x
     databases, and relies on this string being exactly as it is. InnoDB
     manual also mentions this string in several places. */
     srv_main_thread_op_info = "waiting for server activity";
 
-    os_event_wait(slot->event);
+    os_event_wait(slot-&gt;event);
 
     if (srv_shutdown_state != SRV_SHUTDOWN_EXIT_THREADS) {
         goto loop;
@@ -6896,23 +6861,23 @@ ulint ibuf_merge_in_background(bool    full)
         /* By default we do a batch of 5% of the io_capacity */
         n_pages = PCT_IO(5);
 
-        mutex_enter(&ibuf_mutex);
+        mutex_enter(&amp;ibuf_mutex);
 
-        /* 如果ibuf-> size大于max_size的一半，那么我们将进行更剧烈的收缩 */
+        /* 如果ibuf-&gt; size大于max_size的一半，那么我们将进行更剧烈的收缩 */
         /*+1是为了避免被零除*/
-        if (ibuf->size > ibuf->max_size / 2) {
-            ulint diff = ibuf->size - ibuf->max_size / 2;
+        if (ibuf-&gt;size &gt; ibuf-&gt;max_size / 2) {
+            ulint diff = ibuf-&gt;size - ibuf-&gt;max_size / 2;
             n_pages += PCT_IO((diff * 100)
-                       / (ibuf->max_size + 1));
+                       / (ibuf-&gt;max_size + 1));
         }
 
-        mutex_exit(&ibuf_mutex);
+        mutex_exit(&amp;ibuf_mutex);
     }
 
-    while (sum_pages < n_pages) {
+    while (sum_pages &lt; n_pages) {
         ulint    n_bytes;
 
-        n_bytes = ibuf_merge(&n_pag2, false);
+        n_bytes = ibuf_merge(&amp;n_pag2, false);
 
         if (n_bytes == 0) {
             return(sum_bytes);
@@ -6942,7 +6907,7 @@ ulint ibuf_merge_in_background(bool    full)
 
      srv_main_thread_op_info = "flushing log";
      if (difftime(current_time, srv_last_log_flush_time)
-         >= srv_flush_log_at_timeout) {//srv_flush_log_at_timeout=1,即1秒
+         &gt;= srv_flush_log_at_timeout) {//srv_flush_log_at_timeout=1,即1秒
          log_buffer_sync_in_background(true);/*此函数将日志缓冲区写入日志文件，如果设置了“ flush”，则也                                                会强制刷新日志文件。 仅应从后台主线程调用此方法，因为它不                                                等待写入（+可能的刷新）完成。*/
          srv_last_log_flush_time = current_time;
          srv_log_writes_and_flush++;
@@ -6969,7 +6934,7 @@ ulint ibuf_merge_in_background(bool    full)
     /* 即使在只读模式下，内部表操作也可能会产生刷新操作。 */
     buf_flush_page_cleaner_init();
     os_thread_create(buf_flush_page_cleaner_coordinator,NULL, NULL);
-    for (i = 1; i < srv_n_page_cleaners; ++i) {
+    for (i = 1; i &lt; srv_n_page_cleaners; ++i) {
         os_thread_create(buf_flush_page_cleaner_worker,NULL, NULL);
     }
     /* Make sure page cleaner is active. */
@@ -7001,7 +6966,7 @@ ulint ibuf_merge_in_background(bool    full)
         if (srv_shutdown_state != SRV_SHUTDOWN_NONE) {
             break;
         }
-    } else if (ut_time_ms() > next_loop_time) {
+    } else if (ut_time_ms() &gt; next_loop_time) {
         //如果当前时间大于 上次刷新 时间+1 秒则 设置为OS_SYNC_TIME_EXCEEDED
         ret_sleep = OS_SYNC_TIME_EXCEEDED;
     } else {
@@ -7011,19 +6976,19 @@ ulint ibuf_merge_in_background(bool    full)
 <p>但是这个睡眠是可以被唤醒的，比如同步刷新应该就会唤醒它（buf_flush_request_force函数）。参考函数os_event::wait_time_low</p>
 </li>
 <li><p>IO能力不足警告</p>
-<pre class=" language-lang-c++"><code class="language-lang-c++">  if (curr_time > next_loop_time + 3000) {//如果刷新时间 大于了 上次时间 +1 秒+3 秒 则报info
+<pre class=" language-lang-c++"><code class="language-lang-c++">  if (curr_time &gt; next_loop_time + 3000) {//如果刷新时间 大于了 上次时间 +1 秒+3 秒 则报info
                   if (warn_count == 0) {
-                      ib::info() << "page_cleaner: 1000ms"
+                      ib::info() &lt;&lt; "page_cleaner: 1000ms"
                           " intended loop took "
-                          << 1000 + curr_time
+                          &lt;&lt; 1000 + curr_time
                              - next_loop_time
-                          << "ms. The settings might not"
+                          &lt;&lt; "ms. The settings might not"
                           " be optimal. (flushed="
-                          << n_flushed_last
-                          << " and evicted="
-                          << n_evicted
-                          << ", during the time.)";
-                      if (warn_interval > 300) {
+                          &lt;&lt; n_flushed_last
+                          &lt;&lt; " and evicted="
+                          &lt;&lt; n_evicted
+                          &lt;&lt; ", during the time.)";
+                      if (warn_interval &gt; 300) {
                           warn_interval = 600;
                       } else {
                           warn_interval *= 2;
@@ -7043,8 +7008,8 @@ ulint ibuf_merge_in_background(bool    full)
 <li><p>同步刷新判断</p>
 <p><strong>触发条件</strong>:</p>
 <pre class=" language-lang-c++"><code class="language-lang-c++">  if (ret_sleep != OS_SYNC_TIME_EXCEEDED
-              && srv_flush_sync
-              && buf_flush_sync_lsn > 0)
+              &amp;&amp; srv_flush_sync
+              &amp;&amp; buf_flush_sync_lsn &gt; 0)
 </code></pre>
 <p>同步会唤醒正在睡眠状态的page clean协调工作线程,那么睡眠应该不会满足一秒的条件,所以不会被标记为OS_SYNC_TIME_EXCEEDED，同时srv_flush_sync和buf_flush_sync_lsn均会被设置,接下来就是唤醒工作线程进行刷新，同时本协调线程也完成部分任务。</p>
 <p>  工作代码:</p>
@@ -7054,7 +7019,7 @@ ulint ibuf_merge_in_background(bool    full)
               ulint tm = ut_time_ms();
 
               /* Coordinator also treats requests */
-              while (pc_flush_slot() > 0) {}////协调者同样完成部分任务
+              while (pc_flush_slot() &gt; 0) {}////协调者同样完成部分任务
 </code></pre>
 <p>  <strong>唤醒操作</strong>:</p>
 <p>在checkpoint或者DML语句执行过程中都会通过log_free_check检查是否redo log处于安全的状态，如果不安全就会调用如下代码（log_preflush_pool_modified_pages函数中）唤醒page clean线程进行同步刷新</p>
@@ -7079,14 +7044,14 @@ ulint ibuf_merge_in_background(bool    full)
                 last_activity = srv_get_activity_count();
                 n_to_flush =
                     page_cleaner_flush_pages_recommendation(
-                        &lsn_limit, last_pages);
+                        &amp;lsn_limit, last_pages);
             } else {
                 n_to_flush = 0;
             }
 
             //...
 
-            pc_wait_finished(&n_flushed_lru, &n_flushed_list);
+            pc_wait_finished(&amp;n_flushed_lru, &amp;n_flushed_list);
 </code></pre>
 <p> <code>page_cleaner_flush_pages_recommendation</code>:</p>
 <p>此函数最后计算出了需要刷新的块，其中刷新比率计算的的重点函数为af_get_pct_for_dirty和af_get_pct_for_lsn 下面将给出代码注释，其实前文中的算法就来自af_get_pct_for_dirty。</p>
@@ -7114,25 +7079,25 @@ ulint ibuf_merge_in_background(bool    full)
             / time_elapsed);//计算redo lsn生成率
         lsn_avg_rate = (lsn_avg_rate + lsn_rate) / 2;//计算redo每秒平均生成率
         /* aggregate stats of all slots */
-        mutex_enter(&page_cleaner->mutex);
-        ulint   flush_tm = page_cleaner->flush_time;
-        ulint   flush_pass = page_cleaner->flush_pass;
-        page_cleaner->flush_time = 0;
-        page_cleaner->flush_pass = 0;
+        mutex_enter(&amp;page_cleaner-&gt;mutex);
+        ulint   flush_tm = page_cleaner-&gt;flush_time;
+        ulint   flush_pass = page_cleaner-&gt;flush_pass;
+        page_cleaner-&gt;flush_time = 0;
+        page_cleaner-&gt;flush_pass = 0;
         ulint   list_tm = 0;
         ulint   list_pass = 0;        
-    for (ulint i = 0; i < page_cleaner->n_slots; i++) {//扫描所有的槽
+    for (ulint i = 0; i &lt; page_cleaner-&gt;n_slots; i++) {//扫描所有的槽
             page_cleaner_slot_t*    slot;
-            slot = &page_cleaner->slots[i];
-            list_tm   += slot->flush_list_time;
-            list_pass += slot->flush_list_pass;
-            slot->flush_list_time = 0;
-            slot->flush_list_pass = 0;
+            slot = &amp;page_cleaner-&gt;slots[i];
+            list_tm   += slot-&gt;flush_list_time;
+            list_pass += slot-&gt;flush_list_pass;
+            slot-&gt;flush_list_time = 0;
+            slot-&gt;flush_list_pass = 0;
         }
-        mutex_exit(&page_cleaner->mutex);
+        mutex_exit(&amp;page_cleaner-&gt;mutex);
     oldest_lsn = buf_pool_get_oldest_modification(); //获取flush list中最老的ls
-    ut_ad(oldest_lsn <= log_get_lsn());//断言
-    age = cur_lsn > oldest_lsn ? cur_lsn - oldest_lsn : 0; //获取当前LSN和最老LSN的之间的差值
+    ut_ad(oldest_lsn &lt;= log_get_lsn());//断言
+    age = cur_lsn &gt; oldest_lsn ? cur_lsn - oldest_lsn : 0; //获取当前LSN和最老LSN的之间的差值
     pct_for_dirty = af_get_pct_for_dirty(); //计算出一个刷新百分比 (比如100) !!!!重点
     pct_for_lsn = af_get_pct_for_lsn(age);//计算出lsn的比率 百分比(l列如4.5) 
     pct_total = ut_max(pct_for_dirty, pct_for_lsn);//取他们的大值
@@ -7141,16 +7106,16 @@ ulint ibuf_merge_in_background(bool    full)
     ulint   sum_pages_for_lsn = 0;    
     lsn_t   target_lsn = oldest_lsn
                  + lsn_avg_rate * buf_flush_lsn_scan_factor; //计算下一次刷新的  目标lsn 及target_lsnbuf_flush_lsn_scan_factor是定值3
-    for (ulint i = 0; i < srv_buf_pool_instances; i++) {
+    for (ulint i = 0; i &lt; srv_buf_pool_instances; i++) {
         //循环整个buffer instance找到小于target_lsn的脏块
         buf_pool_t* buf_pool = buf_pool_from_array(i);
         ulint       pages_for_lsn = 0;
         buf_flush_list_mutex_enter(buf_pool);        
-        for (buf_page_t* b = UT_LIST_GET_LAST(buf_pool->flush_list);
+        for (buf_page_t* b = UT_LIST_GET_LAST(buf_pool-&gt;flush_list);
              //每个innodb buffer的末尾的flush list 进行扫描，头插法?
              b != NULL;
              b = UT_LIST_GET_PREV(list, b)) {            
-            if (b->oldest_modification > target_lsn) {                
+            if (b-&gt;oldest_modification &gt; target_lsn) {                
                 break;
             }
             ++pages_for_lsn; 
@@ -7159,28 +7124,28 @@ ulint ibuf_merge_in_background(bool    full)
         buf_flush_list_mutex_exit(buf_pool);
         sum_pages_for_lsn += pages_for_lsn; 
         //这里汇总所有 innodb buffer实例中  flush list 小于这个  target lsn 的 page 总数
-        mutex_enter(&page_cleaner->mutex);
-        ut_ad(page_cleaner->slots[i].state
+        mutex_enter(&amp;page_cleaner-&gt;mutex);
+        ut_ad(page_cleaner-&gt;slots[i].state
               == PAGE_CLEANER_STATE_NONE);//断言所有的槽处于没有刷新状态
-        page_cleaner->slots[i].n_pages_requested
+        page_cleaner-&gt;slots[i].n_pages_requested
             = pages_for_lsn / buf_flush_lsn_scan_factor + 1; //确认槽的n_pages_requested值
-        mutex_exit(&page_cleaner->mutex);
+        mutex_exit(&amp;page_cleaner-&gt;mutex);
     }
     sum_pages_for_lsn /= buf_flush_lsn_scan_factor;//buf_flush_lsn_scan_factor为定值3
     /* Cap the maximum IO capacity that we are going to use by
     max_io_capacity. Limit the value to avoid too quick increase */
     n_pages = PCT_IO(pct_total); //根据 前面得到的 pct_total 和 srv_io_capacity参数得到 刷新的块数 !!!第二个计算参数生成。
-    if (age < log_get_max_modified_age_async()) { //如果日质量小于 异步刷新的范畴
+    if (age &lt; log_get_max_modified_age_async()) { //如果日质量小于 异步刷新的范畴
         ulint   pages_for_lsn = std::min<ulint>(sum_pages_for_lsn,
                     srv_max_io_capacity * 2); //即便是需要刷新的块数很多，最多只能刷max_io_capacity*2的数量!!!第三个计算参数生成
         n_pages = (n_pages + avg_page_rate + pages_for_lsn) / 3;  // 3部分组成 1、根据参数计算出来的IO能力 2、以往每秒刷新页的数量 3、根据target lsn 计算出来的一个需要刷新的块数
     }  
-    if (n_pages > srv_max_io_capacity) {
+    if (n_pages &gt; srv_max_io_capacity) {
         n_pages = srv_max_io_capacity;
     }    
     return(n_pages);
 }
-</code></pre>
+</ulint></double></lsn_t></double></ulint></code></pre>
 <p> af_get_pct_for_dirty函数:</p>
 <pre class=" language-lang-c++"><code class="language-lang-c++">
 {
@@ -7207,25 +7172,25 @@ ulint ibuf_merge_in_background(bool    full)
             / time_elapsed);//计算redo lsn生成率
     lsn_avg_rate = (lsn_avg_rate + lsn_rate) / 2;//计算redo每秒平均生成率
     /* aggregate stats of all slots */
-    mutex_enter(&page_cleaner->mutex);
-    ulint   flush_tm = page_cleaner->flush_time;
-    ulint   flush_pass = page_cleaner->flush_pass;
-    page_cleaner->flush_time = 0;
-    page_cleaner->flush_pass = 0;
+    mutex_enter(&amp;page_cleaner-&gt;mutex);
+    ulint   flush_tm = page_cleaner-&gt;flush_time;
+    ulint   flush_pass = page_cleaner-&gt;flush_pass;
+    page_cleaner-&gt;flush_time = 0;
+    page_cleaner-&gt;flush_pass = 0;
     ulint   list_tm = 0;
     ulint   list_pass = 0;        
-    for (ulint i = 0; i < page_cleaner->n_slots; i++) {//扫描所有的槽
+    for (ulint i = 0; i &lt; page_cleaner-&gt;n_slots; i++) {//扫描所有的槽
             page_cleaner_slot_t*    slot;
-            slot = &page_cleaner->slots[i];
-            list_tm   += slot->flush_list_time;
-            list_pass += slot->flush_list_pass;
-            slot->flush_list_time = 0;
-            slot->flush_list_pass = 0;
+            slot = &amp;page_cleaner-&gt;slots[i];
+            list_tm   += slot-&gt;flush_list_time;
+            list_pass += slot-&gt;flush_list_pass;
+            slot-&gt;flush_list_time = 0;
+            slot-&gt;flush_list_pass = 0;
         }
-    mutex_exit(&page_cleaner->mutex);
+    mutex_exit(&amp;page_cleaner-&gt;mutex);
     oldest_lsn = buf_pool_get_oldest_modification(); //获取flush list中最老的ls
-    ut_ad(oldest_lsn <= log_get_lsn());//断言
-    age = cur_lsn > oldest_lsn ? cur_lsn - oldest_lsn : 0; //获取当前LSN和最老LSN的之间的差值
+    ut_ad(oldest_lsn &lt;= log_get_lsn());//断言
+    age = cur_lsn &gt; oldest_lsn ? cur_lsn - oldest_lsn : 0; //获取当前LSN和最老LSN的之间的差值
     pct_for_dirty = af_get_pct_for_dirty(); //计算出一个刷新百分比 (比如100) !!!!重点
     pct_for_lsn = af_get_pct_for_lsn(age);//计算出lsn的比率 百分比(l列如4.5) 
     pct_total = ut_max(pct_for_dirty, pct_for_lsn);//取他们的大值
@@ -7233,16 +7198,16 @@ ulint ibuf_merge_in_background(bool    full)
     /* Estimate pages to be flushed for the lsn progress *///计算target_lsn
     ulint   sum_pages_for_lsn = 0;    lsn_t   target_lsn = oldest_lsn
                  + lsn_avg_rate * buf_flush_lsn_scan_factor; //计算下一次刷新的  目标lsn 及target_lsnbuf_flush_lsn_scan_factor是定值3
-    for (ulint i = 0; i < srv_buf_pool_instances; i++) {
+    for (ulint i = 0; i &lt; srv_buf_pool_instances; i++) {
         //循环整个buffer instance找到小于target_lsn的脏块
         buf_pool_t* buf_pool = buf_pool_from_array(i);
         ulint       pages_for_lsn = 0;
         buf_flush_list_mutex_enter(buf_pool);        
-        for (buf_page_t* b = UT_LIST_GET_LAST(buf_pool->flush_list);
+        for (buf_page_t* b = UT_LIST_GET_LAST(buf_pool-&gt;flush_list);
              //每个innodb buffer的末尾的flush list 进行扫描，头插法?
              b != NULL;
              b = UT_LIST_GET_PREV(list, b)) {            
-            if (b->oldest_modification > target_lsn) {                
+            if (b-&gt;oldest_modification &gt; target_lsn) {                
                 break;
             }
             ++pages_for_lsn; 
@@ -7251,44 +7216,44 @@ ulint ibuf_merge_in_background(bool    full)
         buf_flush_list_mutex_exit(buf_pool);
         sum_pages_for_lsn += pages_for_lsn; 
         //这里汇总所有 innodb buffer实例中  flush list 小于这个  target lsn 的 page 总数
-        mutex_enter(&page_cleaner->mutex);
-        ut_ad(page_cleaner->slots[i].state
+        mutex_enter(&amp;page_cleaner-&gt;mutex);
+        ut_ad(page_cleaner-&gt;slots[i].state
               == PAGE_CLEANER_STATE_NONE);//断言所有的槽处于没有刷新状态
-        page_cleaner->slots[i].n_pages_requested
+        page_cleaner-&gt;slots[i].n_pages_requested
             = pages_for_lsn / buf_flush_lsn_scan_factor + 1; //确认槽的n_pages_requested值
-        mutex_exit(&page_cleaner->mutex);
+        mutex_exit(&amp;page_cleaner-&gt;mutex);
     }
     sum_pages_for_lsn /= buf_flush_lsn_scan_factor;//buf_flush_lsn_scan_factor为定值3
     /* Cap the maximum IO capacity that we are going to use by
     max_io_capacity. Limit the value to avoid too quick increase */
     n_pages = PCT_IO(pct_total); 
     //根据 前面得到的 pct_total 和 srv_io_capacity参数得到 刷新的块数 !!!第二个计算参数生成。
-    if (age < log_get_max_modified_age_async()) { //如果日质量小于 异步刷新的范畴
+    if (age &lt; log_get_max_modified_age_async()) { //如果日质量小于 异步刷新的范畴
         ulint   pages_for_lsn =            
             std::min<ulint>(sum_pages_for_lsn,
                             srv_max_io_capacity * 2); //即便是需要刷新的块数很多，最多只能刷max_io_capacity*2的数量!!!第三个计算参数生成
         n_pages = (n_pages + avg_page_rate + pages_for_lsn) / 3;  // 3部分组成 1、根据参数计算出来的IO能力 2、以往每秒刷新页的数量 3、根据target lsn 计算出来的一个需要刷新的块数
     }    
-    if (n_pages > srv_max_io_capacity) {
+    if (n_pages &gt; srv_max_io_capacity) {
         n_pages = srv_max_io_capacity;
     }    
     return(n_pages);
 }
-</code></pre>
+</ulint></double></lsn_t></double></ulint></code></pre>
 <p>af_get_pct_for_lsn函数：</p>
 <p>注意innodb_cleaner_lsn_age_factor参数默认设置为high_checkpoint，可以看到算法最后是除以700.5，所有前文我说这个函数算出来的比率一般比较小。</p>
 <pre class=" language-lang-c++"><code class="language-lang-c++">
     lsn_t   af_lwm = (srv_adaptive_flushing_lwm
               * log_get_capacity()) / 100;
     // srv_adaptive_flushing_lwm=10 那么大约就是 logtotalsize*(9/10)*(1/10) 943349 计算一个low water mark
-    if (age < af_lwm) {              
+    if (age &lt; af_lwm) {              
         //如果当前生成的redo 小于了 low water master 则返回0 也就是说 redo日志量生成量不高则不需要权衡
         /* No adaptive flushing. */  //可以看出这里和redo设置的大小有关，如果redo文件设置越大则af_lwm越大，触发权衡的机率越小
         return(0);
     }
     max_async_age = log_get_max_modified_age_async(); 
     //获取需要异步刷新的的位置 大约为logtotalsize*(9/10)*(7/8)
-    if (age < max_async_age && !srv_adaptive_flushing) { 
+    if (age &lt; max_async_age &amp;&amp; !srv_adaptive_flushing) { 
         //如果小于异步刷新 且 自适应flush 没有开启
         /* We have still not reached the max_async point and
         the user has disabled adaptive flushing. */
@@ -7299,7 +7264,7 @@ ulint ibuf_merge_in_background(bool    full)
     max_async_age. */
     lsn_age_factor = (age * 100) / max_async_age; 
     //比率lsn_age_factor = (本次刷新的日志量/(logtotalsize*(9/10)*(7/8)))
-    ut_ad(srv_max_io_capacity >= srv_io_capacity); 
+    ut_ad(srv_max_io_capacity &gt;= srv_io_capacity); 
     switch ((srv_cleaner_lsn_age_factor_t)srv_cleaner_lsn_age_factor) {    
         case SRV_CLEANER_LSN_AGE_FACTOR_LEGACY:        
             return(static_cast<ulint>(
@@ -7315,7 +7280,7 @@ ulint ibuf_merge_in_background(bool    full)
                 * (lsn_age_factor * lsn_age_factor                     //(10 * (3.3*10*10))/700 =4.3
                    * sqrt((double)lsn_age_factor)))
                    / 700.5));
-</code></pre>
+</ulint></ulint></code></pre>
 </li>
 </ol>
 </li>
@@ -7325,17 +7290,17 @@ ulint ibuf_merge_in_background(bool    full)
 </ul>
 <h2 id="5-purge线程"><a href="#5-purge线程" class="headerlink" title="5. purge线程"></a>5. purge线程</h2><p><code>innobase_start_or_create_for_mysql</code>中的:</p>
 <pre class=" language-lang-c++"><code class="language-lang-c++">if (!srv_read_only_mode
-        && srv_force_recovery < SRV_FORCE_NO_BACKGROUND) {
+        &amp;&amp; srv_force_recovery &lt; SRV_FORCE_NO_BACKGROUND) {
 
         os_thread_create(
             srv_purge_coordinator_thread,
             NULL, thread_ids + 5 + SRV_MAX_N_IO_THREADS);
 
         ut_a(UT_ARR_SIZE(thread_ids)
-             > 5 + srv_n_purge_threads + SRV_MAX_N_IO_THREADS);
+             &gt; 5 + srv_n_purge_threads + SRV_MAX_N_IO_THREADS);
 
         /* We've already created the purge coordinator thread above. */
-        for (i = 1; i < srv_n_purge_threads; ++i) {
+        for (i = 1; i &lt; srv_n_purge_threads; ++i) {
             os_thread_create(
                 srv_worker_thread, NULL,
                 thread_ids + 5 + i + SRV_MAX_N_IO_THREADS);
@@ -7345,7 +7310,7 @@ ulint ibuf_merge_in_background(bool    full)
 
         srv_start_state_set(SRV_START_STATE_PURGE);
     } else {
-        purge_sys->state = PURGE_STATE_DISABLED;
+        purge_sys-&gt;state = PURGE_STATE_DISABLED;
     }
 </code></pre>
 <script>
