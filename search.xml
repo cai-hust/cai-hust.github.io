@@ -5967,874 +5967,844 @@ def str2int(s):
   <entry>
     <title>innodb的体系架构</title>
     <url>/2020/07/22/innodb-de-ti-xi-jia-gou/</url>
-    <content><![CDATA[<h2 id="1-innodb的总体架构"><a href="#1-innodb的总体架构" class="headerlink" title="1. innodb的总体架构"></a>1. innodb的总体架构</h2><p>innodb线程与文件的关系<sup><a href="#fn_4" id="reffn_4">4</a></sup>:</p>
-<p><img src="innodb存储架构.png" alt="innodb存储架构"></p>
-<p>innodb文件结构<sup><a href="#fn_9" id="reffn_9">9</a></sup>:</p>
-<p><img src="innodb-architecture.png" alt="InnoDB architecture diagram showing in-memory and on-disk structures"></p>
+    <content><![CDATA[<h2 id="1-innodb的总体架构"><a href="#1-innodb的总体架构" class="headerlink" title="1. innodb的总体架构"></a>1. innodb的总体架构</h2><p>innodb线程与文件的关系</p>
+<p>innodb文件结构</p>
 <p>InnoDB所有数据都被逻辑地存放在一个表空间（tablespace）中。表空间又由段（segment）、区（extent）、页（page）组成，页在一些文档中有时也称为块（block）。逻辑存储结构大致如下图<sup><a href="#fn_8" id="reffn_8">8</a></sup>：</p>
-<p><img src="v2-50b50d5c6b799c3d84d8bcf7942b0086_720w.jpg" alt="InnoDB逻辑存储结构"></p>
-<h3 id="table的数据结构"><a href="#table的数据结构" class="headerlink" title="table的数据结构"></a>table的数据结构</h3><pre class=" language-lang-c++"><code class="language-lang-c++">/** Data structure for a database table.  Most fields will be
-initialized to 0, NULL or FALSE in dict_mem_table_create(). */
-struct dict_table_t {
-
-    /** Get reference count.
-    @return current value of n_ref_count */
-    inline ulint get_ref_count() const;
-
-    /** Acquire the table handle. */
-    inline void acquire();
-
-    /** Release the table handle. */
-    inline void release();
-
-    /** Id of the table. */
-    table_id_t                id;
-
-    /** Memory heap. If you allocate from this heap after the table has
-    been created then be sure to account the allocation into
-    dict_sys->size. When closing the table we do something like
-    dict_sys->size -= mem_heap_get_size(table->heap) and if that is going
-    to become negative then we would assert. Something like this should do:
-    old_size = mem_heap_get_size()
-    mem_heap_alloc()
-    new_size = mem_heap_get_size()
-    dict_sys->size += new_size - old_size. */
-    mem_heap_t*                heap;
-
-    /** Table name. */
-    table_name_t                name;
-
-    /** NULL or the directory path where a TEMPORARY table that was
-    explicitly created by a user should be placed if innodb_file_per_table
-    is defined in my.cnf. In Unix this is usually "/tmp/...",
-    in Windows "temp\...". */
-    const char*                dir_path_of_temp_table;
-
-    /** NULL or the directory path specified by DATA DIRECTORY. */
-    char*                    data_dir_path;
-
-    /** NULL or the tablespace name that this table is assigned to,
-    specified by the TABLESPACE option.*/
-    id_name_t                tablespace;
-
-    /** Space where the clustered index of the table is placed. */
-    uint32_t                space;
-
-    /** Stores information about:
-    1 row format (redundant or compact),
-    2 compressed page size (zip shift size),
-    3 whether using atomic blobs,
-    4 whether the table has been created with the option DATA DIRECTORY.
-    Use DICT_TF_GET_COMPACT(), DICT_TF_GET_ZIP_SSIZE(),
-    DICT_TF_HAS_ATOMIC_BLOBS() and DICT_TF_HAS_DATA_DIR() to parse this
-    flag. */
-    unsigned                flags:DICT_TF_BITS;
-
-    /** Stores information about:
-    1 whether the table has been created using CREATE TEMPORARY TABLE,
-    2 whether the table has an internally defined DOC ID column,
-    3 whether the table has a FTS index,
-    4 whether DOC ID column need to be added to the FTS index,
-    5 whether the table is being created its own tablespace,
-    6 whether the table has been DISCARDed,
-    7 whether the aux FTS tables names are in hex.
-    8 whether the table is instinc table.
-    9 whether the table has encryption setting.
-    Use DICT_TF2_FLAG_IS_SET() to parse this flag. */
-    unsigned                flags2:DICT_TF2_BITS;
-
-    /** TRUE if this is in a single-table tablespace and the .ibd file is
-    missing. Then we must return in ha_innodb.cc an error if the user
-    tries to query such an orphaned table. */
-    unsigned                ibd_file_missing:1;
-
-    /** TRUE if the table object has been added to the dictionary cache. */
-    unsigned                cached:1;
-
-    /** TRUE if the table is to be dropped, but not yet actually dropped
-    (could in the background drop list). It is turned on at the beginning
-    of row_drop_table_for_mysql() and turned off just before we start to
-    update system tables for the drop. It is protected by
-    dict_operation_lock. */
-    unsigned                to_be_dropped:1;
-
-    /** Number of non-virtual columns defined so far. */
-    unsigned                n_def:10;
-
-    /** Number of non-virtual columns. */
-    unsigned                n_cols:10;
-
-    /** Number of total columns (inlcude virtual and non-virtual) */
-    unsigned                n_t_cols:10;
-
-    /** Number of total columns defined so far. */
-    unsigned                                n_t_def:10;
-
-    /** Number of virtual columns defined so far. */
-    unsigned                                n_v_def:10;
-
-    /** Number of virtual columns. */
-    unsigned                                n_v_cols:10;
+<p><img src="v2-50b50d5c6b799c3d84d8bcf7942b0086_720w.jpg" srcset="/img/loading.gif" alt="InnoDB逻辑存储结构"></p>
+<h3 id="table的数据结构"><a href="#table的数据结构" class="headerlink" title="table的数据结构"></a>table的数据结构</h3><pre><code class="hljs c++"><span class="hljs-comment">/** Data structure for a database table.  Most fields will be</span>
+<span class="hljs-comment">initialized to 0, NULL or FALSE in dict_mem_table_create(). */</span>
+<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">dict_table_t</span> {</span>
+
+	<span class="hljs-comment">/** Get reference count.</span>
+<span class="hljs-comment">	@return current value of n_ref_count */</span>
+	<span class="hljs-function"><span class="hljs-keyword">inline</span> ulint <span class="hljs-title">get_ref_count</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
+
+	<span class="hljs-comment">/** Acquire the table handle. */</span>
+	<span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-title">acquire</span><span class="hljs-params">()</span></span>;
+
+	<span class="hljs-comment">/** Release the table handle. */</span>
+	<span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-title">release</span><span class="hljs-params">()</span></span>;
+
+	<span class="hljs-comment">/** Id of the table. */</span>
+	<span class="hljs-keyword">table_id_t</span>				id;
+
+	<span class="hljs-comment">/** Memory heap. If you allocate from this heap after the table has</span>
+<span class="hljs-comment">	been created then be sure to account the allocation into</span>
+<span class="hljs-comment">	dict_sys-&gt;size. When closing the table we do something like</span>
+<span class="hljs-comment">	dict_sys-&gt;size -= mem_heap_get_size(table-&gt;heap) and if that is going</span>
+<span class="hljs-comment">	to become negative then we would assert. Something like this should do:</span>
+<span class="hljs-comment">	old_size = mem_heap_get_size()</span>
+<span class="hljs-comment">	mem_heap_alloc()</span>
+<span class="hljs-comment">	new_size = mem_heap_get_size()</span>
+<span class="hljs-comment">	dict_sys-&gt;size += new_size - old_size. */</span>
+	<span class="hljs-keyword">mem_heap_t</span>*				heap;
+
+	<span class="hljs-comment">/** Table name. */</span>
+	<span class="hljs-keyword">table_name_t</span>				name;
+
+	<span class="hljs-comment">/** NULL or the directory path where a TEMPORARY table that was</span>
+<span class="hljs-comment">	explicitly created by a user should be placed if innodb_file_per_table</span>
+<span class="hljs-comment">	is defined in my.cnf. In Unix this is usually "/tmp/...",</span>
+<span class="hljs-comment">	in Windows "temp\...". */</span>
+	<span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span>*				dir_path_of_temp_table;
+
+	<span class="hljs-comment">/** NULL or the directory path specified by DATA DIRECTORY. */</span>
+	<span class="hljs-keyword">char</span>*					data_dir_path;
+
+	<span class="hljs-comment">/** NULL or the tablespace name that this table is assigned to,</span>
+<span class="hljs-comment">	specified by the TABLESPACE option.*/</span>
+	<span class="hljs-keyword">id_name_t</span>				tablespace;
+
+	<span class="hljs-comment">/** Space where the clustered index of the table is placed. */</span>
+	<span class="hljs-keyword">uint32_t</span>				space;
+
+	<span class="hljs-comment">/** Stores information about:</span>
+<span class="hljs-comment">	1 row format (redundant or compact),</span>
+<span class="hljs-comment">	2 compressed page size (zip shift size),</span>
+<span class="hljs-comment">	3 whether using atomic blobs,</span>
+<span class="hljs-comment">	4 whether the table has been created with the option DATA DIRECTORY.</span>
+<span class="hljs-comment">	Use DICT_TF_GET_COMPACT(), DICT_TF_GET_ZIP_SSIZE(),</span>
+<span class="hljs-comment">	DICT_TF_HAS_ATOMIC_BLOBS() and DICT_TF_HAS_DATA_DIR() to parse this</span>
+<span class="hljs-comment">	flag. */</span>
+	<span class="hljs-keyword">unsigned</span>				flags:DICT_TF_BITS;
+
+	<span class="hljs-comment">/** Stores information about:</span>
+<span class="hljs-comment">	1 whether the table has been created using CREATE TEMPORARY TABLE,</span>
+<span class="hljs-comment">	2 whether the table has an internally defined DOC ID column,</span>
+<span class="hljs-comment">	3 whether the table has a FTS index,</span>
+<span class="hljs-comment">	4 whether DOC ID column need to be added to the FTS index,</span>
+<span class="hljs-comment">	5 whether the table is being created its own tablespace,</span>
+<span class="hljs-comment">	6 whether the table has been DISCARDed,</span>
+<span class="hljs-comment">	7 whether the aux FTS tables names are in hex.</span>
+<span class="hljs-comment">	8 whether the table is instinc table.</span>
+<span class="hljs-comment">	9 whether the table has encryption setting.</span>
+<span class="hljs-comment">	Use DICT_TF2_FLAG_IS_SET() to parse this flag. */</span>
+	<span class="hljs-keyword">unsigned</span>				flags2:DICT_TF2_BITS;
+
+	<span class="hljs-comment">/** TRUE if this is in a single-table tablespace and the .ibd file is</span>
+<span class="hljs-comment">	missing. Then we must return in ha_innodb.cc an error if the user</span>
+<span class="hljs-comment">	tries to query such an orphaned table. */</span>
+	<span class="hljs-keyword">unsigned</span>				ibd_file_missing:<span class="hljs-number">1</span>;
+
+	<span class="hljs-comment">/** TRUE if the table object has been added to the dictionary cache. */</span>
+	<span class="hljs-keyword">unsigned</span>				cached:<span class="hljs-number">1</span>;
+
+	<span class="hljs-comment">/** TRUE if the table is to be dropped, but not yet actually dropped</span>
+<span class="hljs-comment">	(could in the background drop list). It is turned on at the beginning</span>
+<span class="hljs-comment">	of row_drop_table_for_mysql() and turned off just before we start to</span>
+<span class="hljs-comment">	update system tables for the drop. It is protected by</span>
+<span class="hljs-comment">	dict_operation_lock. */</span>
+	<span class="hljs-keyword">unsigned</span>				to_be_dropped:<span class="hljs-number">1</span>;
+
+	<span class="hljs-comment">/** Number of non-virtual columns defined so far. */</span>
+	<span class="hljs-keyword">unsigned</span>				n_def:<span class="hljs-number">10</span>;
+
+	<span class="hljs-comment">/** Number of non-virtual columns. */</span>
+	<span class="hljs-keyword">unsigned</span>				n_cols:<span class="hljs-number">10</span>;
+
+	<span class="hljs-comment">/** Number of total columns (inlcude virtual and non-virtual) */</span>
+	<span class="hljs-keyword">unsigned</span>				n_t_cols:<span class="hljs-number">10</span>;
+
+	<span class="hljs-comment">/** Number of total columns defined so far. */</span>
+	<span class="hljs-keyword">unsigned</span>                                n_t_def:<span class="hljs-number">10</span>;
+
+	<span class="hljs-comment">/** Number of virtual columns defined so far. */</span>
+	<span class="hljs-keyword">unsigned</span>                                n_v_def:<span class="hljs-number">10</span>;
+
+	<span class="hljs-comment">/** Number of virtual columns. */</span>
+	<span class="hljs-keyword">unsigned</span>                                n_v_cols:<span class="hljs-number">10</span>;
 
-    /** TRUE if it's not an InnoDB system table or a table that has no FK
-    relationships. */
-    unsigned                can_be_evicted:1;
+	<span class="hljs-comment">/** TRUE if it's not an InnoDB system table or a table that has no FK</span>
+<span class="hljs-comment">	relationships. */</span>
+	<span class="hljs-keyword">unsigned</span>				can_be_evicted:<span class="hljs-number">1</span>;
 
-    /** TRUE if table is corrupted. */
-    unsigned                corrupted:1;
-
-    /** TRUE if some indexes should be dropped after ONLINE_INDEX_ABORTED
-    or ONLINE_INDEX_ABORTED_DROPPED. */
-    unsigned                drop_aborted:1;
-
-    /** Array of column descriptions. */
-    dict_col_t*                cols;
-
-    /** Array of virtual column descriptions. */
-    dict_v_col_t*                v_cols;
-
-    /** List of stored column descriptions. It is used only for foreign key
-    check during create table and copy alter operations.
-    During copy alter, s_cols list is filled during create table operation
-    and need to preserve till rename table operation. That is the
-    reason s_cols is a part of dict_table_t */
-    dict_s_col_list*            s_cols;
-
-    /** Column names packed in a character string
-    "name1\0name2\0...nameN\0". Until the string contains n_cols, it will
-    be allocated from a temporary heap. The final string will be allocated
-    from table->heap. */
-    const char*                col_names;
-
-    /** Virtual column names */
-    const char*                v_col_names;
-
-#ifndef UNIV_HOTBACKUP
-    /** Hash chain node. */
-    hash_node_t                name_hash;
-
-    /** Hash chain node. */
-    hash_node_t                id_hash;
-
-    /** The FTS_DOC_ID_INDEX, or NULL if no fulltext indexes exist */
-    dict_index_t*                fts_doc_id_index;
-
-    /** List of indexes of the table. */
-    UT_LIST_BASE_NODE_T(dict_index_t)    indexes;
-
-    /** List of foreign key constraints in the table. These refer to
-    columns in other tables. */
-    UT_LIST_BASE_NODE_T(dict_foreign_t)    foreign_list;
-
-    /** List of foreign key constraints which refer to this table. */
-    UT_LIST_BASE_NODE_T(dict_foreign_t)    referenced_list;
-
-    /** Node of the LRU list of tables. */
-    UT_LIST_NODE_T(dict_table_t)        table_LRU;
-
-    /** Maximum recursive level we support when loading tables chained
-    together with FK constraints. If exceeds this level, we will stop
-    loading child table into memory along with its parent table. */
-    unsigned                fk_max_recusive_level:8;
-
-    /** Count of how many foreign key check operations are currently being
-    performed on the table. We cannot drop the table while there are
-    foreign key checks running on it. */
-    ulint                    n_foreign_key_checks_running;
-
-    /** Transactions whose view low limit is greater than this number are
-    not allowed to store to the MySQL query cache or retrieve from it.
-    When a trx with undo logs commits, it sets this to the value of the
-    current time. */
-    trx_id_t                query_cache_inv_id;
-
-    /** Transaction id that last touched the table definition. Either when
-    loading the definition or CREATE TABLE, or ALTER TABLE (prepare,
-    commit, and rollback phases). */
-    trx_id_t                def_trx_id;
-
-    /*!< set of foreign key constraints in the table; these refer to
-    columns in other tables */
-    dict_foreign_set            foreign_set;
-
-    /*!< set of foreign key constraints which refer to this table */
-    dict_foreign_set            referenced_set;
-
-#ifdef UNIV_DEBUG
-    /** This field is used to specify in simulations tables which are so
-    big that disk should be accessed. Disk access is simulated by putting
-    the thread to sleep for a while. NOTE that this flag is not stored to
-    the data dictionary on disk, and the database will forget about value
-    TRUE if it has to reload the table definition from disk. */
-    ibool                    does_not_fit_in_memory;
-#endif /* UNIV_DEBUG */
-
-    /** TRUE if the maximum length of a single row exceeds BIG_ROW_SIZE.
-    Initialized in dict_table_add_to_cache(). */
-    unsigned                big_rows:1;
-
-    /** Statistics for query optimization. @{ */
-
-    /** Creation state of 'stats_latch'. */
-    volatile os_once::state_t        stats_latch_created;
-
-    /** This latch protects:
-    dict_table_t::stat_initialized,
-    dict_table_t::stat_n_rows (*),
-    dict_table_t::stat_clustered_index_size,
-    dict_table_t::stat_sum_of_other_index_sizes,
-    dict_table_t::stat_modified_counter (*),
-    dict_table_t::indexes*::stat_n_diff_key_vals[],
-    dict_table_t::indexes*::stat_index_size,
-    dict_table_t::indexes*::stat_n_leaf_pages.
-    (*) Those are not always protected for
-    performance reasons. */
-    rw_lock_t*                stats_latch;
-
-    /** TRUE if statistics have been calculated the first time after
-    database startup or table creation. */
-    unsigned                stat_initialized:1;
-
-    /** Timestamp of last recalc of the stats. */
-    ib_time_t                stats_last_recalc;
-
-    /** The two bits below are set in the 'stat_persistent' member. They
-    have the following meaning:
-    1. _ON=0, _OFF=0, no explicit persistent stats setting for this table,
-    the value of the global srv_stats_persistent is used to determine
-    whether the table has persistent stats enabled or not
-    2. _ON=0, _OFF=1, persistent stats are explicitly disabled for this
-    table, regardless of the value of the global srv_stats_persistent
-    3. _ON=1, _OFF=0, persistent stats are explicitly enabled for this
-    table, regardless of the value of the global srv_stats_persistent
-    4. _ON=1, _OFF=1, not allowed, we assert if this ever happens. */
-    #define DICT_STATS_PERSISTENT_ON    (1 << 1)
-    #define DICT_STATS_PERSISTENT_OFF    (1 << 2)
-
-    /** Indicates whether the table uses persistent stats or not. See
-    DICT_STATS_PERSISTENT_ON and DICT_STATS_PERSISTENT_OFF. */
-    ib_uint32_t                stat_persistent;
-
-    /** The two bits below are set in the 'stats_auto_recalc' member. They
-    have the following meaning:
-    1. _ON=0, _OFF=0, no explicit auto recalc setting for this table, the
-    value of the global srv_stats_persistent_auto_recalc is used to
-    determine whether the table has auto recalc enabled or not
-    2. _ON=0, _OFF=1, auto recalc is explicitly disabled for this table,
-    regardless of the value of the global srv_stats_persistent_auto_recalc
-    3. _ON=1, _OFF=0, auto recalc is explicitly enabled for this table,
-    regardless of the value of the global srv_stats_persistent_auto_recalc
-    4. _ON=1, _OFF=1, not allowed, we assert if this ever happens. */
-    #define DICT_STATS_AUTO_RECALC_ON    (1 << 1)
-    #define DICT_STATS_AUTO_RECALC_OFF    (1 << 2)
-
-    /** Indicates whether the table uses automatic recalc for persistent
-    stats or not. See DICT_STATS_AUTO_RECALC_ON and
-    DICT_STATS_AUTO_RECALC_OFF. */
-    ib_uint32_t                stats_auto_recalc;
-
-    /** The number of pages to sample for this table during persistent
-    stats estimation. If this is 0, then the value of the global
-    srv_stats_persistent_sample_pages will be used instead. */
-    ulint                    stats_sample_pages;
-
-    /** Approximate number of rows in the table. We periodically calculate
-    new estimates. */
-    ib_uint64_t                stat_n_rows;
-
-    /** Approximate clustered index size in database pages. */
-    ulint                    stat_clustered_index_size;
-
-    /** Approximate size of other indexes in database pages. */
-    ulint                    stat_sum_of_other_index_sizes;
-
-    /** How many rows are modified since last stats recalc. When a row is
-    inserted, updated, or deleted, we add 1 to this number; we calculate
-    new estimates for the table and the indexes if the table has changed
-    too much, see row_update_statistics_if_needed(). The counter is reset
-    to zero at statistics calculation. This counter is not protected by
-    any latch, because this is only used for heuristics. */
-    ib_uint64_t                stat_modified_counter;
-
-    /** Background stats thread is not working on this table. */
-    #define BG_STAT_NONE            0
-
-    /** Set in 'stats_bg_flag' when the background stats code is working
-    on this table. The DROP TABLE code waits for this to be cleared before
-    proceeding. */
-    #define BG_STAT_IN_PROGRESS        (1 << 0)
-
-    /** Set in 'stats_bg_flag' when DROP TABLE starts waiting on
-    BG_STAT_IN_PROGRESS to be cleared. The background stats thread will
-    detect this and will eventually quit sooner. */
-    #define BG_STAT_SHOULD_QUIT        (1 << 1)
-
-    /** The state of the background stats thread wrt this table.
-    See BG_STAT_NONE, BG_STAT_IN_PROGRESS and BG_STAT_SHOULD_QUIT.
-    Writes are covered by dict_sys->mutex. Dirty reads are possible. */
-    byte                    stats_bg_flag;
-
-    /* @} */
-
-    /** AUTOINC related members. @{ */
-
-    /* The actual collection of tables locked during AUTOINC read/write is
-    kept in trx_t. In order to quickly determine whether a transaction has
-    locked the AUTOINC lock we keep a pointer to the transaction here in
-    the 'autoinc_trx' member. This is to avoid acquiring the
-    lock_sys_t::mutex and scanning the vector in trx_t.
-    When an AUTOINC lock has to wait, the corresponding lock instance is
-    created on the trx lock heap rather than use the pre-allocated instance
-    in autoinc_lock below. */
-
-    /** A buffer for an AUTOINC lock for this table. We allocate the
-    memory here so that individual transactions can get it and release it
-    without a need to allocate space from the lock heap of the trx:
-    otherwise the lock heap would grow rapidly if we do a large insert
-    from a select. */
-    lock_t*                    autoinc_lock;
-
-    /** Creation state of autoinc_mutex member */
-    volatile os_once::state_t        autoinc_mutex_created;
-
-    /** Mutex protecting the autoincrement counter. */
-    ib_mutex_t*                autoinc_mutex;
-
-    /** Autoinc counter value to give to the next inserted row. */
-    ib_uint64_t                autoinc;
-
-    /** This counter is used to track the number of granted and pending
-    autoinc locks on this table. This value is set after acquiring the
-    lock_sys_t::mutex but we peek the contents to determine whether other
-    transactions have acquired the AUTOINC lock or not. Of course only one
-    transaction can be granted the lock but there can be multiple
-    waiters. */
-    ulong                    n_waiting_or_granted_auto_inc_locks;
-
-    /** The transaction that currently holds the the AUTOINC lock on this
-    table. Protected by lock_sys->mutex. */
-    const trx_t*                autoinc_trx;
-
-    /* @} */
-
-    /** Count of how many handles are opened to this table from memcached.
-    DDL on the table is NOT allowed until this count goes to zero. If
-    it is -1, then there's DDL on the table, DML from memcached will be
-    blocked. */
-    lint                    memcached_sync_count;
-
-    /** FTS specific state variables. */
-    fts_t*                    fts;
-
-    /** Quiescing states, protected by the dict_index_t::lock. ie. we can
-    only change the state if we acquire all the latches (dict_index_t::lock)
-    in X mode of this table's indexes. */
-    ib_quiesce_t                quiesce;
-
-    /** Count of the number of record locks on this table. We use this to
-    determine whether we can evict the table from the dictionary cache.
-    It is protected by lock_sys->mutex. */
-    ulint                    n_rec_locks;
-
-#ifndef UNIV_DEBUG
-private:
-#endif
-    /** Count of how many handles are opened to this table. Dropping of the
-    table is NOT allowed until this count gets to zero. MySQL does NOT
-    itself check the number of open handles at DROP. */
-    ulint                    n_ref_count;
-
-public:
-    /** List of locks on the table. Protected by lock_sys->mutex. */
-    table_lock_list_t            locks;
-
-    /** Timestamp of the last modification of this table. */
-    time_t                    update_time;
-
-    /** row-id counter for use by intrinsic table for getting row-id.
-    Given intrinsic table semantics, row-id can be locally maintained
-    instead of getting it from central generator which involves mutex
-    locking. */
-    ib_uint64_t                sess_row_id;
-
-    /** trx_id counter for use by intrinsic table for getting trx-id.
-    Intrinsic table are not shared so don't need a central trx-id
-    but just need a increased counter to track consistent view while
-    proceeding SELECT as part of UPDATE. */
-    ib_uint64_t                sess_trx_id;
-#endif /* !UNIV_HOTBACKUP */
-
-#ifdef UNIV_DEBUG
-    /** Value of 'magic_n'. */
-    #define DICT_TABLE_MAGIC_N        76333786
-
-    /** Magic number. */
-    ulint                    magic_n;
-#endif /* UNIV_DEBUG */
-    /** mysql_row_templ_t for base columns used for compute the virtual
-    columns */
-    dict_vcol_templ_t*            vc_templ;
-
-    /** encryption key, it's only for export/import */
-    byte*                    encryption_key;
-
-    /** encryption iv, it's only for export/import */
-    byte*                    encryption_iv;
-};
-</code></pre>
-<h3 id="index的数据结构"><a href="#index的数据结构" class="headerlink" title="index的数据结构"></a>index的数据结构</h3><pre class=" language-lang-c++"><code class="language-lang-c++">/** Data structure for an index.  Most fields will be
-initialized to 0, NULL or FALSE in dict_mem_index_create(). */
-struct dict_index_t{
-    index_id_t    id;    /*!< id of the index */
-    mem_heap_t*    heap;    /*!< memory heap */
-    id_name_t    name;    /*!< index name */
-    const char*    table_name;/*!< table name */
-    dict_table_t*    table;    /*!< back pointer to table */
-#ifndef UNIV_HOTBACKUP
-    unsigned    space:32;
-                /*!< space where the index tree is placed */
-    unsigned    page:32;/*!< index tree root page number */
-    unsigned    merge_threshold:6;
-                /*!< In the pessimistic delete, if the page
-                data size drops below this limit in percent,
-                merging it to a neighbor is tried */
-# define DICT_INDEX_MERGE_THRESHOLD_DEFAULT 50
-#endif /* !UNIV_HOTBACKUP */
-    unsigned    type:DICT_IT_BITS;
-                /*!< index type (DICT_CLUSTERED, DICT_UNIQUE,
-                DICT_IBUF, DICT_CORRUPT) */
-#define MAX_KEY_LENGTH_BITS 12
-    unsigned    trx_id_offset:MAX_KEY_LENGTH_BITS;
-                /*!< position of the trx id column
-                in a clustered index record, if the fields
-                before it are known to be of a fixed size,
-                0 otherwise */
-#if (1<<MAX_KEY_LENGTH_BITS) < MAX_KEY_LENGTH
-# error (1<<MAX_KEY_LENGTH_BITS) < MAX_KEY_LENGTH
-#endif
-    unsigned    n_user_defined_cols:10;
-                /*!< number of columns the user defined to
-                be in the index: in the internal
-                representation we add more columns */
-    unsigned    allow_duplicates:1;
-                /*!< if true, allow duplicate values
-                even if index is created with unique
-                constraint */
-    unsigned    nulls_equal:1;
-                /*!< if true, SQL NULL == SQL NULL */
-    unsigned    disable_ahi:1;
-                /*!< in true, then disable AHI.
-                Currently limited to intrinsic
-                temporary table as index id is not
-                unqiue for such table which is one of the
-                validation criterion for ahi. */
-    unsigned    n_uniq:10;/*!< number of fields from the beginning
-                which are enough to determine an index
-                entry uniquely */
-    unsigned    n_def:10;/*!< number of fields defined so far */
-    unsigned    n_fields:10;/*!< number of fields in the index */
-    unsigned    n_nullable:10;/*!< number of nullable fields */
-    unsigned    cached:1;/*!< TRUE if the index object is in the
-                dictionary cache */
-    unsigned    to_be_dropped:1;
-                /*!< TRUE if the index is to be dropped;
-                protected by dict_operation_lock */
-    unsigned    online_status:2;
-                /*!< enum online_index_status.
-                Transitions from ONLINE_INDEX_COMPLETE (to
-                ONLINE_INDEX_CREATION) are protected
-                by dict_operation_lock and
-                dict_sys->mutex. Other changes are
-                protected by index->lock. */
-    unsigned    uncommitted:1;
-                /*!< a flag that is set for secondary indexes
-                that have not been committed to the
-                data dictionary yet */
-
-#ifdef UNIV_DEBUG
-    uint32_t    magic_n;/*!< magic number */
-/** Value of dict_index_t::magic_n */
-# define DICT_INDEX_MAGIC_N    76789786
-#endif
-    dict_field_t*    fields;    /*!< array of field descriptions */
-    st_mysql_ftparser*
-            parser;    /*!< fulltext parser plugin */
-    bool        is_ngram;
-                /*!< true if it's ngram parser */
-    bool        has_new_v_col;
-                /*!< whether it has a newly added virtual
-                column in ALTER */
-#ifndef UNIV_HOTBACKUP
-    UT_LIST_NODE_T(dict_index_t)
-            indexes;/*!< list of indexes of the table */
-    btr_search_t*    search_info;
-                /*!< info used in optimistic searches */
-    row_log_t*    online_log;
-                /*!< the log of modifications
-                during online index creation;
-                valid when online_status is
-                ONLINE_INDEX_CREATION */
-    /*----------------------*/
-    /** Statistics for query optimization */
-    /* @{ */
-    ib_uint64_t*    stat_n_diff_key_vals;
-                /*!< approximate number of different
-                key values for this index, for each
-                n-column prefix where 1 <= n <=
-                dict_get_n_unique(index) (the array is
-                indexed from 0 to n_uniq-1); we
-                periodically calculate new
-                estimates */
-    ib_uint64_t*    stat_n_sample_sizes;
-                /*!< number of pages that were sampled
-                to calculate each of stat_n_diff_key_vals[],
-                e.g. stat_n_sample_sizes[3] pages were sampled
-                to get the number stat_n_diff_key_vals[3]. */
-    ib_uint64_t*    stat_n_non_null_key_vals;
-                /* approximate number of non-null key values
-                for this index, for each column where
-                1 <= n <= dict_get_n_unique(index) (the array
-                is indexed from 0 to n_uniq-1); This
-                is used when innodb_stats_method is
-                "nulls_ignored". */
-    ulint        stat_index_size;
-                /*!< approximate index size in
-                database pages */
-    ulint        stat_n_leaf_pages;
-                /*!< approximate number of leaf pages in the
-                index tree */
-    /* @} */
-    last_ops_cur_t*    last_ins_cur;
-                /*!< cache the last insert position.
-                Currently limited to auto-generated
-                clustered index on intrinsic table only. */
-    last_ops_cur_t*    last_sel_cur;
-                /*!< cache the last selected position
-                Currently limited to intrinsic table only. */
-    rec_cache_t    rec_cache;
-                /*!< cache the field that needs to be
-                re-computed on each insert.
-                Limited to intrinsic table as this is common
-                share and can't be used without protection
-                if table is accessible to multiple-threads. */
-    rtr_ssn_t    rtr_ssn;/*!< Node sequence number for RTree */
-    rtr_info_track_t*
-            rtr_track;/*!< tracking all R-Tree search cursors */
-    trx_id_t    trx_id; /*!< id of the transaction that created this
-                index, or 0 if the index existed
-                when InnoDB was started up */
-    zip_pad_info_t    zip_pad;/*!< Information about state of
-                compression failures and successes */
-    rw_lock_t    lock;    /*!< read-write lock protecting the
-                upper levels of the index tree */
-
-    /** Determine if the index has been committed to the
-    data dictionary.
-    @return whether the index definition has been committed */
-    bool is_committed() const
-    {
-        ut_ad(!uncommitted || !(type & DICT_CLUSTERED));
-        return(UNIV_LIKELY(!uncommitted));
-    }
-
-    /** Flag an index committed or uncommitted.
-    @param[in]    committed    whether the index is committed */
-    void set_committed(bool committed)
-    {
-        ut_ad(!to_be_dropped);
-        ut_ad(committed || !(type & DICT_CLUSTERED));
-        uncommitted = !committed;
-    }
-#endif /* !UNIV_HOTBACKUP */
-};
-</code></pre>
-<h3 id="column的数据结构"><a href="#column的数据结构" class="headerlink" title="column的数据结构"></a>column的数据结构</h3><pre class=" language-lang-c++"><code class="language-lang-c++">/** Data structure for a column in a table */
-struct dict_col_t{
-    /*----------------------*/
-    /** The following are copied from dtype_t,
-    so that all bit-fields can be packed tightly. */
-    /* @{ */
-    unsigned    prtype:32;    /*!< precise type; MySQL data
-                    type, charset code, flags to
-                    indicate nullability,
-                    signedness, whether this is a
-                    binary string, whether this is
-                    a true VARCHAR where MySQL
-                    uses 2 bytes to store the length */
-    unsigned    mtype:8;    /*!< main data type */
-
-    /* the remaining fields do not affect alphabetical ordering: */
-
-    unsigned    len:16;        /*!< length; for MySQL data this
-                    is field->pack_length(),
-                    except that for a >= 5.0.3
-                    type true VARCHAR this is the
-                    maximum byte length of the
-                    string data (in addition to
-                    the string, MySQL uses 1 or 2
-                    bytes to store the string length) */
-
-    unsigned    mbminmaxlen:5;    /*!< minimum and maximum length of a
-                    character, in bytes;
-                    DATA_MBMINMAXLEN(mbminlen,mbmaxlen);
-                    mbminlen=DATA_MBMINLEN(mbminmaxlen);
-                    mbmaxlen=DATA_MBMINLEN(mbminmaxlen) */
-    /*----------------------*/
-    /* End of definitions copied from dtype_t */
-    /* @} */
-
-    unsigned    ind:10;        /*!< table column position
-                    (starting from 0) */
-    unsigned    ord_part:1;    /*!< nonzero if this column
-                    appears in the ordering fields
-                    of an index */
-    unsigned    max_prefix:12;    /*!< maximum index prefix length on
-                    this column. Our current max limit is
-                    3072 for Barracuda table */
-};
-</code></pre>
+	<span class="hljs-comment">/** TRUE if table is corrupted. */</span>
+	<span class="hljs-keyword">unsigned</span>				corrupted:<span class="hljs-number">1</span>;
+
+	<span class="hljs-comment">/** TRUE if some indexes should be dropped after ONLINE_INDEX_ABORTED</span>
+<span class="hljs-comment">	or ONLINE_INDEX_ABORTED_DROPPED. */</span>
+	<span class="hljs-keyword">unsigned</span>				drop_aborted:<span class="hljs-number">1</span>;
+
+	<span class="hljs-comment">/** Array of column descriptions. */</span>
+	<span class="hljs-keyword">dict_col_t</span>*				cols;
+
+	<span class="hljs-comment">/** Array of virtual column descriptions. */</span>
+	<span class="hljs-keyword">dict_v_col_t</span>*				v_cols;
+
+	<span class="hljs-comment">/** List of stored column descriptions. It is used only for foreign key</span>
+<span class="hljs-comment">	check during create table and copy alter operations.</span>
+<span class="hljs-comment">	During copy alter, s_cols list is filled during create table operation</span>
+<span class="hljs-comment">	and need to preserve till rename table operation. That is the</span>
+<span class="hljs-comment">	reason s_cols is a part of dict_table_t */</span>
+	dict_s_col_list*			s_cols;
+
+	<span class="hljs-comment">/** Column names packed in a character string</span>
+<span class="hljs-comment">	"name1\0name2\0...nameN\0". Until the string contains n_cols, it will</span>
+<span class="hljs-comment">	be allocated from a temporary heap. The final string will be allocated</span>
+<span class="hljs-comment">	from table-&gt;heap. */</span>
+	<span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span>*				col_names;
+
+	<span class="hljs-comment">/** Virtual column names */</span>
+	<span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span>*				v_col_names;
+
+<span class="hljs-meta">#<span class="hljs-meta-keyword">ifndef</span> UNIV_HOTBACKUP</span>
+	<span class="hljs-comment">/** Hash chain node. */</span>
+	<span class="hljs-keyword">hash_node_t</span>				name_hash;
+
+	<span class="hljs-comment">/** Hash chain node. */</span>
+	<span class="hljs-keyword">hash_node_t</span>				id_hash;
+
+	<span class="hljs-comment">/** The FTS_DOC_ID_INDEX, or NULL if no fulltext indexes exist */</span>
+	<span class="hljs-keyword">dict_index_t</span>*				fts_doc_id_index;
+
+	<span class="hljs-comment">/** List of indexes of the table. */</span>
+	UT_LIST_BASE_NODE_T(<span class="hljs-keyword">dict_index_t</span>)	indexes;
+
+	<span class="hljs-comment">/** List of foreign key constraints in the table. These refer to</span>
+<span class="hljs-comment">	columns in other tables. */</span>
+	UT_LIST_BASE_NODE_T(<span class="hljs-keyword">dict_foreign_t</span>)	foreign_list;
+
+	<span class="hljs-comment">/** List of foreign key constraints which refer to this table. */</span>
+	UT_LIST_BASE_NODE_T(<span class="hljs-keyword">dict_foreign_t</span>)	referenced_list;
+
+	<span class="hljs-comment">/** Node of the LRU list of tables. */</span>
+	UT_LIST_NODE_T(<span class="hljs-keyword">dict_table_t</span>)		table_LRU;
+
+	<span class="hljs-comment">/** Maximum recursive level we support when loading tables chained</span>
+<span class="hljs-comment">	together with FK constraints. If exceeds this level, we will stop</span>
+<span class="hljs-comment">	loading child table into memory along with its parent table. */</span>
+	<span class="hljs-keyword">unsigned</span>				fk_max_recusive_level:<span class="hljs-number">8</span>;
+
+	<span class="hljs-comment">/** Count of how many foreign key check operations are currently being</span>
+<span class="hljs-comment">	performed on the table. We cannot drop the table while there are</span>
+<span class="hljs-comment">	foreign key checks running on it. */</span>
+	ulint					n_foreign_key_checks_running;
+
+	<span class="hljs-comment">/** Transactions whose view low limit is greater than this number are</span>
+<span class="hljs-comment">	not allowed to store to the MySQL query cache or retrieve from it.</span>
+<span class="hljs-comment">	When a trx with undo logs commits, it sets this to the value of the</span>
+<span class="hljs-comment">	current time. */</span>
+	<span class="hljs-keyword">trx_id_t</span>				query_cache_inv_id;
+
+	<span class="hljs-comment">/** Transaction id that last touched the table definition. Either when</span>
+<span class="hljs-comment">	loading the definition or CREATE TABLE, or ALTER TABLE (prepare,</span>
+<span class="hljs-comment">	commit, and rollback phases). */</span>
+	<span class="hljs-keyword">trx_id_t</span>				def_trx_id;
+
+	<span class="hljs-comment">/*!&lt; set of foreign key constraints in the table; these refer to</span>
+<span class="hljs-comment">	columns in other tables */</span>
+	dict_foreign_set			foreign_set;
+
+	<span class="hljs-comment">/*!&lt; set of foreign key constraints which refer to this table */</span>
+	dict_foreign_set			referenced_set;
+
+<span class="hljs-meta">#<span class="hljs-meta-keyword">ifdef</span> UNIV_DEBUG</span>
+	<span class="hljs-comment">/** This field is used to specify in simulations tables which are so</span>
+<span class="hljs-comment">	big that disk should be accessed. Disk access is simulated by putting</span>
+<span class="hljs-comment">	the thread to sleep for a while. NOTE that this flag is not stored to</span>
+<span class="hljs-comment">	the data dictionary on disk, and the database will forget about value</span>
+<span class="hljs-comment">	TRUE if it has to reload the table definition from disk. */</span>
+	ibool					does_not_fit_in_memory;
+<span class="hljs-meta">#<span class="hljs-meta-keyword">endif</span> <span class="hljs-comment">/* UNIV_DEBUG */</span></span>
+
+	<span class="hljs-comment">/** TRUE if the maximum length of a single row exceeds BIG_ROW_SIZE.</span>
+<span class="hljs-comment">	Initialized in dict_table_add_to_cache(). */</span>
+	<span class="hljs-keyword">unsigned</span>				big_rows:<span class="hljs-number">1</span>;
+
+	<span class="hljs-comment">/** Statistics for query optimization. @{ */</span>
+
+	<span class="hljs-comment">/** Creation state of 'stats_latch'. */</span>
+	<span class="hljs-keyword">volatile</span> os_once::<span class="hljs-keyword">state_t</span>		stats_latch_created;
+
+	<span class="hljs-comment">/** This latch protects:</span>
+<span class="hljs-comment">	dict_table_t::stat_initialized,</span>
+<span class="hljs-comment">	dict_table_t::stat_n_rows (*),</span>
+<span class="hljs-comment">	dict_table_t::stat_clustered_index_size,</span>
+<span class="hljs-comment">	dict_table_t::stat_sum_of_other_index_sizes,</span>
+<span class="hljs-comment">	dict_table_t::stat_modified_counter (*),</span>
+<span class="hljs-comment">	dict_table_t::indexes*::stat_n_diff_key_vals[],</span>
+<span class="hljs-comment">	dict_table_t::indexes*::stat_index_size,</span>
+<span class="hljs-comment">	dict_table_t::indexes*::stat_n_leaf_pages.</span>
+<span class="hljs-comment">	(*) Those are not always protected for</span>
+<span class="hljs-comment">	performance reasons. */</span>
+	<span class="hljs-keyword">rw_lock_t</span>*				stats_latch;
+
+	<span class="hljs-comment">/** TRUE if statistics have been calculated the first time after</span>
+<span class="hljs-comment">	database startup or table creation. */</span>
+	<span class="hljs-keyword">unsigned</span>				stat_initialized:<span class="hljs-number">1</span>;
+
+	<span class="hljs-comment">/** Timestamp of last recalc of the stats. */</span>
+	<span class="hljs-keyword">ib_time_t</span>				stats_last_recalc;
+
+	<span class="hljs-comment">/** The two bits below are set in the 'stat_persistent' member. They</span>
+<span class="hljs-comment">	have the following meaning:</span>
+<span class="hljs-comment">	1. _ON=0, _OFF=0, no explicit persistent stats setting for this table,</span>
+<span class="hljs-comment">	the value of the global srv_stats_persistent is used to determine</span>
+<span class="hljs-comment">	whether the table has persistent stats enabled or not</span>
+<span class="hljs-comment">	2. _ON=0, _OFF=1, persistent stats are explicitly disabled for this</span>
+<span class="hljs-comment">	table, regardless of the value of the global srv_stats_persistent</span>
+<span class="hljs-comment">	3. _ON=1, _OFF=0, persistent stats are explicitly enabled for this</span>
+<span class="hljs-comment">	table, regardless of the value of the global srv_stats_persistent</span>
+<span class="hljs-comment">	4. _ON=1, _OFF=1, not allowed, we assert if this ever happens. */</span>
+	<span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> DICT_STATS_PERSISTENT_ON	(1 &lt;&lt; 1)</span>
+	<span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> DICT_STATS_PERSISTENT_OFF	(1 &lt;&lt; 2)</span>
+
+	<span class="hljs-comment">/** Indicates whether the table uses persistent stats or not. See</span>
+<span class="hljs-comment">	DICT_STATS_PERSISTENT_ON and DICT_STATS_PERSISTENT_OFF. */</span>
+	<span class="hljs-keyword">ib_uint32_t</span>				stat_persistent;
+
+	<span class="hljs-comment">/** The two bits below are set in the 'stats_auto_recalc' member. They</span>
+<span class="hljs-comment">	have the following meaning:</span>
+<span class="hljs-comment">	1. _ON=0, _OFF=0, no explicit auto recalc setting for this table, the</span>
+<span class="hljs-comment">	value of the global srv_stats_persistent_auto_recalc is used to</span>
+<span class="hljs-comment">	determine whether the table has auto recalc enabled or not</span>
+<span class="hljs-comment">	2. _ON=0, _OFF=1, auto recalc is explicitly disabled for this table,</span>
+<span class="hljs-comment">	regardless of the value of the global srv_stats_persistent_auto_recalc</span>
+<span class="hljs-comment">	3. _ON=1, _OFF=0, auto recalc is explicitly enabled for this table,</span>
+<span class="hljs-comment">	regardless of the value of the global srv_stats_persistent_auto_recalc</span>
+<span class="hljs-comment">	4. _ON=1, _OFF=1, not allowed, we assert if this ever happens. */</span>
+	<span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> DICT_STATS_AUTO_RECALC_ON	(1 &lt;&lt; 1)</span>
+	<span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> DICT_STATS_AUTO_RECALC_OFF	(1 &lt;&lt; 2)</span>
+
+	<span class="hljs-comment">/** Indicates whether the table uses automatic recalc for persistent</span>
+<span class="hljs-comment">	stats or not. See DICT_STATS_AUTO_RECALC_ON and</span>
+<span class="hljs-comment">	DICT_STATS_AUTO_RECALC_OFF. */</span>
+	<span class="hljs-keyword">ib_uint32_t</span>				stats_auto_recalc;
+
+	<span class="hljs-comment">/** The number of pages to sample for this table during persistent</span>
+<span class="hljs-comment">	stats estimation. If this is 0, then the value of the global</span>
+<span class="hljs-comment">	srv_stats_persistent_sample_pages will be used instead. */</span>
+	ulint					stats_sample_pages;
+
+	<span class="hljs-comment">/** Approximate number of rows in the table. We periodically calculate</span>
+<span class="hljs-comment">	new estimates. */</span>
+	<span class="hljs-keyword">ib_uint64_t</span>				stat_n_rows;
+
+	<span class="hljs-comment">/** Approximate clustered index size in database pages. */</span>
+	ulint					stat_clustered_index_size;
+
+	<span class="hljs-comment">/** Approximate size of other indexes in database pages. */</span>
+	ulint					stat_sum_of_other_index_sizes;
+
+	<span class="hljs-comment">/** How many rows are modified since last stats recalc. When a row is</span>
+<span class="hljs-comment">	inserted, updated, or deleted, we add 1 to this number; we calculate</span>
+<span class="hljs-comment">	new estimates for the table and the indexes if the table has changed</span>
+<span class="hljs-comment">	too much, see row_update_statistics_if_needed(). The counter is reset</span>
+<span class="hljs-comment">	to zero at statistics calculation. This counter is not protected by</span>
+<span class="hljs-comment">	any latch, because this is only used for heuristics. */</span>
+	<span class="hljs-keyword">ib_uint64_t</span>				stat_modified_counter;
+
+	<span class="hljs-comment">/** Background stats thread is not working on this table. */</span>
+	<span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> BG_STAT_NONE			0</span>
+
+	<span class="hljs-comment">/** Set in 'stats_bg_flag' when the background stats code is working</span>
+<span class="hljs-comment">	on this table. The DROP TABLE code waits for this to be cleared before</span>
+<span class="hljs-comment">	proceeding. */</span>
+	<span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> BG_STAT_IN_PROGRESS		(1 &lt;&lt; 0)</span>
+
+	<span class="hljs-comment">/** Set in 'stats_bg_flag' when DROP TABLE starts waiting on</span>
+<span class="hljs-comment">	BG_STAT_IN_PROGRESS to be cleared. The background stats thread will</span>
+<span class="hljs-comment">	detect this and will eventually quit sooner. */</span>
+	<span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> BG_STAT_SHOULD_QUIT		(1 &lt;&lt; 1)</span>
+
+	<span class="hljs-comment">/** The state of the background stats thread wrt this table.</span>
+<span class="hljs-comment">	See BG_STAT_NONE, BG_STAT_IN_PROGRESS and BG_STAT_SHOULD_QUIT.</span>
+<span class="hljs-comment">	Writes are covered by dict_sys-&gt;mutex. Dirty reads are possible. */</span>
+	<span class="hljs-keyword">byte</span>					stats_bg_flag;
+
+	<span class="hljs-comment">/* @} */</span>
+
+	<span class="hljs-comment">/** AUTOINC related members. @{ */</span>
+
+	<span class="hljs-comment">/* The actual collection of tables locked during AUTOINC read/write is</span>
+<span class="hljs-comment">	kept in trx_t. In order to quickly determine whether a transaction has</span>
+<span class="hljs-comment">	locked the AUTOINC lock we keep a pointer to the transaction here in</span>
+<span class="hljs-comment">	the 'autoinc_trx' member. This is to avoid acquiring the</span>
+<span class="hljs-comment">	lock_sys_t::mutex and scanning the vector in trx_t.</span>
+<span class="hljs-comment">	When an AUTOINC lock has to wait, the corresponding lock instance is</span>
+<span class="hljs-comment">	created on the trx lock heap rather than use the pre-allocated instance</span>
+<span class="hljs-comment">	in autoinc_lock below. */</span>
+
+	<span class="hljs-comment">/** A buffer for an AUTOINC lock for this table. We allocate the</span>
+<span class="hljs-comment">	memory here so that individual transactions can get it and release it</span>
+<span class="hljs-comment">	without a need to allocate space from the lock heap of the trx:</span>
+<span class="hljs-comment">	otherwise the lock heap would grow rapidly if we do a large insert</span>
+<span class="hljs-comment">	from a select. */</span>
+	<span class="hljs-keyword">lock_t</span>*					autoinc_lock;
+
+	<span class="hljs-comment">/** Creation state of autoinc_mutex member */</span>
+	<span class="hljs-keyword">volatile</span> os_once::<span class="hljs-keyword">state_t</span>		autoinc_mutex_created;
+
+	<span class="hljs-comment">/** Mutex protecting the autoincrement counter. */</span>
+	<span class="hljs-keyword">ib_mutex_t</span>*				autoinc_mutex;
+
+	<span class="hljs-comment">/** Autoinc counter value to give to the next inserted row. */</span>
+	<span class="hljs-keyword">ib_uint64_t</span>				autoinc;
+
+	<span class="hljs-comment">/** This counter is used to track the number of granted and pending</span>
+<span class="hljs-comment">	autoinc locks on this table. This value is set after acquiring the</span>
+<span class="hljs-comment">	lock_sys_t::mutex but we peek the contents to determine whether other</span>
+<span class="hljs-comment">	transactions have acquired the AUTOINC lock or not. Of course only one</span>
+<span class="hljs-comment">	transaction can be granted the lock but there can be multiple</span>
+<span class="hljs-comment">	waiters. */</span>
+	ulong					n_waiting_or_granted_auto_inc_locks;
+
+	<span class="hljs-comment">/** The transaction that currently holds the the AUTOINC lock on this</span>
+<span class="hljs-comment">	table. Protected by lock_sys-&gt;mutex. */</span>
+	<span class="hljs-keyword">const</span> <span class="hljs-keyword">trx_t</span>*				autoinc_trx;
+
+	<span class="hljs-comment">/* @} */</span>
+
+	<span class="hljs-comment">/** Count of how many handles are opened to this table from memcached.</span>
+<span class="hljs-comment">	DDL on the table is NOT allowed until this count goes to zero. If</span>
+<span class="hljs-comment">	it is -1, then there's DDL on the table, DML from memcached will be</span>
+<span class="hljs-comment">	blocked. */</span>
+	lint					memcached_sync_count;
+
+	<span class="hljs-comment">/** FTS specific state variables. */</span>
+	<span class="hljs-keyword">fts_t</span>*					fts;
+
+	<span class="hljs-comment">/** Quiescing states, protected by the dict_index_t::lock. ie. we can</span>
+<span class="hljs-comment">	only change the state if we acquire all the latches (dict_index_t::lock)</span>
+<span class="hljs-comment">	in X mode of this table's indexes. */</span>
+	<span class="hljs-keyword">ib_quiesce_t</span>				quiesce;
+
+	<span class="hljs-comment">/** Count of the number of record locks on this table. We use this to</span>
+<span class="hljs-comment">	determine whether we can evict the table from the dictionary cache.</span>
+<span class="hljs-comment">	It is protected by lock_sys-&gt;mutex. */</span>
+	ulint					n_rec_locks;
+
+<span class="hljs-meta">#<span class="hljs-meta-keyword">ifndef</span> UNIV_DEBUG</span>
+<span class="hljs-keyword">private</span>:
+<span class="hljs-meta">#<span class="hljs-meta-keyword">endif</span></span>
+	<span class="hljs-comment">/** Count of how many handles are opened to this table. Dropping of the</span>
+<span class="hljs-comment">	table is NOT allowed until this count gets to zero. MySQL does NOT</span>
+<span class="hljs-comment">	itself check the number of open handles at DROP. */</span>
+	ulint					n_ref_count;
+
+<span class="hljs-keyword">public</span>:
+	<span class="hljs-comment">/** List of locks on the table. Protected by lock_sys-&gt;mutex. */</span>
+	<span class="hljs-keyword">table_lock_list_t</span>			locks;
+
+	<span class="hljs-comment">/** Timestamp of the last modification of this table. */</span>
+	<span class="hljs-keyword">time_t</span>					update_time;
+
+	<span class="hljs-comment">/** row-id counter for use by intrinsic table for getting row-id.</span>
+<span class="hljs-comment">	Given intrinsic table semantics, row-id can be locally maintained</span>
+<span class="hljs-comment">	instead of getting it from central generator which involves mutex</span>
+<span class="hljs-comment">	locking. */</span>
+	<span class="hljs-keyword">ib_uint64_t</span>				sess_row_id;
+
+	<span class="hljs-comment">/** trx_id counter for use by intrinsic table for getting trx-id.</span>
+<span class="hljs-comment">	Intrinsic table are not shared so don't need a central trx-id</span>
+<span class="hljs-comment">	but just need a increased counter to track consistent view while</span>
+<span class="hljs-comment">	proceeding SELECT as part of UPDATE. */</span>
+	<span class="hljs-keyword">ib_uint64_t</span>				sess_trx_id;
+<span class="hljs-meta">#<span class="hljs-meta-keyword">endif</span> <span class="hljs-comment">/* !UNIV_HOTBACKUP */</span></span>
+
+<span class="hljs-meta">#<span class="hljs-meta-keyword">ifdef</span> UNIV_DEBUG</span>
+	<span class="hljs-comment">/** Value of 'magic_n'. */</span>
+	<span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> DICT_TABLE_MAGIC_N		76333786</span>
+
+	<span class="hljs-comment">/** Magic number. */</span>
+	ulint					magic_n;
+<span class="hljs-meta">#<span class="hljs-meta-keyword">endif</span> <span class="hljs-comment">/* UNIV_DEBUG */</span></span>
+	<span class="hljs-comment">/** mysql_row_templ_t for base columns used for compute the virtual</span>
+<span class="hljs-comment">	columns */</span>
+	<span class="hljs-keyword">dict_vcol_templ_t</span>*			vc_templ;
+
+	<span class="hljs-comment">/** encryption key, it's only for export/import */</span>
+	<span class="hljs-keyword">byte</span>*					encryption_key;
+
+	<span class="hljs-comment">/** encryption iv, it's only for export/import */</span>
+	<span class="hljs-keyword">byte</span>*					encryption_iv;
+};</code></pre>
+<h3 id="index的数据结构"><a href="#index的数据结构" class="headerlink" title="index的数据结构"></a>index的数据结构</h3><pre><code class="hljs c++"><span class="hljs-comment">/** Data structure for an index.  Most fields will be</span>
+<span class="hljs-comment">initialized to 0, NULL or FALSE in dict_mem_index_create(). */</span>
+<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">dict_index_t</span>{</span>
+	<span class="hljs-keyword">index_id_t</span>	id;	<span class="hljs-comment">/*!&lt; id of the index */</span>
+	<span class="hljs-keyword">mem_heap_t</span>*	heap;	<span class="hljs-comment">/*!&lt; memory heap */</span>
+	<span class="hljs-keyword">id_name_t</span>	name;	<span class="hljs-comment">/*!&lt; index name */</span>
+	<span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span>*	table_name;<span class="hljs-comment">/*!&lt; table name */</span>
+	<span class="hljs-keyword">dict_table_t</span>*	table;	<span class="hljs-comment">/*!&lt; back pointer to table */</span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">ifndef</span> UNIV_HOTBACKUP</span>
+	<span class="hljs-keyword">unsigned</span>	space:<span class="hljs-number">32</span>;
+				<span class="hljs-comment">/*!&lt; space where the index tree is placed */</span>
+	<span class="hljs-keyword">unsigned</span>	page:<span class="hljs-number">32</span>;<span class="hljs-comment">/*!&lt; index tree root page number */</span>
+	<span class="hljs-keyword">unsigned</span>	merge_threshold:<span class="hljs-number">6</span>;
+				<span class="hljs-comment">/*!&lt; In the pessimistic delete, if the page</span>
+<span class="hljs-comment">				data size drops below this limit in percent,</span>
+<span class="hljs-comment">				merging it to a neighbor is tried */</span>
+<span class="hljs-meta"># <span class="hljs-meta-keyword">define</span> DICT_INDEX_MERGE_THRESHOLD_DEFAULT 50</span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">endif</span> <span class="hljs-comment">/* !UNIV_HOTBACKUP */</span></span>
+	<span class="hljs-keyword">unsigned</span>	type:DICT_IT_BITS;
+				<span class="hljs-comment">/*!&lt; index type (DICT_CLUSTERED, DICT_UNIQUE,</span>
+<span class="hljs-comment">				DICT_IBUF, DICT_CORRUPT) */</span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> MAX_KEY_LENGTH_BITS 12</span>
+	<span class="hljs-keyword">unsigned</span>	trx_id_offset:MAX_KEY_LENGTH_BITS;
+				<span class="hljs-comment">/*!&lt; position of the trx id column</span>
+<span class="hljs-comment">				in a clustered index record, if the fields</span>
+<span class="hljs-comment">				before it are known to be of a fixed size,</span>
+<span class="hljs-comment">				0 otherwise */</span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">if</span> (1&lt;&lt;MAX_KEY_LENGTH_BITS) &lt; MAX_KEY_LENGTH</span>
+<span class="hljs-meta"># <span class="hljs-meta-keyword">error</span> (1&lt;&lt;MAX_KEY_LENGTH_BITS) &lt; MAX_KEY_LENGTH</span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">endif</span></span>
+	<span class="hljs-keyword">unsigned</span>	n_user_defined_cols:<span class="hljs-number">10</span>;
+				<span class="hljs-comment">/*!&lt; number of columns the user defined to</span>
+<span class="hljs-comment">				be in the index: in the internal</span>
+<span class="hljs-comment">				representation we add more columns */</span>
+	<span class="hljs-keyword">unsigned</span>	allow_duplicates:<span class="hljs-number">1</span>;
+				<span class="hljs-comment">/*!&lt; if true, allow duplicate values</span>
+<span class="hljs-comment">				even if index is created with unique</span>
+<span class="hljs-comment">				constraint */</span>
+	<span class="hljs-keyword">unsigned</span>	nulls_equal:<span class="hljs-number">1</span>;
+				<span class="hljs-comment">/*!&lt; if true, SQL NULL == SQL NULL */</span>
+	<span class="hljs-keyword">unsigned</span>	disable_ahi:<span class="hljs-number">1</span>;
+				<span class="hljs-comment">/*!&lt; in true, then disable AHI.</span>
+<span class="hljs-comment">				Currently limited to intrinsic</span>
+<span class="hljs-comment">				temporary table as index id is not</span>
+<span class="hljs-comment">				unqiue for such table which is one of the</span>
+<span class="hljs-comment">				validation criterion for ahi. */</span>
+	<span class="hljs-keyword">unsigned</span>	n_uniq:<span class="hljs-number">10</span>;<span class="hljs-comment">/*!&lt; number of fields from the beginning</span>
+<span class="hljs-comment">				which are enough to determine an index</span>
+<span class="hljs-comment">				entry uniquely */</span>
+	<span class="hljs-keyword">unsigned</span>	n_def:<span class="hljs-number">10</span>;<span class="hljs-comment">/*!&lt; number of fields defined so far */</span>
+	<span class="hljs-keyword">unsigned</span>	n_fields:<span class="hljs-number">10</span>;<span class="hljs-comment">/*!&lt; number of fields in the index */</span>
+	<span class="hljs-keyword">unsigned</span>	n_nullable:<span class="hljs-number">10</span>;<span class="hljs-comment">/*!&lt; number of nullable fields */</span>
+	<span class="hljs-keyword">unsigned</span>	cached:<span class="hljs-number">1</span>;<span class="hljs-comment">/*!&lt; TRUE if the index object is in the</span>
+<span class="hljs-comment">				dictionary cache */</span>
+	<span class="hljs-keyword">unsigned</span>	to_be_dropped:<span class="hljs-number">1</span>;
+				<span class="hljs-comment">/*!&lt; TRUE if the index is to be dropped;</span>
+<span class="hljs-comment">				protected by dict_operation_lock */</span>
+	<span class="hljs-keyword">unsigned</span>	online_status:<span class="hljs-number">2</span>;
+				<span class="hljs-comment">/*!&lt; enum online_index_status.</span>
+<span class="hljs-comment">				Transitions from ONLINE_INDEX_COMPLETE (to</span>
+<span class="hljs-comment">				ONLINE_INDEX_CREATION) are protected</span>
+<span class="hljs-comment">				by dict_operation_lock and</span>
+<span class="hljs-comment">				dict_sys-&gt;mutex. Other changes are</span>
+<span class="hljs-comment">				protected by index-&gt;lock. */</span>
+	<span class="hljs-keyword">unsigned</span>	uncommitted:<span class="hljs-number">1</span>;
+				<span class="hljs-comment">/*!&lt; a flag that is set for secondary indexes</span>
+<span class="hljs-comment">				that have not been committed to the</span>
+<span class="hljs-comment">				data dictionary yet */</span>
+
+<span class="hljs-meta">#<span class="hljs-meta-keyword">ifdef</span> UNIV_DEBUG</span>
+	<span class="hljs-keyword">uint32_t</span>	magic_n;<span class="hljs-comment">/*!&lt; magic number */</span>
+<span class="hljs-comment">/** Value of dict_index_t::magic_n */</span>
+<span class="hljs-meta"># <span class="hljs-meta-keyword">define</span> DICT_INDEX_MAGIC_N	76789786</span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">endif</span></span>
+	<span class="hljs-keyword">dict_field_t</span>*	fields;	<span class="hljs-comment">/*!&lt; array of field descriptions */</span>
+	st_mysql_ftparser*
+			parser;	<span class="hljs-comment">/*!&lt; fulltext parser plugin */</span>
+	<span class="hljs-keyword">bool</span>		is_ngram;
+				<span class="hljs-comment">/*!&lt; true if it's ngram parser */</span>
+	<span class="hljs-keyword">bool</span>		has_new_v_col;
+				<span class="hljs-comment">/*!&lt; whether it has a newly added virtual</span>
+<span class="hljs-comment">				column in ALTER */</span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">ifndef</span> UNIV_HOTBACKUP</span>
+	UT_LIST_NODE_T(<span class="hljs-keyword">dict_index_t</span>)
+			indexes;<span class="hljs-comment">/*!&lt; list of indexes of the table */</span>
+	<span class="hljs-keyword">btr_search_t</span>*	search_info;
+				<span class="hljs-comment">/*!&lt; info used in optimistic searches */</span>
+	<span class="hljs-keyword">row_log_t</span>*	online_log;
+				<span class="hljs-comment">/*!&lt; the log of modifications</span>
+<span class="hljs-comment">				during online index creation;</span>
+<span class="hljs-comment">				valid when online_status is</span>
+<span class="hljs-comment">				ONLINE_INDEX_CREATION */</span>
+	<span class="hljs-comment">/*----------------------*/</span>
+	<span class="hljs-comment">/** Statistics for query optimization */</span>
+	<span class="hljs-comment">/* @{ */</span>
+	<span class="hljs-keyword">ib_uint64_t</span>*	stat_n_diff_key_vals;
+				<span class="hljs-comment">/*!&lt; approximate number of different</span>
+<span class="hljs-comment">				key values for this index, for each</span>
+<span class="hljs-comment">				n-column prefix where 1 &lt;= n &lt;=</span>
+<span class="hljs-comment">				dict_get_n_unique(index) (the array is</span>
+<span class="hljs-comment">				indexed from 0 to n_uniq-1); we</span>
+<span class="hljs-comment">				periodically calculate new</span>
+<span class="hljs-comment">				estimates */</span>
+	<span class="hljs-keyword">ib_uint64_t</span>*	stat_n_sample_sizes;
+				<span class="hljs-comment">/*!&lt; number of pages that were sampled</span>
+<span class="hljs-comment">				to calculate each of stat_n_diff_key_vals[],</span>
+<span class="hljs-comment">				e.g. stat_n_sample_sizes[3] pages were sampled</span>
+<span class="hljs-comment">				to get the number stat_n_diff_key_vals[3]. */</span>
+	<span class="hljs-keyword">ib_uint64_t</span>*	stat_n_non_null_key_vals;
+				<span class="hljs-comment">/* approximate number of non-null key values</span>
+<span class="hljs-comment">				for this index, for each column where</span>
+<span class="hljs-comment">				1 &lt;= n &lt;= dict_get_n_unique(index) (the array</span>
+<span class="hljs-comment">				is indexed from 0 to n_uniq-1); This</span>
+<span class="hljs-comment">				is used when innodb_stats_method is</span>
+<span class="hljs-comment">				"nulls_ignored". */</span>
+	ulint		stat_index_size;
+				<span class="hljs-comment">/*!&lt; approximate index size in</span>
+<span class="hljs-comment">				database pages */</span>
+	ulint		stat_n_leaf_pages;
+				<span class="hljs-comment">/*!&lt; approximate number of leaf pages in the</span>
+<span class="hljs-comment">				index tree */</span>
+	<span class="hljs-comment">/* @} */</span>
+	<span class="hljs-keyword">last_ops_cur_t</span>*	last_ins_cur;
+				<span class="hljs-comment">/*!&lt; cache the last insert position.</span>
+<span class="hljs-comment">				Currently limited to auto-generated</span>
+<span class="hljs-comment">				clustered index on intrinsic table only. */</span>
+	<span class="hljs-keyword">last_ops_cur_t</span>*	last_sel_cur;
+				<span class="hljs-comment">/*!&lt; cache the last selected position</span>
+<span class="hljs-comment">				Currently limited to intrinsic table only. */</span>
+	<span class="hljs-keyword">rec_cache_t</span>	rec_cache;
+				<span class="hljs-comment">/*!&lt; cache the field that needs to be</span>
+<span class="hljs-comment">				re-computed on each insert.</span>
+<span class="hljs-comment">				Limited to intrinsic table as this is common</span>
+<span class="hljs-comment">				share and can't be used without protection</span>
+<span class="hljs-comment">				if table is accessible to multiple-threads. */</span>
+	<span class="hljs-keyword">rtr_ssn_t</span>	rtr_ssn;<span class="hljs-comment">/*!&lt; Node sequence number for RTree */</span>
+	<span class="hljs-keyword">rtr_info_track_t</span>*
+			rtr_track;<span class="hljs-comment">/*!&lt; tracking all R-Tree search cursors */</span>
+	<span class="hljs-keyword">trx_id_t</span>	trx_id; <span class="hljs-comment">/*!&lt; id of the transaction that created this</span>
+<span class="hljs-comment">				index, or 0 if the index existed</span>
+<span class="hljs-comment">				when InnoDB was started up */</span>
+	<span class="hljs-keyword">zip_pad_info_t</span>	zip_pad;<span class="hljs-comment">/*!&lt; Information about state of</span>
+<span class="hljs-comment">				compression failures and successes */</span>
+	<span class="hljs-keyword">rw_lock_t</span>	lock;	<span class="hljs-comment">/*!&lt; read-write lock protecting the</span>
+<span class="hljs-comment">				upper levels of the index tree */</span>
+
+	<span class="hljs-comment">/** Determine if the index has been committed to the</span>
+<span class="hljs-comment">	data dictionary.</span>
+<span class="hljs-comment">	@return whether the index definition has been committed */</span>
+	<span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">is_committed</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>
+<span class="hljs-function">	</span>{
+		ut_ad(!uncommitted || !(type &amp; DICT_CLUSTERED));
+		<span class="hljs-keyword">return</span>(UNIV_LIKELY(!uncommitted));
+	}
+
+	<span class="hljs-comment">/** Flag an index committed or uncommitted.</span>
+<span class="hljs-comment">	@param[in]	committed	whether the index is committed */</span>
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">set_committed</span><span class="hljs-params">(<span class="hljs-keyword">bool</span> committed)</span></span>
+<span class="hljs-function">	</span>{
+		ut_ad(!to_be_dropped);
+		ut_ad(committed || !(type &amp; DICT_CLUSTERED));
+		uncommitted = !committed;
+	}
+<span class="hljs-meta">#<span class="hljs-meta-keyword">endif</span> <span class="hljs-comment">/* !UNIV_HOTBACKUP */</span></span>
+};</code></pre>
+<h3 id="column的数据结构"><a href="#column的数据结构" class="headerlink" title="column的数据结构"></a>column的数据结构</h3><pre><code class="hljs c++"><span class="hljs-comment">/** Data structure for a column in a table */</span>
+<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">dict_col_t</span>{</span>
+	<span class="hljs-comment">/*----------------------*/</span>
+	<span class="hljs-comment">/** The following are copied from dtype_t,</span>
+<span class="hljs-comment">	so that all bit-fields can be packed tightly. */</span>
+	<span class="hljs-comment">/* @{ */</span>
+	<span class="hljs-keyword">unsigned</span>	prtype:<span class="hljs-number">32</span>;	<span class="hljs-comment">/*!&lt; precise type; MySQL data</span>
+<span class="hljs-comment">					type, charset code, flags to</span>
+<span class="hljs-comment">					indicate nullability,</span>
+<span class="hljs-comment">					signedness, whether this is a</span>
+<span class="hljs-comment">					binary string, whether this is</span>
+<span class="hljs-comment">					a true VARCHAR where MySQL</span>
+<span class="hljs-comment">					uses 2 bytes to store the length */</span>
+	<span class="hljs-keyword">unsigned</span>	mtype:<span class="hljs-number">8</span>;	<span class="hljs-comment">/*!&lt; main data type */</span>
+
+	<span class="hljs-comment">/* the remaining fields do not affect alphabetical ordering: */</span>
+
+	<span class="hljs-keyword">unsigned</span>	len:<span class="hljs-number">16</span>;		<span class="hljs-comment">/*!&lt; length; for MySQL data this</span>
+<span class="hljs-comment">					is field-&gt;pack_length(),</span>
+<span class="hljs-comment">					except that for a &gt;= 5.0.3</span>
+<span class="hljs-comment">					type true VARCHAR this is the</span>
+<span class="hljs-comment">					maximum byte length of the</span>
+<span class="hljs-comment">					string data (in addition to</span>
+<span class="hljs-comment">					the string, MySQL uses 1 or 2</span>
+<span class="hljs-comment">					bytes to store the string length) */</span>
+
+	<span class="hljs-keyword">unsigned</span>	mbminmaxlen:<span class="hljs-number">5</span>;	<span class="hljs-comment">/*!&lt; minimum and maximum length of a</span>
+<span class="hljs-comment">					character, in bytes;</span>
+<span class="hljs-comment">					DATA_MBMINMAXLEN(mbminlen,mbmaxlen);</span>
+<span class="hljs-comment">					mbminlen=DATA_MBMINLEN(mbminmaxlen);</span>
+<span class="hljs-comment">					mbmaxlen=DATA_MBMINLEN(mbminmaxlen) */</span>
+	<span class="hljs-comment">/*----------------------*/</span>
+	<span class="hljs-comment">/* End of definitions copied from dtype_t */</span>
+	<span class="hljs-comment">/* @} */</span>
+
+	<span class="hljs-keyword">unsigned</span>	ind:<span class="hljs-number">10</span>;		<span class="hljs-comment">/*!&lt; table column position</span>
+<span class="hljs-comment">					(starting from 0) */</span>
+	<span class="hljs-keyword">unsigned</span>	ord_part:<span class="hljs-number">1</span>;	<span class="hljs-comment">/*!&lt; nonzero if this column</span>
+<span class="hljs-comment">					appears in the ordering fields</span>
+<span class="hljs-comment">					of an index */</span>
+	<span class="hljs-keyword">unsigned</span>	max_prefix:<span class="hljs-number">12</span>;	<span class="hljs-comment">/*!&lt; maximum index prefix length on</span>
+<span class="hljs-comment">					this column. Our current max limit is</span>
+<span class="hljs-comment">					3072 for Barracuda table */</span>
+};</code></pre>
 <h2 id="2-innodb线程的产生过程"><a href="#2-innodb线程的产生过程" class="headerlink" title="2. innodb线程的产生过程"></a>2. innodb线程的产生过程</h2><p>在mysql_main函数里面有一行代码是加载组件:</p>
-<pre class=" language-lang-c++"><code class="language-lang-c++">//...
-//MySQL 5.7.19版本mysqld.cc文件的4673行
-  if (init_server_components())
+<pre><code class="hljs c++"><span class="hljs-comment">//...</span>
+<span class="hljs-comment">//MySQL 5.7.19版本mysqld.cc文件的4673行</span>
+  <span class="hljs-keyword">if</span> (init_server_components())
     unireg_abort(MYSQLD_ABORT_EXIT);
-//...
-</code></pre>
+<span class="hljs-comment">//...</span></code></pre>
 <p>其中有关于插件的初始化的函数:</p>
-<pre class=" language-lang-c++"><code class="language-lang-c++">static int init_server_components(){
-    //...
-    /*
-    Skip reading the plugin table when starting with --help in order
-    to also skip initializing InnoDB. This provides a simpler and more
-    uniform handling of various startup use cases, e.g. when the data
-    directory does not exist, exists but is empty, exists with InnoDB
-    system tablespaces present etc.
-  */
-  if (plugin_init(&remaining_argc, remaining_argv,
-                  (opt_noacl ? PLUGIN_INIT_SKIP_PLUGIN_TABLE : 0) |
+<pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> <span class="hljs-title">init_server_components</span><span class="hljs-params">()</span></span>{
+    <span class="hljs-comment">//...</span>
+	<span class="hljs-comment">/*</span>
+<span class="hljs-comment">    Skip reading the plugin table when starting with --help in order</span>
+<span class="hljs-comment">    to also skip initializing InnoDB. This provides a simpler and more</span>
+<span class="hljs-comment">    uniform handling of various startup use cases, e.g. when the data</span>
+<span class="hljs-comment">    directory does not exist, exists but is empty, exists with InnoDB</span>
+<span class="hljs-comment">    system tablespaces present etc.</span>
+<span class="hljs-comment">  */</span>
+  <span class="hljs-keyword">if</span> (plugin_init(&amp;remaining_argc, remaining_argv,
+                  (opt_noacl ? PLUGIN_INIT_SKIP_PLUGIN_TABLE : <span class="hljs-number">0</span>) |
                   (opt_help ? (PLUGIN_INIT_SKIP_INITIALIZATION |
-                               PLUGIN_INIT_SKIP_PLUGIN_TABLE) : 0)))
+                               PLUGIN_INIT_SKIP_PLUGIN_TABLE) : <span class="hljs-number">0</span>)))
   {
-    sql_print_error("Failed to initialize plugins.");
+    sql_print_error(<span class="hljs-string">"Failed to initialize plugins."</span>);
     unireg_abort(MYSQLD_ABORT_EXIT);
   }
-    //...
-}
-</code></pre>
+    <span class="hljs-comment">//...</span>
+}</code></pre>
 <p><code>plugin_init</code>函数里面又有:</p>
-<pre class=" language-lang-c++"><code class="language-lang-c++">int plugin_init(int *argc, char **argv, int flags)
-{
-    //...
-      /* Register all dynamic plugins */
-  if (!(flags & PLUGIN_INIT_SKIP_DYNAMIC_LOADING))
+<pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">plugin_init</span><span class="hljs-params">(<span class="hljs-keyword">int</span> *argc, <span class="hljs-keyword">char</span> **argv, <span class="hljs-keyword">int</span> flags)</span></span>
+<span class="hljs-function"></span>{
+	<span class="hljs-comment">//...</span>
+      <span class="hljs-comment">/* Register all dynamic plugins */</span>
+  <span class="hljs-keyword">if</span> (!(flags &amp; PLUGIN_INIT_SKIP_DYNAMIC_LOADING))
   {
-    I_List_iterator<i_string> iter(opt_plugin_load_list);
+    <span class="hljs-function">I_List_iterator&lt;i_string&gt; <span class="hljs-title">iter</span><span class="hljs-params">(opt_plugin_load_list)</span></span>;
     i_string *item;
-    while (NULL != (item= iter++))
-      plugin_load_list(&tmp_root, argc, argv, item->ptr);
+    <span class="hljs-keyword">while</span> (<span class="hljs-literal">NULL</span> != (item= iter++))
+      plugin_load_list(&amp;tmp_root, argc, argv, item-&gt;ptr);
 
-    if (!(flags & PLUGIN_INIT_SKIP_PLUGIN_TABLE))
-      plugin_load(&tmp_root, argc, argv);
+    <span class="hljs-keyword">if</span> (!(flags &amp; PLUGIN_INIT_SKIP_PLUGIN_TABLE))
+      plugin_load(&amp;tmp_root, argc, argv);
   }
-    //...
-}
-</code></pre>
+    <span class="hljs-comment">//...</span>
+}</code></pre>
 <p>其中加载插件函数:</p>
-<pre class=" language-lang-c++"><code class="language-lang-c++">static void plugin_load(MEM_ROOT *tmp_root, int *argc, char **argv)
-{
-    //...
-     if (plugin_add(tmp_root, &name, &dl, argc, argv, REPORT_TO_LOG))
-      sql_print_warning("Couldn't load plugin named '%s' with soname '%s'.",
+<pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">plugin_load</span><span class="hljs-params">(MEM_ROOT *tmp_root, <span class="hljs-keyword">int</span> *argc, <span class="hljs-keyword">char</span> **argv)</span></span>
+<span class="hljs-function"></span>{
+    <span class="hljs-comment">//...</span>
+     <span class="hljs-keyword">if</span> (plugin_add(tmp_root, &amp;name, &amp;dl, argc, argv, REPORT_TO_LOG))
+      sql_print_warning(<span class="hljs-string">"Couldn't load plugin named '%s' with soname '%s'."</span>,
                         str_name.c_ptr(), str_dl.c_ptr());
-    //...
-}
-</code></pre>
+    <span class="hljs-comment">//...</span>
+}</code></pre>
 <p>其中的<code>plugin_add</code>:</p>
-<pre class=" language-lang-c++"><code class="language-lang-c++">static bool plugin_add(MEM_ROOT *tmp_root,
-                       const LEX_STRING *name, const LEX_STRING *dl,
-                       int *argc, char **argv, int report)
-{
+<pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">bool</span> <span class="hljs-title">plugin_add</span><span class="hljs-params">(MEM_ROOT *tmp_root,</span></span>
+<span class="hljs-function"><span class="hljs-params">                       <span class="hljs-keyword">const</span> LEX_STRING *name, <span class="hljs-keyword">const</span> LEX_STRING *dl,</span></span>
+<span class="hljs-function"><span class="hljs-params">                       <span class="hljs-keyword">int</span> *argc, <span class="hljs-keyword">char</span> **argv, <span class="hljs-keyword">int</span> report)</span></span>
+<span class="hljs-function"></span>{
     st_plugin_int tmp;
-      st_mysql_plugin *plugin;
-      DBUG_ENTER("plugin_add");
-      LEX_CSTRING name_cstr= {name->str, name->length};
-    //...
-}
-</code></pre>
+  	st_mysql_plugin *plugin;
+  	DBUG_ENTER(<span class="hljs-string">"plugin_add"</span>);
+  	LEX_CSTRING name_cstr= {name-&gt;str, name-&gt;length};
+    <span class="hljs-comment">//...</span>
+}</code></pre>
 <p>其中<code>st_mysql_plugin</code>:</p>
-<pre class=" language-lang-c++"><code class="language-lang-c++">/*
-  Plugin description structure.
-*/
+<pre><code class="hljs c++"><span class="hljs-comment">/*</span>
+<span class="hljs-comment">  Plugin description structure.</span>
+<span class="hljs-comment">*/</span>
 
-struct st_mysql_plugin
-{
-  int type;             /* the plugin type (a MYSQL_XXX_PLUGIN value)   */
-  void *info;           /* pointer to type-specific plugin descriptor   */
-  const char *name;     /* plugin name                                  */
-  const char *author;   /* plugin author (for I_S.PLUGINS)              */
-  const char *descr;    /* general descriptive text (for I_S.PLUGINS)   */
-  int license;          /* the plugin license (PLUGIN_LICENSE_XXX)      */
-  int (*init)(MYSQL_PLUGIN);  /* the function to invoke when plugin is loaded */
-  int (*deinit)(MYSQL_PLUGIN);/* the function to invoke when plugin is unloaded */
-  unsigned int version; /* plugin version (for I_S.PLUGINS)             */
-  struct st_mysql_show_var *status_vars;
-  struct st_mysql_sys_var **system_vars;
-  void * __reserved1;   /* reserved for dependency checking             */
-  unsigned long flags;  /* flags for plugin */
-};
-</code></pre>
+<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">st_mysql_plugin</span></span>
+<span class="hljs-class">{</span>
+  <span class="hljs-keyword">int</span> type;             <span class="hljs-comment">/* the plugin type (a MYSQL_XXX_PLUGIN value)   */</span>
+  <span class="hljs-keyword">void</span> *info;           <span class="hljs-comment">/* pointer to type-specific plugin descriptor   */</span>
+  <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span> *name;     <span class="hljs-comment">/* plugin name                                  */</span>
+  <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span> *author;   <span class="hljs-comment">/* plugin author (for I_S.PLUGINS)              */</span>
+  <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span> *descr;    <span class="hljs-comment">/* general descriptive text (for I_S.PLUGINS)   */</span>
+  <span class="hljs-keyword">int</span> license;          <span class="hljs-comment">/* the plugin license (PLUGIN_LICENSE_XXX)      */</span>
+  <span class="hljs-keyword">int</span> (*init)(MYSQL_PLUGIN);  <span class="hljs-comment">/* the function to invoke when plugin is loaded */</span>
+  <span class="hljs-keyword">int</span> (*deinit)(MYSQL_PLUGIN);<span class="hljs-comment">/* the function to invoke when plugin is unloaded */</span>
+  <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span> version; <span class="hljs-comment">/* plugin version (for I_S.PLUGINS)             */</span>
+  <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">st_mysql_show_var</span> *<span class="hljs-title">status_vars</span>;</span>
+  <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">st_mysql_sys_var</span> **<span class="hljs-title">system_vars</span>;</span>
+  <span class="hljs-keyword">void</span> * __reserved1;   <span class="hljs-comment">/* reserved for dependency checking             */</span>
+  <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">long</span> flags;  <span class="hljs-comment">/* flags for plugin */</span>
+};</code></pre>
 <p>其中的:</p>
-<pre><code>int (*init)(MYSQL_PLUGIN);  /* the function to invoke when plugin is loaded */
-</code></pre><p>这个init函数指针是调用插件的。</p>
+<pre><code class="hljs smali">int (*init)(MYSQ<span class="hljs-class">L_PLUGIN);</span>  /* the function to<span class="hljs-built_in"> invoke </span>when plugin is loaded */</code></pre>
+<p>这个init函数指针是调用插件的。</p>
 <p>Innodb插件的加载定义在mysql/include/mysql/Plugin.h中的mysql_declare_plugin,具体的调用位置在ha_innodb.cc中，都是以变量的方式定义。Ha_innodb.cc是定义innodb存储引擎的初始化以及相关重要接口的定义。</p>
 <p>插件的函数如下:</p>
-<pre class=" language-lang-c++"><code class="language-lang-c++">mysql_declare_plugin(innobase)
+<pre><code class="hljs c++">mysql_declare_plugin(innobase)
 {
   MYSQL_STORAGE_ENGINE_PLUGIN,
-  &innobase_storage_engine,
+  &amp;innobase_storage_engine,
   innobase_hton_name,
   plugin_author,
-  "Supports transactions, row-level locking, and foreign keys",
+  <span class="hljs-string">"Supports transactions, row-level locking, and foreign keys"</span>,
   PLUGIN_LICENSE_GPL,
-  innobase_init, /* Plugin Init */
-  NULL, /* Plugin Deinit */
+  innobase_init, <span class="hljs-comment">/* Plugin Init */</span>
+  <span class="hljs-literal">NULL</span>, <span class="hljs-comment">/* Plugin Deinit */</span>
   INNODB_VERSION_SHORT,
-  innodb_status_variables_export,/* status variables             */
-  innobase_system_variables, /* system variables */
-  NULL, /* reserved */
-  0,    /* flags */
+  innodb_status_variables_export,<span class="hljs-comment">/* status variables             */</span>
+  innobase_system_variables, <span class="hljs-comment">/* system variables */</span>
+  <span class="hljs-literal">NULL</span>, <span class="hljs-comment">/* reserved */</span>
+  <span class="hljs-number">0</span>,    <span class="hljs-comment">/* flags */</span>
 },
 i_s_innodb_trx,
 i_s_innodb_locks,
 i_s_innodb_lock_waits,
 i_s_innodb_cmp,
-//...
+<span class="hljs-comment">//...</span>
 
-mysql_declare_plugin_end;
-</code></pre>
+mysql_declare_plugin_end;</code></pre>
 <p>当插件被载入的时候，就会调用上面代码中的innobase_init()函数:</p>
-<pre class=" language-lang-c++"><code class="language-lang-c++">static
-int
+<pre><code class="hljs c++"><span class="hljs-keyword">static</span>
+<span class="hljs-keyword">int</span>
 innobase_init(
-/*==========*/
-    void    *p)    /*!< in: InnoDB handlerton */
+<span class="hljs-comment">/*==========*/</span>
+	<span class="hljs-keyword">void</span>	*p)	<span class="hljs-comment">/*!&lt; in: InnoDB handlerton */</span>
 {
-    //...
-    /* Since we in this module access directly the fields of a trx
-    struct, and due to different headers and flags it might happen that
-    ib_mutex_t has a different size in this module and in InnoDB
-    modules, we check at run time that the size is the same in
-    these compilation modules. */
+	<span class="hljs-comment">//...</span>
+	<span class="hljs-comment">/* Since we in this module access directly the fields of a trx</span>
+<span class="hljs-comment">	struct, and due to different headers and flags it might happen that</span>
+<span class="hljs-comment">	ib_mutex_t has a different size in this module and in InnoDB</span>
+<span class="hljs-comment">	modules, we check at run time that the size is the same in</span>
+<span class="hljs-comment">	these compilation modules. */</span>
 
-    err = innobase_start_or_create_for_mysql();
-    //...
-}
-</code></pre>
-<p>其中<sup><a href="#fn_1" id="reffn_1">1</a></sup>:</p>
-<pre class=" language-lang-c++"><code class="language-lang-c++">/********************************************************************
-Starts InnoDB and creates a new database if database files
-are not found and the user wants.
-@return DB_SUCCESS or error code */
-dberr_t
-innobase_start_or_create_for_mysql(void)
-/*====================================*/
-{
-    //...
-    /* Create the master thread which does purge and other utility
-    operations */
+	err = innobase_start_or_create_for_mysql();
+	<span class="hljs-comment">//...</span>
+}</code></pre>
+<p>其中</p>
+<pre><code>&lt;span class="hljs-keyword"&gt;if&lt;/span&gt; (!srv_read_only_mode) &amp;#123;
 
-    if (!srv_read_only_mode) {
+    os_thread_create(
+        srv_master_thread,
+        &lt;span class="hljs-literal"&gt;NULL&lt;/span&gt;, thread_ids + (&lt;span class="hljs-number"&gt;1&lt;/span&gt; + SRV_MAX_N_IO_THREADS));
 
-        os_thread_create(
-            srv_master_thread,
-            NULL, thread_ids + (1 + SRV_MAX_N_IO_THREADS));
-
-        srv_start_state_set(SRV_START_STATE_MASTER);
-    }
-    //...
-}
-</code></pre>
+    srv_start_state_set(SRV_START_STATE_MASTER);
+&amp;#125;
+&lt;span class="hljs-comment"&gt;//...&lt;/span&gt;
+</code></pre><p>}&lt;/code&gt;&lt;/pre&gt;&lt;/escape&gt;</p>
 <p>调用了<code>srv_master_thread</code>产生master线程:</p>
-<pre class=" language-lang-c++"><code class="language-lang-c++">/*********************************************************************//**
-The master thread controlling the server.
-@return a dummy parameter */
-extern "C"
-os_thread_ret_t
+<pre><code class="hljs c++"><span class="hljs-comment">/*********************************************************************/</span><span class="hljs-comment">/**</span>
+<span class="hljs-comment">The master thread controlling the server.</span>
+<span class="hljs-comment">@return a dummy parameter */</span>
+<span class="hljs-keyword">extern</span> <span class="hljs-string">"C"</span>
+<span class="hljs-keyword">os_thread_ret_t</span>
 DECLARE_THREAD(srv_master_thread)(
-/*==============================*/
-    void*    arg MY_ATTRIBUTE((unused)))
-            /*!< in: a dummy parameter required by
-            os_thread_create */;
-</code></pre>
+<span class="hljs-comment">/*==============================*/</span>
+	<span class="hljs-keyword">void</span>*	arg MY_ATTRIBUTE((unused)))
+			<span class="hljs-comment">/*!&lt; in: a dummy parameter required by</span>
+<span class="hljs-comment">			os_thread_create */</span>;</code></pre>
 <p>由此进入master线程</p>
-<h2 id="3-Master-Thread工作方式"><a href="#3-Master-Thread工作方式" class="headerlink" title="3. Master Thread工作方式"></a>3. Master Thread工作方式</h2><p>流程图如下<sup><a href="#fn_7" id="reffn_7">7</a></sup>:</p>
-<p><img src="InnoDB_Master_Thread.png" alt="InnoDB Master Thread"></p>
+<h2 id="3-Master-Thread工作方式"><a href="#3-Master-Thread工作方式" class="headerlink" title="3. Master Thread工作方式"></a>3. Master Thread工作方式</h2><p>流程图如下</p>
 <p>上面的<code>srv_master_thread</code>已经定位到的函数的代码如下:</p>
-<pre class=" language-lang-c++"><code class="language-lang-c++">extern "C"
-os_thread_ret_t
+<pre><code class="hljs c++"><span class="hljs-keyword">extern</span> <span class="hljs-string">"C"</span>
+<span class="hljs-keyword">os_thread_ret_t</span>
 DECLARE_THREAD(srv_master_thread)(
-/*==============================*/
-    void*    arg MY_ATTRIBUTE((unused)))
-            /*!< in: a dummy parameter required by
-            os_thread_create */
+<span class="hljs-comment">/*==============================*/</span>
+	<span class="hljs-keyword">void</span>*	arg MY_ATTRIBUTE((unused)))
+			<span class="hljs-comment">/*!&lt; in: a dummy parameter required by</span>
+<span class="hljs-comment">			os_thread_create */</span>
 {
-    //...线程初始化
+	<span class="hljs-comment">//...线程初始化</span>
 loop:
-    if (srv_force_recovery >= SRV_FORCE_NO_BACKGROUND) {
-        /*出现故障需要回复时候,如果设置恢复级别为SRV_FORCE_NO_BACKGROUND则会挂起主线程的运行,所以进入挂起*/
-        goto suspend_thread;
-    }
+	<span class="hljs-keyword">if</span> (srv_force_recovery &gt;= SRV_FORCE_NO_BACKGROUND) {
+        <span class="hljs-comment">/*出现故障需要回复时候,如果设置恢复级别为SRV_FORCE_NO_BACKGROUND则会挂起主线程的运行,所以进入挂起*/</span>
+		<span class="hljs-keyword">goto</span> suspend_thread;
+	}
 
-    while (srv_shutdown_state == SRV_SHUTDOWN_NONE) {
-        srv_master_sleep();
-        MONITOR_INC(MONITOR_MASTER_THREAD_SLEEP);
-        if (srv_check_activity(old_activity_count)) {
-            old_activity_count = srv_get_activity_count();
-            srv_master_do_active_tasks();
-        } else {
-            srv_master_do_idle_tasks();
-        }
-    }
+	<span class="hljs-keyword">while</span> (srv_shutdown_state == SRV_SHUTDOWN_NONE) {
+		srv_master_sleep();
+		MONITOR_INC(MONITOR_MASTER_THREAD_SLEEP);
+		<span class="hljs-keyword">if</span> (srv_check_activity(old_activity_count)) {
+			old_activity_count = srv_get_activity_count();
+			srv_master_do_active_tasks();
+		} <span class="hljs-keyword">else</span> {
+			srv_master_do_idle_tasks();
+		}
+	}
 
-    while (srv_shutdown_state != SRV_SHUTDOWN_EXIT_THREADS
-           && srv_master_do_shutdown_tasks(&last_print_time)) {
-        /**/
-        /* Shouldn't loop here in case of very fast shutdown */
-        ut_ad(srv_fast_shutdown < 2);
-    }
+	<span class="hljs-keyword">while</span> (srv_shutdown_state != SRV_SHUTDOWN_EXIT_THREADS
+	       &amp;&amp; srv_master_do_shutdown_tasks(&amp;last_print_time)) {
+        <span class="hljs-comment">/**/</span>
+		<span class="hljs-comment">/* Shouldn't loop here in case of very fast shutdown */</span>
+		ut_ad(srv_fast_shutdown &lt; <span class="hljs-number">2</span>);
+	}
 
 suspend_thread:
-    srv_main_thread_op_info = "suspending";
+	srv_main_thread_op_info = <span class="hljs-string">"suspending"</span>;
 
-    srv_suspend_thread(slot);
+	srv_suspend_thread(slot);
 
-    /* DO NOT CHANGE THIS STRING. innobase_start_or_create_for_mysql()
-    waits for database activity to die down when converting < 4.1.x
-    databases, and relies on this string being exactly as it is. InnoDB
-    manual also mentions this string in several places. */
-    srv_main_thread_op_info = "waiting for server activity";
+	<span class="hljs-comment">/* DO NOT CHANGE THIS STRING. innobase_start_or_create_for_mysql()</span>
+<span class="hljs-comment">	waits for database activity to die down when converting &lt; 4.1.x</span>
+<span class="hljs-comment">	databases, and relies on this string being exactly as it is. InnoDB</span>
+<span class="hljs-comment">	manual also mentions this string in several places. */</span>
+	srv_main_thread_op_info = <span class="hljs-string">"waiting for server activity"</span>;
 
-    os_event_wait(slot->event);
+	os_event_wait(slot-&gt;event);
 
-    if (srv_shutdown_state != SRV_SHUTDOWN_EXIT_THREADS) {
-        goto loop;
-    }
+	<span class="hljs-keyword">if</span> (srv_shutdown_state != SRV_SHUTDOWN_EXIT_THREADS) {
+		<span class="hljs-keyword">goto</span> loop;
+	}
 
-    my_thread_end();
-    os_thread_exit();
-    DBUG_RETURN(0);
-}
-</code></pre>
+	my_thread_end();
+	os_thread_exit();
+	DBUG_RETURN(<span class="hljs-number">0</span>);
+}</code></pre>
 <p>可以知道伪代码如下:</p>
-<pre><code>if InnoDB is idle:
-    srv_master_do_idle_tasks();
-else
-    srv_master_do_active_tasks();
-</code></pre><p>在图2中可以看到，master thread作为后台程序，一直不停的在loop，而loop过程中会选择active task 或者idle task函数执行<sup><a href="#fn_2" id="reffn_2">2</a></sup>:</p>
+<pre><code class="hljs isbl"><span class="hljs-variable"><span class="hljs-keyword">if</span></span> <span class="hljs-variable">InnoDB</span> <span class="hljs-variable">is</span> <span class="hljs-variable">idle</span>:
+	<span class="hljs-function"><span class="hljs-title">srv_master_do_idle_tasks</span>();</span>
+<span class="hljs-function"><span class="hljs-variable"><span class="hljs-keyword">else</span></span></span>
+<span class="hljs-function">	<span class="hljs-title">srv_master_do_active_tasks</span>();</span></code></pre>
+<p>在图2中可以看到，master thread作为后台程序，一直不停的在loop，而loop过程中会选择active task 或者idle task函数执行</p>
+<p>  若flush loop中也没有什么事情可以做了，InnoDB存储引擎会切换到suspend__loop，将Master Thread挂起，等待事件的发生。若用户启用（enable）了InnoDB存储引擎，却没有使用任何InnoDB存储引擎的表，那么Master Thread总是处于挂起的状态<sup id="fnref:4" class="footnote-ref"><a href="#fn:4" rel="footnote"><span class="hint--top hint--rounded" aria-label="  InnoDB存储引擎的开发团队参考了Google的patch，提供了类似的方法来修正该问题。因此InnoDB Plugin（从InnoDB1.0.x版本开始）提供了参数innodb_io_capacity，用来表示磁盘IO的吞吐量，默认值为200。对于刷新到磁盘页的数量，会按照innodb_io_capacity的百分比来进行控制。规则如下：
+"></span></a><a href="MySQL技术内幕:innodb存储引擎2.5">4</a></sup>。</p>
 <ul>
-<li><p>只有在innodb_force_recovery参数设置值大于SRV_FORCE_NO_BACKGROUND的情况下，master thread会进入suspend状态</p>
-<p>若flush loop中也没有什么事情可以做了，InnoDB存储引擎会切换到suspend__loop，将Master Thread挂起，等待事件的发生。若用户启用（enable）了InnoDB存储引擎，却没有使用任何InnoDB存储引擎的表，那么Master Thread总是处于挂起的状态<sup><a href="#fn_4" id="reffn_4">4</a></sup>。</p>
-</li>
 <li><p>在srv_shutdown_state的值不等于SRV_SHUTDOWN_NONE的情况下，master thread会去执行shutdown task。输出值srv_active，srv_idle，srv_shutdown的值分别是在函数srv_master_do_active_task，srv_master_do_idle_task，srv_master_do_shutdown_task中++。</p>
 </li>
 <li><p>而srv_master_do_active_task的执行是由当前activity_count与old_activity_count的值决定，只要这两个值不相等，则master调用active task。在执行数据库更改操作，如插入，删除，更新，表操作的情况下，当前的activity count的值会增加，系统调用active task。所以说，srv_active的值可以反映出系统的负载情况.</p>
@@ -6851,471 +6821,450 @@ else
 <p>具体代码如下:</p>
 <ul>
 <li><p>检查剩余的日志空间</p>
-<pre class=" language-lang-c++"><code class="language-lang-c++">/* 确保redo日志文件中有足够的可重用空间*/
-    srv_main_thread_op_info = "checking free log space";
-    /*检查是否需要刷新日志缓冲区或新的检查点，如果是，则执行此操作。 当数据库操作修改了大约4个以上的页面时，应调用此方法。 注意，仅当OS线程除字典互斥锁外没有其他同步对象时，才可以调用此函数。*/
-    log_free_check();
-</code></pre>
+<pre><code class="hljs c++"><span class="hljs-comment">/* 确保redo日志文件中有足够的可重用空间*/</span>
+	srv_main_thread_op_info = <span class="hljs-string">"checking free log space"</span>;
+	<span class="hljs-comment">/*检查是否需要刷新日志缓冲区或新的检查点，如果是，则执行此操作。 当数据库操作修改了大约4个以上的页面时，应调用此方法。 注意，仅当OS线程除字典互斥锁外没有其他同步对象时，才可以调用此函数。*/</span>
+	log_free_check();</code></pre>
 </li>
-<li><p>插入缓存<em>缓存的insert操作insert buffer,缩写ibuf</em><sup><a href="#fn_3" id="reffn_3">3</a></sup><sup><a href="#fn_4" id="reffn_4">4</a></sup></p>
-<p>合并插入缓冲（Insert Buffer）并不是每秒都会发生的。InnoDB存储引擎会判断当前一秒内发生的IO次数是否小于5次，如果小于5次，InnoDB认为当前的IO压力很小，可以执行合并插入缓冲的操作。<sup><a href="#fn_4" id="reffn_4">4</a></sup></p>
-<pre class=" language-lang-c++"><code class="language-lang-c++">/* Do an ibuf merge */
-    srv_main_thread_op_info = "doing insert buffer merge";
-    counter_time = ut_time_us(NULL);
-    ibuf_merge_in_background(false);
-    MONITOR_INC_TIME_IN_MICRO_SECS(
-        MONITOR_SRV_IBUF_MERGE_MICROSECOND, counter_time);
-</code></pre>
-<p><code>ibuf_merge_in_background</code>的思路<sup><a href="#fn_4" id="reffn_4">4</a></sup>:</p>
-<p>InnoDB存储引擎的开发团队参考了Google的patch，提供了类似的方法来修正该问题。因此InnoDB Plugin（从InnoDB1.0.x版本开始）提供了参数innodb_io_capacity，用来表示磁盘IO的吞吐量，默认值为200。对于刷新到磁盘页的数量，会按照innodb_io_capacity的百分比来进行控制。规则如下：</p>
+<li><p>插入缓存<em>缓存的insert操作insert buffer,缩写ibuf</em><sup><a href="#fn_3" id="reffn_3">3</a></sup><sup id="fnref:4" class="footnote-ref"><a href="#fn:4" rel="footnote"><span class="hint--top hint--rounded" aria-label="  InnoDB存储引擎的开发团队参考了Google的patch，提供了类似的方法来修正该问题。因此InnoDB Plugin（从InnoDB1.0.x版本开始）提供了参数innodb_io_capacity，用来表示磁盘IO的吞吐量，默认值为200。对于刷新到磁盘页的数量，会按照innodb_io_capacity的百分比来进行控制。规则如下：
+"></span></a><a href="MySQL技术内幕:innodb存储引擎2.5">4</a></sup></p>
+<p>合并插入缓冲（Insert Buffer）并不是每秒都会发生的。InnoDB存储引擎会判断当前一秒内发生的IO次数是否小于5次，如果小于5次，InnoDB认为当前的IO压力很小，可以执行合并插入缓冲的操作。<sup id="fnref:4" class="footnote-ref"><a href="#fn:4" rel="footnote"><span class="hint--top hint--rounded" aria-label="  InnoDB存储引擎的开发团队参考了Google的patch，提供了类似的方法来修正该问题。因此InnoDB Plugin（从InnoDB1.0.x版本开始）提供了参数innodb_io_capacity，用来表示磁盘IO的吞吐量，默认值为200。对于刷新到磁盘页的数量，会按照innodb_io_capacity的百分比来进行控制。规则如下：
+"></span></a><a href="MySQL技术内幕:innodb存储引擎2.5">4</a></sup></p>
+<pre><code class="hljs c++"><span class="hljs-comment">/* Do an ibuf merge */</span>
+	srv_main_thread_op_info = <span class="hljs-string">"doing insert buffer merge"</span>;
+	counter_time = ut_time_us(<span class="hljs-literal">NULL</span>);
+	ibuf_merge_in_background(<span class="hljs-literal">false</span>);
+	MONITOR_INC_TIME_IN_MICRO_SECS(
+		MONITOR_SRV_IBUF_MERGE_MICROSECOND, counter_time);</code></pre>
+<p><code>ibuf_merge_in_background</code>的思路</p>
 <p>❑在合并插入缓冲时，合并插入缓冲的数量为innodb_io_capacity值的5%；</p>
 <p>❑在从缓冲区刷新脏页时，刷新脏页的数量为innodb_io_capacity。</p>
 <p>若用户使用了SSD类的磁盘，或者将几块磁盘做了RAID，当存储设备拥有更高的IO速度时，完全可以将innodb_io_capacity的值调得再高点，直到符合磁盘IO的吞吐量为止。</p>
 <p>源码如下:</p>
-<pre class=" language-lang-c++"><code class="language-lang-c++">/*通过将页面读到缓冲池来收缩更改缓冲区。
-@param[in] full如果为true，则基于PCT_IO（100）进行完全收缩。 如果为false，则基于更改缓冲区的当前大小确定合同批的大小。 
-@return 条目的组合大小的下限（以字节为单位），这些条目将从ibuf树合并到读取的页面，如果ibuf为空，则返回0*/
-ulint ibuf_merge_in_background(bool    full)
-{
-    ulint    sum_bytes    = 0;
-    ulint    sum_pages    = 0;
-    ulint    n_pag2;
-    ulint    n_pages;
+<pre><code class="hljs c++"><span class="hljs-comment">/*通过将页面读到缓冲池来收缩更改缓冲区。</span>
+<span class="hljs-comment">@param[in] full如果为true，则基于PCT_IO（100）进行完全收缩。 如果为false，则基于更改缓冲区的当前大小确定合同批的大小。 </span>
+<span class="hljs-comment">@return 条目的组合大小的下限（以字节为单位），这些条目将从ibuf树合并到读取的页面，如果ibuf为空，则返回0*/</span>
+<span class="hljs-function">ulint <span class="hljs-title">ibuf_merge_in_background</span><span class="hljs-params">(<span class="hljs-keyword">bool</span>	full)</span></span>
+<span class="hljs-function"></span>{
+	ulint	sum_bytes	= <span class="hljs-number">0</span>;
+	ulint	sum_pages	= <span class="hljs-number">0</span>;
+	ulint	n_pag2;
+	ulint	n_pages;
 
-#if defined UNIV_DEBUG || defined UNIV_IBUF_DEBUG
-    if (srv_ibuf_disable_background_merge) {
-        return(0);
-    }
-#endif /* UNIV_DEBUG || UNIV_IBUF_DEBUG */
+<span class="hljs-meta">#<span class="hljs-meta-keyword">if</span> defined UNIV_DEBUG || defined UNIV_IBUF_DEBUG</span>
+	<span class="hljs-keyword">if</span> (srv_ibuf_disable_background_merge) {
+		<span class="hljs-keyword">return</span>(<span class="hljs-number">0</span>);
+	}
+<span class="hljs-meta">#<span class="hljs-meta-keyword">endif</span> <span class="hljs-comment">/* UNIV_DEBUG || UNIV_IBUF_DEBUG */</span></span>
 
-    if (full) {
-        /* Caller has requested a full batch */
-        /*IO操作数，即容量的X％。 PCT_IO（5)返回的IO操作数为最大值的5％，其中最大值为srv_io_capacity(默认            为200)。*/
-        n_pages = PCT_IO(100);
-    } else {
-        /* By default we do a batch of 5% of the io_capacity */
-        n_pages = PCT_IO(5);
+	<span class="hljs-keyword">if</span> (full) {
+		<span class="hljs-comment">/* Caller has requested a full batch */</span>
+        <span class="hljs-comment">/*IO操作数，即容量的X％。 PCT_IO（5)返回的IO操作数为最大值的5％，其中最大值为srv_io_capacity(默认			为200)。*/</span>
+		n_pages = PCT_IO(<span class="hljs-number">100</span>);
+	} <span class="hljs-keyword">else</span> {
+		<span class="hljs-comment">/* By default we do a batch of 5% of the io_capacity */</span>
+		n_pages = PCT_IO(<span class="hljs-number">5</span>);
 
-        mutex_enter(&ibuf_mutex);
+		mutex_enter(&amp;ibuf_mutex);
 
-        /* 如果ibuf-> size大于max_size的一半，那么我们将进行更剧烈的收缩 */
-        /*+1是为了避免被零除*/
-        if (ibuf->size > ibuf->max_size / 2) {
-            ulint diff = ibuf->size - ibuf->max_size / 2;
-            n_pages += PCT_IO((diff * 100)
-                       / (ibuf->max_size + 1));
-        }
+		<span class="hljs-comment">/* 如果ibuf-&gt; size大于max_size的一半，那么我们将进行更剧烈的收缩 */</span>
+        <span class="hljs-comment">/*+1是为了避免被零除*/</span>
+		<span class="hljs-keyword">if</span> (ibuf-&gt;<span class="hljs-built_in">size</span> &gt; ibuf-&gt;max_size / <span class="hljs-number">2</span>) {
+			ulint diff = ibuf-&gt;<span class="hljs-built_in">size</span> - ibuf-&gt;max_size / <span class="hljs-number">2</span>;
+			n_pages += PCT_IO((diff * <span class="hljs-number">100</span>)
+					   / (ibuf-&gt;max_size + <span class="hljs-number">1</span>));
+		}
 
-        mutex_exit(&ibuf_mutex);
-    }
+		mutex_exit(&amp;ibuf_mutex);
+	}
 
-    while (sum_pages < n_pages) {
-        ulint    n_bytes;
+	<span class="hljs-keyword">while</span> (sum_pages &lt; n_pages) {
+		ulint	n_bytes;
 
-        n_bytes = ibuf_merge(&n_pag2, false);
+		n_bytes = ibuf_merge(&amp;n_pag2, <span class="hljs-literal">false</span>);
 
-        if (n_bytes == 0) {
-            return(sum_bytes);
-        }
+		<span class="hljs-keyword">if</span> (n_bytes == <span class="hljs-number">0</span>) {
+			<span class="hljs-keyword">return</span>(sum_bytes);
+		}
 
-        sum_bytes += n_bytes;
-        sum_pages += n_pag2;
-    }
+		sum_bytes += n_bytes;
+		sum_pages += n_pag2;
+	}
 
-    return(sum_bytes);
-}
-</code></pre>
+	<span class="hljs-keyword">return</span>(sum_bytes);
+}</code></pre>
 </li>
 <li><p>日志缓冲刷新到磁盘,即使这个事务还没有提交</p>
-<pre class=" language-lang-C++"><code class="language-lang-C++"> /* Flush logs if needed */
-  srv_main_thread_op_info = "flushing log";
-  srv_sync_log_buffer_in_background();
- MONITOR_INC_TIME_IN_MICRO_SECS(
-         MONITOR_SRV_LOG_FLUSH_MICROSECOND, counter_time);
-</code></pre>
+ <pre><code class="hljs C++">  <span class="hljs-comment">/* Flush logs if needed */</span>
+srv_main_thread_op_info = <span class="hljs-string">"flushing log"</span>;
+srv_sync_log_buffer_in_background();
+  MONITOR_INC_TIME_IN_MICRO_SECS(
+  		MONITOR_SRV_LOG_FLUSH_MICROSECOND, counter_time);</code></pre>
 <p> 其中对<code>srv_sync_log_buffer_in_background()</code>的解读如下:</p>
-<pre class=" language-lang-c++"><code class="language-lang-c++"> /*主线程的任务是确保在后台每秒刷新一次日志文件。 这是为了确保当innodb_flush_logs_at_trx_commit！= 1崩溃时，丢失的trx不会超过一秒钟。*/
- srv_sync_log_buffer_in_background(void)
- /*===================================*/
- {
-     time_t    current_time = time(NULL);
+ <pre><code class="hljs c++"><span class="hljs-comment">/*主线程的任务是确保在后台每秒刷新一次日志文件。 这是为了确保当innodb_flush_logs_at_trx_commit！= 1崩溃时，丢失的trx不会超过一秒钟。*/</span>
+srv_sync_log_buffer_in_background(<span class="hljs-keyword">void</span>)
+<span class="hljs-comment">/*===================================*/</span>
+{
+	<span class="hljs-keyword">time_t</span>	current_time = time(<span class="hljs-literal">NULL</span>);
 
-     srv_main_thread_op_info = "flushing log";
-     if (difftime(current_time, srv_last_log_flush_time)
-         >= srv_flush_log_at_timeout) {//srv_flush_log_at_timeout=1,即1秒
-         log_buffer_sync_in_background(true);/*此函数将日志缓冲区写入日志文件，如果设置了“ flush”，则也                                                会强制刷新日志文件。 仅应从后台主线程调用此方法，因为它不                                                等待写入（+可能的刷新）完成。*/
-         srv_last_log_flush_time = current_time;
-         srv_log_writes_and_flush++;
-     }
- }
-</code></pre>
+	srv_main_thread_op_info = <span class="hljs-string">"flushing log"</span>;
+	<span class="hljs-keyword">if</span> (difftime(current_time, srv_last_log_flush_time)
+	    &gt;= srv_flush_log_at_timeout) {<span class="hljs-comment">//srv_flush_log_at_timeout=1,即1秒</span>
+		log_buffer_sync_in_background(<span class="hljs-literal">true</span>);<span class="hljs-comment">/*此函数将日志缓冲区写入日志文件，如果设置了“ flush”，则也												会强制刷新日志文件。 仅应从后台主线程调用此方法，因为它不												等待写入（+可能的刷新）完成。*/</span>
+		srv_last_log_flush_time = current_time;
+		srv_log_writes_and_flush++;
+	}
+}</code></pre>
 </li>
 </ul>
 <p><code>srv_master_do_idle_tasks</code>的工作主要如下:</p>
 <p>每当服务器空闲时，执行主线程应该执行的任务。 我们会在此功能期间检查服务器状态，如果服务器已进入关闭阶段，我们可能会在未完成所需任务的情况下从函数返回。</p>
 <p><strong>注意:执行此功能时服务器可以进入活动状态，但函数不会监测，因为本函数和在服务器处于活动状态时执行或多或少的相同的任务。</strong></p>
 <p>如果禁用主线程，循环sleep10秒:</p>
-<pre class=" language-lang-c++"><code class="language-lang-c++">ut_d(srv_master_do_disabled_loop());
-</code></pre>
+<pre><code class="hljs c++">ut_d(srv_master_do_disabled_loop());</code></pre>
 <p>因为空闲,有时间进行全缓冲区的插入合并:</p>
-<pre class=" language-lang-c++"><code class="language-lang-c++">ibuf_merge_in_background(true);
-</code></pre>
+<pre><code class="hljs c++">ibuf_merge_in_background(<span class="hljs-literal">true</span>);</code></pre>
 <p>其余的就是一些后续的处理</p>
 <h2 id="4-page-clean线程"><a href="#4-page-clean线程" class="headerlink" title="4. page clean线程"></a>4. page clean线程</h2><p>在上述<a href="#2. innodb线程的产生过程">2. innodb线程的产生过程</a>中已经提到的<code>innobase_start_or_create_for_mysql</code>中有page clean线程:</p>
-<pre class=" language-lang-c++"><code class="language-lang-c++">innobase_start_or_create_for_mysql(void)
-/*====================================*/
+<pre><code class="hljs c++">innobase_start_or_create_for_mysql(<span class="hljs-keyword">void</span>)
+<span class="hljs-comment">/*====================================*/</span>
 {
-    //...
-    /* 即使在只读模式下，内部表操作也可能会产生刷新操作。 */
-    buf_flush_page_cleaner_init();
-    os_thread_create(buf_flush_page_cleaner_coordinator,NULL, NULL);
-    for (i = 1; i < srv_n_page_cleaners; ++i) {
-        os_thread_create(buf_flush_page_cleaner_worker,NULL, NULL);
-    }
-    /* Make sure page cleaner is active. */
-    while (!buf_page_cleaner_is_active) {
-        os_thread_sleep(10000);
-    }
-    //...
-}
-</code></pre>
+    <span class="hljs-comment">//...</span>
+	<span class="hljs-comment">/* 即使在只读模式下，内部表操作也可能会产生刷新操作。 */</span>
+	buf_flush_page_cleaner_init();
+	os_thread_create(buf_flush_page_cleaner_coordinator,<span class="hljs-literal">NULL</span>, <span class="hljs-literal">NULL</span>);
+	<span class="hljs-keyword">for</span> (i = <span class="hljs-number">1</span>; i &lt; srv_n_page_cleaners; ++i) {
+		os_thread_create(buf_flush_page_cleaner_worker,<span class="hljs-literal">NULL</span>, <span class="hljs-literal">NULL</span>);
+	}
+	<span class="hljs-comment">/* Make sure page cleaner is active. */</span>
+	<span class="hljs-keyword">while</span> (!buf_page_cleaner_is_active) {
+		os_thread_sleep(<span class="hljs-number">10000</span>);
+	}
+    <span class="hljs-comment">//...</span>
+}</code></pre>
 <p>其中的<code>buf_flush_page_cleaner_worker</code>是Page Cleaner Thread,为了提升扩展性和刷脏效率，在innodb1.2.X版本里引入了多个page cleaner线程。从而达到并行刷脏的效果<sup><a href="#fn_5" id="reffn_5">5</a></sup></p>
 <p>在该版本中，Page cleaner并未和buffer pool绑定，其模型为一个协调线程 + 多个工作线程，协调线程本身也是工作线程。因此如果innodb_page_cleaners设置为8，那么就是一个协调线程，加7个工作线程</p>
 <ul>
 <li><p><strong>协调线程的入口函数为</strong><code>buf_flush_page_cleaner_coordinator</code>:</p>
 <p>决定了需要flush的page数和lsn_limit后，会设置slot数组，将其中每个slot的状态设置为PAGE_CLEANER_STATE_REQUESTED, 并设置目标page数及lsn_limit，然后唤醒worker线程 (pc_request)\</p>
 <p>主循环:</p>
-<p>实际正常运行情况下的工作都包含在<sup><a href="#fn_6" id="reffn_6">6</a></sup>:</p>
-<pre class=" language-lang-c++"><code class="language-lang-c++">while (srv_shutdown_state == SRV_SHUTDOWN_NONE) {
-    //...
-}
-</code></pre>
+<p>实际正常运行情况下的工作都包含在</p>
 <p>之中.</p>
 <ol>
 <li><p>首先如果没有活跃的change buffer 并且没有pending的物理块，并且上次刷新的块数量为0则不需要睡眠1秒:</p>
-<pre class=" language-lang-c++"><code class="language-lang-c++">    /* 如果服务器空闲并且缓冲池中没有待处理的IO，并且有工作要做，则page_cleaner会跳过睡眠。 */
-    if (srv_check_activity(last_activity)
-        || buf_get_n_pending_read_ios()
-        || n_flushed == 0) {
-        ret_sleep = pc_sleep_if_needed(next_loop_time, sig_count);//睡眠一秒
-        if (srv_shutdown_state != SRV_SHUTDOWN_NONE) {
-            break;
-        }
-    } else if (ut_time_ms() > next_loop_time) {
-        //如果当前时间大于 上次刷新 时间+1 秒则 设置为OS_SYNC_TIME_EXCEEDED
-        ret_sleep = OS_SYNC_TIME_EXCEEDED;
-    } else {
-        ret_sleep = 0;
-    }
-</code></pre>
+<pre><code class="hljs c++"><span class="hljs-comment">/* 如果服务器空闲并且缓冲池中没有待处理的IO，并且有工作要做，则page_cleaner会跳过睡眠。 */</span>
+<span class="hljs-keyword">if</span> (srv_check_activity(last_activity)
+    || buf_get_n_pending_read_ios()
+    || n_flushed == <span class="hljs-number">0</span>) {
+	ret_sleep = pc_sleep_if_needed(next_loop_time, sig_count);<span class="hljs-comment">//睡眠一秒</span>
+	<span class="hljs-keyword">if</span> (srv_shutdown_state != SRV_SHUTDOWN_NONE) {
+		<span class="hljs-keyword">break</span>;
+	}
+} <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (ut_time_ms() &gt; next_loop_time) {
+          <span class="hljs-comment">//如果当前时间大于 上次刷新 时间+1 秒则 设置为OS_SYNC_TIME_EXCEEDED</span>
+	ret_sleep = OS_SYNC_TIME_EXCEEDED;
+} <span class="hljs-keyword">else</span> {
+	ret_sleep = <span class="hljs-number">0</span>;
+}</code></pre>
 <p>但是这个睡眠是可以被唤醒的，比如同步刷新应该就会唤醒它（buf_flush_request_force函数）。参考函数os_event::wait_time_low</p>
 </li>
 <li><p>IO能力不足警告</p>
-<pre class=" language-lang-c++"><code class="language-lang-c++">  if (curr_time > next_loop_time + 3000) {//如果刷新时间 大于了 上次时间 +1 秒+3 秒 则报info
-                  if (warn_count == 0) {
-                      ib::info() << "page_cleaner: 1000ms"
-                          " intended loop took "
-                          << 1000 + curr_time
-                             - next_loop_time
-                          << "ms. The settings might not"
-                          " be optimal. (flushed="
-                          << n_flushed_last
-                          << " and evicted="
-                          << n_evicted
-                          << ", during the time.)";
-                      if (warn_interval > 300) {
-                          warn_interval = 600;
-                      } else {
-                          warn_interval *= 2;
-                      }
+<pre><code class="hljs c++"><span class="hljs-keyword">if</span> (curr_time &gt; next_loop_time + <span class="hljs-number">3000</span>) {<span class="hljs-comment">//如果刷新时间 大于了 上次时间 +1 秒+3 秒 则报info</span>
+				<span class="hljs-keyword">if</span> (warn_count == <span class="hljs-number">0</span>) {
+					ib::info() &lt;&lt; <span class="hljs-string">"page_cleaner: 1000ms"</span>
+						<span class="hljs-string">" intended loop took "</span>
+						&lt;&lt; <span class="hljs-number">1000</span> + curr_time
+						   - next_loop_time
+						&lt;&lt; <span class="hljs-string">"ms. The settings might not"</span>
+						<span class="hljs-string">" be optimal. (flushed="</span>
+						&lt;&lt; n_flushed_last
+						&lt;&lt; <span class="hljs-string">" and evicted="</span>
+						&lt;&lt; n_evicted
+						&lt;&lt; <span class="hljs-string">", during the time.)"</span>;
+					<span class="hljs-keyword">if</span> (warn_interval &gt; <span class="hljs-number">300</span>) {
+						warn_interval = <span class="hljs-number">600</span>;
+					} <span class="hljs-keyword">else</span> {
+						warn_interval *= <span class="hljs-number">2</span>;
+					}
 
-                      warn_count = warn_interval;
-                  } else {
-                      --warn_count;
-                  }
-              } else {
-                  /* reset counter */
-                  warn_interval = 1;
-                  warn_count = 0;
-              }
-</code></pre>
+					warn_count = warn_interval;
+				} <span class="hljs-keyword">else</span> {
+					--warn_count;
+				}
+			} <span class="hljs-keyword">else</span> {
+				<span class="hljs-comment">/* reset counter */</span>
+				warn_interval = <span class="hljs-number">1</span>;
+				warn_count = <span class="hljs-number">0</span>;
+			}</code></pre>
 </li>
 <li><p>同步刷新判断</p>
 <p><strong>触发条件</strong>:</p>
-<pre class=" language-lang-c++"><code class="language-lang-c++">  if (ret_sleep != OS_SYNC_TIME_EXCEEDED
-              && srv_flush_sync
-              && buf_flush_sync_lsn > 0)
-</code></pre>
+<pre><code class="hljs c++"><span class="hljs-keyword">if</span> (ret_sleep != OS_SYNC_TIME_EXCEEDED
+		    &amp;&amp; srv_flush_sync
+		    &amp;&amp; buf_flush_sync_lsn &gt; <span class="hljs-number">0</span>)</code></pre>
 <p>同步会唤醒正在睡眠状态的page clean协调工作线程,那么睡眠应该不会满足一秒的条件,所以不会被标记为OS_SYNC_TIME_EXCEEDED，同时srv_flush_sync和buf_flush_sync_lsn均会被设置,接下来就是唤醒工作线程进行刷新，同时本协调线程也完成部分任务。</p>
 <p>  工作代码:</p>
-<pre class=" language-lang-c++"><code class="language-lang-c++">              /* Request flushing for threads */
-              pc_request(ULINT_MAX, lsn_limit);//唤醒page clean 工作线程干活
-
-              ulint tm = ut_time_ms();
-
-              /* Coordinator also treats requests */
-              while (pc_flush_slot() > 0) {}////协调者同样完成部分任务
-</code></pre>
+<pre><code class="hljs c++"><span class="hljs-comment">/* Request flushing for threads */</span>
+pc_request(ULINT_MAX, lsn_limit);<span class="hljs-comment">//唤醒page clean 工作线程干活</span>
+       
+ulint tm = ut_time_ms();
+       
+<span class="hljs-comment">/* Coordinator also treats requests */</span>
+<span class="hljs-keyword">while</span> (pc_flush_slot() &gt; <span class="hljs-number">0</span>) {}<span class="hljs-comment">////协调者同样完成部分任务</span></code></pre>
 <p>  <strong>唤醒操作</strong>:</p>
 <p>在checkpoint或者DML语句执行过程中都会通过log_free_check检查是否redo log处于安全的状态，如果不安全就会调用如下代码（log_preflush_pool_modified_pages函数中）唤醒page clean线程进行同步刷新</p>
-<pre class=" language-lang-c++"><code class="language-lang-c++"> if (srv_flush_sync) {        /* wake page cleaner for IO burst */
-          buf_flush_request_force(new_oldest); //设置全局变量同时通过broadcast唤醒同步刷新
-      }
-      buf_flush_wait_flushed(new_oldest); //所有线程等待同步刷新完成
-</code></pre>
+<pre><code class="hljs c++"><span class="hljs-keyword">if</span> (srv_flush_sync) {        <span class="hljs-comment">/* wake page cleaner for IO burst */</span>
+         buf_flush_request_force(new_oldest); <span class="hljs-comment">//设置全局变量同时通过broadcast唤醒同步刷新</span>
+     }
+     buf_flush_wait_flushed(new_oldest); <span class="hljs-comment">//所有线程等待同步刷新完成</span></code></pre>
 </li>
 <li><p>活跃刷新</p>
 <p><strong>触发条件</strong>:</p>
-<pre class=" language-lang-c++"><code class="language-lang-c++">else if (srv_check_activity(last_activity))
-</code></pre>
+<pre><code class="hljs c++"><span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (srv_check_activity(last_activity))</code></pre>
 <p>这里判断是否有活跃的线程，所谓活跃就是调用srv_inc_activity_count函数进行增加的，一般来讲DML和DDL会标记为活跃，purge线程及其工作线程工作期间会标记为活跃。可以将断点做到srv_inc_activity_count进行debug。所以线上数据库DML比较多所以一般都会是活跃刷新。</p>
 <p><strong>工作代码</strong>:</p>
 <p>这里涉及到刷新多少个块计算主要函数为 <code>page_cleaner_flush_pages_recommendation</code></p>
-<pre class=" language-lang-c++"><code class="language-lang-c++">            ulint    n_to_flush;
-            lsn_t    lsn_limit = 0;
-
-            /* Estimate pages from flush_list to be flushed */
-            if (ret_sleep == OS_SYNC_TIME_EXCEEDED) {
-                last_activity = srv_get_activity_count();
-                n_to_flush =
-                    page_cleaner_flush_pages_recommendation(
-                        &lsn_limit, last_pages);
-            } else {
-                n_to_flush = 0;
-            }
-
-            //...
-
-            pc_wait_finished(&n_flushed_lru, &n_flushed_list);
-</code></pre>
+<pre><code class="hljs c++">ulint	n_to_flush;
+<span class="hljs-keyword">lsn_t</span>	lsn_limit = <span class="hljs-number">0</span>;
+     
+<span class="hljs-comment">/* Estimate pages from flush_list to be flushed */</span>
+<span class="hljs-keyword">if</span> (ret_sleep == OS_SYNC_TIME_EXCEEDED) {
+	last_activity = srv_get_activity_count();
+	n_to_flush =
+		page_cleaner_flush_pages_recommendation(
+			&amp;lsn_limit, last_pages);
+} <span class="hljs-keyword">else</span> {
+	n_to_flush = <span class="hljs-number">0</span>;
+}
+     
+<span class="hljs-comment">//...</span>
+     
+pc_wait_finished(&amp;n_flushed_lru, &amp;n_flushed_list);</code></pre>
 <p> <code>page_cleaner_flush_pages_recommendation</code>:</p>
 <p>此函数最后计算出了需要刷新的块，其中刷新比率计算的的重点函数为af_get_pct_for_dirty和af_get_pct_for_lsn 下面将给出代码注释，其实前文中的算法就来自af_get_pct_for_dirty。</p>
-<pre class=" language-lang-c++"><code class="language-lang-c++">
+<pre><code class="hljs c++"> 
 {
-    cur_lsn = log_get_lsn();//获取当前的lsn 在 redo buffer中的
-    if (prev_lsn == 0) {       //静态变量如果是0则代表是第一次执行本函数
-        /* First time around. */
-        prev_lsn = cur_lsn;
-        prev_time = ut_time(); //获取当前时间
-        return(0);
-    }    if (prev_lsn == cur_lsn) { //如果没有redo日志生成
-        return(0);
-    }
-    sum_pages += last_pages_in;    
-    time_t  curr_time = ut_time();    
-    double  time_elapsed = difftime(curr_time, prev_time);
-    avg_page_rate = static_cast<ulint>(
-            ((static_cast<double>(sum_pages)
-              / time_elapsed)
-             + avg_page_rate) / 2); //算出上次刷新每秒刷新的pages数量，同时加上次计算的每秒平均刷新块数 然后除以2 得到一个每秒刷新的pages数量 ！！！第一个计算条件avg_page_rate 生成
-        /* How much LSN we have generated since last call. */
-        lsn_rate = static_cast<lsn_t>(
-            static_cast<double>(cur_lsn - prev_lsn)
-            / time_elapsed);//计算redo lsn生成率
-        lsn_avg_rate = (lsn_avg_rate + lsn_rate) / 2;//计算redo每秒平均生成率
-        /* aggregate stats of all slots */
-        mutex_enter(&page_cleaner->mutex);
-        ulint   flush_tm = page_cleaner->flush_time;
-        ulint   flush_pass = page_cleaner->flush_pass;
-        page_cleaner->flush_time = 0;
-        page_cleaner->flush_pass = 0;
-        ulint   list_tm = 0;
-        ulint   list_pass = 0;        
-    for (ulint i = 0; i < page_cleaner->n_slots; i++) {//扫描所有的槽
-            page_cleaner_slot_t*    slot;
-            slot = &page_cleaner->slots[i];
-            list_tm   += slot->flush_list_time;
-            list_pass += slot->flush_list_pass;
-            slot->flush_list_time = 0;
-            slot->flush_list_pass = 0;
-        }
-        mutex_exit(&page_cleaner->mutex);
-    oldest_lsn = buf_pool_get_oldest_modification(); //获取flush list中最老的ls
-    ut_ad(oldest_lsn <= log_get_lsn());//断言
-    age = cur_lsn > oldest_lsn ? cur_lsn - oldest_lsn : 0; //获取当前LSN和最老LSN的之间的差值
-    pct_for_dirty = af_get_pct_for_dirty(); //计算出一个刷新百分比 (比如100) !!!!重点
-    pct_for_lsn = af_get_pct_for_lsn(age);//计算出lsn的比率 百分比(l列如4.5) 
-    pct_total = ut_max(pct_for_dirty, pct_for_lsn);//取他们的大值
-
-    /* Estimate pages to be flushed for the lsn progress *///计算target_lsn
-    ulint   sum_pages_for_lsn = 0;    
-    lsn_t   target_lsn = oldest_lsn
-                 + lsn_avg_rate * buf_flush_lsn_scan_factor; //计算下一次刷新的  目标lsn 及target_lsnbuf_flush_lsn_scan_factor是定值3
-    for (ulint i = 0; i < srv_buf_pool_instances; i++) {
-        //循环整个buffer instance找到小于target_lsn的脏块
-        buf_pool_t* buf_pool = buf_pool_from_array(i);
-        ulint       pages_for_lsn = 0;
-        buf_flush_list_mutex_enter(buf_pool);        
-        for (buf_page_t* b = UT_LIST_GET_LAST(buf_pool->flush_list);
-             //每个innodb buffer的末尾的flush list 进行扫描，头插法?
-             b != NULL;
-             b = UT_LIST_GET_PREV(list, b)) {            
-            if (b->oldest_modification > target_lsn) {                
-                break;
-            }
-            ++pages_for_lsn; 
-            //某个 innodb buffer 实例中 flush list 小于这个  target lsn 的 page计数
-        }
-        buf_flush_list_mutex_exit(buf_pool);
-        sum_pages_for_lsn += pages_for_lsn; 
-        //这里汇总所有 innodb buffer实例中  flush list 小于这个  target lsn 的 page 总数
-        mutex_enter(&page_cleaner->mutex);
-        ut_ad(page_cleaner->slots[i].state
-              == PAGE_CLEANER_STATE_NONE);//断言所有的槽处于没有刷新状态
-        page_cleaner->slots[i].n_pages_requested
-            = pages_for_lsn / buf_flush_lsn_scan_factor + 1; //确认槽的n_pages_requested值
-        mutex_exit(&page_cleaner->mutex);
-    }
-    sum_pages_for_lsn /= buf_flush_lsn_scan_factor;//buf_flush_lsn_scan_factor为定值3
-    /* Cap the maximum IO capacity that we are going to use by
-    max_io_capacity. Limit the value to avoid too quick increase */
-    n_pages = PCT_IO(pct_total); //根据 前面得到的 pct_total 和 srv_io_capacity参数得到 刷新的块数 !!!第二个计算参数生成。
-    if (age < log_get_max_modified_age_async()) { //如果日质量小于 异步刷新的范畴
-        ulint   pages_for_lsn = std::min<ulint>(sum_pages_for_lsn,
-                    srv_max_io_capacity * 2); //即便是需要刷新的块数很多，最多只能刷max_io_capacity*2的数量!!!第三个计算参数生成
-        n_pages = (n_pages + avg_page_rate + pages_for_lsn) / 3;  // 3部分组成 1、根据参数计算出来的IO能力 2、以往每秒刷新页的数量 3、根据target lsn 计算出来的一个需要刷新的块数
-    }  
-    if (n_pages > srv_max_io_capacity) {
-        n_pages = srv_max_io_capacity;
-    }    
-    return(n_pages);
-}
-</code></pre>
+&nbsp;&nbsp;&nbsp;&nbsp;cur_lsn&nbsp;=&nbsp;log_get_lsn();<span class="hljs-comment">//获取当前的lsn&nbsp;在&nbsp;redo&nbsp;buffer中的</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="hljs-keyword">if</span>&nbsp;(prev_lsn&nbsp;==&nbsp;<span class="hljs-number">0</span>)&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="hljs-comment">//静态变量如果是0则代表是第一次执行本函数</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="hljs-comment">/*&nbsp;First&nbsp;time&nbsp;around.&nbsp;*/</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;prev_lsn&nbsp;=&nbsp;cur_lsn;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;prev_time&nbsp;=&nbsp;ut_time();&nbsp;<span class="hljs-comment">//获取当前时间</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="hljs-keyword">return</span>(<span class="hljs-number">0</span>);
+&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;&nbsp;&nbsp;<span class="hljs-keyword">if</span>&nbsp;(prev_lsn&nbsp;==&nbsp;cur_lsn)&nbsp;{&nbsp;<span class="hljs-comment">//如果没有redo日志生成</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="hljs-keyword">return</span>(<span class="hljs-number">0</span>);
+&nbsp;&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;&nbsp;&nbsp;sum_pages&nbsp;+=&nbsp;last_pages_in;&nbsp;&nbsp;&nbsp;&nbsp;
+    <span class="hljs-keyword">time_t</span>&nbsp;&nbsp;curr_time&nbsp;=&nbsp;ut_time();&nbsp;&nbsp;&nbsp;&nbsp;
+    <span class="hljs-keyword">double</span>&nbsp;&nbsp;time_elapsed&nbsp;=&nbsp;difftime(curr_time,&nbsp;prev_time);
+&nbsp;&nbsp;&nbsp;&nbsp;avg_page_rate&nbsp;=&nbsp;<span class="hljs-keyword">static_cast</span>&lt;ulint&gt;(
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;((<span class="hljs-keyword">static_cast</span>&lt;<span class="hljs-keyword">double</span>&gt;(sum_pages)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/&nbsp;time_elapsed)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+&nbsp;avg_page_rate)&nbsp;/&nbsp;<span class="hljs-number">2</span>);&nbsp;<span class="hljs-comment">//算出上次刷新每秒刷新的pages数量，同时加上次计算的每秒平均刷新块数&nbsp;然后除以2&nbsp;得到一个每秒刷新的pages数量&nbsp;！！！第一个计算条件avg_page_rate&nbsp;生成</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="hljs-comment">/*&nbsp;How&nbsp;much&nbsp;LSN&nbsp;we&nbsp;have&nbsp;generated&nbsp;since&nbsp;last&nbsp;call.&nbsp;*/</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lsn_rate&nbsp;=&nbsp;<span class="hljs-keyword">static_cast</span>&lt;<span class="hljs-keyword">lsn_t</span>&gt;(
+            <span class="hljs-keyword">static_cast</span>&lt;<span class="hljs-keyword">double</span>&gt;(cur_lsn&nbsp;-&nbsp;prev_lsn)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/&nbsp;time_elapsed);<span class="hljs-comment">//计算redo&nbsp;lsn生成率</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lsn_avg_rate&nbsp;=&nbsp;(lsn_avg_rate&nbsp;+&nbsp;lsn_rate)&nbsp;/&nbsp;<span class="hljs-number">2</span>;<span class="hljs-comment">//计算redo每秒平均生成率</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="hljs-comment">/*&nbsp;aggregate&nbsp;stats&nbsp;of&nbsp;all&nbsp;slots&nbsp;*/</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mutex_enter(&amp;page_cleaner-&gt;mutex);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ulint&nbsp;&nbsp;&nbsp;flush_tm&nbsp;=&nbsp;page_cleaner-&gt;flush_time;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ulint&nbsp;&nbsp;&nbsp;flush_pass&nbsp;=&nbsp;page_cleaner-&gt;flush_pass;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;page_cleaner-&gt;flush_time&nbsp;=&nbsp;<span class="hljs-number">0</span>;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;page_cleaner-&gt;flush_pass&nbsp;=&nbsp;<span class="hljs-number">0</span>;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ulint&nbsp;&nbsp;&nbsp;list_tm&nbsp;=&nbsp;<span class="hljs-number">0</span>;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ulint&nbsp;&nbsp;&nbsp;list_pass&nbsp;=&nbsp;<span class="hljs-number">0</span>;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <span class="hljs-keyword">for</span>&nbsp;(ulint&nbsp;i&nbsp;=&nbsp;<span class="hljs-number">0</span>;&nbsp;i&nbsp;&lt;&nbsp;page_cleaner-&gt;n_slots;&nbsp;i++)&nbsp;{<span class="hljs-comment">//扫描所有的槽</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="hljs-keyword">page_cleaner_slot_t</span>*&nbsp;&nbsp;&nbsp;&nbsp;slot;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;slot&nbsp;=&nbsp;&amp;page_cleaner-&gt;slots[i];
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;list_tm&nbsp;&nbsp;&nbsp;+=&nbsp;slot-&gt;flush_list_time;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;list_pass&nbsp;+=&nbsp;slot-&gt;flush_list_pass;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;slot-&gt;flush_list_time&nbsp;=&nbsp;<span class="hljs-number">0</span>;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;slot-&gt;flush_list_pass&nbsp;=&nbsp;<span class="hljs-number">0</span>;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mutex_exit(&amp;page_cleaner-&gt;mutex);
+&nbsp;&nbsp;&nbsp;&nbsp;oldest_lsn&nbsp;=&nbsp;buf_pool_get_oldest_modification();&nbsp;<span class="hljs-comment">//获取flush&nbsp;list中最老的ls</span>
+&nbsp;&nbsp;&nbsp;&nbsp;ut_ad(oldest_lsn&nbsp;&lt;=&nbsp;log_get_lsn());<span class="hljs-comment">//断言</span>
+&nbsp;&nbsp;&nbsp;&nbsp;age&nbsp;=&nbsp;cur_lsn&nbsp;&gt;&nbsp;oldest_lsn&nbsp;?&nbsp;cur_lsn&nbsp;-&nbsp;oldest_lsn&nbsp;:&nbsp;<span class="hljs-number">0</span>;&nbsp;<span class="hljs-comment">//获取当前LSN和最老LSN的之间的差值</span>
+&nbsp;&nbsp;&nbsp;&nbsp;pct_for_dirty&nbsp;=&nbsp;af_get_pct_for_dirty();&nbsp;<span class="hljs-comment">//计算出一个刷新百分比&nbsp;(比如100)&nbsp;!!!!重点</span>
+&nbsp;&nbsp;&nbsp;&nbsp;pct_for_lsn&nbsp;=&nbsp;af_get_pct_for_lsn(age);<span class="hljs-comment">//计算出lsn的比率&nbsp;百分比(l列如4.5)&nbsp;</span>
+&nbsp;&nbsp;&nbsp;&nbsp;pct_total&nbsp;=&nbsp;ut_max(pct_for_dirty,&nbsp;pct_for_lsn);<span class="hljs-comment">//取他们的大值</span>
+&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="hljs-comment">/*&nbsp;Estimate&nbsp;pages&nbsp;to&nbsp;be&nbsp;flushed&nbsp;for&nbsp;the&nbsp;lsn&nbsp;progress&nbsp;*/</span><span class="hljs-comment">//计算target_lsn</span>
+&nbsp;&nbsp;&nbsp;&nbsp;ulint&nbsp;&nbsp;&nbsp;sum_pages_for_lsn&nbsp;=&nbsp;<span class="hljs-number">0</span>;&nbsp;&nbsp;&nbsp;&nbsp;
+    <span class="hljs-keyword">lsn_t</span>&nbsp;&nbsp;&nbsp;target_lsn&nbsp;=&nbsp;oldest_lsn
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+&nbsp;lsn_avg_rate&nbsp;*&nbsp;buf_flush_lsn_scan_factor;&nbsp;<span class="hljs-comment">//计算下一次刷新的&nbsp;&nbsp;目标lsn&nbsp;及target_lsnbuf_flush_lsn_scan_factor是定值3</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="hljs-keyword">for</span>&nbsp;(ulint&nbsp;i&nbsp;=&nbsp;<span class="hljs-number">0</span>;&nbsp;i&nbsp;&lt;&nbsp;srv_buf_pool_instances;&nbsp;i++)&nbsp;{
+        <span class="hljs-comment">//循环整个buffer&nbsp;instance找到小于target_lsn的脏块</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="hljs-keyword">buf_pool_t</span>*&nbsp;buf_pool&nbsp;=&nbsp;buf_pool_from_array(i);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ulint&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pages_for_lsn&nbsp;=&nbsp;<span class="hljs-number">0</span>;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;buf_flush_list_mutex_enter(buf_pool);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <span class="hljs-keyword">for</span>&nbsp;(<span class="hljs-keyword">buf_page_t</span>*&nbsp;b&nbsp;=&nbsp;UT_LIST_GET_LAST(buf_pool-&gt;flush_list);
+             <span class="hljs-comment">//每个innodb&nbsp;buffer的末尾的flush&nbsp;list&nbsp;进行扫描，头插法?</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b&nbsp;!=&nbsp;<span class="hljs-literal">NULL</span>;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b&nbsp;=&nbsp;UT_LIST_GET_PREV(<span class="hljs-built_in">list</span>,&nbsp;b))&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span class="hljs-keyword">if</span>&nbsp;(b-&gt;oldest_modification&nbsp;&gt;&nbsp;target_lsn)&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <span class="hljs-keyword">break</span>;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;++pages_for_lsn;&nbsp;
+            <span class="hljs-comment">//某个&nbsp;innodb&nbsp;buffer&nbsp;实例中&nbsp;flush&nbsp;list&nbsp;小于这个&nbsp;&nbsp;target&nbsp;lsn&nbsp;的&nbsp;page计数</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;buf_flush_list_mutex_exit(buf_pool);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sum_pages_for_lsn&nbsp;+=&nbsp;pages_for_lsn;&nbsp;
+        <span class="hljs-comment">//这里汇总所有&nbsp;innodb&nbsp;buffer实例中&nbsp;&nbsp;flush&nbsp;list&nbsp;小于这个&nbsp;&nbsp;target&nbsp;lsn&nbsp;的&nbsp;page&nbsp;总数</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mutex_enter(&amp;page_cleaner-&gt;mutex);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ut_ad(page_cleaner-&gt;slots[i].state
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;==&nbsp;PAGE_CLEANER_STATE_NONE);<span class="hljs-comment">//断言所有的槽处于没有刷新状态</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;page_cleaner-&gt;slots[i].n_pages_requested
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;pages_for_lsn&nbsp;/&nbsp;buf_flush_lsn_scan_factor&nbsp;+&nbsp;<span class="hljs-number">1</span>;&nbsp;<span class="hljs-comment">//确认槽的n_pages_requested值</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mutex_exit(&amp;page_cleaner-&gt;mutex);
+&nbsp;&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;&nbsp;&nbsp;sum_pages_for_lsn&nbsp;/=&nbsp;buf_flush_lsn_scan_factor;<span class="hljs-comment">//buf_flush_lsn_scan_factor为定值3</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="hljs-comment">/*&nbsp;Cap&nbsp;the&nbsp;maximum&nbsp;IO&nbsp;capacity&nbsp;that&nbsp;we&nbsp;are&nbsp;going&nbsp;to&nbsp;use&nbsp;by</span>
+<span class="hljs-comment">&nbsp;&nbsp;&nbsp;&nbsp;max_io_capacity.&nbsp;Limit&nbsp;the&nbsp;value&nbsp;to&nbsp;avoid&nbsp;too&nbsp;quick&nbsp;increase&nbsp;*/</span>
+&nbsp;&nbsp;&nbsp;&nbsp;n_pages&nbsp;=&nbsp;PCT_IO(pct_total);&nbsp;<span class="hljs-comment">//根据&nbsp;前面得到的&nbsp;pct_total&nbsp;和&nbsp;srv_io_capacity参数得到&nbsp;刷新的块数&nbsp;!!!第二个计算参数生成。</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="hljs-keyword">if</span>&nbsp;(age&nbsp;&lt;&nbsp;log_get_max_modified_age_async())&nbsp;{&nbsp;<span class="hljs-comment">//如果日质量小于&nbsp;异步刷新的范畴</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ulint&nbsp;&nbsp;&nbsp;pages_for_lsn&nbsp;= <span class="hljs-built_in">std</span>::<span class="hljs-built_in">min</span>&lt;ulint&gt;(sum_pages_for_lsn,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;srv_max_io_capacity&nbsp;*&nbsp;<span class="hljs-number">2</span>);&nbsp;<span class="hljs-comment">//即便是需要刷新的块数很多，最多只能刷max_io_capacity*2的数量!!!第三个计算参数生成</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;n_pages&nbsp;=&nbsp;(n_pages&nbsp;+&nbsp;avg_page_rate&nbsp;+&nbsp;pages_for_lsn)&nbsp;/&nbsp;<span class="hljs-number">3</span>;&nbsp;&nbsp;<span class="hljs-comment">//&nbsp;3部分组成&nbsp;1、根据参数计算出来的IO能力&nbsp;2、以往每秒刷新页的数量&nbsp;3、根据target&nbsp;lsn&nbsp;计算出来的一个需要刷新的块数</span>
+&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;
+    <span class="hljs-keyword">if</span>&nbsp;(n_pages&nbsp;&gt;&nbsp;srv_max_io_capacity)&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;n_pages&nbsp;=&nbsp;srv_max_io_capacity;
+&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;&nbsp;&nbsp;
+    <span class="hljs-keyword">return</span>(n_pages);
+}</code></pre>
 <p> af_get_pct_for_dirty函数:</p>
-<pre class=" language-lang-c++"><code class="language-lang-c++">
+<pre><code class="hljs c++"> 
 {
-    cur_lsn = log_get_lsn();//获取当前的lsn 在 redo buffer中的
-    if (prev_lsn == 0) {       //静态变量如果是0则代表是第一次执行本函数
-        /* First time around. */
-        prev_lsn = cur_lsn;
-        prev_time = ut_time(); //获取当前时间
-        return(0);
-    }    
-    if (prev_lsn == cur_lsn) { //如果没有redo日志生成
-        return(0);
-    }
-    sum_pages += last_pages_in;    
-    time_t  curr_time = ut_time();    
-    double  time_elapsed = difftime(curr_time, prev_time);
-    avg_page_rate = static_cast<ulint>(
-            ((static_cast<double>(sum_pages)
-              / time_elapsed)
-             + avg_page_rate) / 2); //算出上次刷新每秒刷新的pages数量，同时加上次计算的每秒平均刷新块数 然后除以2 得到一个每秒刷新的pages数量 ！！！第一个计算条件avg_page_rate 生成
-        /* How much LSN we have generated since last call. */
-    lsn_rate = static_cast<lsn_t>(            
-            static_cast<double>(cur_lsn - prev_lsn)
-            / time_elapsed);//计算redo lsn生成率
-    lsn_avg_rate = (lsn_avg_rate + lsn_rate) / 2;//计算redo每秒平均生成率
-    /* aggregate stats of all slots */
-    mutex_enter(&page_cleaner->mutex);
-    ulint   flush_tm = page_cleaner->flush_time;
-    ulint   flush_pass = page_cleaner->flush_pass;
-    page_cleaner->flush_time = 0;
-    page_cleaner->flush_pass = 0;
-    ulint   list_tm = 0;
-    ulint   list_pass = 0;        
-    for (ulint i = 0; i < page_cleaner->n_slots; i++) {//扫描所有的槽
-            page_cleaner_slot_t*    slot;
-            slot = &page_cleaner->slots[i];
-            list_tm   += slot->flush_list_time;
-            list_pass += slot->flush_list_pass;
-            slot->flush_list_time = 0;
-            slot->flush_list_pass = 0;
-        }
-    mutex_exit(&page_cleaner->mutex);
-    oldest_lsn = buf_pool_get_oldest_modification(); //获取flush list中最老的ls
-    ut_ad(oldest_lsn <= log_get_lsn());//断言
-    age = cur_lsn > oldest_lsn ? cur_lsn - oldest_lsn : 0; //获取当前LSN和最老LSN的之间的差值
-    pct_for_dirty = af_get_pct_for_dirty(); //计算出一个刷新百分比 (比如100) !!!!重点
-    pct_for_lsn = af_get_pct_for_lsn(age);//计算出lsn的比率 百分比(l列如4.5) 
-    pct_total = ut_max(pct_for_dirty, pct_for_lsn);//取他们的大值
-
-    /* Estimate pages to be flushed for the lsn progress *///计算target_lsn
-    ulint   sum_pages_for_lsn = 0;    lsn_t   target_lsn = oldest_lsn
-                 + lsn_avg_rate * buf_flush_lsn_scan_factor; //计算下一次刷新的  目标lsn 及target_lsnbuf_flush_lsn_scan_factor是定值3
-    for (ulint i = 0; i < srv_buf_pool_instances; i++) {
-        //循环整个buffer instance找到小于target_lsn的脏块
-        buf_pool_t* buf_pool = buf_pool_from_array(i);
-        ulint       pages_for_lsn = 0;
-        buf_flush_list_mutex_enter(buf_pool);        
-        for (buf_page_t* b = UT_LIST_GET_LAST(buf_pool->flush_list);
-             //每个innodb buffer的末尾的flush list 进行扫描，头插法?
-             b != NULL;
-             b = UT_LIST_GET_PREV(list, b)) {            
-            if (b->oldest_modification > target_lsn) {                
-                break;
-            }
-            ++pages_for_lsn; 
-            //某个 innodb buffer 实例中 flush list 小于这个  target lsn 的 page计数
-        }
-        buf_flush_list_mutex_exit(buf_pool);
-        sum_pages_for_lsn += pages_for_lsn; 
-        //这里汇总所有 innodb buffer实例中  flush list 小于这个  target lsn 的 page 总数
-        mutex_enter(&page_cleaner->mutex);
-        ut_ad(page_cleaner->slots[i].state
-              == PAGE_CLEANER_STATE_NONE);//断言所有的槽处于没有刷新状态
-        page_cleaner->slots[i].n_pages_requested
-            = pages_for_lsn / buf_flush_lsn_scan_factor + 1; //确认槽的n_pages_requested值
-        mutex_exit(&page_cleaner->mutex);
-    }
-    sum_pages_for_lsn /= buf_flush_lsn_scan_factor;//buf_flush_lsn_scan_factor为定值3
-    /* Cap the maximum IO capacity that we are going to use by
-    max_io_capacity. Limit the value to avoid too quick increase */
-    n_pages = PCT_IO(pct_total); 
-    //根据 前面得到的 pct_total 和 srv_io_capacity参数得到 刷新的块数 !!!第二个计算参数生成。
-    if (age < log_get_max_modified_age_async()) { //如果日质量小于 异步刷新的范畴
-        ulint   pages_for_lsn =            
-            std::min<ulint>(sum_pages_for_lsn,
-                            srv_max_io_capacity * 2); //即便是需要刷新的块数很多，最多只能刷max_io_capacity*2的数量!!!第三个计算参数生成
-        n_pages = (n_pages + avg_page_rate + pages_for_lsn) / 3;  // 3部分组成 1、根据参数计算出来的IO能力 2、以往每秒刷新页的数量 3、根据target lsn 计算出来的一个需要刷新的块数
-    }    
-    if (n_pages > srv_max_io_capacity) {
-        n_pages = srv_max_io_capacity;
-    }    
-    return(n_pages);
-}
-</code></pre>
+&nbsp;&nbsp;&nbsp;&nbsp;cur_lsn&nbsp;=&nbsp;log_get_lsn();<span class="hljs-comment">//获取当前的lsn&nbsp;在&nbsp;redo&nbsp;buffer中的</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="hljs-keyword">if</span>&nbsp;(prev_lsn&nbsp;==&nbsp;<span class="hljs-number">0</span>)&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="hljs-comment">//静态变量如果是0则代表是第一次执行本函数</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="hljs-comment">/*&nbsp;First&nbsp;time&nbsp;around.&nbsp;*/</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;prev_lsn&nbsp;=&nbsp;cur_lsn;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;prev_time&nbsp;=&nbsp;ut_time();&nbsp;<span class="hljs-comment">//获取当前时间</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="hljs-keyword">return</span>(<span class="hljs-number">0</span>);
+&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;&nbsp;&nbsp;
+    <span class="hljs-keyword">if</span>&nbsp;(prev_lsn&nbsp;==&nbsp;cur_lsn)&nbsp;{&nbsp;<span class="hljs-comment">//如果没有redo日志生成</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="hljs-keyword">return</span>(<span class="hljs-number">0</span>);
+&nbsp;&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;&nbsp;&nbsp;sum_pages&nbsp;+=&nbsp;last_pages_in;&nbsp;&nbsp;&nbsp;&nbsp;
+    <span class="hljs-keyword">time_t</span>&nbsp;&nbsp;curr_time&nbsp;=&nbsp;ut_time();&nbsp;&nbsp;&nbsp;&nbsp;
+    <span class="hljs-keyword">double</span>&nbsp;&nbsp;time_elapsed&nbsp;=&nbsp;difftime(curr_time,&nbsp;prev_time);
+&nbsp;&nbsp;&nbsp;&nbsp;avg_page_rate&nbsp;=&nbsp;<span class="hljs-keyword">static_cast</span>&lt;ulint&gt;(
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;((<span class="hljs-keyword">static_cast</span>&lt;<span class="hljs-keyword">double</span>&gt;(sum_pages)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/&nbsp;time_elapsed)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+&nbsp;avg_page_rate)&nbsp;/&nbsp;<span class="hljs-number">2</span>);&nbsp;<span class="hljs-comment">//算出上次刷新每秒刷新的pages数量，同时加上次计算的每秒平均刷新块数&nbsp;然后除以2&nbsp;得到一个每秒刷新的pages数量&nbsp;！！！第一个计算条件avg_page_rate&nbsp;生成</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="hljs-comment">/*&nbsp;How&nbsp;much&nbsp;LSN&nbsp;we&nbsp;have&nbsp;generated&nbsp;since&nbsp;last&nbsp;call.&nbsp;*/</span>
+&nbsp;&nbsp;&nbsp;&nbsp;lsn_rate&nbsp;=&nbsp;<span class="hljs-keyword">static_cast</span>&lt;<span class="hljs-keyword">lsn_t</span>&gt;(&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span class="hljs-keyword">static_cast</span>&lt;<span class="hljs-keyword">double</span>&gt;(cur_lsn&nbsp;-&nbsp;prev_lsn)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/&nbsp;time_elapsed);<span class="hljs-comment">//计算redo&nbsp;lsn生成率</span>
+&nbsp;&nbsp;&nbsp;&nbsp;lsn_avg_rate&nbsp;=&nbsp;(lsn_avg_rate&nbsp;+&nbsp;lsn_rate)&nbsp;/&nbsp;<span class="hljs-number">2</span>;<span class="hljs-comment">//计算redo每秒平均生成率</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="hljs-comment">/*&nbsp;aggregate&nbsp;stats&nbsp;of&nbsp;all&nbsp;slots&nbsp;*/</span>
+&nbsp;&nbsp;&nbsp;&nbsp;mutex_enter(&amp;page_cleaner-&gt;mutex);
+&nbsp;&nbsp;&nbsp;&nbsp;ulint&nbsp;&nbsp;&nbsp;flush_tm&nbsp;=&nbsp;page_cleaner-&gt;flush_time;
+&nbsp;&nbsp;&nbsp;&nbsp;ulint&nbsp;&nbsp;&nbsp;flush_pass&nbsp;=&nbsp;page_cleaner-&gt;flush_pass;
+&nbsp;&nbsp;&nbsp;&nbsp;page_cleaner-&gt;flush_time&nbsp;=&nbsp;<span class="hljs-number">0</span>;
+&nbsp;&nbsp;&nbsp;&nbsp;page_cleaner-&gt;flush_pass&nbsp;=&nbsp;<span class="hljs-number">0</span>;
+&nbsp;&nbsp;&nbsp;&nbsp;ulint&nbsp;&nbsp;&nbsp;list_tm&nbsp;=&nbsp;<span class="hljs-number">0</span>;
+&nbsp;&nbsp;&nbsp;&nbsp;ulint&nbsp;&nbsp;&nbsp;list_pass&nbsp;=&nbsp;<span class="hljs-number">0</span>;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <span class="hljs-keyword">for</span>&nbsp;(ulint&nbsp;i&nbsp;=&nbsp;<span class="hljs-number">0</span>;&nbsp;i&nbsp;&lt;&nbsp;page_cleaner-&gt;n_slots;&nbsp;i++)&nbsp;{<span class="hljs-comment">//扫描所有的槽</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="hljs-keyword">page_cleaner_slot_t</span>*&nbsp;&nbsp;&nbsp;&nbsp;slot;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;slot&nbsp;=&nbsp;&amp;page_cleaner-&gt;slots[i];
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;list_tm&nbsp;&nbsp;&nbsp;+=&nbsp;slot-&gt;flush_list_time;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;list_pass&nbsp;+=&nbsp;slot-&gt;flush_list_pass;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;slot-&gt;flush_list_time&nbsp;=&nbsp;<span class="hljs-number">0</span>;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;slot-&gt;flush_list_pass&nbsp;=&nbsp;<span class="hljs-number">0</span>;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;&nbsp;&nbsp;mutex_exit(&amp;page_cleaner-&gt;mutex);
+&nbsp;&nbsp;&nbsp;&nbsp;oldest_lsn&nbsp;=&nbsp;buf_pool_get_oldest_modification();&nbsp;<span class="hljs-comment">//获取flush&nbsp;list中最老的ls</span>
+&nbsp;&nbsp;&nbsp;&nbsp;ut_ad(oldest_lsn&nbsp;&lt;=&nbsp;log_get_lsn());<span class="hljs-comment">//断言</span>
+&nbsp;&nbsp;&nbsp;&nbsp;age&nbsp;=&nbsp;cur_lsn&nbsp;&gt;&nbsp;oldest_lsn&nbsp;?&nbsp;cur_lsn&nbsp;-&nbsp;oldest_lsn&nbsp;:&nbsp;<span class="hljs-number">0</span>;&nbsp;<span class="hljs-comment">//获取当前LSN和最老LSN的之间的差值</span>
+&nbsp;&nbsp;&nbsp;&nbsp;pct_for_dirty&nbsp;=&nbsp;af_get_pct_for_dirty();&nbsp;<span class="hljs-comment">//计算出一个刷新百分比&nbsp;(比如100)&nbsp;!!!!重点</span>
+&nbsp;&nbsp;&nbsp;&nbsp;pct_for_lsn&nbsp;=&nbsp;af_get_pct_for_lsn(age);<span class="hljs-comment">//计算出lsn的比率&nbsp;百分比(l列如4.5)&nbsp;</span>
+&nbsp;&nbsp;&nbsp;&nbsp;pct_total&nbsp;=&nbsp;ut_max(pct_for_dirty,&nbsp;pct_for_lsn);<span class="hljs-comment">//取他们的大值</span>
+&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="hljs-comment">/*&nbsp;Estimate&nbsp;pages&nbsp;to&nbsp;be&nbsp;flushed&nbsp;for&nbsp;the&nbsp;lsn&nbsp;progress&nbsp;*/</span><span class="hljs-comment">//计算target_lsn</span>
+&nbsp;&nbsp;&nbsp;&nbsp;ulint&nbsp;&nbsp;&nbsp;sum_pages_for_lsn&nbsp;=&nbsp;<span class="hljs-number">0</span>;&nbsp;&nbsp;&nbsp;&nbsp;<span class="hljs-keyword">lsn_t</span>&nbsp;&nbsp;&nbsp;target_lsn&nbsp;=&nbsp;oldest_lsn
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+&nbsp;lsn_avg_rate&nbsp;*&nbsp;buf_flush_lsn_scan_factor;&nbsp;<span class="hljs-comment">//计算下一次刷新的&nbsp;&nbsp;目标lsn&nbsp;及target_lsnbuf_flush_lsn_scan_factor是定值3</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="hljs-keyword">for</span>&nbsp;(ulint&nbsp;i&nbsp;=&nbsp;<span class="hljs-number">0</span>;&nbsp;i&nbsp;&lt;&nbsp;srv_buf_pool_instances;&nbsp;i++)&nbsp;{
+        <span class="hljs-comment">//循环整个buffer&nbsp;instance找到小于target_lsn的脏块</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="hljs-keyword">buf_pool_t</span>*&nbsp;buf_pool&nbsp;=&nbsp;buf_pool_from_array(i);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ulint&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pages_for_lsn&nbsp;=&nbsp;<span class="hljs-number">0</span>;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;buf_flush_list_mutex_enter(buf_pool);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <span class="hljs-keyword">for</span>&nbsp;(<span class="hljs-keyword">buf_page_t</span>*&nbsp;b&nbsp;=&nbsp;UT_LIST_GET_LAST(buf_pool-&gt;flush_list);
+             <span class="hljs-comment">//每个innodb&nbsp;buffer的末尾的flush&nbsp;list&nbsp;进行扫描，头插法?</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b&nbsp;!=&nbsp;<span class="hljs-literal">NULL</span>;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b&nbsp;=&nbsp;UT_LIST_GET_PREV(<span class="hljs-built_in">list</span>,&nbsp;b))&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span class="hljs-keyword">if</span>&nbsp;(b-&gt;oldest_modification&nbsp;&gt;&nbsp;target_lsn)&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <span class="hljs-keyword">break</span>;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;++pages_for_lsn;&nbsp;
+            <span class="hljs-comment">//某个&nbsp;innodb&nbsp;buffer&nbsp;实例中&nbsp;flush&nbsp;list&nbsp;小于这个&nbsp;&nbsp;target&nbsp;lsn&nbsp;的&nbsp;page计数</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;buf_flush_list_mutex_exit(buf_pool);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sum_pages_for_lsn&nbsp;+=&nbsp;pages_for_lsn;&nbsp;
+        <span class="hljs-comment">//这里汇总所有&nbsp;innodb&nbsp;buffer实例中&nbsp;&nbsp;flush&nbsp;list&nbsp;小于这个&nbsp;&nbsp;target&nbsp;lsn&nbsp;的&nbsp;page&nbsp;总数</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mutex_enter(&amp;page_cleaner-&gt;mutex);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ut_ad(page_cleaner-&gt;slots[i].state
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;==&nbsp;PAGE_CLEANER_STATE_NONE);<span class="hljs-comment">//断言所有的槽处于没有刷新状态</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;page_cleaner-&gt;slots[i].n_pages_requested
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;pages_for_lsn&nbsp;/&nbsp;buf_flush_lsn_scan_factor&nbsp;+&nbsp;<span class="hljs-number">1</span>;&nbsp;<span class="hljs-comment">//确认槽的n_pages_requested值</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mutex_exit(&amp;page_cleaner-&gt;mutex);
+&nbsp;&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;&nbsp;&nbsp;sum_pages_for_lsn&nbsp;/=&nbsp;buf_flush_lsn_scan_factor;<span class="hljs-comment">//buf_flush_lsn_scan_factor为定值3</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="hljs-comment">/*&nbsp;Cap&nbsp;the&nbsp;maximum&nbsp;IO&nbsp;capacity&nbsp;that&nbsp;we&nbsp;are&nbsp;going&nbsp;to&nbsp;use&nbsp;by</span>
+<span class="hljs-comment">&nbsp;&nbsp;&nbsp;&nbsp;max_io_capacity.&nbsp;Limit&nbsp;the&nbsp;value&nbsp;to&nbsp;avoid&nbsp;too&nbsp;quick&nbsp;increase&nbsp;*/</span>
+&nbsp;&nbsp;&nbsp;&nbsp;n_pages&nbsp;=&nbsp;PCT_IO(pct_total);&nbsp;
+    <span class="hljs-comment">//根据&nbsp;前面得到的&nbsp;pct_total&nbsp;和&nbsp;srv_io_capacity参数得到&nbsp;刷新的块数&nbsp;!!!第二个计算参数生成。</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="hljs-keyword">if</span>&nbsp;(age&nbsp;&lt;&nbsp;log_get_max_modified_age_async())&nbsp;{&nbsp;<span class="hljs-comment">//如果日质量小于&nbsp;异步刷新的范畴</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ulint&nbsp;&nbsp;&nbsp;pages_for_lsn&nbsp;=&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span class="hljs-built_in">std</span>::<span class="hljs-built_in">min</span>&lt;ulint&gt;(sum_pages_for_lsn,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;				srv_max_io_capacity&nbsp;*&nbsp;<span class="hljs-number">2</span>);&nbsp;<span class="hljs-comment">//即便是需要刷新的块数很多，最多只能刷max_io_capacity*2的数量!!!第三个计算参数生成</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;n_pages&nbsp;=&nbsp;(n_pages&nbsp;+&nbsp;avg_page_rate&nbsp;+&nbsp;pages_for_lsn)&nbsp;/&nbsp;<span class="hljs-number">3</span>;&nbsp;&nbsp;<span class="hljs-comment">//&nbsp;3部分组成&nbsp;1、根据参数计算出来的IO能力&nbsp;2、以往每秒刷新页的数量&nbsp;3、根据target&nbsp;lsn&nbsp;计算出来的一个需要刷新的块数</span>
+&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;&nbsp;&nbsp;
+    <span class="hljs-keyword">if</span>&nbsp;(n_pages&nbsp;&gt;&nbsp;srv_max_io_capacity)&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;n_pages&nbsp;=&nbsp;srv_max_io_capacity;
+&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;&nbsp;&nbsp;
+    <span class="hljs-keyword">return</span>(n_pages);
+}</code></pre>
 <p>af_get_pct_for_lsn函数：</p>
 <p>注意innodb_cleaner_lsn_age_factor参数默认设置为high_checkpoint，可以看到算法最后是除以700.5，所有前文我说这个函数算出来的比率一般比较小。</p>
-<pre class=" language-lang-c++"><code class="language-lang-c++">
-    lsn_t   af_lwm = (srv_adaptive_flushing_lwm
-              * log_get_capacity()) / 100;
-    // srv_adaptive_flushing_lwm=10 那么大约就是 logtotalsize*(9/10)*(1/10) 943349 计算一个low water mark
-    if (age < af_lwm) {              
-        //如果当前生成的redo 小于了 low water master 则返回0 也就是说 redo日志量生成量不高则不需要权衡
-        /* No adaptive flushing. */  //可以看出这里和redo设置的大小有关，如果redo文件设置越大则af_lwm越大，触发权衡的机率越小
-        return(0);
-    }
-    max_async_age = log_get_max_modified_age_async(); 
-    //获取需要异步刷新的的位置 大约为logtotalsize*(9/10)*(7/8)
-    if (age < max_async_age && !srv_adaptive_flushing) { 
-        //如果小于异步刷新 且 自适应flush 没有开启
-        /* We have still not reached the max_async point and
-        the user has disabled adaptive flushing. */
-        return(0);
-    }    /* If we are here then we know that either:
-    1) User has enabled adaptive flushing
-    2) User may have disabled adaptive flushing but we have reached
-    max_async_age. */
-    lsn_age_factor = (age * 100) / max_async_age; 
-    //比率lsn_age_factor = (本次刷新的日志量/(logtotalsize*(9/10)*(7/8)))
-    ut_ad(srv_max_io_capacity >= srv_io_capacity); 
-    switch ((srv_cleaner_lsn_age_factor_t)srv_cleaner_lsn_age_factor) {    
-        case SRV_CLEANER_LSN_AGE_FACTOR_LEGACY:        
-            return(static_cast<ulint>(
-                   ((srv_max_io_capacity / srv_io_capacity)
-                * (lsn_age_factor
-                   * sqrt((double)lsn_age_factor)))
-                   / 7.5));                                 //430
-    case SRV_CLEANER_LSN_AGE_FACTOR_HIGH_CHECKPOINT: 
-            //innodb_cleaner_lsn_age_factor参数默认设置为high_checkpoint
-        return(static_cast<ulint>(                              
-                   ((srv_max_io_capacity / srv_io_capacity)            
-                                    //  ((max_io_cap /io_cap) * (sqrt(lsn_age_factor)*lsn_age_factor*lsn_age_factor))/700.5
-                * (lsn_age_factor * lsn_age_factor                     //(10 * (3.3*10*10))/700 =4.3
-                   * sqrt((double)lsn_age_factor)))
-                   / 700.5));
-</code></pre>
+<pre><code class="hljs c++">
+     &nbsp;&nbsp;&nbsp;&nbsp;<span class="hljs-keyword">lsn_t</span>&nbsp;&nbsp;&nbsp;af_lwm&nbsp;=&nbsp;(srv_adaptive_flushing_lwm
+     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;log_get_capacity())&nbsp;/&nbsp;<span class="hljs-number">100</span>;
+<span class="hljs-comment">//&nbsp;srv_adaptive_flushing_lwm=10&nbsp;那么大约就是&nbsp;logtotalsize*(9/10)*(1/10)&nbsp;943349&nbsp;计算一个low&nbsp;water&nbsp;mark</span>
+     &nbsp;&nbsp;&nbsp;&nbsp;<span class="hljs-keyword">if</span>&nbsp;(age&nbsp;&lt;&nbsp;af_lwm)&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+       <span class="hljs-comment">//如果当前生成的redo&nbsp;小于了&nbsp;low&nbsp;water&nbsp;master&nbsp;则返回0&nbsp;也就是说&nbsp;redo日志量生成量不高则不需要权衡</span>
+     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="hljs-comment">/*&nbsp;No&nbsp;adaptive&nbsp;flushing.&nbsp;*/</span>&nbsp;&nbsp;<span class="hljs-comment">//可以看出这里和redo设置的大小有关，如果redo文件设置越大则af_lwm越大，触发权衡的机率越小</span>
+     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="hljs-keyword">return</span>(<span class="hljs-number">0</span>);
+     &nbsp;&nbsp;&nbsp;&nbsp;}
+     &nbsp;&nbsp;&nbsp;&nbsp;max_async_age&nbsp;=&nbsp;log_get_max_modified_age_async();&nbsp;
+<span class="hljs-comment">//获取需要异步刷新的的位置&nbsp;大约为logtotalsize*(9/10)*(7/8)</span>
+     &nbsp;&nbsp;&nbsp;&nbsp;<span class="hljs-keyword">if</span>&nbsp;(age&nbsp;&lt;&nbsp;max_async_age&nbsp;&amp;&amp;&nbsp;!srv_adaptive_flushing)&nbsp;{&nbsp;
+       <span class="hljs-comment">//如果小于异步刷新&nbsp;且&nbsp;自适应flush&nbsp;没有开启</span>
+     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="hljs-comment">/*&nbsp;We&nbsp;have&nbsp;still&nbsp;not&nbsp;reached&nbsp;the&nbsp;max_async&nbsp;point&nbsp;and</span>
+<span class="hljs-comment">     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;user&nbsp;has&nbsp;disabled&nbsp;adaptive&nbsp;flushing.&nbsp;*/</span>
+     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="hljs-keyword">return</span>(<span class="hljs-number">0</span>);
+     &nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;&nbsp;&nbsp;<span class="hljs-comment">/*&nbsp;If&nbsp;we&nbsp;are&nbsp;here&nbsp;then&nbsp;we&nbsp;know&nbsp;that&nbsp;either:</span>
+<span class="hljs-comment">     &nbsp;&nbsp;&nbsp;&nbsp;1)&nbsp;User&nbsp;has&nbsp;enabled&nbsp;adaptive&nbsp;flushing</span>
+<span class="hljs-comment">     &nbsp;&nbsp;&nbsp;&nbsp;2)&nbsp;User&nbsp;may&nbsp;have&nbsp;disabled&nbsp;adaptive&nbsp;flushing&nbsp;but&nbsp;we&nbsp;have&nbsp;reached</span>
+<span class="hljs-comment">     &nbsp;&nbsp;&nbsp;&nbsp;max_async_age.&nbsp;*/</span>
+     &nbsp;&nbsp;&nbsp;&nbsp;lsn_age_factor&nbsp;=&nbsp;(age&nbsp;*&nbsp;<span class="hljs-number">100</span>)&nbsp;/&nbsp;max_async_age;&nbsp;
+<span class="hljs-comment">//比率lsn_age_factor&nbsp;=&nbsp;(本次刷新的日志量/(logtotalsize*(9/10)*(7/8)))</span>
+     &nbsp;&nbsp;&nbsp;&nbsp;ut_ad(srv_max_io_capacity&nbsp;&gt;=&nbsp;srv_io_capacity);&nbsp;
+     &nbsp;&nbsp;&nbsp;&nbsp;<span class="hljs-keyword">switch</span>&nbsp;((<span class="hljs-keyword">srv_cleaner_lsn_age_factor_t</span>)srv_cleaner_lsn_age_factor)&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;
+       <span class="hljs-keyword">case</span>&nbsp;SRV_CLEANER_LSN_AGE_FACTOR_LEGACY:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+           <span class="hljs-keyword">return</span>(<span class="hljs-keyword">static_cast</span>&lt;ulint&gt;(
+     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;((srv_max_io_capacity&nbsp;/&nbsp;srv_io_capacity)
+     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;(lsn_age_factor
+     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;<span class="hljs-built_in">sqrt</span>((<span class="hljs-keyword">double</span>)lsn_age_factor)))
+     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/&nbsp;<span class="hljs-number">7.5</span>));&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="hljs-comment">//430</span>
+     &nbsp;&nbsp;&nbsp;&nbsp;<span class="hljs-keyword">case</span>&nbsp;SRV_CLEANER_LSN_AGE_FACTOR_HIGH_CHECKPOINT:&nbsp;
+           <span class="hljs-comment">//innodb_cleaner_lsn_age_factor参数默认设置为high_checkpoint</span>
+     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="hljs-keyword">return</span>(<span class="hljs-keyword">static_cast</span>&lt;ulint&gt;(&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;((srv_max_io_capacity&nbsp;/&nbsp;srv_io_capacity)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   				<span class="hljs-comment">//&nbsp;&nbsp;((max_io_cap&nbsp;/io_cap)&nbsp;*&nbsp;(sqrt(lsn_age_factor)*lsn_age_factor*lsn_age_factor))/700.5</span>
+     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;(lsn_age_factor&nbsp;*&nbsp;lsn_age_factor&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="hljs-comment">//(10&nbsp;*&nbsp;(3.3*10*10))/700&nbsp;=4.3</span>
+     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;<span class="hljs-built_in">sqrt</span>((<span class="hljs-keyword">double</span>)lsn_age_factor)))
+     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/&nbsp;<span class="hljs-number">700.5</span>));</code></pre>
 </li>
 </ol>
 </li>
@@ -7324,31 +7273,41 @@ ulint ibuf_merge_in_background(bool    full)
 </li>
 </ul>
 <h2 id="5-purge线程"><a href="#5-purge线程" class="headerlink" title="5. purge线程"></a>5. purge线程</h2><p><code>innobase_start_or_create_for_mysql</code>中的:</p>
-<pre class=" language-lang-c++"><code class="language-lang-c++">if (!srv_read_only_mode
-        && srv_force_recovery < SRV_FORCE_NO_BACKGROUND) {
+<pre><code class="hljs c++"><span class="hljs-keyword">if</span> (!srv_read_only_mode
+	    &amp;&amp; srv_force_recovery &lt; SRV_FORCE_NO_BACKGROUND) {
 
-        os_thread_create(
-            srv_purge_coordinator_thread,
-            NULL, thread_ids + 5 + SRV_MAX_N_IO_THREADS);
+		os_thread_create(
+			srv_purge_coordinator_thread,
+			<span class="hljs-literal">NULL</span>, thread_ids + <span class="hljs-number">5</span> + SRV_MAX_N_IO_THREADS);
 
-        ut_a(UT_ARR_SIZE(thread_ids)
-             > 5 + srv_n_purge_threads + SRV_MAX_N_IO_THREADS);
+		ut_a(UT_ARR_SIZE(thread_ids)
+		     &gt; <span class="hljs-number">5</span> + srv_n_purge_threads + SRV_MAX_N_IO_THREADS);
 
-        /* We've already created the purge coordinator thread above. */
-        for (i = 1; i < srv_n_purge_threads; ++i) {
-            os_thread_create(
-                srv_worker_thread, NULL,
-                thread_ids + 5 + i + SRV_MAX_N_IO_THREADS);
-        }
+		<span class="hljs-comment">/* We've already created the purge coordinator thread above. */</span>
+		<span class="hljs-keyword">for</span> (i = <span class="hljs-number">1</span>; i &lt; srv_n_purge_threads; ++i) {
+			os_thread_create(
+				srv_worker_thread, <span class="hljs-literal">NULL</span>,
+				thread_ids + <span class="hljs-number">5</span> + i + SRV_MAX_N_IO_THREADS);
+		}
 
-        srv_start_wait_for_purge_to_start();
+		srv_start_wait_for_purge_to_start();
 
-        srv_start_state_set(SRV_START_STATE_PURGE);
-    } else {
-        purge_sys->state = PURGE_STATE_DISABLED;
-    }
-</code></pre>
-<script>
+		srv_start_state_set(SRV_START_STATE_PURGE);
+	} <span class="hljs-keyword">else</span> {
+		purge_sys-&gt;state = PURGE_STATE_DISABLED;
+	}</code></pre>
+<p>[9]:<a href="https://dev.mysql.com/doc/refman/5.7/en/innodb-architecture.html" target="_blank" rel="noopener">https://dev.mysql.com/doc/refman/5.7/en/innodb-architecture.html</a></p><section class="footnotes">true<div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span><pre><code class="hljs c++"><span class="hljs-comment">/<strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><em>**</em></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></span><br><span class="hljs-comment">Starts InnoDB and creates a new database if database files</span><br><span class="hljs-comment">are not found and the user wants.</span><br><span class="hljs-comment">@return DB_SUCCESS or error code */</span><br><span class="hljs-keyword">dberr_t</span><br>innobase_start_or_create_for_mysql(<span class="hljs-keyword">void</span>)<br><span class="hljs-comment">/<em>====================================</em>/</span><br>{<br>    <span class="hljs-comment">//…</span><br>    <span class="hljs-comment">/* Create the master thread which does purge and other utility</span><br><span class="hljs-comment">    operations */</span>
+<a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></code></pre></span></span></li><li><code class="hljs c++"><span id="fn:2" class="footnote-text"><span><ul>
+<li>只有在innodb_force_recovery参数设置值大于SRV_FORCE_NO_BACKGROUND的情况下，master thread会进入suspend状态</li>
+</ul>
+<a href="#fnref:2" rev="footnote" class="footnote-backref"> ↩</a></span></span></code></li><li><code class="hljs c++"><span id="fn:4" class="footnote-text"><span><img src="innodb存储架构.png" srcset="/img/loading.gif" alt="innodb存储架构">
+<a href="#fnref:4" rev="footnote" class="footnote-backref"> ↩</a></span></span></code></li><li><code class="hljs c++"><span id="fn:4" class="footnote-text"><span>InnoDB存储引擎的开发团队参考了Google的patch，提供了类似的方法来修正该问题。因此InnoDB Plugin（从InnoDB1.0.x版本开始）提供了参数innodb_io_capacity，用来表示磁盘IO的吞吐量，默认值为200。对于刷新到磁盘页的数量，会按照innodb_io_capacity的百分比来进行控制。规则如下：
+<a href="#fnref:4" rev="footnote" class="footnote-backref"> ↩</a></span></span></code></li><li><code class="hljs c++"><span id="fn:6" class="footnote-text"><span><escape><pre><code class="hljs c++"><span class="hljs-keyword">while</span> (srv_shutdown_state == SRV_SHUTDOWN_NONE) {
+    <span class="hljs-comment">//...</span>
+}</code></pre><a href="#fnref:6" rev="footnote" class="footnote-backref"> ↩</a></escape></span></span></code></li><li><code class="hljs c++"><span id="fn:7" class="footnote-text"><span><img src="InnoDB_Master_Thread.png" srcset="/img/loading.gif" alt="InnoDB Master Thread">
+<a href="#fnref:7" rev="footnote" class="footnote-backref"> ↩</a></span></span></code></li><li><code class="hljs c++"><span id="fn:9" class="footnote-text"><span><img src="innodb-architecture.png" srcset="/img/loading.gif" alt="InnoDB architecture diagram showing in-memory and on-disk structures">
+<a href="#fnref:9" rev="footnote" class="footnote-backref"> ↩</a></span></span></code></li></ol></div></section><p></p><code class="hljs c++">
+</code><script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
             if (!el.dataset.src) { return; }
