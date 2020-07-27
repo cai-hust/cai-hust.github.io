@@ -1,438 +1,238 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html lang="zh-CN">
 
 
+
+
+
 <head>
-    <meta charset="utf-8">
-    <meta name="keywords" content="manimTutorial, cai">
-    <meta name="description" content="">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <meta name="renderer" content="webkit|ie-stand|ie-comp">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="format-detection" content="telephone=no">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <!-- Global site tag (gtag.js) - Google Analytics -->
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/logo.ico">
+  <link rel="icon" type="image/png" href="/img/logo.ico">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="cai">
+  <meta name="keywords" content="">
+  <title>manimTutorial - cai</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
 
-    <title>manimTutorial | cai</title>
-    <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="/medias/favicon.ico">
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
 
-    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
-    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
-    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
-    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
-    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
-    <link rel="stylesheet" type="text/css" href="/css/matery.css">
-    <link rel="stylesheet" type="text/css" href="/css/my.css">
+  
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+  
 
-    <script src="/libs/jquery/jquery.min.js"></script>
+  
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/gitalk/1.6.2/gitalk.css" />
+  
 
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
 <meta name="generator" content="Hexo 4.2.1"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
 
 
 <body>
-    <header class="navbar-fixed">
-    <nav id="headNav" class="bg-color nav-transparent">
-        <div id="navContainer" class="nav-wrapper container">
-            <div class="brand-logo">
-                <a href="/" class="waves-effect waves-light">
-                    
-                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
-                    
-                    <span class="logo-span">cai</span>
-                </a>
-            </div>
-            
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>CodingCai</strong>&nbsp;</a>
 
-<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
-<ul class="right nav-menu">
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/" class="waves-effect waves-light">
-      
-      <i class="fas fa-home" style="zoom: 0.6;"></i>
-      
-      <span>首页</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/tags" class="waves-effect waves-light">
-      
-      <i class="fas fa-tags" style="zoom: 0.6;"></i>
-      
-      <span>标签</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/categories" class="waves-effect waves-light">
-      
-      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
-      
-      <span>分类</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/archives" class="waves-effect waves-light">
-      
-      <i class="fas fa-archive" style="zoom: 0.6;"></i>
-      
-      <span>归档</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/about" class="waves-effect waves-light">
-      
-      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
-      
-      <span>关于</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/contact" class="waves-effect waves-light">
-      
-      <i class="fas fa-comments" style="zoom: 0.6;"></i>
-      
-      <span>留言板</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/friends" class="waves-effect waves-light">
-      
-      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
-      
-      <span>友情链接</span>
-    </a>
-    
-  </li>
-  
-  <li>
-    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
-      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
-    </a>
-  </li>
-</ul>
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
 
-
-<div id="mobile-nav" class="side-nav sidenav">
-
-    <div class="mobile-head bg-color">
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
         
-        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
         
-        <div class="logo-name">cai</div>
-        <div class="logo-desc">
-            
-            Never really desperate, only the lost of the soul.
-            
-        </div>
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
     </div>
+  </div>
+</nav>
 
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2020-03-26 18:08">
+      2020年3月26日 晚上
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
     
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.2k 字
+    </span>
+  
 
-    <ul class="menu-list mobile-menu-list">
-        
-        <li class="m-nav-item">
-	  
-		<a href="/" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-home"></i>
-			
-			首页
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/tags" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-tags"></i>
-			
-			标签
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/categories" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-bookmark"></i>
-			
-			分类
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/archives" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-archive"></i>
-			
-			归档
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/about" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-user-circle"></i>
-			
-			关于
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/contact" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-comments"></i>
-			
-			留言板
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/friends" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-address-book"></i>
-			
-			友情链接
-		</a>
-          
-        </li>
-        
-        
-    </ul>
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      17
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
 </div>
 
+            
+          </div>
 
+          
         </div>
-
-        
-    </nav>
-
-</header>
-
-    
-
-
-
-<div class="bg-cover pd-header post-cover" style="background-image: url('/images/manim-cover.png')">
-    <div class="container" style="right: 0px;left: 0px;">
-        <div class="row">
-            <div class="col s12 m12 l12">
-                <div class="brand">
-                    <h1 class="description center-align post-title">manimTutorial</h1>
-                </div>
-            </div>
-        </div>
+      </div>
     </div>
-</div>
+  </header>
 
-
-
-
-<main class="post-container content">
-
+  <main>
     
-    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
-<style>
-    #articleContent h1::before,
-    #articleContent h2::before,
-    #articleContent h3::before,
-    #articleContent h4::before,
-    #articleContent h5::before,
-    #articleContent h6::before {
-        display: block;
-        content: " ";
-        height: 100px;
-        margin-top: -100px;
-        visibility: hidden;
-    }
+      
 
-    #articleContent :focus {
-        outline: none;
-    }
-
-    .toc-fixed {
-        position: fixed;
-        top: 64px;
-    }
-
-    .toc-widget {
-        width: 345px;
-        padding-left: 20px;
-    }
-
-    .toc-widget .toc-title {
-        margin: 35px 0 15px 0;
-        padding-left: 17px;
-        font-size: 1.5rem;
-        font-weight: bold;
-        line-height: 1.5rem;
-    }
-
-    .toc-widget ol {
-        padding: 0;
-        list-style: none;
-    }
-
-    #toc-content {
-        height: calc(100vh - 250px);
-        overflow: auto;
-    }
-
-    #toc-content ol {
-        padding-left: 10px;
-    }
-
-    #toc-content ol li {
-        padding-left: 10px;
-    }
-
-    #toc-content .toc-link:hover {
-        color: #42b983;
-        font-weight: 700;
-        text-decoration: underline;
-    }
-
-    #toc-content .toc-link::before {
-        background-color: transparent;
-        max-height: 25px;
-
-        position: absolute;
-        right: 23.5vw;
-        display: block;
-    }
-
-    #toc-content .is-active-link {
-        color: #42b983;
-    }
-
-    #floating-toc-btn {
-        position: fixed;
-        right: 15px;
-        bottom: 76px;
-        padding-top: 15px;
-        margin-bottom: 0;
-        z-index: 998;
-    }
-
-    #floating-toc-btn .btn-floating {
-        width: 48px;
-        height: 48px;
-    }
-
-    #floating-toc-btn .btn-floating i {
-        line-height: 48px;
-        font-size: 1.4rem;
-    }
-</style>
-<div class="row">
-    <div id="main-content" class="col s12 m12 l9">
-        <!-- 文章内容详情 -->
-<div id="artDetail">
-    <div class="card">
-        <div class="card-content article-info">
-            <div class="row tag-cate">
-                <div class="col s7">
-                    
-                    <div class="article-tag">
-                        
-                            <a href="/tags/%E6%95%99%E7%A8%8B/">
-                                <span class="chip bg-color">教程</span>
-                            </a>
-                        
-                            <a href="/tags/manim/">
-                                <span class="chip bg-color">manim</span>
-                            </a>
-                        
-                    </div>
-                    
-                </div>
-                <div class="col s5 right-align">
-                    
-                    <div class="post-cate">
-                        <i class="fas fa-bookmark fa-fw icon-category"></i>
-                        
-                            <a href="/categories/manim/" class="post-category">
-                                manim
-                            </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-
-            <div class="post-info">
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+              <p class="note note-info">
                 
-                <div class="post-date info-break-policy">
-                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-03-26
-                </div>
+                  本文最后更新于：2020年6月30日 晚上
                 
-
-                
-                <div class="post-date info-break-policy">
-                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2020-06-30
-                </div>
-                
-
-                
-                <div class="info-break-policy">
-                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.2k
-                </div>
-                
-
-                
-                <div class="info-break-policy">
-                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    5 分
-                </div>
-                
-
-                
-                    <div id="busuanzi_container_page_pv" class="info-break-policy">
-                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
-                        <span id="busuanzi_value_page_pv"></span>
-                    </div>
-				
-            </div>
-        </div>
-        <hr class="clearfix">
-        <div class="card-content article-card-content">
-            <div id="articleContent">
-                <h1 id="manim基础教程"><a href="#manim基础教程" class="headerlink" title="manim基础教程"></a>manim基础教程</h1><p>注意：  </p>
+              </p>
+            
+            <article class="markdown-body">
+              <h1 id="manim基础教程"><a href="#manim基础教程" class="headerlink" title="manim基础教程"></a>manim基础教程</h1><p>注意：  </p>
 <ol>
 <li><p>本文参考YouTube主Theorem of Beethoven的视频与代码然后自己继续研究得到的，有些图片是ta视频截图得到的，可以说是他的教程文字化后的汉化版，根据GitHub主页，他来自墨西哥国立自治大学，感谢外国大佬的力量，除了自己写的部分的代码，有些代码来自TA的视频与GitHub，其人<a href="https://github.com/Elteoremadebeethoven" target="_blank" rel="noopener">GitHub主页</a>，大家有条件可以支持一下他的YouTube<br>其教程也被搬运到B站:</p>
 <div style="position: relative; width: 100%; height: 0; padding-bottom: 75%;box-shadow: 10px 10px 5px #888888;">
@@ -556,12 +356,12 @@ File ready at E:\programing-engineering\manim-tutorial\manim\media\videos\1_text
 
 Played 6 animations
 </code></pre>
-<p><img src="1565761708445.png" alt="1565761708445"></p>
+<p><img src="1565761708445.png" srcset="/img/loading.gif" alt="1565761708445"></p>
 <p>其他的参数不一一介绍，自行查看英文说明</p>
 <h3 id="1-7-默认显示进度条"><a href="#1-7-默认显示进度条" class="headerlink" title="1.7 默认显示进度条"></a>1.7 默认显示进度条</h3><p>默认设置在manimlib/config.py，manimlib/extract_secne.py与manimlib/scene.py里进行定义，可以修改该文件进行修改默认配置,注意因为修改源码所以要小心</p>
 <p>例如：在上面的三个文件里：</p>
 <p>将里面所有的“—leave_progress_bars”和“leave_progress_bars”修改为“—remove_progress_bars”与“remove__progress_bars”,同时将</p>
-<p><img src="1567668580431.png" alt="1567668580431"></p>
+<p><img src="1567668580431.png" srcset="/img/loading.gif" alt="1567668580431"></p>
 <p>此处的action改成不显示</p>
 <p>这样如果加上—remove_progress_bars就不会显示进度条了，而默认是显示进度条的</p>
 <h3 id="1-8-改变视频存放位置"><a href="#1-8-改变视频存放位置" class="headerlink" title="1.8 改变视频存放位置"></a>1.8 改变视频存放位置</h3><p>改变<em>manimlib/constants.py</em>中的：</p>
@@ -586,7 +386,7 @@ class WriteText(Scene):
 <p><strong>someObject.to_corner(DIRECTION的四个组合方向,buff = number)</strong></p>
 <p>to_edge参数可以是<strong>任意方向</strong>(方向有哪些见附录中方向常数列表)以及它们的线性组合，如<strong>0.1*RIGHT+0.2*UP</strong>，buff 两者的边缘的距离</p>
 <p>to_corner仅接受组合方向<strong>UR，UL，DR，DL</strong></p>
-<p><img src="1565752494266.png" alt="1565752494266"></p>
+<p><img src="1565752494266.png" srcset="/img/loading.gif" alt="1565752494266"></p>
 <ul>
 <li>如果没有to_edge和to_center默认为中间（<strong>ORIGIN</strong>）</li>
 <li><strong>someObject.to_edge(UP+RIGHT)</strong>完全等效于<strong>someObject.to_corner(UR)</strong>,其余四个方向同理</li>
@@ -609,9 +409,9 @@ someObject.move_to(vec)
 <h4 id="2-5-3-next-to"><a href="#2-5-3-next-to" class="headerlink" title="2.5.3 next_to()"></a>2.5.3 next_to()</h4><p><strong>someObject1.next_to(someObject2,DIRECTION,buff=number)</strong> </p>
 <p>someObject1对于someObject2的相对位置</p>
 <p>与move_to的区别在于，next_to表示的是边界的距离，而不是中心距离</p>
-<p><img src="1565755487243.png" alt="1565755487243"></p>
+<p><img src="1565755487243.png" srcset="/img/loading.gif" alt="1565755487243"></p>
 <p>如：text1.next_to(text2,LEFT,buff=2) ：</p>
-<p><img src="1565702556749.png" alt="1565702556749"></p>
+<p><img src="1565702556749.png" srcset="/img/loading.gif" alt="1565702556749"></p>
 <h4 id="2-5-4-shift"><a href="#2-5-4-shift" class="headerlink" title="2.5.4 shift()"></a>2.5.4 shift()</h4><p><strong>someObject.shift(DIRECTION*number)：</strong></p>
 <p>自己垂直方向平移</p>
 <h4 id="2-5-5-rotate"><a href="#2-5-5-rotate" class="headerlink" title="2.5.5 rotate()"></a>2.5.5 rotate()</h4><p><strong>someObject.rotate(PI*number或者number，point)：</strong> </p>
@@ -627,7 +427,7 @@ someObject.move_to(vec)
         self.play(Write(textM),Write(textC))
         self.wait(2)
 </code></pre>
-<p><img src="1565702942360.png" alt="1565702942360"></p>
+<p><img src="1565702942360.png" srcset="/img/loading.gif" alt="1565702942360"></p>
 <p>否则相对 相对图案旋转：</p>
 <pre class=" language-lang-python"><code class="language-lang-python">class RotateObject(Scene):
     def construct(self):
@@ -640,7 +440,7 @@ someObject.move_to(vec)
 <h4 id="2-5-6-flip"><a href="#2-5-6-flip" class="headerlink" title="2.5.6 flip()"></a>2.5.6 flip()</h4><p><strong>someObject.flip(DIRECTION)：</strong></p>
 <p>按照矢量量方向翻转180度，遵循右手定则。</p>
 <p>如text.flip(UP)：</p>
-<p><img src="1565703056789.png" alt="1565703056789"></p>
+<p><img src="1565703056789.png" srcset="/img/loading.gif" alt="1565703056789"></p>
 <h3 id="2-6-播放动画"><a href="#2-6-播放动画" class="headerlink" title="2.6 播放动画"></a>2.6 播放动画</h3><h4 id="2-6-1-play"><a href="#2-6-1-play" class="headerlink" title="2.6.1 play()"></a>2.6.1 <strong>play</strong>()</h4><p>动画效果，可以是多个text，这个函数是多线程的，所以不会阻塞就会进入下一行操作</p>
 <p><em>（如果下一个操作是remove掉text而没有使用wait函数进行等待，最终效果会变成立即销毁text即没有显示text，下面的add也同理）</em></p>
 <ol>
@@ -754,9 +554,9 @@ someObject.move_to(vec)
         # 最终屏幕上显示的是text[0]和text[1]
         self.wait(3)
 </code></pre>
-<p><img src="1565773952504.png" alt="1565773952504"></p>
-<p><img src="1565773963920.png" alt="1565773963920"></p>
-<p><img src="1565773975419.png" alt="1565773975419"></p>
+<p><img src="1565773952504.png" srcset="/img/loading.gif" alt="1565773952504"></p>
+<p><img src="1565773963920.png" srcset="/img/loading.gif" alt="1565773963920"></p>
+<p><img src="1565773975419.png" srcset="/img/loading.gif" alt="1565773975419"></p>
 <p>将上面的替换成ReplacementTransform：</p>
 <pre class=" language-lang-python"><code class="language-lang-python">class TextArray(Scene):
     def construct(self):
@@ -776,7 +576,7 @@ someObject.move_to(vec)
         self.wait(3)
 </code></pre>
 <p>最后一幅图不一样：</p>
-<p><img src="1565774075040.png" alt="1565774075040"></p>
+<p><img src="1565774075040.png" srcset="/img/loading.gif" alt="1565774075040"></p>
 <p><strong>如果希望不要改变someObject1的值可以使用：someObject1.copy()进行深度拷贝</strong></p>
 <p>someObject1.copy()执行的伪代码：</p>
 <pre class=" language-lang-python"><code class="language-lang-python">someObject1.copy():
@@ -870,7 +670,7 @@ someObject.move_to(vec)
         self.add(dot1,dot2)
         self.wait(3)
 </code></pre>
-<p><img src="1565769895077.png" alt="1565769895077"></p>
+<p><img src="1565769895077.png" srcset="/img/loading.gif" alt="1565769895077"></p>
 <h3 id="2-9-同步播放动画"><a href="#2-9-同步播放动画" class="headerlink" title="2.9 同步播放动画"></a>2.9 同步播放动画</h3><p>TODO：<strong>暂时没有时间理解源码</strong></p>
 <p>让某一个物体（mobject）跟随另一个物体的移动而并行移动（使用其他移动方式，路径）</p>
 <p><em>manimlib\mobject\mobject.py</em></p>
@@ -938,7 +738,7 @@ class AddUpdater1(Scene):
         self.play(Write(text))
         self.wait(2)
 </code></pre>
-<p><img src="1565768302203.png" alt="1565768302203"></p>
+<p><img src="1565768302203.png" srcset="/img/loading.gif" alt="1565768302203"></p>
 <p>还可以拼接为LaTeX串(此处不能用TextMobject代替，否则报错)：</p>
 <pre class=" language-lang-python"><code class="language-lang-python">class TexArray(Scene):
     def construct(self):
@@ -952,7 +752,7 @@ class AddUpdater1(Scene):
         self.play(Write(text))
         self.wait(2)
 </code></pre>
-<p><img src="1565769578088.png" alt="1565769578088"></p>
+<p><img src="1565769578088.png" srcset="/img/loading.gif" alt="1565769578088"></p>
 <p>对于数组可以直接如同对单个object操作,如：</p>
 <pre class=" language-lang-python"><code class="language-lang-python"> text.shift(UP)
 </code></pre>
@@ -1022,7 +822,7 @@ CONFIG = {
         self.add(TextMobject("Text").set_color(RED))
         self.wait()
 </code></pre>
-<p><img src="1565833717545.png" alt="1565833717545"></p>
+<p><img src="1565833717545.png" srcset="/img/loading.gif" alt="1565833717545"></p>
 <h2 id="5-二维坐标类-GraphScene"><a href="#5-二维坐标类-GraphScene" class="headerlink" title="5. 二维坐标类 GraphScene"></a>5. 二维坐标类 GraphScene</h2><p><strong>\manimlib\scene\graph_scene.py</strong></p>
 <p>继承自Scene类，用来绘制坐标</p>
 <p>属性如下：</p>
@@ -1064,7 +864,7 @@ CONFIG = {
         self.play(ShowCreation(graph),run_time = 2)
         self.wait()
 </code></pre>
-<p><img src="1565835900946.png" alt="1565835900946"></p>
+<p><img src="1565835900946.png" srcset="/img/loading.gif" alt="1565835900946"></p>
 <h3 id="5-1-setup-axes"><a href="#5-1-setup-axes" class="headerlink" title="5.1 setup_axes()"></a>5.1 setup_axes()</h3><p><strong>setup_axes(animate=Bool)：</strong></p>
 <p>默认没有动画效果，setup_axes(animate=True)则会显示动画 </p>
 <h3 id="5-2-get-graph"><a href="#5-2-get-graph" class="headerlink" title="5.2 get_graph()"></a>5.2 get_graph()</h3><p><strong>get_graph(func, color=None,x_min=None,x_max=None, **kwargs)</strong></p>
@@ -1101,7 +901,7 @@ CONFIG = {
          y_label = TextMobject(self.x_axis_label,color=self.y_label_color)
 </code></pre></blockquote>
 <p>效果：</p>
-<p><img src="ChanceColorLabels.png" alt="img"></p>
+<p><img src="ChanceColorLabels.png" srcset="/img/loading.gif" alt="img"></p>
 <h2 id="6-文本类-TextMobject"><a href="#6-文本类-TextMobject" class="headerlink" title="6. 文本类 TextMobject"></a>6. 文本类 TextMobject</h2><ol>
 <li><p><strong>TextMobject(string)：</strong>传入一个字符串</p>
 <p>字符串可以是普通字符串或LaTeX格式或两者混合：</p>
@@ -1116,7 +916,7 @@ CONFIG = {
             $$x^2+y^2=a^2$$
             """)
 </code></pre>
-<p><img src="1565700699069.png" alt="1565700699069"></p>
+<p><img src="1565700699069.png" srcset="/img/loading.gif" alt="1565700699069"></p>
 <p>自然地，可以用LaTeX调整字体大小：</p>
 <pre class=" language-lang-python"><code class="language-lang-python"> class SizeTextOnLaTeX(Scene):
     def construct(self):
@@ -1143,7 +943,7 @@ CONFIG = {
         self.add(textHuge,texthuge,textLARGE,textLarge,textlarge,textNormal,textsmall,textfootnotesize,textscriptsize,texttiny)
         self.wait(3)
 </code></pre>
-<p><img src="1565704370228.png" alt="1565704370228"></p>
+<p><img src="1565704370228.png" srcset="/img/loading.gif" alt="1565704370228"></p>
 </li>
 <li><p><strong>TextMobject(string1,string2,string3,…)：</strong>传入多个字符串，返回TextMobject数组，可以按照下表索引数组的值</p>
 </li>
@@ -1173,7 +973,7 @@ CONFIG = {
         self.play(Write(formula))
         self.wait(3)
 </code></pre>
-<p><img src="1565769340216.png" alt="1565769340216"></p>
+<p><img src="1565769340216.png" srcset="/img/loading.gif" alt="1565769340216"></p>
 <h2 id="8-二维图形类"><a href="#8-二维图形类" class="headerlink" title="8. 二维图形类"></a>8. 二维图形类</h2><p><strong><em>\manimlib\mobject\geometry.py</em></strong></p>
 <p>TODO：待完善</p>
 <h3 id="8-1-点Dot"><a href="#8-1-点Dot" class="headerlink" title="8.1 点Dot"></a>8.1 点Dot</h3><pre class=" language-lang-python"><code class="language-lang-python">CONFIG = {
@@ -1455,7 +1255,7 @@ CONFIG = {
         self.add(textgroup)
         self.wait()
 </code></pre>
-<p><img src="1565844643807.png" alt="1565844643807"></p>
+<p><img src="1565844643807.png" srcset="/img/loading.gif" alt="1565844643807"></p>
 <p>动画效果：</p>
 <p>因为arrange第一个参数不在config里面，需要单独放在外面</p>
 <pre class=" language-lang-python"><code class="language-lang-python">self.play(
@@ -1557,7 +1357,7 @@ CONFIG = {
     }
 </code></pre>
 <p>注意其中x_min，x_max均为帧的左右范围即每帧的最左边和最右边</p>
-<p><img src="1567675075732.png" alt="1567675075732"></p>
+<p><img src="1567675075732.png" srcset="/img/loading.gif" alt="1567675075732"></p>
 <p>本质上来说，数轴是一条线（Line），每一个间隔（tick）均为小的线(Line)</p>
 <p>整个构建流程是，先画出横线作为坐标轴，然后从左到右画出一个个小竖线，最后增加数字，箭头等小部件</p>
 <h3 id="12-1-坐标系抽象类-CoordinateSystem"><a href="#12-1-坐标系抽象类-CoordinateSystem" class="headerlink" title="12.1 坐标系抽象类 CoordinateSystem"></a>12.1 坐标系抽象类 CoordinateSystem</h3><pre class=" language-lang-python"><code class="language-lang-python">CONFIG = {
@@ -1746,683 +1546,319 @@ DEFAULT_MOBJECT_TO_MOBJECT_BUFFER = MED_SMALL_BUFF
             document.body.appendChild(img);
           });
       </script>
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/manim/">manim</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%95%99%E7%A8%8B/">教程</a>
+                    
+                      <a class="hover-with-bg" href="/tags/manim/">manim</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" target="_blank" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/03/26/ji-suan-ji-si-ji-wang-luo-ji-zhu/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">计算机四级网络技术</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/2020/03/26/hello-world/">
+                        <span class="hidden-mobile">Hello World</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
             </div>
-            <hr/>
 
             
-
-    <div class="reprint" id="reprint-statement">
-        
-            <div class="reprint__author">
-                <span class="reprint-meta" style="font-weight: bold;">
-                    <i class="fas fa-user">
-                        文章作者:
-                    </i>
-                </span>
-                <span class="reprint-info">
-                    <a href="/about" rel="external nofollow noreferrer">cai</a>
-                </span>
-            </div>
-            <div class="reprint__type">
-                <span class="reprint-meta" style="font-weight: bold;">
-                    <i class="fas fa-link">
-                        文章链接:
-                    </i>
-                </span>
-                <span class="reprint-info">
-                    <a href="http://yoursite.com/2020/03/26/manimtutorial/">http://yoursite.com/2020/03/26/manimtutorial/</a>
-                </span>
-            </div>
-            <div class="reprint__notice">
-                <span class="reprint-meta" style="font-weight: bold;">
-                    <i class="fas fa-copyright">
-                        版权声明:
-                    </i>
-                </span>
-                <span class="reprint-info">
-                    本博客所有文章除特別声明外，均采用
-                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
-                    许可协议。转载请注明来源
-                    <a href="/about" target="_blank">cai</a>
-                    !
-                </span>
-            </div>
-        
-    </div>
-
-    <script async defer>
-      document.addEventListener("copy", function (e) {
-        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
-        M.toast({html: toastHTML})
+              <!-- Comments -->
+              <div class="comments" id="comments">
+                
+                
+  <div id="gitalk-container"></div>
+  <script type="text/javascript">
+    function loadGitalk(){
+      addScript('https://cdn.staticfile.org/gitalk/1.6.2/gitalk.min.js', function () {
+        var gitalk = new Gitalk({
+          clientID: '567ab5f0da87cd87c36c',
+          clientSecret: '6c660baacd461151d3b40ea2aa7c24e6b7dd8b3a',
+          repo: 'https://github.com/cai-hust/cai-hust.github.io',
+          owner: 'cai-hust',
+          admin: '',
+          id: 'abe2f11339bee105f3f102052ebaa0c7',
+          language: 'zh-CN',
+          perPage: 15,
+          pagerDirection: 'last',
+          createIssueManually: 'true',
+          distractionFreeMode: 'false'
+        });
+        gitalk.render('gitalk-container');
       });
-
-      function navToReprintStatement() {
-        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
-      }
-    </script>
+    }
+    createObserver(loadGitalk, 'gitalk-container');
+  </script>
 
 
-
-            <div class="tag_share" style="display: block;">
-                <div class="post-meta__tag-list" style="display: inline-block;">
-                    
-                        <div class="article-tag">
-                            
-                                <a href="/tags/%E6%95%99%E7%A8%8B/">
-                                    <span class="chip bg-color">教程</span>
-                                </a>
-                            
-                                <a href="/tags/manim/">
-                                    <span class="chip bg-color">manim</span>
-                                </a>
-                            
-                        </div>
-                    
-                </div>
-                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
-                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
-<div id="article-share">
-
-    
-    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
-    <script src="/libs/share/js/social-share.min.js"></script>
-    
-
-    
-
-</div>
-
-                </div>
-            </div>
+              </div>
             
-                <style>
-    #reward {
-        margin: 40px 0;
-        text-align: center;
-    }
-
-    #reward .reward-link {
-        font-size: 1.4rem;
-        line-height: 38px;
-    }
-
-    #reward .btn-floating:hover {
-        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
-    }
-
-    #rewardModal {
-        width: 320px;
-        height: 350px;
-    }
-
-    #rewardModal .reward-title {
-        margin: 15px auto;
-        padding-bottom: 5px;
-    }
-
-    #rewardModal .modal-content {
-        padding: 10px;
-    }
-
-    #rewardModal .close {
-        position: absolute;
-        right: 15px;
-        top: 15px;
-        color: rgba(0, 0, 0, 0.5);
-        font-size: 1.3rem;
-        line-height: 20px;
-        cursor: pointer;
-    }
-
-    #rewardModal .close:hover {
-        color: #ef5350;
-        transform: scale(1.3);
-        -moz-transform:scale(1.3);
-        -webkit-transform:scale(1.3);
-        -o-transform:scale(1.3);
-    }
-
-    #rewardModal .reward-tabs {
-        margin: 0 auto;
-        width: 210px;
-    }
-
-    .reward-tabs .tabs {
-        height: 38px;
-        margin: 10px auto;
-        padding-left: 0;
-    }
-
-    .reward-content ul {
-        padding-left: 0 !important;
-    }
-
-    .reward-tabs .tabs .tab {
-        height: 38px;
-        line-height: 38px;
-    }
-
-    .reward-tabs .tab a {
-        color: #fff;
-        background-color: #ccc;
-    }
-
-    .reward-tabs .tab a:hover {
-        background-color: #ccc;
-        color: #fff;
-    }
-
-    .reward-tabs .wechat-tab .active {
-        color: #fff !important;
-        background-color: #22AB38 !important;
-    }
-
-    .reward-tabs .alipay-tab .active {
-        color: #fff !important;
-        background-color: #019FE8 !important;
-    }
-
-    .reward-tabs .reward-img {
-        width: 210px;
-        height: 210px;
-    }
-</style>
-
-<div id="reward">
-    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
-
-    <!-- Modal Structure -->
-    <div id="rewardModal" class="modal">
-        <div class="modal-content">
-            <a class="close modal-close"><i class="fas fa-times"></i></a>
-            <h4 class="reward-title">你的赏识是我前进的动力</h4>
-            <div class="reward-content">
-                <div class="reward-tabs">
-                    <ul class="tabs row">
-                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
-                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
-                    </ul>
-                    <div id="alipay">
-                        <img src="/medias/reward/alipay.png" class="reward-img" alt="支付宝打赏二维码">
-                    </div>
-                    <div id="wechat">
-                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
-                    </div>
-                </div>
-            </div>
+          </div>
         </div>
+      </div>
     </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
 </div>
 
-<script>
-    $(function () {
-        $('.tabs').tabs();
-    });
-</script>
-
-            
-        </div>
-    </div>
-
+      </div>
     
-        <link rel="stylesheet" href="/libs/gitalk/gitalk.css">
-<link rel="stylesheet" href="/css/my-gitalk.css">
-
-<div class="card gitalk-card" data-aos="fade-up">
-    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
-        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
-        <span>评论</span>
-    </div>
-    <div id="gitalk-container" class="card-content"></div>
+  </div>
 </div>
 
-<script src="/libs/gitalk/gitalk.min.js"></script>
-<script>
-    let gitalk = new Gitalk({
-        clientID: '567ab5f0da87cd87c36c',
-        clientSecret: '6c660baacd461151d3b40ea2aa7c24e6b7dd8b3a',
-        repo: 'cai-hust.github.io',
-        owner: 'cai-hust',
-        admin: "cai-hust",
-        id: '2020-03-26T18-08-36',
-        distractionFreeMode: false  // Facebook-like distraction free mode
-    });
+<!-- Custom -->
 
-    gitalk.render('gitalk-container');
-</script>
 
     
+  </main>
 
-    
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
 
-    
-
-    
-
-    
-
-    
-
-    
-
-<article id="prenext-posts" class="prev-next articles">
-    <div class="row article-row">
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
-            <div class="card">
-                <a href="/2020/03/26/ji-suan-ji-si-ji-wang-luo-ji-zhu/">
-                    <div class="card-image">
-                        
-                        <img src="/images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-cover.jpg" class="responsive-img" alt="计算机四级网络技术">
-                        
-                        <span class="card-title">计算机四级网络技术</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            本人2019年以成绩为"良"考完计算机四级,在此分享我的计算机网络笔记(操作系统因为学校课内学习过所以没有记笔记)
-                        
-                    </div>
-                    <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-03-26
-                        </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" class="post-category">
-                                    计算机网络
-                                </a>
-                            
-                            
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">
-                        <span class="chip bg-color">计算机网络</span>
-                    </a>
-                    
-                    <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%9B%E7%BA%A7/">
-                        <span class="chip bg-color">计算机四级</span>
-                    </a>
-                    
-                    <a href="/tags/%E7%9F%A5%E8%AF%86%E7%82%B9%E6%95%B4%E7%90%86/">
-                        <span class="chip bg-color">知识点整理</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
         </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
-            </div>
-            <div class="card">
-                <a href="/2020/03/26/hello-world/">
-                    <div class="card-image">
-                        
-                        <img src="/images/hello-world.jpg" class="responsive-img" alt="Hello World">
-                        
-                        <span class="card-title">Hello World</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            大家好,这个是我的个人博客第一次部署博客可能有点生疏,而且这个博客仅仅是我武汉疫情期间的无聊消遣的时候搭建的如果做的不好大家就谅解一下吧
-以下是博客功能的测试:
-视频播放: 
-     
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+  <div class="statistics">
+    
+    
+
+    
       
- 
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
 
-
-
-
-
-
-嵌入数学公式的书写 欧
-                        
-                    </div>
-                    <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-03-26
-                            </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-user fa-fw"></i>
-                            cai
-                            
-                        </span>
-                    </div>
-                </div>
-                
-            </div>
-        </div>
-        
-    </div>
-</article>
-
-</div>
-
-
-<script>
-    $('#articleContent').on('copy', function (e) {
-        // IE8 or earlier browser is 'undefined'
-        if (typeof window.getSelection === 'undefined') return;
-
-        var selection = window.getSelection();
-        // if the selection is short let's not annoy our users.
-        if (('' + selection).length < Number.parseInt('60')) {
-            return;
-        }
-
-        // create a div outside of the visible area and fill it with the selected text.
-        var bodyElement = document.getElementsByTagName('body')[0];
-        var newdiv = document.createElement('div');
-        newdiv.style.position = 'absolute';
-        newdiv.style.left = '-99999px';
-        bodyElement.appendChild(newdiv);
-        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
-
-        // we need a <pre> tag workaround.
-        // otherwise the text inside "pre" loses all the line breaks!
-        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
-            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
-        }
-
-        var url = document.location.href;
-        newdiv.innerHTML += '<br />'
-            + '来源: cai<br />'
-            + '文章作者: cai<br />'
-            + '文章链接: <a href="' + url + '">' + url + '</a><br />'
-            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
-
-        selection.selectAllChildren(newdiv);
-        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
-    });
-</script>
-
-
-<!-- 代码块功能依赖 -->
-<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
-
-<!-- 代码语言 -->
-
-<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
-
-
-<!-- 代码块复制 -->
-
-<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
-
-
-<!-- 代码块收缩 -->
-
-<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
-
-
-<!-- 代码块折行 -->
-
-<style type="text/css">
-code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
-</style>
-
-
-    </div>
-    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
-        <div class="toc-widget">
-            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
-            <div id="toc-content"></div>
-        </div>
-    </div>
-</div>
-
-<!-- TOC 悬浮按钮. -->
-
-<div id="floating-toc-btn" class="hide-on-med-and-down">
-    <a class="btn-floating btn-large bg-color">
-        <i class="fas fa-list-ul"></i>
-    </a>
-</div>
-
-
-<script src="/libs/tocbot/tocbot.min.js"></script>
-<script>
-    $(function () {
-        tocbot.init({
-            tocSelector: '#toc-content',
-            contentSelector: '#articleContent',
-            headingsOffset: -($(window).height() * 0.4 - 45),
-            collapseDepth: Number('0'),
-            headingSelector: 'h2, h3, h4'
-        });
-
-        // modify the toc link href to support Chinese.
-        let i = 0;
-        let tocHeading = 'toc-heading-';
-        $('#toc-content a').each(function () {
-            $(this).attr('href', '#' + tocHeading + (++i));
-        });
-
-        // modify the heading title id to support Chinese.
-        i = 0;
-        $('#articleContent').children('h2, h3, h4').each(function () {
-            $(this).attr('id', tocHeading + (++i));
-        });
-
-        // Set scroll toc fixed.
-        let tocHeight = parseInt($(window).height() * 0.4 - 64);
-        let $tocWidget = $('.toc-widget');
-        $(window).scroll(function () {
-            let scroll = $(window).scrollTop();
-            /* add post toc fixed. */
-            if (scroll > tocHeight) {
-                $tocWidget.addClass('toc-fixed');
-            } else {
-                $tocWidget.removeClass('toc-fixed');
-            }
-        });
-
-        
-        /* 修复文章卡片 div 的宽度. */
-        let fixPostCardWidth = function (srcId, targetId) {
-            let srcDiv = $('#' + srcId);
-            if (srcDiv.length === 0) {
-                return;
-            }
-
-            let w = srcDiv.width();
-            if (w >= 450) {
-                w = w + 21;
-            } else if (w >= 350 && w < 450) {
-                w = w + 18;
-            } else if (w >= 300 && w < 350) {
-                w = w + 16;
-            } else {
-                w = w + 14;
-            }
-            $('#' + targetId).width(w);
-        };
-
-        // 切换TOC目录展开收缩的相关操作.
-        const expandedClass = 'expanded';
-        let $tocAside = $('#toc-aside');
-        let $mainContent = $('#main-content');
-        $('#floating-toc-btn .btn-floating').click(function () {
-            if ($tocAside.hasClass(expandedClass)) {
-                $tocAside.removeClass(expandedClass).hide();
-                $mainContent.removeClass('l9');
-            } else {
-                $tocAside.addClass(expandedClass).show();
-                $mainContent.addClass('l9');
-            }
-            fixPostCardWidth('artDetail', 'prenext-posts');
-        });
-        
-    });
-</script>
 
     
 
-</main>
-
-
-<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<script>
-    MathJax.Hub.Config({
-        tex2jax: {inlineMath: [['$', '$'], ['\(', '\)']]}
-    });
-</script>
-
-
-
-    <footer class="page-footer bg-color">
     
-    <div class="container row center-align" style="margin-bottom: 0px !important;">
-        <div class="col s12 m8 l8 copy-right">
-            Copyright&nbsp;&copy;
-            <span id="year">2019</span>
-            <a href="/about" target="_blank">cai</a>
-            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
-            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
-            <br>
-            
-            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">47.9k</span>&nbsp;字
-            
-            
-            
-            
-            
-            
-            <span id="busuanzi_container_site_pv">
-                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
-                    class="white-color"></span>&nbsp;次
-            </span>
-            
-            
-            <span id="busuanzi_container_site_uv">
-                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
-                    class="white-color"></span>&nbsp;人
-            </span>
-            
-            <br>
-            
-            <br>
-            
-        </div>
-        <div class="col s12 m4 l4 social-link social-statis">
-    <a href="https://github.com/cai-hust" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
-        <i class="fab fa-github"></i>
-    </a>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
-        <i class="fas fa-rss"></i>
-    </a>
-
-</div>
-    </div>
+  </div>
 </footer>
 
-<div class="progress-bar"></div>
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
 
 
-    <!-- 搜索遮罩框 -->
-<div id="searchModal" class="modal">
-    <div class="modal-content">
-        <div class="search-header">
-            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
-            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
-                   class="search-input">
-        </div>
-        <div id="searchResult"></div>
-    </div>
-</div>
-
-<script src="/js/search.js"></script>
-<script type="text/javascript">
-$(function () {
-    searchFunc("/search.xml", 'searchInput', 'searchResult');
-});
-</script>
-
-    <!-- 回到顶部按钮 -->
-<div id="backTop" class="top-scroll">
-    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
-        <i class="fas fa-arrow-up"></i>
-    </a>
-</div>
+  
+    <script  src="/js/lazyload.js" ></script>
+  
 
 
-    <script src="/libs/materialize/materialize.min.js"></script>
-    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
-    <script src="/libs/aos/aos.js"></script>
-    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
-    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
-    <script src="/js/matery.js"></script>
 
-    <!-- Baidu Analytics -->
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
 
-    <!-- Baidu Push -->
 
-<script>
-    (function () {
-        var bp = document.createElement('script');
-        var curProtocol = window.location.protocol.split(':')[0];
-        if (curProtocol === 'https') {
-            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
-        } else {
-            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
-        }
-        var s = document.getElementsByTagName("script")[0];
-        s.parentNode.insertBefore(bp, s);
-    })();
-</script>
 
-    
-    
-    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
-    
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
 
-    
 
-    
 
-    
 
-    
 
-    
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
 
-    
-    <script src="/libs/instantpage/instantpage.js" type="module"></script>
-    
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: 'article.markdown-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "manimTutorial&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 </body>
-
 </html>
