@@ -233,47 +233,44 @@
             
             <article class="markdown-body">
               <h2 id="1-Mobject所派生的子类"><a href="#1-Mobject所派生的子类" class="headerlink" title="1. Mobject所派生的子类"></a>1. Mobject所派生的子类</h2><p><img src="Mobject-1586013786368.png" srcset="/img/loading.gif" alt="Mobject"></p>
-<h2 id="2-Mobject的主要变量与属性"><a href="#2-Mobject的主要变量与属性" class="headerlink" title="2. Mobject的主要变量与属性"></a>2. Mobject的主要变量与属性</h2><h3 id="2-1-CONFIG"><a href="#2-1-CONFIG" class="headerlink" title="2.1 CONFIG"></a>2.1 CONFIG</h3><pre class=" language-lang-python"><code class="language-lang-python">CONFIG = {
-        "color": WHITE,
-        "name": None,
-        "dim": 3,
-        "target": None,
-    }
-</code></pre>
+<h2 id="2-Mobject的主要变量与属性"><a href="#2-Mobject的主要变量与属性" class="headerlink" title="2. Mobject的主要变量与属性"></a>2. Mobject的主要变量与属性</h2><h3 id="2-1-CONFIG"><a href="#2-1-CONFIG" class="headerlink" title="2.1 CONFIG"></a>2.1 CONFIG</h3><pre><code class="hljs python">CONFIG = {
+        <span class="hljs-string">"color"</span>: WHITE,
+        <span class="hljs-string">"name"</span>: <span class="hljs-literal">None</span>,
+        <span class="hljs-string">"dim"</span>: <span class="hljs-number">3</span>,
+        <span class="hljs-string">"target"</span>: <span class="hljs-literal">None</span>,
+    }</code></pre>
 <h3 id="2-2-init-函数"><a href="#2-2-init-函数" class="headerlink" title="2.2 __init__()函数:"></a>2.2 <code>__init__()</code>函数:</h3><ul>
 <li><p><code>submobjects = []</code>:每个Mobject都有自己的submobjects列表,列表里面的每个元素也是Mobject,这样有利于对嵌套的Mobject进行整体操作,如对一群图形一起平移等等动画的实现</p>
 </li>
 <li><p><code>updaters = []</code>:一系列的更新函数组成,如:</p>
-<pre class=" language-lang-python"><code class="language-lang-python"> def update_text(obj):
-            obj.next_to(dot,RIGHT,buff=SMALL_BUFF)
-</code></pre>
+<pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">update_text</span><span class="hljs-params">(obj)</span>:</span>
+           obj.next_to(dot,RIGHT,buff=SMALL_BUFF)</code></pre>
 <p>就可以作为一个updater,有<code>add_updater()</code>方法进行添加:</p>
-<pre class=" language-lang-python"><code class="language-lang-python"># author:TB,由于3b1b的函数有改进,本代码进行了修改
-class AddUpdater(Scene):
-    def construct(self):
+<pre><code class="hljs python"><span class="hljs-comment"># author:TB,由于3b1b的函数有改进,本代码进行了修改</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AddUpdater</span><span class="hljs-params">(Scene)</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">construct</span><span class="hljs-params">(self)</span>:</span>
         dot = Dot()
-        text = TextMobject("Label").next_to(dot,RIGHT,buff=SMALL_BUFF)
+        text = TextMobject(<span class="hljs-string">"Label"</span>).next_to(dot,RIGHT,buff=SMALL_BUFF)
 
         self.add(dot,text)
 
-        # Update function 更新函数
-        def update_text(obj):
+        <span class="hljs-comment"># Update function 更新函数</span>
+        <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">update_text</span><span class="hljs-params">(obj)</span>:</span>
             obj.next_to(dot,RIGHT,buff=SMALL_BUFF)
 
-        # Add update function to the objects
-        # 把更新函数加给对象
+        <span class="hljs-comment"># Add update function to the objects</span>
+        <span class="hljs-comment"># 把更新函数加给对象</span>
         text.add_updater(update_text)
-
-        # 如果想简洁，lambda表达式如下：
-        # text.add_updater(lambda m: m.next_to(dot,RIGHT,buff=SMALL_BUFF))
-        # 此时下面的remove_updater(update_text)不能继续使用，需要改为clear_updaters
-
-        self.play(dot.shift,UP*2)
-        # Remove update function
+        
+        <span class="hljs-comment"># 如果想简洁，lambda表达式如下：</span>
+        <span class="hljs-comment"># text.add_updater(lambda m: m.next_to(dot,RIGHT,buff=SMALL_BUFF))</span>
+        <span class="hljs-comment"># 此时下面的remove_updater(update_text)不能继续使用，需要改为clear_updaters</span>
+        
+        self.play(dot.shift,UP*<span class="hljs-number">2</span>)
+        <span class="hljs-comment"># Remove update function</span>
         text.remove_updater(update_text)
 
-        self.wait()
-</code></pre>
+        self.wait()</code></pre>
 <p>效果如下:</p>
 <p><img src="AddUpdater-1586013786369.gif" srcset="/img/loading.gif" alt="AddUpdater"></p>
 <p>详细见下面3.3.2的介绍</p>
@@ -291,15 +288,14 @@ class AddUpdater(Scene):
 <h3 id="2-4-Mobject的一些抽象概念"><a href="#2-4-Mobject的一些抽象概念" class="headerlink" title="2.4 Mobject的一些抽象概念"></a>2.4 Mobject的一些抽象概念</h3><ul>
 <li><p>family:如果将Mobject看作父节点,submobjects列表中的Mobject看作子节点,则对每个Mobjects都会产生一棵树,这个树里面的所有节点成为这个Mobject的family</p>
 <p>family没有真正的实体,但是Mobject内有一个函数叫<code>get_family()</code>可以返回这个概念:</p>
-<pre class=" language-lang-python"><code class="language-lang-python">def get_family(self):
-        # 如果对map函数不理解,请自行查找Python map()函数
-        # 递归得到submobjects,代码非常简洁
+<pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get_family</span><span class="hljs-params">(self)</span>:</span>
+    	<span class="hljs-comment"># 如果对map函数不理解,请自行查找Python map()函数</span>
+        <span class="hljs-comment"># 递归得到submobjects,代码非常简洁</span>
         sub_families = list(map(Mobject.get_family, self.submobjects))
-        # 使用chain的原因是可能每个submobject可能是不同的类型
+        <span class="hljs-comment"># 使用chain的原因是可能每个submobject可能是不同的类型</span>
         all_mobjects = [self] + list(it.chain(*sub_families))
-        # 去重
-        return remove_list_redundancies(all_mobjects)
-</code></pre>
+        <span class="hljs-comment"># 去重</span>
+        <span class="hljs-keyword">return</span> remove_list_redundancies(all_mobjects)</code></pre>
 <p>Mobject的很多函数也用到了这个概念</p>
 </li>
 </ul>
@@ -381,72 +377,70 @@ class AddUpdater(Scene):
 <li><p>执行过程</p>
 <p>将自己的<code>updaters</code>列表加入<code>update_function</code>,位置在<code>index</code>,插入方法同python列表的insert方法,并决定是否立即执行</p>
 <p>例子:</p>
-<pre class=" language-lang-python"><code class="language-lang-python">class UpdateFunctionWithDt(Scene):
-     def construct(self):
-         sun = Dot(color=RED).scale(3)
-
-         earthOrbit=Circle(color=WHITE).scale(2)
-         earth=Dot(color=BLUE).scale(2)
-         earth.move_to(earthOrbit.point_from_proportion(0))
-         self.earthOffset=0
-
+<pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">UpdateFunctionWithDt</span><span class="hljs-params">(Scene)</span>:</span>
+     <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">construct</span><span class="hljs-params">(self)</span>:</span>
+         sun = Dot(color=RED).scale(<span class="hljs-number">3</span>)
+ 
+         earthOrbit=Circle(color=WHITE).scale(<span class="hljs-number">2</span>)
+         earth=Dot(color=BLUE).scale(<span class="hljs-number">2</span>)
+         earth.move_to(earthOrbit.point_from_proportion(<span class="hljs-number">0</span>))
+         self.earthOffset=<span class="hljs-number">0</span>
+ 
          moonOrbit= Circle(color=WHITE).move_to(earth)
          moon =Dot(color=YELLOW)
-         moon.move_to(moonOrbit.point_from_proportion(0))
-         self.moonOffset=0
-
-         def update_earth(mob,dt):
-             rate=dt*0.1
-             mob.move_to(earthOrbit.point_from_proportion((self.earthOffset + rate)%1))
+         moon.move_to(moonOrbit.point_from_proportion(<span class="hljs-number">0</span>))
+         self.moonOffset=<span class="hljs-number">0</span>
+ 
+         <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">update_earth</span><span class="hljs-params">(mob,dt)</span>:</span>
+             rate=dt*<span class="hljs-number">0.1</span>
+             mob.move_to(earthOrbit.point_from_proportion((self.earthOffset + rate)%<span class="hljs-number">1</span>))
              self.earthOffset += rate
-
-         def update_moonOrbit(mob):
+ 
+         <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">update_moonOrbit</span><span class="hljs-params">(mob)</span>:</span>
              mob.move_to(earth)
-
-         def update_moon(mob,dt):
-             rate=dt*0.2
-             mob.move_to(moonOrbit.point_from_proportion((self.moonOffset + rate)%1))
+ 
+         <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">update_moon</span><span class="hljs-params">(mob,dt)</span>:</span>
+             rate=dt*<span class="hljs-number">0.2</span>
+             mob.move_to(moonOrbit.point_from_proportion((self.moonOffset + rate)%<span class="hljs-number">1</span>))
              self.moonOffset += rate
-
+ 
          earth.add_updater(update_earth)
          moonOrbit.add_updater(update_moonOrbit)
          moon.add_updater(update_moon)
          self.add(earthOrbit,moonOrbit,sun,earth,moon)
-         self.wait(5)
-         self.wait()
-</code></pre>
+         self.wait(<span class="hljs-number">5</span>)
+         self.wait()</code></pre>
 <p>效果如下:</p>
 <p><img src="UpdateFunctionWithDt-1586013786369.gif" srcset="/img/loading.gif" alt="UpdateFunctionWithDt"></p>
 <p>dt的决定速度:</p>
-<pre class=" language-lang-python"><code class="language-lang-python">class WhatIsDt(Scene):
-    def construct(self):
-        sun = Dot(color=RED).scale(3)
-        earthOrbit=Circle(color=WHITE).scale(2)
+<pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">WhatIsDt</span><span class="hljs-params">(Scene)</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">construct</span><span class="hljs-params">(self)</span>:</span>
+        sun = Dot(color=RED).scale(<span class="hljs-number">3</span>)
+        earthOrbit=Circle(color=WHITE).scale(<span class="hljs-number">2</span>)
 
-        earths = [Dot(color=i).scale(2) for i in[RED,BLUE]]
+        earths = [Dot(color=i).scale(<span class="hljs-number">2</span>) <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span>[RED,BLUE]]
         earths = VGroup(*earths)
-        earths.move_to(earthOrbit.point_from_proportion(0))
-        self.earthOffsets = [0]*2
-        texts = VGroup(*[Text("dt*0.%d"%i,size=0.5,font="Lucida Console") for i in [1,2]])
+        earths.move_to(earthOrbit.point_from_proportion(<span class="hljs-number">0</span>))
+        self.earthOffsets = [<span class="hljs-number">0</span>]*<span class="hljs-number">2</span>
+        texts = VGroup(*[Text(<span class="hljs-string">"dt*0.%d"</span>%i,size=<span class="hljs-number">0.5</span>,font=<span class="hljs-string">"Lucida Console"</span>) <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> [<span class="hljs-number">1</span>,<span class="hljs-number">2</span>]])
 
-        def update_earth_factory(index):
-            def update_earth(mob,dt):
-                rate = dt*0.1*(index+1)
-                mob.move_to(earthOrbit.point_from_proportion((self.earthOffsets[index] + rate)%1))
+        <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">update_earth_factory</span><span class="hljs-params">(index)</span>:</span>
+            <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">update_earth</span><span class="hljs-params">(mob,dt)</span>:</span>
+                rate = dt*<span class="hljs-number">0.1</span>*(index+<span class="hljs-number">1</span>)
+                mob.move_to(earthOrbit.point_from_proportion((self.earthOffsets[index] + rate)%<span class="hljs-number">1</span>))
                 self.earthOffsets[index] += rate
-            return update_earth
-
-        def update_text_factory(index):
-            def update_text(mob):
+            <span class="hljs-keyword">return</span> update_earth
+        
+        <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">update_text_factory</span><span class="hljs-params">(index)</span>:</span>
+            <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">update_text</span><span class="hljs-params">(mob)</span>:</span>
                 mob.next_to(earths[index],LEFT,SMALL_BUFF)
-            return update_text
-
-        for i in [0,1]:
+            <span class="hljs-keyword">return</span> update_text
+       
+        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> [<span class="hljs-number">0</span>,<span class="hljs-number">1</span>]:
             earths[i].add_updater(update_earth_factory(i))
             texts[i].add_updater(update_text_factory(i))
         self.add(earthOrbit,sun,earths,texts)
-        self.wait(5)
-</code></pre>
+        self.wait(<span class="hljs-number">5</span>)</code></pre>
 <p><img src="WhatIsDt-1586013786370.gif" srcset="/img/loading.gif" alt="WhatIsDt"></p>
 </li>
 </ul>
@@ -490,47 +484,44 @@ class AddUpdater(Scene):
 <p>默认行为是围绕mobject的中心进行缩放。参数about_edge可以是向量，指要围绕mobject的哪一侧进行缩放,否则，如果给about_point一个值，则相对于该点进行缩放。</p>
 <ul>
 <li><p><code>about_edge</code>:相对边</p>
-<pre class=" language-lang-python"><code class="language-lang-python">class AddUpdater(Scene):
-    def construct(self):
-        circles = [Circle(arc_center = LEFT*i*2) for i in range(3)]
+<pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AddUpdater</span><span class="hljs-params">(Scene)</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">construct</span><span class="hljs-params">(self)</span>:</span>
+        circles = [Circle(arc_center = LEFT*i*<span class="hljs-number">2</span>) <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">3</span>)]
         vg = VGroup(*circles)
-        line = Line(np.array([-10,vg.get_top()[1],0]),np.array([10,vg.get_top()[1],0]))
-        text = TextMobject("about\_edge")
+        line = Line(np.array([<span class="hljs-number">-10</span>,vg.get_top()[<span class="hljs-number">1</span>],<span class="hljs-number">0</span>]),np.array([<span class="hljs-number">10</span>,vg.get_top()[<span class="hljs-number">1</span>],<span class="hljs-number">0</span>]))
+        text = TextMobject(<span class="hljs-string">"about\_edge"</span>)
         text.next_to(line,UP,buff=SMALL_BUFF)
         self.add(line,vg,text)
-        self.play(vg.scale,2,{"about_edge":UP})
-        self.wait()
-</code></pre>
+        self.play(vg.scale,<span class="hljs-number">2</span>,{<span class="hljs-string">"about_edge"</span>:UP})
+        self.wait()</code></pre>
 <p><img src="about_edge-1586013786370.gif" srcset="/img/loading.gif" alt="about_edge"></p>
 <p>如果<code>about_edge</code>为方向的线性组合,则会按照对应的边进行阻隔,以UP+RIGHT为例子:</p>
-<pre class=" language-lang-python"><code class="language-lang-python">class AddUpdater(Scene):
-    def construct(self):
-        circles = [Circle(arc_center = LEFT*i*2) for i in range(3)]
+<pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AddUpdater</span><span class="hljs-params">(Scene)</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">construct</span><span class="hljs-params">(self)</span>:</span>
+        circles = [Circle(arc_center = LEFT*i*<span class="hljs-number">2</span>) <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">3</span>)]
         vg = VGroup(*circles)
-        line = Line(np.array([-10,vg.get_top()[1],0]),np.array([10,vg.get_top()[1],0]))
-        line1 = Line(np.array([vg.get_right()[0],-10,0]),np.array([vg.get_right()[0],10,0]))
-        text = TextMobject("about\_edge1")
+        line = Line(np.array([<span class="hljs-number">-10</span>,vg.get_top()[<span class="hljs-number">1</span>],<span class="hljs-number">0</span>]),np.array([<span class="hljs-number">10</span>,vg.get_top()[<span class="hljs-number">1</span>],<span class="hljs-number">0</span>]))
+        line1 = Line(np.array([vg.get_right()[<span class="hljs-number">0</span>],<span class="hljs-number">-10</span>,<span class="hljs-number">0</span>]),np.array([vg.get_right()[<span class="hljs-number">0</span>],<span class="hljs-number">10</span>,<span class="hljs-number">0</span>]))
+        text = TextMobject(<span class="hljs-string">"about\_edge1"</span>)
         text.next_to(line,UP,buff=SMALL_BUFF)
-        text1 = TextMobject("about\_edge2")
+        text1 = TextMobject(<span class="hljs-string">"about\_edge2"</span>)
         text1.next_to(line1,RIGHT,buff=SMALL_BUFF)
         self.add(line,line1,vg,text,text1)
-        self.play(vg.scale,2,{"about_edge":np.array(UP+RIGHT)})
-        self.wait()
-</code></pre>
+        self.play(vg.scale,<span class="hljs-number">2</span>,{<span class="hljs-string">"about_edge"</span>:np.array(UP+RIGHT)})
+        self.wait()</code></pre>
 <p><img src="UP_RIGHT-1586013786370.gif" srcset="/img/loading.gif" alt="UP_RIGHT"></p>
 </li>
 <li><p><code>about_point</code>:相对点</p>
-<pre class=" language-lang-python"><code class="language-lang-python">class AddUpdater(Scene):
-    def construct(self):
-        circles = [Circle(arc_center = LEFT*i*2) for i in range(3)]
+<pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AddUpdater</span><span class="hljs-params">(Scene)</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">construct</span><span class="hljs-params">(self)</span>:</span>
+        circles = [Circle(arc_center = LEFT*i*<span class="hljs-number">2</span>) <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">3</span>)]
         vg = VGroup(*circles)
-        dot = Dot(point=circles[0].get_center())
-        text = TextMobject("about\_point")
+        dot = Dot(point=circles[<span class="hljs-number">0</span>].get_center())
+        text = TextMobject(<span class="hljs-string">"about\_point"</span>)
         text.next_to(dot,DOWN,buff=SMALL_BUFF)
         self.add(dot,vg,text)
-        self.play(vg.scale,2,{"about_point":dot.get_center()})
-        self.wait()
-</code></pre>
+        self.play(vg.scale,<span class="hljs-number">2</span>,{<span class="hljs-string">"about_point"</span>:dot.get_center()})
+        self.wait()</code></pre>
 <p><img src="about_point-1586013786370.gif" srcset="/img/loading.gif" alt="about_point"></p>
 </li>
 </ul>
@@ -542,31 +533,29 @@ class AddUpdater(Scene):
 </li>
 <li><p><code>rotate(angle, axis=OUT, **kwargs)</code>:</p>
 <p>学过初中物理就应该知道右手定则,在数学,物理中,旋转的方向就是右手定则中的(大拇指)方向</p>
-<pre class=" language-lang-python"><code class="language-lang-python">class myRotateScene(ThreeDScene):
-    def construct(self):
+<pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">myRotateScene</span><span class="hljs-params">(ThreeDScene)</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">construct</span><span class="hljs-params">(self)</span>:</span>
      dot = Dot()
-        text = TextMobject("about\_point",color=RED)
+        text = TextMobject(<span class="hljs-string">"about\_point"</span>,color=RED)
         text.next_to(dot,DOWN,buff=SMALL_BUFF)
         axes = ThreeDAxes()
         self.add(dot,text,axes)
-        self.set_camera_orientation(theta=-PI/4,phi=PI/4)           
-        self.play(text.rotate,PI/2,{"axis":OUT})
-        self.wait()
-</code></pre>
+        self.set_camera_orientation(theta=-PI/<span class="hljs-number">4</span>,phi=PI/<span class="hljs-number">4</span>)           
+        self.play(text.rotate,PI/<span class="hljs-number">2</span>,{<span class="hljs-string">"axis"</span>:OUT})
+        self.wait()</code></pre>
 <p><img src="Rotate-1586013786370.gif" srcset="/img/loading.gif" alt="Rotate"></p>
 <p>上图text的起始平面是X-Y平面,UP为y轴正方向,大家可以自行尝试更改axis方向(注意self.play函数不代表角度从0到PI/2的渐近变化所以只要看起始帧和终止帧)</p>
 <p><code>**kwargs</code>还可以接受相对点<code>about_point</code>:</p>
-<pre class=" language-lang-python"><code class="language-lang-python">class myRotateScene(ThreeDScene):
-    def construct(self):
+<pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">myRotateScene</span><span class="hljs-params">(ThreeDScene)</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">construct</span><span class="hljs-params">(self)</span>:</span>
         dot = Dot()
-        text = TextMobject("about\_point",color=RED)
+        text = TextMobject(<span class="hljs-string">"about\_point"</span>,color=RED)
         text.next_to(dot,DOWN,buff=SMALL_BUFF)
         axes = ThreeDAxes()
         self.add(dot,text,axes)
-        self.set_camera_orientation(theta=-PI/4,phi=PI/4)           
-        self.play(text.rotate,PI,{"axis":OUT,"about_point":dot.get_center()})
-        self.wait()
-</code></pre>
+        self.set_camera_orientation(theta=-PI/<span class="hljs-number">4</span>,phi=PI/<span class="hljs-number">4</span>)           
+        self.play(text.rotate,PI,{<span class="hljs-string">"axis"</span>:OUT,<span class="hljs-string">"about_point"</span>:dot.get_center()})
+        self.wait()</code></pre>
 <p>这个相对点旋转其实是线性代数里面的旋转矩阵造成的结果,如果角度是180度,效果是关于这个点对称</p>
 <p><img src="rotateAboutPoint-1586013786370.gif" srcset="/img/loading.gif" alt="rotateAboutPoint"></p>
 </li>
@@ -576,44 +565,41 @@ class AddUpdater(Scene):
 <li><p><code>stretch(factor, dim, **kwargs)</code>:</p>
 <p>在对应的维度伸缩<code>factor</code>倍</p>
 <p>这个函数与<code>scale</code>的用法一样,也会有<code>about_point</code>和<code>about_edge</code></p>
-<pre class=" language-lang-python"><code class="language-lang-python">class Stretch(Scene):
-    def construct(self):
-        text = Text("stretch")
-        self.play(text.stretch,2,1)
-        self.wait(2)
-</code></pre>
+<pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Stretch</span><span class="hljs-params">(Scene)</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">construct</span><span class="hljs-params">(self)</span>:</span>
+        text = Text(<span class="hljs-string">"stretch"</span>)
+        self.play(text.stretch,<span class="hljs-number">2</span>,<span class="hljs-number">1</span>)
+        self.wait(<span class="hljs-number">2</span>)</code></pre>
 </li>
 <li><p><code>apply_function(function, **kwargs)</code>:</p>
 <p>对所有family成员的点坐标都进行<code>function</code>处理,所以function必须是一个处理一个点的函数</p>
 <p>例如对于二维图形:</p>
-<pre class=" language-lang-python"><code class="language-lang-python">class myScene(Scene):
-    def func(self,point):
-        return point*2
+<pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">myScene</span><span class="hljs-params">(Scene)</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">func</span><span class="hljs-params">(self,point)</span>:</span>
+        <span class="hljs-keyword">return</span> point*<span class="hljs-number">2</span>
 
-    def construct(self):
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">construct</span><span class="hljs-params">(self)</span>:</span>
         circle = Circle()
         circle2 = Circle()
         self.add(circle,circle2)  
         circle.apply_function(self.func)
         self.play(Write(circle))
-        self.wait()
-</code></pre>
+        self.wait()</code></pre>
 <p>默认的<code>about_point</code>为<code>ORIGIN</code>,可以看出来实现了<code>apply_function</code>的会大一倍</p>
 <p><img src="applyFunc-1586013786370.gif" srcset="/img/loading.gif" alt="applyFunc"></p>
 </li>
 <li><p><code>apply_function_to_position(function)</code>:</p>
 <p>移动图像中心到function(self.get_center())</p>
-<pre class=" language-lang-python"><code class="language-lang-python">class myWag(Scene):
-    def x2(self,x):
-        return x*2
+<pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">myWag</span><span class="hljs-params">(Scene)</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">x2</span><span class="hljs-params">(self,x)</span>:</span>
+        <span class="hljs-keyword">return</span> x*<span class="hljs-number">2</span>
 
-    def construct(self):
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">construct</span><span class="hljs-params">(self)</span>:</span>
         circle = Circle()
         circle.move_to(RIGHT)
         self.add(circle)
-        self.play(circle.apply_function_to_position,{"function":self.x2})
-        self.wait()
-</code></pre>
+        self.play(circle.apply_function_to_position,{<span class="hljs-string">"function"</span>:self.x2})
+        self.wait()</code></pre>
 </li>
 <li><p><code>apply_function_to_submobject_positions(function)</code>:</p>
 <p>略</p>
@@ -642,38 +628,36 @@ class AddUpdater(Scene):
 </ol>
 <p>例子:</p>
 <p>factor=1</p>
-<pre class=" language-lang-python"><code class="language-lang-python">class myWag(Scene):
-    def construct(self):
-        squares = [Square() for i in range(3)]
-        for i in range(-1,2):
-            squares[1+i].move_to(RIGHT*3*i)
+<pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">myWag</span><span class="hljs-params">(Scene)</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">construct</span><span class="hljs-params">(self)</span>:</span>
+        squares = [Square() <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">3</span>)]
+        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">-1</span>,<span class="hljs-number">2</span>):
+            squares[<span class="hljs-number">1</span>+i].move_to(RIGHT*<span class="hljs-number">3</span>*i)
         self.add(*squares) 
-        self.play(squares[0].wag,{"direction":UP,"axis":RIGHT,"wag_factor":0.1},
-                  squares[1].wag,{"direction":UP,"axis":RIGHT,"wag_factor":1},
-                  squares[2].wag,{"direction":UP,"axis":RIGHT,"wag_factor":2})
-        self.wait()
-</code></pre>
+        self.play(squares[<span class="hljs-number">0</span>].wag,{<span class="hljs-string">"direction"</span>:UP,<span class="hljs-string">"axis"</span>:RIGHT,<span class="hljs-string">"wag_factor"</span>:<span class="hljs-number">0.1</span>},
+                  squares[<span class="hljs-number">1</span>].wag,{<span class="hljs-string">"direction"</span>:UP,<span class="hljs-string">"axis"</span>:RIGHT,<span class="hljs-string">"wag_factor"</span>:<span class="hljs-number">1</span>},
+                  squares[<span class="hljs-number">2</span>].wag,{<span class="hljs-string">"direction"</span>:UP,<span class="hljs-string">"axis"</span>:RIGHT,<span class="hljs-string">"wag_factor"</span>:<span class="hljs-number">2</span>})
+        self.wait()</code></pre>
 <p><img src="myWag1-1585643241928-1586013786370.gif" srcset="/img/loading.gif" alt="myWag1"></p>
 <p>从左到右factor依次为0.1,1,2,都是向上wag的,具体怎么理解大家可以自己理解,比较难以表述</p>
 </li>
 <li><p><code>reverse_points()</code>:</p>
 <p>调换点的顺序:</p>
-<pre class=" language-lang-python"><code class="language-lang-python">class myWag(Scene):
-    def construct(self):
-        circle = Circle().scale(2)
-        texts = [TextMobject("p"+str(i)).scale(0.5) for i in range(len(circle.points))]
-        def update_factory(index):
-            def update_func(mob):
+<pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">myWag</span><span class="hljs-params">(Scene)</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">construct</span><span class="hljs-params">(self)</span>:</span>
+        circle = Circle().scale(<span class="hljs-number">2</span>)
+        texts = [TextMobject(<span class="hljs-string">"p"</span>+str(i)).scale(<span class="hljs-number">0.5</span>) <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(len(circle.points))]
+        <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">update_factory</span><span class="hljs-params">(index)</span>:</span>
+            <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">update_func</span><span class="hljs-params">(mob)</span>:</span>
                 mob.move_to(circle.points[index])
-            return update_func
-        for i in range(len(texts)):
+            <span class="hljs-keyword">return</span> update_func
+        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(len(texts)):
             texts[i].add_updater(update_factory(i))
 
         self.add(circle,*texts)
-        self.wait(1)
+        self.wait(<span class="hljs-number">1</span>)
         self.play(circle.reverse_points)
-        self.wait(2)
-</code></pre>
+        self.wait(<span class="hljs-number">2</span>)</code></pre>
 <p><img src="ReversePoint-1586013786371.gif" srcset="/img/loading.gif" alt="ReversePoint"></p>
 <p>注意play函数不能很好表现reverse的现象,如果看顺序,上图顺序从逆时针变成了顺时针</p>
 </li>
@@ -688,8 +672,8 @@ class AddUpdater(Scene):
 <h3 id="3-5-位置函数"><a href="#3-5-位置函数" class="headerlink" title="3.5 位置函数"></a>3.5 位置函数</h3><ol>
 <li><p><code>center()</code>:</p>
 <p>此处center为动词:到中心</p>
-<pre class=" language-lang-python"><code class="language-lang-python">class Repeat(Scene):
-    def construct(self):
+<pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Repeat</span><span class="hljs-params">(Scene)</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">construct</span><span class="hljs-params">(self)</span>:</span>
         square = Square()
         dot=Dot()
         self.add(square,dot)
@@ -697,18 +681,16 @@ class AddUpdater(Scene):
         self.play(square.shift,RIGHT)
         self.play(square.shift,UP)
         self.play(square.center)
-        self.wait()
-</code></pre>
+        self.wait()</code></pre>
 <p><img src="Center-1586013786371.gif" srcset="/img/loading.gif" alt="Center"></p>
 </li>
 <li><p><code>align_on_border(direction, buff=DEFAULT_MOBJECT_TO_EDGE_BUFFER)</code>:</p>
 <p>在边界对齐,buff为和边界的距离</p>
-<pre class=" language-lang-python"><code class="language-lang-python">class Align(Scene):
-    def construct(self):
+<pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Align</span><span class="hljs-params">(Scene)</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">construct</span><span class="hljs-params">(self)</span>:</span>
         square = Square()
         self.play(square.align_on_border,LEFT+UP)
-        self.wait(2)
-</code></pre>
+        self.wait(<span class="hljs-number">2</span>)</code></pre>
 <p><img src="Align-1586013786371.gif" srcset="/img/loading.gif" alt="Align"></p>
 </li>
 <li><p><code>to_corner(corner=LEFT + DOWN, buff=DEFAULT_MOBJECT_TO_EDGE_BUFFER)</code>:</p>
@@ -743,13 +725,12 @@ class AddUpdater(Scene):
 </li>
 <li><p><code>rescale_to_fit(length, dim, stretch=False, **kwargs)</code>:</p>
 <p>将某一个方向的长度拉伸至length,可以按照scale方式拉长或者stretch方式拉长</p>
-<pre class=" language-lang-python"><code class="language-lang-python">class RescaleToFit(Scene):
-    def construct(self):
+<pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">RescaleToFit</span><span class="hljs-params">(Scene)</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">construct</span><span class="hljs-params">(self)</span>:</span>
         ellipse = Ellipse()
-        length = ellipse.length_over_dim(0)
-        self.play(ellipse.rescale_to_fit,length,1,{"stretch":True})
-        self.wait(2)
-</code></pre>
+        length = ellipse.length_over_dim(<span class="hljs-number">0</span>)
+        self.play(ellipse.rescale_to_fit,length,<span class="hljs-number">1</span>,{<span class="hljs-string">"stretch"</span>:<span class="hljs-literal">True</span>})
+        self.wait(<span class="hljs-number">2</span>)</code></pre>
 <p><img src="RescaleToFit-1586013786371.gif" srcset="/img/loading.gif" alt="RescaleToFit"></p>
 <ul>
 <li><code>stretch_to_fit_width(width, **kwargs)</code></li>
@@ -780,40 +761,37 @@ class AddUpdater(Scene):
 </li>
 <li><p><code>surround(mobject,dim_to_match=0,stretch=False,buff=MED_SMALL_BUFF)</code>:</p>
 <p>包围(默认情况下,等边长的正多边形规则物体效果很好,对于不等变长的形状最好启用stretch)</p>
-<pre class=" language-lang-python"><code class="language-lang-python">class Surround(Scene):
-    def construct(self):
+<pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Surround</span><span class="hljs-params">(Scene)</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">construct</span><span class="hljs-params">(self)</span>:</span>
         circle = Circle()
-        square = Square().shift(UP*2)
+        square = Square().shift(UP*<span class="hljs-number">2</span>)
         self.add(circle,square)
         self.play(circle.surround,square)
-        self.wait(2)
-</code></pre>
+        self.wait(<span class="hljs-number">2</span>)</code></pre>
 <p><img src="Surround-1586013786372.gif" srcset="/img/loading.gif" alt="Surround"></p>
 </li>
 <li><p><code>put_start_and_end_on(start, end)</code>:</p>
 <p>将起点终点重置为start,end</p>
-<pre class=" language-lang-python"><code class="language-lang-python">class PutStartAndEndOn(Scene):
-    def construct(self):
-        arc = Arc(PI/3)
-        texts = [TexMobject(i,color=RED) for i in ["startPoint","endPoint"]]
-        texts[0].add_updater(lambda x: x.move_to(arc.get_start()))
-        texts[1].add_updater(lambda x: x.move_to(arc.get_end()))
+<pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">PutStartAndEndOn</span><span class="hljs-params">(Scene)</span>:</span>
+	<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">construct</span><span class="hljs-params">(self)</span>:</span>
+        arc = Arc(PI/<span class="hljs-number">3</span>)
+        texts = [TexMobject(i,color=RED) <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> [<span class="hljs-string">"startPoint"</span>,<span class="hljs-string">"endPoint"</span>]]
+        texts[<span class="hljs-number">0</span>].add_updater(<span class="hljs-keyword">lambda</span> x: x.move_to(arc.get_start()))
+        texts[<span class="hljs-number">1</span>].add_updater(<span class="hljs-keyword">lambda</span> x: x.move_to(arc.get_end()))
         self.add(arc, *texts)
-        self.play(arc.put_start_and_end_on,ORIGIN,(UP+RIGHT)*2)
-        self.wait()
-</code></pre>
+        self.play(arc.put_start_and_end_on,ORIGIN,(UP+RIGHT)*<span class="hljs-number">2</span>)
+        self.wait()</code></pre>
 <p><img src="PutStartAndEndOn-1586013786372.gif" srcset="/img/loading.gif" alt="PutStartAndEndOn"></p>
 </li>
 <li><p><code>add_background_rectangle(color=BLACK, opacity=0.75, **kwargs)</code>:</p>
 <p>增加背景方块,此方块是可以随着Mobject变化而变化的</p>
-<pre class=" language-lang-python"><code class="language-lang-python">class BackgroundRectangle(Scene):
-    def construct(self):
+<pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">BackgroundRectangle</span><span class="hljs-params">(Scene)</span>:</span>
+	<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">construct</span><span class="hljs-params">(self)</span>:</span>
         circle = Circle(color=RED)
-        circle.add_background_rectangle(color=BLUE,opacity=0.4)
+        circle.add_background_rectangle(color=BLUE,opacity=<span class="hljs-number">0.4</span>)
         self.add(circle)
-        self.play(circle.stretch,2,1)
-        self.wait()
-</code></pre>
+        self.play(circle.stretch,<span class="hljs-number">2</span>,<span class="hljs-number">1</span>)
+        self.wait()</code></pre>
 <p><img src="BackgroundRectangle-1586013786372.gif" srcset="/img/loading.gif" alt="BackgroundRectangle"></p>
 </li>
 <li><p><code>add_background_rectangle_to_submobjects(**kwargs)</code>:</p>
@@ -829,13 +807,12 @@ class AddUpdater(Scene):
 </li>
 <li><p><code>set_color_by_gradient(*colors)</code>:</p>
 <p>渐变色,可以是两个或多个颜色的列表</p>
-<pre class=" language-lang-python"><code class="language-lang-python">class main(Scene):
-    def construct(self):
-        qed = TexMobject('This is a Text').scale(1.25)
+<pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">main</span><span class="hljs-params">(Scene)</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">construct</span><span class="hljs-params">(self)</span>:</span>
+        qed = TexMobject(<span class="hljs-string">'This is a Text'</span>).scale(<span class="hljs-number">1.25</span>)
         qed.set_color_by_gradient(RED,YELLOW,GREEN,BLUE)
         self.play(Write(qed))
-        self.wait(3)
-</code></pre>
+        self.wait(<span class="hljs-number">3</span>)</code></pre>
 <p><img src="image-20200403201147347-1586013786372.png" srcset="/img/loading.gif" alt="gradientColor"></p>
 </li>
 <li><p><code>set_colors_by_radial_gradient(center=None, radius=1, inner_color=WHITE, outer_color=BLACK)</code>:</p>
@@ -849,14 +826,13 @@ class AddUpdater(Scene):
 </li>
 <li><p><code>fade_to(color, alpha, family=True)</code>:</p>
 <p>褪色为某一个颜色,alpha为插值系数,alpha在[0,1]之间,越接近1,褪色越厉害</p>
-<pre class=" language-lang-python"><code class="language-lang-python">class FadeTo(Scene):
-    def construct(self):
-        text = TexMobject("This is a Text")
+<pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">FadeTo</span><span class="hljs-params">(Scene)</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">construct</span><span class="hljs-params">(self)</span>:</span>
+        text = TexMobject(<span class="hljs-string">"This is a Text"</span>)
         self.add(text)
-        self.play(text.set_colors_by_radial_gradient,{"inner_color":WHITE,"outer_color":RED})
-        self.play(text.fade_to,BLUE,1)
-        self.wait()
-</code></pre>
+        self.play(text.set_colors_by_radial_gradient,{<span class="hljs-string">"inner_color"</span>:WHITE,<span class="hljs-string">"outer_color"</span>:RED})
+        self.play(text.fade_to,BLUE,<span class="hljs-number">1</span>)
+        self.wait()</code></pre>
 <p><img src="FadeTo-1586013786373.gif" srcset="/img/loading.gif" alt="FadeTo"></p>
 </li>
 <li><p><code>get_color()</code>:</p>
@@ -912,21 +888,20 @@ class AddUpdater(Scene):
 </li>
 <li><p><code>get_boundary_point(direction)</code>:</p>
 <p>得到某个方向的最远的点</p>
-<pre class=" language-lang-python"><code class="language-lang-python">class FadeTo(Scene):
-    def construct(self):
+ <pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">FadeTo</span><span class="hljs-params">(Scene)</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">construct</span><span class="hljs-params">(self)</span>:</span>
         square = Square()
-        circle = Circle().shift(2 * RIGHT + 1 * DOWN)
+        circle = Circle().shift(<span class="hljs-number">2</span> * RIGHT + <span class="hljs-number">1</span> * DOWN)
         shapeGroup = VGroup(square,circle)
         points = []
-        nums = 10
-        for i in range(nums):
-            points.append(shapeGroup.get_boundary_point(np.array((np.cos(2*PI*i/nums),np.sin(2*PI*i/nums),0))))
+        nums = <span class="hljs-number">10</span>
+        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(nums):
+            points.append(shapeGroup.get_boundary_point(np.array((np.cos(<span class="hljs-number">2</span>*PI*i/nums),np.sin(<span class="hljs-number">2</span>*PI*i/nums),<span class="hljs-number">0</span>))))
         polygon = Polygon(*points,color=BLUE)
-        dots = [Dot(point=i) for i in points]
+        dots = [Dot(point=i) <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> points]
         self.add(shapeGroup,*dots)
         self.play(Write(polygon))
-        self.wait(2)
-</code></pre>
+        self.wait(<span class="hljs-number">2</span>)</code></pre>
 <p><img src="image-20200404172800256-1586013786373.png" srcset="/img/loading.gif" alt="boundary_points"></p>
 </li>
 <li><p><code>length_over_dim(dim)</code>:</p>
@@ -978,35 +953,33 @@ class AddUpdater(Scene):
 <li><p><code>arrange(direction=RIGHT, center=True, **kwargs)</code>:</p>
 <p>submobject列表的全部变量进行排队,按照direction的方式排队,center决定了是否排完队跑到中心</p>
 <p><code>**kwargs</code>参考next_to</p>
-<pre class=" language-lang-python"><code class="language-lang-python">class Arrange(Scene):
-    def construct(self):
+<pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Arrange</span><span class="hljs-params">(Scene)</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">construct</span><span class="hljs-params">(self)</span>:</span>
         square = Square()
-        square.add(Dot(point=np.array([-1,-2,0])))
-        square.add(Square().move_to(np.array([3,0,0])))
-        square.add(Circle().move_to(np.array([5, 2, 0])))
+        square.add(Dot(point=np.array([<span class="hljs-number">-1</span>,<span class="hljs-number">-2</span>,<span class="hljs-number">0</span>])))
+        square.add(Square().move_to(np.array([<span class="hljs-number">3</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>])))
+        square.add(Circle().move_to(np.array([<span class="hljs-number">5</span>, <span class="hljs-number">2</span>, <span class="hljs-number">0</span>])))
         self.add(square)
-        self.play(square.arrange,{"center":False})
-        self.wait(2)
-        self.play(square.arrange,{"direction":UP,"center":False})
-        self.wait(2)
-</code></pre>
+        self.play(square.arrange,{<span class="hljs-string">"center"</span>:<span class="hljs-literal">False</span>})
+        self.wait(<span class="hljs-number">2</span>)
+        self.play(square.arrange,{<span class="hljs-string">"direction"</span>:UP,<span class="hljs-string">"center"</span>:<span class="hljs-literal">False</span>})
+        self.wait(<span class="hljs-number">2</span>)</code></pre>
 <p><img src="Arrange-1586013786373.gif" srcset="/img/loading.gif" alt="Arrange"></p>
 </li>
 <li><p><code>arrange_in_grid(n_rows=None, n_cols=None, **kwargs)</code>:</p>
 <p>对submobject列表重拍列</p>
 <p>如果默认无参数,重拍列至方阵,否则n_rows和n_cols最多选一个,排列为对应的行或列,如果都填,则排列为n_rows行</p>
 <p><code>**kwargs</code>参考next_to函数</p>
-<pre class=" language-lang-python"><code class="language-lang-python">class ArrangeInGrid(Scene):
-    def construct(self):
+<pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ArrangeInGrid</span><span class="hljs-params">(Scene)</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">construct</span><span class="hljs-params">(self)</span>:</span>
         square = Square()
-        square.add(Circle().move_to(np.array([-1,-2,0])))
-        square.add(Circle().move_to(np.array([3,0,0])))
-        square.add(Circle().move_to(np.array([5, 2, 0])))
-        square.add(Circle().move_to(np.array([5, -3, 0])))
+        square.add(Circle().move_to(np.array([<span class="hljs-number">-1</span>,<span class="hljs-number">-2</span>,<span class="hljs-number">0</span>])))
+        square.add(Circle().move_to(np.array([<span class="hljs-number">3</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>])))
+        square.add(Circle().move_to(np.array([<span class="hljs-number">5</span>, <span class="hljs-number">2</span>, <span class="hljs-number">0</span>])))
+        square.add(Circle().move_to(np.array([<span class="hljs-number">5</span>, <span class="hljs-number">-3</span>, <span class="hljs-number">0</span>])))
         self.add(square)
         self.play(square.arrange_in_grid)
-        self.wait(2)
-</code></pre>
+        self.wait(<span class="hljs-number">2</span>)</code></pre>
 <p><img src="ArrangeInGrid-1586013786373.gif" srcset="/img/loading.gif" alt="ArrangeInGrid"></p>
 </li>
 <li><p><code>sort(point_to_num_func=lambda p: p[0], submob_func=None)</code>:</p>
@@ -1020,14 +993,13 @@ class AddUpdater(Scene):
 <li><p><code>align_to(mobject_or_point, direction=ORIGIN, alignment_vect=UP)</code>:</p>
 <p>对齐,direction表示对齐的边是哪边</p>
 <p>mob1.align_to（mob2，UP）垂直移动mob1，以便其顶部边缘与mob2的顶部边缘对齐。 mob1.align_to（mob2，alignment_vect = RIGHT）水平移动mob1，使其中心位于mob2中心的正上方/正下方</p>
-<pre class=" language-lang-python"><code class="language-lang-python">class AlighTo(Scene):
-    def construct(self):
+<pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AlighTo</span><span class="hljs-params">(Scene)</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">construct</span><span class="hljs-params">(self)</span>:</span>
         square = Square()
-        circle = Circle().shift(2 * RIGHT + 1 * DOWN).scale(2)
+        circle = Circle().shift(<span class="hljs-number">2</span> * RIGHT + <span class="hljs-number">1</span> * DOWN).scale(<span class="hljs-number">2</span>)
         self.add(square,circle)
         self.play(circle.align_to,square,RIGHT)
-        self.wait(2)
-</code></pre>
+        self.wait(<span class="hljs-number">2</span>)</code></pre>
 <p><img src="AlighTo-1586013786373.gif" srcset="/img/loading.gif" alt="AlighTo"></p>
 </li>
 <li><p><code>add_n_more_submobjects(n)</code>:</p>
@@ -1059,19 +1031,18 @@ class AddUpdater(Scene):
 </li>
 <li><p><code>become(mobject, copy_submobjects=True)</code>:</p>
 <p>变成另一个的样式</p>
-<pre class=" language-lang-python"><code class="language-lang-python">class Become(Scene):
-    def construct(self):
+<pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Become</span><span class="hljs-params">(Scene)</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">construct</span><span class="hljs-params">(self)</span>:</span>
         square = Square()
-        square.submobjects.append(Circle().move_to(np.array([-1,-2,0])))
-        square.submobjects.append(Circle().move_to(np.array([3,0,0])))
-        square.submobjects.append(Circle().move_to(np.array([5, 2, 0])))
-        square.submobjects.append(Circle().move_to(np.array([5, -3, 0])))
-        text = Text("text")
+        square.submobjects.append(Circle().move_to(np.array([<span class="hljs-number">-1</span>,<span class="hljs-number">-2</span>,<span class="hljs-number">0</span>])))
+        square.submobjects.append(Circle().move_to(np.array([<span class="hljs-number">3</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>])))
+        square.submobjects.append(Circle().move_to(np.array([<span class="hljs-number">5</span>, <span class="hljs-number">2</span>, <span class="hljs-number">0</span>])))
+        square.submobjects.append(Circle().move_to(np.array([<span class="hljs-number">5</span>, <span class="hljs-number">-3</span>, <span class="hljs-number">0</span>])))
+        text = Text(<span class="hljs-string">"text"</span>)
         self.add(square)
         self.play(square.become,text)
         self.play(text.shift,UP)
-        self.wait(2)
-</code></pre>
+        self.wait(<span class="hljs-number">2</span>)</code></pre>
 <p><img src="Become-1586013786373.gif" srcset="/img/loading.gif" alt="Become"></p>
 </li>
 </ol>
@@ -1111,9 +1082,9 @@ class AddUpdater(Scene):
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/%E6%95%99%E7%A8%8B/">教程</a>
-                    
                       <a class="hover-with-bg" href="/tags/manim/">manim</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%95%99%E7%A8%8B/">教程</a>
                     
                   </div>
                 

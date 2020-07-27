@@ -233,32 +233,31 @@
             
             <article class="markdown-body">
               <h2 id="1-camera的所有子类以及相关的类"><a href="#1-camera的所有子类以及相关的类" class="headerlink" title="1. camera的所有子类以及相关的类"></a>1. camera的所有子类以及相关的类</h2><p><img src="Camera.png" srcset="/img/loading.gif" alt="Camera"></p>
-<h2 id="2-camera主要的变量与属性"><a href="#2-camera主要的变量与属性" class="headerlink" title="2. camera主要的变量与属性"></a>2. camera主要的变量与属性</h2><h3 id="2-1-CONFIG"><a href="#2-1-CONFIG" class="headerlink" title="2.1 CONFIG"></a>2.1 CONFIG</h3><pre class=" language-lang-python"><code class="language-lang-python">CONFIG = {
-        "background_image": None,
-        "pixel_height": DEFAULT_PIXEL_HEIGHT,
-        "pixel_width": DEFAULT_PIXEL_WIDTH,
-        "frame_rate": DEFAULT_FRAME_RATE,
-        # Note: 帧的高度和宽度将被调整大小以匹配像素长宽比
-        #         这个在constant.py中可以看到：
-        #         FRAME_WIDTH = FRAME_HEIGHT * DEFAULT_PIXEL_WIDTH / DEFAULT_PIXEL_HEIGHT
-        "frame_height": FRAME_HEIGHT,
-        "frame_width": FRAME_WIDTH,
-        "frame_center": ORIGIN,
-        "background_color": BLACK,
-        "background_opacity": 1,
-        # vectorized mobjects的点在大于下面的范围时候会缩小
-        "max_allowable_norm": FRAME_WIDTH,
-        # 图像的模式，此处默认是RGBA，参见数字图像处理
-        "image_mode": "RGBA",
-        # 图像通道，参见数字图像处理
-        "n_channels": 4,
-        "pixel_array_dtype": 'uint8',
-        # z_buff_func is only used if the flag above is set to True.
-        # 比较时将z坐标舍入到最接近的百分之一
-        "z_buff_func": lambda m: np.round(m.get_center()[2], 2),
-        "cairo_line_width_multiple": 0.01,
-    }
-</code></pre>
+<h2 id="2-camera主要的变量与属性"><a href="#2-camera主要的变量与属性" class="headerlink" title="2. camera主要的变量与属性"></a>2. camera主要的变量与属性</h2><h3 id="2-1-CONFIG"><a href="#2-1-CONFIG" class="headerlink" title="2.1 CONFIG"></a>2.1 CONFIG</h3><pre><code class="hljs python">CONFIG = {
+        <span class="hljs-string">"background_image"</span>: <span class="hljs-literal">None</span>,
+        <span class="hljs-string">"pixel_height"</span>: DEFAULT_PIXEL_HEIGHT,
+        <span class="hljs-string">"pixel_width"</span>: DEFAULT_PIXEL_WIDTH,
+        <span class="hljs-string">"frame_rate"</span>: DEFAULT_FRAME_RATE,
+        <span class="hljs-comment"># Note: 帧的高度和宽度将被调整大小以匹配像素长宽比</span>
+    	<span class="hljs-comment"># 		这个在constant.py中可以看到：</span>
+    	<span class="hljs-comment"># 		FRAME_WIDTH = FRAME_HEIGHT * DEFAULT_PIXEL_WIDTH / DEFAULT_PIXEL_HEIGHT</span>
+        <span class="hljs-string">"frame_height"</span>: FRAME_HEIGHT,
+        <span class="hljs-string">"frame_width"</span>: FRAME_WIDTH,
+        <span class="hljs-string">"frame_center"</span>: ORIGIN,
+        <span class="hljs-string">"background_color"</span>: BLACK,
+        <span class="hljs-string">"background_opacity"</span>: <span class="hljs-number">1</span>,
+        <span class="hljs-comment"># vectorized mobjects的点在大于下面的范围时候会缩小</span>
+        <span class="hljs-string">"max_allowable_norm"</span>: FRAME_WIDTH,
+    	<span class="hljs-comment"># 图像的模式，此处默认是RGBA，参见数字图像处理</span>
+        <span class="hljs-string">"image_mode"</span>: <span class="hljs-string">"RGBA"</span>,
+    	<span class="hljs-comment"># 图像通道，参见数字图像处理</span>
+        <span class="hljs-string">"n_channels"</span>: <span class="hljs-number">4</span>,
+        <span class="hljs-string">"pixel_array_dtype"</span>: <span class="hljs-string">'uint8'</span>,
+        <span class="hljs-comment"># z_buff_func is only used if the flag above is set to True.</span>
+        <span class="hljs-comment"># 比较时将z坐标舍入到最接近的百分之一</span>
+        <span class="hljs-string">"z_buff_func"</span>: <span class="hljs-keyword">lambda</span> m: np.round(m.get_center()[<span class="hljs-number">2</span>], <span class="hljs-number">2</span>),
+        <span class="hljs-string">"cairo_line_width_multiple"</span>: <span class="hljs-number">0.01</span>,
+    }</code></pre>
 <h3 id="2-2-init-函数"><a href="#2-2-init-函数" class="headerlink" title="2.2__init__()函数"></a>2.2<code>__init__()</code>函数</h3><ul>
 <li><p><code>rgb_max_val</code>RGB色彩的取值的最大值，默认的<code>uint8</code>取值最大值是255</p>
 </li>
@@ -267,91 +266,86 @@
 </ul>
 <h2 id="3-camera的主要方法"><a href="#3-camera的主要方法" class="headerlink" title="3. camera的主要方法"></a>3. camera的主要方法</h2><ol>
 <li><p><code>reset_pixel_shape(new_height, new_width)</code>设置帧的像素宽与高</p>
-<pre class=" language-lang-python"><code class="language-lang-python">class Test_pixel(ThreeDScene):
-    def construct(self):
+<pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Test_pixel</span><span class="hljs-params">(ThreeDScene)</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">construct</span><span class="hljs-params">(self)</span>:</span>
         axes = ThreeDAxes()
-        cube = Cube(fill_color=GREEN).scale([2, 0.5, 0.5])
+        cube = Cube(fill_color=GREEN).scale([<span class="hljs-number">2</span>, <span class="hljs-number">0.5</span>, <span class="hljs-number">0.5</span>])
 
-        theta_0 = 0 # 起始角度
-        theta =  -120 * DEGREES # 目标角度
+        theta_0 = <span class="hljs-number">0</span> <span class="hljs-comment"># 起始角度</span>
+        theta =  <span class="hljs-number">-120</span> * DEGREES <span class="hljs-comment"># 目标角度</span>
 
         self.set_camera(ThreeDCamera(background_color=BLUE))
-        self.camera.reset_pixel_shape(854,854)
-        self.set_camera_orientation(60 * DEGREES, theta=theta_0)
+        self.camera.reset_pixel_shape(<span class="hljs-number">854</span>,<span class="hljs-number">854</span>)
+        self.set_camera_orientation(<span class="hljs-number">60</span> * DEGREES, theta=theta_0)
         self.add(axes, cube)
         self.wait()
-        dt = 1/15
-        delta_theta = (theta - theta_0) / 60
-        for i in range(60):
+        dt = <span class="hljs-number">1</span>/<span class="hljs-number">15</span>
+        delta_theta = (theta - theta_0) / <span class="hljs-number">60</span>
+        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">60</span>):
             theta_0 += delta_theta
             self.set_camera_orientation(theta=theta_0)
             self.wait(dt)
-        self.wait(2)
-</code></pre>
+        self.wait(<span class="hljs-number">2</span>)</code></pre>
 <p>上面代码设置宽高为854*854，最后就会产生大小为854*854的视频：</p>
 <p><img src="Test_pixel.gif" srcset="/img/loading.gif" alt="Test_pixel"></p>
 </li>
 <li><p>一些get,set函数：</p>
-<pre class=" language-lang-python"><code class="language-lang-python">    def get_pixel_height(self):
-        return self.pixel_height
-
-    def get_pixel_width(self):
-        return self.pixel_width
-
-    def get_frame_height(self):
-        return self.frame_height
-
-    def get_frame_width(self):
-        return self.frame_width
-
-    def get_frame_center(self):
-        return self.frame_center
-
-    def set_frame_height(self, frame_height):
-        self.frame_height = frame_height
-
-    def set_frame_width(self, frame_width):
-        self.frame_width = frame_width
-
-    def set_frame_center(self, frame_center):
-        self.frame_center = frame_center
-</code></pre>
+<pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get_pixel_height</span><span class="hljs-params">(self)</span>:</span>
+    <span class="hljs-keyword">return</span> self.pixel_height
+   
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get_pixel_width</span><span class="hljs-params">(self)</span>:</span>
+    <span class="hljs-keyword">return</span> self.pixel_width
+   
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get_frame_height</span><span class="hljs-params">(self)</span>:</span>
+    <span class="hljs-keyword">return</span> self.frame_height
+   
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get_frame_width</span><span class="hljs-params">(self)</span>:</span>
+    <span class="hljs-keyword">return</span> self.frame_width
+   
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get_frame_center</span><span class="hljs-params">(self)</span>:</span>
+    <span class="hljs-keyword">return</span> self.frame_center
+   
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">set_frame_height</span><span class="hljs-params">(self, frame_height)</span>:</span>
+    self.frame_height = frame_height
+   
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">set_frame_width</span><span class="hljs-params">(self, frame_width)</span>:</span>
+    self.frame_width = frame_width
+   
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">set_frame_center</span><span class="hljs-params">(self, frame_center)</span>:</span>
+    self.frame_center = frame_center</code></pre>
 <p>frame和pixel的区别是：一个是将帧分为多少格，一个是将帧的大小设置为多少，前者仅仅会改变坐标的间隔，后者会改变视频的宽高</p>
 <p>原始的默认为frame_width=14，frame_height=8：</p>
-<pre class=" language-lang-python"><code class="language-lang-python">class Set_frame1(Scene):
-    def construct(self):
+<pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Set_frame1</span><span class="hljs-params">(Scene)</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">construct</span><span class="hljs-params">(self)</span>:</span>
         numberplane = NumberPlane()
         numberplane.add_coordinates()
-        text = Text("frame_width=14\nframe_height=8").shift(LEFT*5+UP*3)
+        text = Text(<span class="hljs-string">"frame_width=14\nframe_height=8"</span>).shift(LEFT*<span class="hljs-number">5</span>+UP*<span class="hljs-number">3</span>)
         self.add(numberplane,text)
-        self.wait(2)
-</code></pre>
+        self.wait(<span class="hljs-number">2</span>)</code></pre>
 <p><img src="set_frame14.png" srcset="/img/loading.gif" alt="set_frame14"></p>
 <p>重新设置frame_width:</p>
-<pre class=" language-lang-python"><code class="language-lang-python">class Set_frame1(Scene):
-    def construct(self):
+<pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Set_frame1</span><span class="hljs-params">(Scene)</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">construct</span><span class="hljs-params">(self)</span>:</span>
         numberplane = NumberPlane()
         numberplane.add_coordinates()
-        self.camera.set_frame_width(8)
-        text = Text("frame_width=8\nframe_height=8").shift(UP*3)
+        self.camera.set_frame_width(<span class="hljs-number">8</span>)
+        text = Text(<span class="hljs-string">"frame_width=8\nframe_height=8"</span>).shift(UP*<span class="hljs-number">3</span>)
         self.add(numberplane,text)
-        self.wait(2)
-</code></pre>
+        self.wait(<span class="hljs-number">2</span>)</code></pre>
 <p>可以看到宽也被拉长了：</p>
 <p><img src="set_frame8.png" srcset="/img/loading.gif" alt="set_frame8"></p>
 </li>
 <li><p><code>resize_frame_shape(fixed_dimension=0)</code>:</p>
 <p>更改frame_shape以匹配像素的长宽比，其中fixed_dimension确定frame_height或frame_width是否保持固定，而其他值则相应改变。</p>
-<pre class=" language-lang-python"><code class="language-lang-python">class Set_frame1(Scene):
-    def construct(self):
+<pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Set_frame1</span><span class="hljs-params">(Scene)</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">construct</span><span class="hljs-params">(self)</span>:</span>
         numberplane = NumberPlane()
         numberplane.add_coordinates()
-        self.camera.set_frame_width(8)
+        self.camera.set_frame_width(<span class="hljs-number">8</span>)
         self.camera.resize_frame_shape()
-        text = Text("frame_width=8")
+        text = Text(<span class="hljs-string">"frame_width=8"</span>)
         self.add(numberplane,text)
-        self.wait(2)
-</code></pre>
+        self.wait(<span class="hljs-number">2</span>)</code></pre>
 <p><img src="resize_frame_shape.png" srcset="/img/loading.gif" alt="resize_frame_shape"></p>
 </li>
 <li><p><code>get_image(pixel_array=None)</code></p>
@@ -369,31 +363,29 @@
 </li>
 <li><p><code>set_background(pixel_array, convert_from_floats=False)</code></p>
 <p>设置背景(本人没有成功尝试出来换背景图片不知道出了什么问题,代码如下)</p>
-<pre class=" language-lang-python"><code class="language-lang-python">class Set_background(Scene):
-    def construct(self):
-        image = Image.open(r"XXX.png")
+<pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Set_background</span><span class="hljs-params">(Scene)</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">construct</span><span class="hljs-params">(self)</span>:</span>
+        image = Image.open(<span class="hljs-string">r"XXX.png"</span>)
         self.camera.set_background(image)
-        # self.camera.init_background()
+        <span class="hljs-comment"># self.camera.init_background()</span>
         numberplane = NumberPlane()
         numberplane.add_coordinates()
         self.add(numberplane)
-        self.wait(2)
-</code></pre>
+        self.wait(<span class="hljs-number">2</span>)</code></pre>
 <p>上面就是随便加了个物体,不知道为什么出现这个问题</p>
 </li>
 <li><p><code>make_background_from_func(coords_to_colors_func)</code></p>
 <p>另一个函数是<code>set_background_from_func(coords_to_colors_func)</code>功能一样</p>
 <p>使用coords_to_colors_func设置背景以确定每个像素的颜色。 coords_to_colors_func的每个输入在空间中都是（x，y）对（在frame对应的普通空间坐标,不是像素坐标），并且每个输出应为4个浮点数的RGBA数组。</p>
-<pre class=" language-lang-python"><code class="language-lang-python">def coords_to_colors_func(point):
-    return (int)(255*(point[0]+7)/17),(int)(255*(point[1]+4)/8),(int)(255*(point[0]+11)/22),1
+<pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">coords_to_colors_func</span><span class="hljs-params">(point)</span>:</span>
+    <span class="hljs-keyword">return</span> (int)(<span class="hljs-number">255</span>*(point[<span class="hljs-number">0</span>]+<span class="hljs-number">7</span>)/<span class="hljs-number">17</span>),(int)(<span class="hljs-number">255</span>*(point[<span class="hljs-number">1</span>]+<span class="hljs-number">4</span>)/<span class="hljs-number">8</span>),(int)(<span class="hljs-number">255</span>*(point[<span class="hljs-number">0</span>]+<span class="hljs-number">11</span>)/<span class="hljs-number">22</span>),<span class="hljs-number">1</span>
 
-class Set_bacground_func(Scene):
-    def construct(self):
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Set_bacground_func</span><span class="hljs-params">(Scene)</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">construct</span><span class="hljs-params">(self)</span>:</span>
         self.camera.set_background_from_func(coords_to_colors_func)
         square = Square()
         self.add(square)
-        self.wait(2)
-</code></pre>
+        self.wait(<span class="hljs-number">2</span>)</code></pre>
 <p><img src="set_background_func.jpg" srcset="/img/loading.gif" alt="set_background_func"></p>
 </li>
 <li><p><code>reset()</code></p>
@@ -446,9 +438,9 @@ class Set_bacground_func(Scene):
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/%E6%95%99%E7%A8%8B/">教程</a>
-                    
                       <a class="hover-with-bg" href="/tags/manim/">manim</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%95%99%E7%A8%8B/">教程</a>
                     
                   </div>
                 

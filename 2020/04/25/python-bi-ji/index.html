@@ -187,7 +187,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      15
+      16
        分钟
     </span>
   
@@ -237,142 +237,125 @@
 <p><a href="https://www.liaoxuefeng.com/wiki/1016959663602400/1017261630425888" target="_blank" rel="noopener">https://www.liaoxuefeng.com/wiki/1016959663602400/1017261630425888</a></p>
 </blockquote>
 <p>有如下函数</p>
-<pre class=" language-lang-python"><code class="language-lang-python">def add_end(L=[]):
-    L.append('END')
-    return L
-</code></pre>
+<pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">add_end</span><span class="hljs-params">(L=[])</span>:</span>
+    L.append(<span class="hljs-string">'END'</span>)
+    <span class="hljs-keyword">return</span> L</code></pre>
 <p>正常使用没问题,但是如果如下操作:</p>
-<pre class=" language-lang-bash"><code class="language-lang-bash">>>> add_end()
-['END', 'END']
->>> add_end()
-['END', 'END', 'END']
-</code></pre>
+<pre><code class="hljs bash">&gt;&gt;&gt; add_end()
+[<span class="hljs-string">'END'</span>, <span class="hljs-string">'END'</span>]
+&gt;&gt;&gt; add_end()
+[<span class="hljs-string">'END'</span>, <span class="hljs-string">'END'</span>, <span class="hljs-string">'END'</span>]</code></pre>
 <p>则会出现令人费解的问题,原因如下:</p>
 <p>Python函数在定义的时候，默认参数<code>L</code>的值就被计算出来了，即<code>[]</code>，因为默认参数<code>L</code>也是一个变量，它指向对象<code>[]</code>，每次调用该函数，如果改变了<code>L</code>的内容，则下次调用时，默认参数的内容就变了，不再是函数定义时的<code>[]</code>了。</p>
 <p>为了避免这个问题,可以用<code>None</code>这个不变对象来实现:</p>
-<pre class=" language-lang-python"><code class="language-lang-python">def add_end(L=None):
-    if L is None:
+<pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">add_end</span><span class="hljs-params">(L=None)</span>:</span>
+    <span class="hljs-keyword">if</span> L <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:
         L = []
-    L.append('END')
-    return L
-</code></pre>
+    L.append(<span class="hljs-string">'END'</span>)
+    <span class="hljs-keyword">return</span> L</code></pre>
 <h2 id="可变参数与列表的结合-与-的使用"><a href="#可变参数与列表的结合-与-的使用" class="headerlink" title="可变参数与列表的结合:*与**的使用"></a>可变参数与列表的结合:*与**的使用</h2><p>如果python代码看的比较多的时候,就会发现有类似如下的写法:</p>
-<pre class=" language-lang-python"><code class="language-lang-python">def function(*args,**kwargs):
-    ...
-</code></pre>
+<pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">function</span><span class="hljs-params">(*args,**kwargs)</span>:</span>
+	...</code></pre>
 <p>*args 用来将参数打包成tuple给函数体调用, **kwargs 打包关键字参数成dict给函数体调用</p>
 <p>如果某函数如下:</p>
-<pre class=" language-lang-python"><code class="language-lang-python">def function(arg1,arg2,*args,**kwargs):
-    print(arg1,arg2,args,kwargs)
-</code></pre>
+<pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">function</span><span class="hljs-params">(arg1,arg2,*args,**kwargs)</span>:</span>
+    print(arg1,arg2,args,kwargs)</code></pre>
 <p>调用如下:</p>
-<pre class=" language-lang-bash"><code class="language-lang-bash">>>> funtion(1,2,3,4,5,6,7,a=1,b=2,c=3)
-1 2 (3, 4, 5, 6, 7) {'a': 1, 'b': 2, 'c': 3}
-</code></pre>
+<pre><code class="hljs bash">&gt;&gt;&gt; funtion(1,2,3,4,5,6,7,a=1,b=2,c=3)
+1 2 (3, 4, 5, 6, 7) {<span class="hljs-string">'a'</span>: 1, <span class="hljs-string">'b'</span>: 2, <span class="hljs-string">'c'</span>: 3}</code></pre>
 <p>可以看到对应的结果</p>
 <p>如果想传入现成的列表和字典的时候可以使用*和**进行输入:</p>
-<pre class=" language-lang-python"><code class="language-lang-python">>>> lst = [1,2,3,4]
->>> dict={"a":1,"b":2,"c":3}
->>> function(1,2,*lst,**dict)
-1 2 (1, 2, 3, 4) {'a': 1, 'b': 2, 'c': 3}
-</code></pre>
+<pre><code class="hljs python"><span class="hljs-meta">&gt;&gt;&gt; </span>lst = [<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>]
+<span class="hljs-meta">&gt;&gt;&gt; </span>dict={<span class="hljs-string">"a"</span>:<span class="hljs-number">1</span>,<span class="hljs-string">"b"</span>:<span class="hljs-number">2</span>,<span class="hljs-string">"c"</span>:<span class="hljs-number">3</span>}
+<span class="hljs-meta">&gt;&gt;&gt; </span>function(<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,*lst,**dict)
+<span class="hljs-number">1</span> <span class="hljs-number">2</span> (<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>) {<span class="hljs-string">'a'</span>: <span class="hljs-number">1</span>, <span class="hljs-string">'b'</span>: <span class="hljs-number">2</span>, <span class="hljs-string">'c'</span>: <span class="hljs-number">3</span>}</code></pre>
 <p>甚至对于普通的函数也可以用**进行输入参数:</p>
-<pre class=" language-lang-python"><code class="language-lang-python">def func(name,age):
+<pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">func</span><span class="hljs-params">(name,age)</span>:</span>
     print(name,age)
 
->>>dicts = {"name":"cc","age":11}
->>>func(**dicts)
->>>cc 11
-</code></pre>
+&gt;&gt;&gt;dicts = {<span class="hljs-string">"name"</span>:<span class="hljs-string">"cc"</span>,<span class="hljs-string">"age"</span>:<span class="hljs-number">11</span>}
+&gt;&gt;&gt;func(**dicts)
+&gt;&gt;&gt;cc <span class="hljs-number">11</span></code></pre>
 <blockquote>
 <p>下段代码来源:<a href="https://www.liaoxuefeng.com/wiki/1016959663602400/1017261630425888" target="_blank" rel="noopener">https://www.liaoxuefeng.com/wiki/1016959663602400/1017261630425888</a></p>
 </blockquote>
 <p>当需要限定关键字,可以使用*作为分隔符，*后面的参数被视为命名关键字参数</p>
-<pre class=" language-lang-python"><code class="language-lang-python">def person(name, age, *, city, job):
+<pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">person</span><span class="hljs-params">(name, age, *, city, job)</span>:</span>
     print(name, age, city, job)
-
->>> person('Jack', 24, city='Beijing', job='Engineer')
-Jack 24 Beijing Engineer
-</code></pre>
+    
+<span class="hljs-meta">&gt;&gt;&gt; </span>person(<span class="hljs-string">'Jack'</span>, <span class="hljs-number">24</span>, city=<span class="hljs-string">'Beijing'</span>, job=<span class="hljs-string">'Engineer'</span>)
+Jack <span class="hljs-number">24</span> Beijing Engineer</code></pre>
 <h2 id="列表的等间隔切片"><a href="#列表的等间隔切片" class="headerlink" title="列表的等间隔切片"></a>列表的等间隔切片</h2><p>给个例子就很明确了:</p>
-<pre class=" language-lang-python"><code class="language-lang-python">>>>lst = [1,2,3,4,5]
->>>lst[1:4:2]
-[2,4]
-</code></pre>
+<pre><code class="hljs python">&gt;&gt;&gt;lst = [<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>]
+&gt;&gt;&gt;lst[<span class="hljs-number">1</span>:<span class="hljs-number">4</span>:<span class="hljs-number">2</span>]
+[<span class="hljs-number">2</span>,<span class="hljs-number">4</span>]</code></pre>
 <h2 id="生成器generator与yield结合的用法"><a href="#生成器generator与yield结合的用法" class="headerlink" title="生成器generator与yield结合的用法"></a>生成器generator与yield结合的用法</h2><p>详见<a href="https://blog.csdn.net/mieleizhi0522/article/details/82142856/" target="_blank" rel="noopener">https://blog.csdn.net/mieleizhi0522/article/details/82142856/</a></p>
 <h2 id="map和reduce"><a href="#map和reduce" class="headerlink" title="map和reduce"></a>map和reduce</h2><p>map就是映射函数于列表,非常方便产生列表,例子如下:</p>
-<pre class=" language-lang-python"><code class="language-lang-python">>>> def f(x):
-...     return x * x
+<pre><code class="hljs python"><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">f</span><span class="hljs-params">(x)</span>:</span>
+<span class="hljs-meta">... </span>    <span class="hljs-keyword">return</span> x * x
 ...
->>> r = map(f, [1, 2, 3, 4, 5, 6, 7, 8, 9])
->>> list(r)
-[1, 4, 9, 16, 25, 36, 49, 64, 81]
-</code></pre>
+<span class="hljs-meta">&gt;&gt;&gt; </span>r = map(f, [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>, <span class="hljs-number">7</span>, <span class="hljs-number">8</span>, <span class="hljs-number">9</span>])
+<span class="hljs-meta">&gt;&gt;&gt; </span>list(r)
+[<span class="hljs-number">1</span>, <span class="hljs-number">4</span>, <span class="hljs-number">9</span>, <span class="hljs-number">16</span>, <span class="hljs-number">25</span>, <span class="hljs-number">36</span>, <span class="hljs-number">49</span>, <span class="hljs-number">64</span>, <span class="hljs-number">81</span>]</code></pre>
 <p>reduce函数用一个例子表述,功能是不用<code>int()</code>进行字符串转整型数:</p>
-<pre class=" language-lang-python"><code class="language-lang-python">from functools import reduce
+<pre><code class="hljs python"><span class="hljs-keyword">from</span> functools <span class="hljs-keyword">import</span> reduce
 
-DIGITS = {'0': 0, '1': 1, '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9}
+DIGITS = {<span class="hljs-string">'0'</span>: <span class="hljs-number">0</span>, <span class="hljs-string">'1'</span>: <span class="hljs-number">1</span>, <span class="hljs-string">'2'</span>: <span class="hljs-number">2</span>, <span class="hljs-string">'3'</span>: <span class="hljs-number">3</span>, <span class="hljs-string">'4'</span>: <span class="hljs-number">4</span>, <span class="hljs-string">'5'</span>: <span class="hljs-number">5</span>, <span class="hljs-string">'6'</span>: <span class="hljs-number">6</span>, <span class="hljs-string">'7'</span>: <span class="hljs-number">7</span>, <span class="hljs-string">'8'</span>: <span class="hljs-number">8</span>, <span class="hljs-string">'9'</span>: <span class="hljs-number">9</span>}
 
-def char2num(s):
-    return DIGITS[s]
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">char2num</span><span class="hljs-params">(s)</span>:</span>
+    <span class="hljs-keyword">return</span> DIGITS[s]
 
-def str2int(s):
-    return reduce(lambda x, y: x * 10 + y, map(char2num, s))
-</code></pre>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">str2int</span><span class="hljs-params">(s)</span>:</span>
+    <span class="hljs-keyword">return</span> reduce(<span class="hljs-keyword">lambda</span> x, y: x * <span class="hljs-number">10</span> + y, map(char2num, s))</code></pre>
 <h2 id="lambda表达式和列表生成式产生的奇妙反应"><a href="#lambda表达式和列表生成式产生的奇妙反应" class="headerlink" title="lambda表达式和列表生成式产生的奇妙反应"></a>lambda表达式和列表生成式产生的奇妙反应</h2><p>先看一段代码:</p>
-<pre class=" language-lang-python"><code class="language-lang-python">def num():
-    return [lambda x:i*x for i in range(4)]
+<pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">num</span><span class="hljs-params">()</span>:</span>
+    <span class="hljs-keyword">return</span> [<span class="hljs-keyword">lambda</span> x:i*x <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">4</span>)]
 
 
->>>[m(1) for m in num()]
-[3, 3, 3, 3]
-</code></pre>
+&gt;&gt;&gt;[m(<span class="hljs-number">1</span>) <span class="hljs-keyword">for</span> m <span class="hljs-keyword">in</span> num()]
+[<span class="hljs-number">3</span>, <span class="hljs-number">3</span>, <span class="hljs-number">3</span>, <span class="hljs-number">3</span>]</code></pre>
 <p>如果你不知道为什么会这样,具体原因见:</p>
 <p><a href="https://blog.csdn.net/CxsGhost/article/details/103697506" target="_blank" rel="noopener">https://blog.csdn.net/CxsGhost/article/details/103697506</a></p>
 <p>个人的解释是:上面的代码可以等价为下列代码:</p>
-<pre class=" language-lang-python"><code class="language-lang-python">def num():
-    i = 0
+<pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">num</span><span class="hljs-params">()</span>:</span>
+    i = <span class="hljs-number">0</span>
     lst = []
-    def fun(x):
-        return i * x
-    for j in range(4):
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">fun</span><span class="hljs-params">(x)</span>:</span>
+        <span class="hljs-keyword">return</span> i * x
+    <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> range(<span class="hljs-number">4</span>):
         i = j
         lst.append(fun)
-    return lst
+    <span class="hljs-keyword">return</span> lst
 
->>>[m(1) for m in num()]
-</code></pre>
+&gt;&gt;&gt;[m(<span class="hljs-number">1</span>) <span class="hljs-keyword">for</span> m <span class="hljs-keyword">in</span> num()]</code></pre>
 <p>因为i是命名空间lambda里面所以外部的i是不会进入内部的,首先产生<code>[lambda x:i*x,lambda x:i*x,lambda x:i*x,lambda x:i*x]</code>,循环完了后,i=3,所以返回<code>[lambda x:3*x,lambda x:3*x,lambda x:3*x,lambda x:3*x]</code></p>
 <h2 id="偏函数的用法"><a href="#偏函数的用法" class="headerlink" title="偏函数的用法"></a>偏函数的用法</h2><p>有的时候,希望某些函数的参数固定,就可以使用如下方法进行固定</p>
-<pre class=" language-lang-python"><code class="language-lang-python">functools.partial()
-</code></pre>
+<pre><code class="hljs python">functools.partial()</code></pre>
 <p>用法详见网上</p>
 <h2 id="类与对象的方法"><a href="#类与对象的方法" class="headerlink" title="类与对象的方法"></a>类与对象的方法</h2><ol>
 <li><p>getattr(),setattr(),hasattr()三种方法的</p>
 </li>
 <li><p><code>__getitem__()</code>:</p>
 <p>如果想要一个类既有索引又可以切片,需要类似如下的操作</p>
-<pre class=" language-lang-python"><code class="language-lang-python">class Fib(object):
-    def __getitem__(self, n):
-        if isinstance(n, int): # n是索引
-            a, b = 1, 1
-            for x in range(n):
+<pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Fib</span><span class="hljs-params">(object)</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__getitem__</span><span class="hljs-params">(self, n)</span>:</span>
+        <span class="hljs-keyword">if</span> isinstance(n, int): <span class="hljs-comment"># n是索引</span>
+            a, b = <span class="hljs-number">1</span>, <span class="hljs-number">1</span>
+            <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> range(n):
                 a, b = b, a + b
-            return a
-        if isinstance(n, slice): # n是切片
+            <span class="hljs-keyword">return</span> a
+        <span class="hljs-keyword">if</span> isinstance(n, slice): <span class="hljs-comment"># n是切片</span>
             start = n.start
             stop = n.stop
-            if start is None:
-                start = 0
-            a, b = 1, 1
+            <span class="hljs-keyword">if</span> start <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:
+                start = <span class="hljs-number">0</span>
+            a, b = <span class="hljs-number">1</span>, <span class="hljs-number">1</span>
             L = []
-            for x in range(stop):
-                if x >= start:
+            <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> range(stop):
+                <span class="hljs-keyword">if</span> x &gt;= start:
                     L.append(a)
                 a, b = b, a + b
-            return L
-</code></pre>
-</li>
+            <span class="hljs-keyword">return</span> L</code></pre></li>
 </ol>
 <script>
         document.querySelectorAll('.github-emoji')

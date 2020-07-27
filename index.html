@@ -179,7 +179,13 @@
   <div class="row mx-auto index-card">
     
     
-    <div class="col-12 col-md-12 mx-auto index-info">
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2020/07/22/innodb-de-ti-xi-jia-gou/" target="_self">
+          <img src="/images/MySQL.png" srcset="/img/loading.gif" alt="innodb的体系架构">
+        </a>
+      </div>
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
       <a class="index-header" href="/2020/07/22/innodb-de-ti-xi-jia-gou/">innodb的体系架构</a>
 
       <a href="/2020/07/22/innodb-de-ti-xi-jia-gou/" class="index-excerpt">
@@ -187,11 +193,7 @@
         
           
         
-        <div>1. innodb的总体架构innodb线程与文件的关系
-innodb文件结构
-InnoDB所有数据都被逻辑地存放在一个表空间（tablespace）中。表空间又由段（segment）、区（extent）、页（page）组成，页在一些文档中有时也称为块（block）。逻辑存储结构大致如下图8：
-
-table的数据结构/** Data structure for a database table. </div>
+        <div>本章主要关于innodb存储引擎的体系结构,以及三个主要的线程</div>
       </a>
 
       <div class="index-btm post-metas">
@@ -212,9 +214,9 @@ table的数据结构/** Data structure for a database table. </div>
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
-            
               <a href="/tags/mysql/">mysql</a>
+            
+              <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
             
           </div>
         
@@ -263,9 +265,9 @@ table的数据结构/** Data structure for a database table. </div>
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
-            
               <a href="/tags/mysql/">mysql</a>
+            
+              <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
             
           </div>
         
@@ -313,9 +315,9 @@ cmake-3.18.0
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/MySQL/">MySQL</a>
-            
               <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
+            
+              <a href="/tags/MySQL/">MySQL</a>
             
           </div>
         
@@ -360,9 +362,9 @@ cmake-3.18.0
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E6%95%99%E7%A8%8B/">教程</a>
-            
               <a href="/tags/manim/">manim</a>
+            
+              <a href="/tags/%E6%95%99%E7%A8%8B/">教程</a>
             
           </div>
         
@@ -389,9 +391,8 @@ cmake-3.18.0
   \maketitle
   中文内容
 \end{document}
-
 1.2 标题 section1.2.1 一级标题\section{一级标题}  % 有序号
-\se</div>
+\sec</div>
       </a>
 
       <div class="index-btm post-metas">
@@ -443,10 +444,8 @@ https://www.liaoxuefeng.com/wiki/1016959663602400/1017261630425888
 def add_end(L=[]):
     L.append('END')
     return L
-
 正常使用没问题,但是如果如下操作:
->>> add_end()
-['</div>
+&gt;&gt;&gt; add_</div>
       </a>
 
       <div class="index-btm post-metas">
@@ -606,7 +605,7 @@ def add_end(L=[]):
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "An elegant Material-Design theme for Hexo&nbsp;",
+        "若有恒,何须三更起半夜眠；最无益,莫过一日曝十日寒&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,

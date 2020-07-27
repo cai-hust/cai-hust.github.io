@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="cai">
   <meta name="keywords" content="">
-  <title>标签 - mysql - cai</title>
+  <title>标签 - MySQL - cai</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -172,21 +172,15 @@
                 
 
 <div class="list-group">
-  <p class="h4">共计 2 篇文章</p>
+  <p class="h4">共计 1 篇文章</p>
   <hr>
   
     
       
       <p class="h5">2020</p>
     
-    <a href="/2020/07/22/innodb-de-ti-xi-jia-gou/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">innodb的体系架构</span>
-      <span style="float: right;">07-22</span>
-    </a>
-  
-    
-    <a href="/2020/07/03/mysql-yuan-ma-main-han-shu/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">mysql源码--main函数</span>
+    <a href="/2020/07/03/mysql5-7-vs-an-zhuang-yuan-ma-diao-shi-huan-jing/" class="list-group-item list-group-item-action">
+      <span class="archive-post-title">mysql5.7+vs安装源码调试环境</span>
       <span style="float: right;">07-03</span>
     </a>
   
@@ -309,7 +303,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "标签 - mysql&nbsp;",
+        "标签 - MySQL&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,
@@ -330,6 +324,36 @@
   <script>
     var path = "/local-search.xml";
     var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
+nput");
     inputArea.onclick = function () {
       searchFunc(path, 'local-search-input', 'local-search-result');
       this.onclick = null

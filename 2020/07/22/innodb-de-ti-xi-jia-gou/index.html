@@ -177,7 +177,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      10.9k 字
+      10.8k 字
     </span>
   
 
@@ -187,7 +187,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      185
+      184
        分钟
     </span>
   
@@ -232,9 +232,11 @@
               </p>
             
             <article class="markdown-body">
-              <h2 id="1-innodb的总体架构"><a href="#1-innodb的总体架构" class="headerlink" title="1. innodb的总体架构"></a>1. innodb的总体架构</h2><p>innodb线程与文件的关系</p>
-<p>innodb文件结构</p>
-<p>InnoDB所有数据都被逻辑地存放在一个表空间（tablespace）中。表空间又由段（segment）、区（extent）、页（page）组成，页在一些文档中有时也称为块（block）。逻辑存储结构大致如下图<sup><a href="#fn_8" id="reffn_8">8</a></sup>：</p>
+              <h2 id="1-innodb的总体架构"><a href="#1-innodb的总体架构" class="headerlink" title="1. innodb的总体架构"></a>1. innodb的总体架构</h2><p>innodb线程与文件的关系:<sup><a href="#fn_4" id="reffn_4">4</a></sup></p>
+<p><img src="innodb存储架构.png" srcset="/img/loading.gif" alt="innodb存储架构"></p>
+<p>innodb文件结构:<sup><a href="#fn_9" id="reffn_9">9</a></sup></p>
+<p><img src="innodb-architecture.png" srcset="/img/loading.gif" alt="InnoDB architecture diagram showing in-memory and on-disk structures"></p>
+<p>InnoDB所有数据都被逻辑地存放在一个表空间（tablespace）中。表空间又由段（segment）、区（extent）、页（page）组成，页在一些文档中有时也称为块（block）。逻辑存储结构大致如下图:<sup><a href="#fn_8" id="reffn_8">8</a></sup></p>
 <p><img src="v2-50b50d5c6b799c3d84d8bcf7942b0086_720w.jpg" srcset="/img/loading.gif" alt="InnoDB逻辑存储结构"></p>
 <h3 id="table的数据结构"><a href="#table的数据结构" class="headerlink" title="table的数据结构"></a>table的数据结构</h3><pre><code class="hljs c++"><span class="hljs-comment">/** Data structure for a database table.  Most fields will be</span>
 <span class="hljs-comment">initialized to 0, NULL or FALSE in dict_mem_table_create(). */</span>
@@ -982,17 +984,29 @@ innobase_init(
 	err = innobase_start_or_create_for_mysql();
 	<span class="hljs-comment">//...</span>
 }</code></pre>
-<p>其中</p>
-<pre><code>&lt;span class="hljs-keyword"&gt;if&lt;/span&gt; (!srv_read_only_mode) &amp;#123;
+<p>其中:<sup><a href="#fn_1" id="reffn_1">1</a></sup></p>
+<pre><code class="hljs c++"><span class="hljs-comment">/********************************************************************</span>
+<span class="hljs-comment">Starts InnoDB and creates a new database if database files</span>
+<span class="hljs-comment">are not found and the user wants.</span>
+<span class="hljs-comment">@return DB_SUCCESS or error code */</span>
+<span class="hljs-keyword">dberr_t</span>
+innobase_start_or_create_for_mysql(<span class="hljs-keyword">void</span>)
+<span class="hljs-comment">/*====================================*/</span>
+{
+	<span class="hljs-comment">//...</span>
+	<span class="hljs-comment">/* Create the master thread which does purge and other utility</span>
+<span class="hljs-comment">	operations */</span>
 
-    os_thread_create(
-        srv_master_thread,
-        &lt;span class="hljs-literal"&gt;NULL&lt;/span&gt;, thread_ids + (&lt;span class="hljs-number"&gt;1&lt;/span&gt; + SRV_MAX_N_IO_THREADS));
+	<span class="hljs-keyword">if</span> (!srv_read_only_mode) {
 
-    srv_start_state_set(SRV_START_STATE_MASTER);
-&amp;#125;
-&lt;span class="hljs-comment"&gt;//...&lt;/span&gt;
-</code></pre><p>}&lt;/code&gt;&lt;/pre&gt;&lt;/escape&gt;</p>
+		os_thread_create(
+			srv_master_thread,
+			<span class="hljs-literal">NULL</span>, thread_ids + (<span class="hljs-number">1</span> + SRV_MAX_N_IO_THREADS));
+
+		srv_start_state_set(SRV_START_STATE_MASTER);
+	}
+	<span class="hljs-comment">//...</span>
+}</code></pre>
 <p>调用了<code>srv_master_thread</code>产生master线程:</p>
 <pre><code class="hljs c++"><span class="hljs-comment">/*********************************************************************/</span><span class="hljs-comment">/**</span>
 <span class="hljs-comment">The master thread controlling the server.</span>
@@ -1005,7 +1019,8 @@ DECLARE_THREAD(srv_master_thread)(
 			<span class="hljs-comment">/*!&lt; in: a dummy parameter required by</span>
 <span class="hljs-comment">			os_thread_create */</span>;</code></pre>
 <p>由此进入master线程</p>
-<h2 id="3-Master-Thread工作方式"><a href="#3-Master-Thread工作方式" class="headerlink" title="3. Master Thread工作方式"></a>3. Master Thread工作方式</h2><p>流程图如下</p>
+<h2 id="3-Master-Thread工作方式"><a href="#3-Master-Thread工作方式" class="headerlink" title="3. Master Thread工作方式"></a>3. Master Thread工作方式</h2><p>流程图如下:<sup><a href="#fn_7" id="reffn_7">7</a></sup></p>
+<p><img src="InnoDB_Master_Thread.png" srcset="/img/loading.gif" alt="InnoDB Master Thread"></p>
 <p>上面的<code>srv_master_thread</code>已经定位到的函数的代码如下:</p>
 <pre><code class="hljs c++"><span class="hljs-keyword">extern</span> <span class="hljs-string">"C"</span>
 <span class="hljs-keyword">os_thread_ret_t</span>
@@ -1066,10 +1081,11 @@ suspend_thread:
 	<span class="hljs-function"><span class="hljs-title">srv_master_do_idle_tasks</span>();</span>
 <span class="hljs-function"><span class="hljs-variable"><span class="hljs-keyword">else</span></span></span>
 <span class="hljs-function">	<span class="hljs-title">srv_master_do_active_tasks</span>();</span></code></pre>
-<p>在图2中可以看到，master thread作为后台程序，一直不停的在loop，而loop过程中会选择active task 或者idle task函数执行</p>
-<p>  若flush loop中也没有什么事情可以做了，InnoDB存储引擎会切换到suspend__loop，将Master Thread挂起，等待事件的发生。若用户启用（enable）了InnoDB存储引擎，却没有使用任何InnoDB存储引擎的表，那么Master Thread总是处于挂起的状态<sup id="fnref:4" class="footnote-ref"><a href="#fn:4" rel="footnote"><span class="hint--top hint--rounded" aria-label="  InnoDB存储引擎的开发团队参考了Google的patch，提供了类似的方法来修正该问题。因此InnoDB Plugin（从InnoDB1.0.x版本开始）提供了参数innodb_io_capacity，用来表示磁盘IO的吞吐量，默认值为200。对于刷新到磁盘页的数量，会按照innodb_io_capacity的百分比来进行控制。规则如下：
-"></span></a><a href="MySQL技术内幕:innodb存储引擎2.5">4</a></sup>。</p>
+<p>在图2中可以看到，master thread作为后台程序，一直不停的在loop，而loop过程中会选择active task 或者idle task函数执行:<sup><a href="#fn_2" id="reffn_2">2</a></sup></p>
 <ul>
+<li><p>只有在innodb_force_recovery参数设置值大于SRV_FORCE_NO_BACKGROUND的情况下，master thread会进入suspend状态</p>
+<p>若flush loop中也没有什么事情可以做了，InnoDB存储引擎会切换到suspend__loop，将Master Thread挂起，等待事件的发生。若用户启用（enable）了InnoDB存储引擎，却没有使用任何InnoDB存储引擎的表，那么Master Thread总是处于挂起的状态<sup><a href="#fn_4" id="reffn_4">4</a></sup>。</p>
+</li>
 <li><p>在srv_shutdown_state的值不等于SRV_SHUTDOWN_NONE的情况下，master thread会去执行shutdown task。输出值srv_active，srv_idle，srv_shutdown的值分别是在函数srv_master_do_active_task，srv_master_do_idle_task，srv_master_do_shutdown_task中++。</p>
 </li>
 <li><p>而srv_master_do_active_task的执行是由当前activity_count与old_activity_count的值决定，只要这两个值不相等，则master调用active task。在执行数据库更改操作，如插入，删除，更新，表操作的情况下，当前的activity count的值会增加，系统调用active task。所以说，srv_active的值可以反映出系统的负载情况.</p>
@@ -1091,17 +1107,16 @@ suspend_thread:
 	<span class="hljs-comment">/*检查是否需要刷新日志缓冲区或新的检查点，如果是，则执行此操作。 当数据库操作修改了大约4个以上的页面时，应调用此方法。 注意，仅当OS线程除字典互斥锁外没有其他同步对象时，才可以调用此函数。*/</span>
 	log_free_check();</code></pre>
 </li>
-<li><p>插入缓存<em>缓存的insert操作insert buffer,缩写ibuf</em><sup><a href="#fn_3" id="reffn_3">3</a></sup><sup id="fnref:4" class="footnote-ref"><a href="#fn:4" rel="footnote"><span class="hint--top hint--rounded" aria-label="  InnoDB存储引擎的开发团队参考了Google的patch，提供了类似的方法来修正该问题。因此InnoDB Plugin（从InnoDB1.0.x版本开始）提供了参数innodb_io_capacity，用来表示磁盘IO的吞吐量，默认值为200。对于刷新到磁盘页的数量，会按照innodb_io_capacity的百分比来进行控制。规则如下：
-"></span></a><a href="MySQL技术内幕:innodb存储引擎2.5">4</a></sup></p>
-<p>合并插入缓冲（Insert Buffer）并不是每秒都会发生的。InnoDB存储引擎会判断当前一秒内发生的IO次数是否小于5次，如果小于5次，InnoDB认为当前的IO压力很小，可以执行合并插入缓冲的操作。<sup id="fnref:4" class="footnote-ref"><a href="#fn:4" rel="footnote"><span class="hint--top hint--rounded" aria-label="  InnoDB存储引擎的开发团队参考了Google的patch，提供了类似的方法来修正该问题。因此InnoDB Plugin（从InnoDB1.0.x版本开始）提供了参数innodb_io_capacity，用来表示磁盘IO的吞吐量，默认值为200。对于刷新到磁盘页的数量，会按照innodb_io_capacity的百分比来进行控制。规则如下：
-"></span></a><a href="MySQL技术内幕:innodb存储引擎2.5">4</a></sup></p>
+<li><p>插入缓存<em>缓存的insert操作insert buffer,缩写ibuf</em><sup><a href="#fn_3" id="reffn_3">3</a></sup> <sup><a href="#fn_4" id="reffn_4">4</a></sup></p>
+<p>合并插入缓冲（Insert Buffer）并不是每秒都会发生的。InnoDB存储引擎会判断当前一秒内发生的IO次数是否小于5次，如果小于5次，InnoDB认为当前的IO压力很小，可以执行合并插入缓冲的操作。<sup><a href="#fn_4" id="reffn_4">4</a></sup></p>
 <pre><code class="hljs c++"><span class="hljs-comment">/* Do an ibuf merge */</span>
 	srv_main_thread_op_info = <span class="hljs-string">"doing insert buffer merge"</span>;
 	counter_time = ut_time_us(<span class="hljs-literal">NULL</span>);
 	ibuf_merge_in_background(<span class="hljs-literal">false</span>);
 	MONITOR_INC_TIME_IN_MICRO_SECS(
 		MONITOR_SRV_IBUF_MERGE_MICROSECOND, counter_time);</code></pre>
-<p><code>ibuf_merge_in_background</code>的思路</p>
+<p><code>ibuf_merge_in_background</code>的思路:<sup><a href="#fn_4" id="reffn_4">4</a></sup></p>
+<p>InnoDB存储引擎的开发团队参考了Google的patch，提供了类似的方法来修正该问题。因此InnoDB Plugin（从InnoDB1.0.x版本开始）提供了参数innodb_io_capacity，用来表示磁盘IO的吞吐量，默认值为200。对于刷新到磁盘页的数量，会按照innodb_io_capacity的百分比来进行控制。规则如下：</p>
 <p>❑在合并插入缓冲时，合并插入缓冲的数量为innodb_io_capacity值的5%；</p>
 <p>❑在从缓冲区刷新脏页时，刷新脏页的数量为innodb_io_capacity。</p>
 <p>若用户使用了SSD类的磁盘，或者将几块磁盘做了RAID，当存储设备拥有更高的IO速度时，完全可以将innodb_io_capacity的值调得再高点，直到符合磁盘IO的吞吐量为止。</p>
@@ -1213,7 +1228,10 @@ srv_sync_log_buffer_in_background(<span class="hljs-keyword">void</span>)
 <li><p><strong>协调线程的入口函数为</strong><code>buf_flush_page_cleaner_coordinator</code>:</p>
 <p>决定了需要flush的page数和lsn_limit后，会设置slot数组，将其中每个slot的状态设置为PAGE_CLEANER_STATE_REQUESTED, 并设置目标page数及lsn_limit，然后唤醒worker线程 (pc_request)\</p>
 <p>主循环:</p>
-<p>实际正常运行情况下的工作都包含在</p>
+<p>实际正常运行情况下的工作都包含在:<sup><a href="#fn_6" id="reffn_6">6</a></sup></p>
+<pre><code class="hljs c++"><span class="hljs-keyword">while</span> (srv_shutdown_state == SRV_SHUTDOWN_NONE) {
+    <span class="hljs-comment">//...</span>
+}</code></pre>
 <p>之中.</p>
 <ol>
 <li><p>首先如果没有活跃的change buffer 并且没有pending的物理块，并且上次刷新的块数量为0则不需要睡眠1秒:</p>
@@ -1561,18 +1579,7 @@ pc_wait_finished(&amp;n_flushed_lru, &amp;n_flushed_list);</code></pre>
 	} <span class="hljs-keyword">else</span> {
 		purge_sys-&gt;state = PURGE_STATE_DISABLED;
 	}</code></pre>
-<p>[9]:<a href="https://dev.mysql.com/doc/refman/5.7/en/innodb-architecture.html" target="_blank" rel="noopener">https://dev.mysql.com/doc/refman/5.7/en/innodb-architecture.html</a></p><section class="footnotes">true<div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span><pre><code class="hljs c++"><span class="hljs-comment">/<strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><em>**</em></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></span><br><span class="hljs-comment">Starts InnoDB and creates a new database if database files</span><br><span class="hljs-comment">are not found and the user wants.</span><br><span class="hljs-comment">@return DB_SUCCESS or error code */</span><br><span class="hljs-keyword">dberr_t</span><br>innobase_start_or_create_for_mysql(<span class="hljs-keyword">void</span>)<br><span class="hljs-comment">/<em>====================================</em>/</span><br>{<br>    <span class="hljs-comment">//…</span><br>    <span class="hljs-comment">/* Create the master thread which does purge and other utility</span><br><span class="hljs-comment">    operations */</span>
-<a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></code></pre></span></span></li><li><code class="hljs c++"><span id="fn:2" class="footnote-text"><span><ul>
-<li>只有在innodb_force_recovery参数设置值大于SRV_FORCE_NO_BACKGROUND的情况下，master thread会进入suspend状态</li>
-</ul>
-<a href="#fnref:2" rev="footnote" class="footnote-backref"> ↩</a></span></span></code></li><li><code class="hljs c++"><span id="fn:4" class="footnote-text"><span><img src="innodb存储架构.png" srcset="/img/loading.gif" alt="innodb存储架构">
-<a href="#fnref:4" rev="footnote" class="footnote-backref"> ↩</a></span></span></code></li><li><code class="hljs c++"><span id="fn:4" class="footnote-text"><span>InnoDB存储引擎的开发团队参考了Google的patch，提供了类似的方法来修正该问题。因此InnoDB Plugin（从InnoDB1.0.x版本开始）提供了参数innodb_io_capacity，用来表示磁盘IO的吞吐量，默认值为200。对于刷新到磁盘页的数量，会按照innodb_io_capacity的百分比来进行控制。规则如下：
-<a href="#fnref:4" rev="footnote" class="footnote-backref"> ↩</a></span></span></code></li><li><code class="hljs c++"><span id="fn:6" class="footnote-text"><span><escape><pre><code class="hljs c++"><span class="hljs-keyword">while</span> (srv_shutdown_state == SRV_SHUTDOWN_NONE) {
-    <span class="hljs-comment">//...</span>
-}</code></pre><a href="#fnref:6" rev="footnote" class="footnote-backref"> ↩</a></escape></span></span></code></li><li><code class="hljs c++"><span id="fn:7" class="footnote-text"><span><img src="InnoDB_Master_Thread.png" srcset="/img/loading.gif" alt="InnoDB Master Thread">
-<a href="#fnref:7" rev="footnote" class="footnote-backref"> ↩</a></span></span></code></li><li><code class="hljs c++"><span id="fn:9" class="footnote-text"><span><img src="innodb-architecture.png" srcset="/img/loading.gif" alt="InnoDB architecture diagram showing in-memory and on-disk structures">
-<a href="#fnref:9" rev="footnote" class="footnote-backref"> ↩</a></span></span></code></li></ol></div></section><p></p><code class="hljs c++">
-</code><script>
+<script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
             if (!el.dataset.src) { return; }
@@ -1607,9 +1614,9 @@ pc_wait_finished(&amp;n_flushed_lru, &amp;n_flushed_list);</code></pre>
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
-                    
                       <a class="hover-with-bg" href="/tags/mysql/">mysql</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
                     
                   </div>
                 

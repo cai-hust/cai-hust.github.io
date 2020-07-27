@@ -177,7 +177,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.9k 字
+      3.2k 字
     </span>
   
 
@@ -187,7 +187,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      21
+      37
        分钟
     </span>
   
@@ -323,8 +323,7 @@
 </li>
 </ol>
 <p>综合1,2两个情况,得到C的算术右移的补码机器,计算$x/2^k$:</p>
-<pre class=" language-lang-c++"><code class="language-lang-c++">(x<0 ? x+(1<<k)-1 : x)>>k
-</code></pre>
+<pre><code class="hljs c++">(x&lt;<span class="hljs-number">0</span> ? x+(<span class="hljs-number">1</span>&lt;&lt;k)<span class="hljs-number">-1</span> : x)&gt;&gt;k</code></pre>
 <p>可惜的是,不能将除以2的幂推广到一般除法.</p>
 <h2 id="2-4-浮点数"><a href="#2-4-浮点数" class="headerlink" title="2.4 浮点数"></a>2.4 浮点数</h2><p>与十进制类似,形如$b<em>mb</em>{m-1}…b<em>1b_0.b</em>{-1}b<em>{-2}…b</em>{-n-1}b_{-n}$的二进制数,其对应的十进制的值为:</p>
 <script type="math/tex; mode=display">

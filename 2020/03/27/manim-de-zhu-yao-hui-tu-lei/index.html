@@ -177,7 +177,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      703 字
+      712 字
     </span>
   
 
@@ -187,7 +187,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      8
+      9
        分钟
     </span>
   
@@ -234,44 +234,42 @@
             <article class="markdown-body">
               <p>manim的整体结构解析</p>
 <h2 id="1-CONFIG是什么"><a href="#1-CONFIG是什么" class="headerlink" title="1. CONFIG是什么"></a>1. CONFIG是什么</h2><p>几乎任何的类都会有一个神奇的字典,叫<code>CONFIG</code>,这个字典的所有键值对都会被赋予给类的属性,原因是因为所有的绘图类都是继承自<strong>Container</strong>类(<em>位置:\manimlib\container\container.py</em>),这个类在初始化的时候执行代码如下:</p>
-<pre class=" language-lang-python"><code class="language-lang-python">class Container(object):
-    def __init__(self, **kwargs):
-        digest_config(self, kwargs)
-</code></pre>
+<pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Container</span><span class="hljs-params">(object)</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self, **kwargs)</span>:</span>
+        digest_config(self, kwargs)</code></pre>
 <p>而<em>digest_config</em>在<em>\manimlib\utils\config_ops.py</em>:</p>
-<pre class=" language-lang-python"><code class="language-lang-python">def digest_config(obj, kwargs, caller_locals={}):
-    """
-    Sets init args and CONFIG values as local variables
+<pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">digest_config</span><span class="hljs-params">(obj, kwargs, caller_locals={})</span>:</span>
+    <span class="hljs-string">"""</span>
+<span class="hljs-string">    Sets init args and CONFIG values as local variables</span>
+<span class="hljs-string"></span>
+<span class="hljs-string">    The purpose of this function is to ensure that all</span>
+<span class="hljs-string">    configuration of any object is inheritable, able to</span>
+<span class="hljs-string">    be easily passed into instantiation, and is attached</span>
+<span class="hljs-string">    as an attribute of the object.</span>
+<span class="hljs-string">    </span>
+<span class="hljs-string">    将初始化参数和CONFIG值设置为局部变量</span>
+<span class="hljs-string">    </span>
+<span class="hljs-string">&nbsp;&nbsp;&nbsp;&nbsp;此功能的目的是确保所有任何对象的配置都是可继承的，能够易于传</span>
+<span class="hljs-string">&nbsp;&nbsp;&nbsp;&nbsp;递到实例化并附加作为对象的属性。</span>
+<span class="hljs-string">    """</span>
 
-    The purpose of this function is to ensure that all
-    configuration of any object is inheritable, able to
-    be easily passed into instantiation, and is attached
-    as an attribute of the object.
-
-    将初始化参数和CONFIG值设置为局部变量
-
-    此功能的目的是确保所有任何对象的配置都是可继承的，能够易于传
-    递到实例化并附加作为对象的属性。
-    """
-
-    # Assemble list of CONFIGs from all super classes
-    # 将所有父类的CONFIG全部集中在static_configs
+    <span class="hljs-comment"># Assemble list of CONFIGs from all super classes</span>
+    <span class="hljs-comment"># 将所有父类的CONFIG全部集中在static_configs</span>
     classes_in_hierarchy = [obj.__class__]
     static_configs = []
-    while len(classes_in_hierarchy) > 0:
+    <span class="hljs-keyword">while</span> len(classes_in_hierarchy) &gt; <span class="hljs-number">0</span>:
         Class = classes_in_hierarchy.pop()
         classes_in_hierarchy += Class.__bases__
-        if hasattr(Class, "CONFIG"):
+        <span class="hljs-keyword">if</span> hasattr(Class, <span class="hljs-string">"CONFIG"</span>):
             static_configs.append(Class.CONFIG)
 
-    # Order matters a lot here, first dicts have higher priority
-    # 顺序很重要,字典的靠前的键值对有更高的优先级(即如果有相同的,覆盖后面的键值对)
-    # 优先级的处理是由merge_dicts_recursively函数处理的,具体自己读源代码
+    <span class="hljs-comment"># Order matters a lot here, first dicts have higher priority</span>
+    <span class="hljs-comment"># 顺序很重要,字典的靠前的键值对有更高的优先级(即如果有相同的,覆盖后面的键值对)</span>
+    <span class="hljs-comment"># 优先级的处理是由merge_dicts_recursively函数处理的,具体自己读源代码</span>
     caller_locals = filtered_locals(caller_locals)
     all_dicts = [kwargs, caller_locals, obj.__dict__]
     all_dicts += static_configs
-    obj.__dict__ = merge_dicts_recursively(*reversed(all_dicts))
-</code></pre>
+    obj.__dict__ = merge_dicts_recursively(*reversed(all_dicts))</code></pre>
 <p>上面的英文解释已经很清楚了,一句话概括这个函数:将CONFIG这个字典中的内容变成类的属性.<br>值得注意的是:<strong>这个字典的一些键的值可以继续为CONFIG字典</strong></p>
 <h2 id="2-主要类图"><a href="#2-主要类图" class="headerlink" title="2. 主要类图"></a>2. 主要类图</h2><p>Container类图:</p>
 <p><img src="Container.png" srcset="/img/loading.gif" alt="Container类图"></p>
@@ -323,9 +321,9 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/%E6%95%99%E7%A8%8B/">教程</a>
-                    
                       <a class="hover-with-bg" href="/tags/manim/">manim</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%95%99%E7%A8%8B/">教程</a>
                     
                   </div>
                 
