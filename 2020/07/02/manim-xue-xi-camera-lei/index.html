@@ -232,8 +232,11 @@
               </p>
             
             <article class="markdown-body">
-              <h2 id="1-camera的所有子类以及相关的类"><a href="#1-camera的所有子类以及相关的类" class="headerlink" title="1. camera的所有子类以及相关的类"></a>1. camera的所有子类以及相关的类</h2><p><img src="Camera.png" srcset="/img/loading.gif" alt="Camera"></p>
-<h2 id="2-camera主要的变量与属性"><a href="#2-camera主要的变量与属性" class="headerlink" title="2. camera主要的变量与属性"></a>2. camera主要的变量与属性</h2><h3 id="2-1-CONFIG"><a href="#2-1-CONFIG" class="headerlink" title="2.1 CONFIG"></a>2.1 CONFIG</h3><pre><code class="hljs python">CONFIG = {
+              <h2 id="1-camera的所有子类以及相关的类"><a class="markdownIt-Anchor" href="#1-camera的所有子类以及相关的类"></a> 1. camera的所有子类以及相关的类</h2>
+<p><img src="Camera.png" srcset="/img/loading.gif" alt="Camera"></p>
+<h2 id="2-camera主要的变量与属性"><a class="markdownIt-Anchor" href="#2-camera主要的变量与属性"></a> 2. camera主要的变量与属性</h2>
+<h3 id="21-config"><a class="markdownIt-Anchor" href="#21-config"></a> 2.1 CONFIG</h3>
+<pre><code class="hljs python">CONFIG = {
         <span class="hljs-string">"background_image"</span>: <span class="hljs-literal">None</span>,
         <span class="hljs-string">"pixel_height"</span>: DEFAULT_PIXEL_HEIGHT,
         <span class="hljs-string">"pixel_width"</span>: DEFAULT_PIXEL_WIDTH,
@@ -258,14 +261,19 @@
         <span class="hljs-string">"z_buff_func"</span>: <span class="hljs-keyword">lambda</span> m: np.round(m.get_center()[<span class="hljs-number">2</span>], <span class="hljs-number">2</span>),
         <span class="hljs-string">"cairo_line_width_multiple"</span>: <span class="hljs-number">0.01</span>,
     }</code></pre>
-<h3 id="2-2-init-函数"><a href="#2-2-init-函数" class="headerlink" title="2.2__init__()函数"></a>2.2<code>__init__()</code>函数</h3><ul>
-<li><p><code>rgb_max_val</code>RGB色彩的取值的最大值，默认的<code>uint8</code>取值最大值是255</p>
+<h3 id="22__init__函数"><a class="markdownIt-Anchor" href="#22__init__函数"></a> 2.2<code>__init__()</code>函数</h3>
+<ul>
+<li>
+<p><code>rgb_max_val</code>RGB色彩的取值的最大值，默认的<code>uint8</code>取值最大值是255</p>
 </li>
-<li><p><code>pixel_array_to_cairo_context</code>将像素变成cairo能处理的形式</p>
+<li>
+<p><code>pixel_array_to_cairo_context</code>将像素变成cairo能处理的形式</p>
 </li>
 </ul>
-<h2 id="3-camera的主要方法"><a href="#3-camera的主要方法" class="headerlink" title="3. camera的主要方法"></a>3. camera的主要方法</h2><ol>
-<li><p><code>reset_pixel_shape(new_height, new_width)</code>设置帧的像素宽与高</p>
+<h2 id="3-camera的主要方法"><a class="markdownIt-Anchor" href="#3-camera的主要方法"></a> 3. camera的主要方法</h2>
+<ol>
+<li>
+<p><code>reset_pixel_shape(new_height, new_width)</code>设置帧的像素宽与高</p>
 <pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Test_pixel</span><span class="hljs-params">(ThreeDScene)</span>:</span>
     <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">construct</span><span class="hljs-params">(self)</span>:</span>
         axes = ThreeDAxes()
@@ -289,7 +297,8 @@
 <p>上面代码设置宽高为854*854，最后就会产生大小为854*854的视频：</p>
 <p><img src="Test_pixel.gif" srcset="/img/loading.gif" alt="Test_pixel"></p>
 </li>
-<li><p>一些get,set函数：</p>
+<li>
+<p>一些get,set函数：</p>
 <pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get_pixel_height</span><span class="hljs-params">(self)</span>:</span>
     <span class="hljs-keyword">return</span> self.pixel_height
    
@@ -335,7 +344,8 @@
 <p>可以看到宽也被拉长了：</p>
 <p><img src="set_frame8.png" srcset="/img/loading.gif" alt="set_frame8"></p>
 </li>
-<li><p><code>resize_frame_shape(fixed_dimension=0)</code>:</p>
+<li>
+<p><code>resize_frame_shape(fixed_dimension=0)</code>:</p>
 <p>更改frame_shape以匹配像素的长宽比，其中fixed_dimension确定frame_height或frame_width是否保持固定，而其他值则相应改变。</p>
 <pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Set_frame1</span><span class="hljs-params">(Scene)</span>:</span>
     <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">construct</span><span class="hljs-params">(self)</span>:</span>
@@ -348,20 +358,25 @@
         self.wait(<span class="hljs-number">2</span>)</code></pre>
 <p><img src="resize_frame_shape.png" srcset="/img/loading.gif" alt="resize_frame_shape"></p>
 </li>
-<li><p><code>get_image(pixel_array=None)</code></p>
+<li>
+<p><code>get_image(pixel_array=None)</code></p>
 <p>返回<code>pixel_array</code>对应的Image类型的对象，如果<code>pixel_array</code>为空,则返回自身的<code>pixel_array</code>对应的Image图像,此函数一般不用</p>
 </li>
-<li><p><code>get_pixel_array()</code></p>
+<li>
+<p><code>get_pixel_array()</code></p>
 <p>返回自身的<code>pixel_array</code></p>
 </li>
-<li><p><code>convert_pixel_array(pixel_array, convert_from_floats=False)</code></p>
+<li>
+<p><code>convert_pixel_array(pixel_array, convert_from_floats=False)</code></p>
 <p>将格式为<code>PIL</code> 的<code>pixel_array</code>图片转换为<code>np.array</code>的格式</p>
 <p>其中<code>pixel_array</code>的形式可能有两种,第一种是RGB的格式进行表示,第二种是被归一化到[0,1]的小数形式,此时需要启用<code>convert_from_floats=True</code></p>
 </li>
-<li><p><code>set_pixel_array(pixel_array, convert_from_floats=False)</code></p>
+<li>
+<p><code>set_pixel_array(pixel_array, convert_from_floats=False)</code></p>
 <p>设置camera的<code>pixel_array</code>为参数中的pixel_array,对应的选项同理于`convert_pixel_array</p>
 </li>
-<li><p><code>set_background(pixel_array, convert_from_floats=False)</code></p>
+<li>
+<p><code>set_background(pixel_array, convert_from_floats=False)</code></p>
 <p>设置背景(本人没有成功尝试出来换背景图片不知道出了什么问题,代码如下)</p>
 <pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Set_background</span><span class="hljs-params">(Scene)</span>:</span>
     <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">construct</span><span class="hljs-params">(self)</span>:</span>
@@ -374,7 +389,8 @@
         self.wait(<span class="hljs-number">2</span>)</code></pre>
 <p>上面就是随便加了个物体,不知道为什么出现这个问题</p>
 </li>
-<li><p><code>make_background_from_func(coords_to_colors_func)</code></p>
+<li>
+<p><code>make_background_from_func(coords_to_colors_func)</code></p>
 <p>另一个函数是<code>set_background_from_func(coords_to_colors_func)</code>功能一样</p>
 <p>使用coords_to_colors_func设置背景以确定每个像素的颜色。 coords_to_colors_func的每个输入在空间中都是（x，y）对（在frame对应的普通空间坐标,不是像素坐标），并且每个输出应为4个浮点数的RGBA数组。</p>
 <pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">coords_to_colors_func</span><span class="hljs-params">(point)</span>:</span>
@@ -388,21 +404,26 @@
         self.wait(<span class="hljs-number">2</span>)</code></pre>
 <p><img src="set_background_func.jpg" srcset="/img/loading.gif" alt="set_background_func"></p>
 </li>
-<li><p><code>reset()</code></p>
+<li>
+<p><code>reset()</code></p>
 <p>重设背景</p>
 </li>
-<li><p><code>get_mobjects_to_display()</code></p>
+<li>
+<p><code>get_mobjects_to_display()</code></p>
 <p>得到要展示的mobject</p>
 </li>
-<li><p><code>is_in_frame(mobject)</code></p>
+<li>
+<p><code>is_in_frame(mobject)</code></p>
 <p>判断mobject是否在frame里面</p>
 </li>
-<li><p><code>points_to_pixel_coords(mobject, points)</code></p>
+<li>
+<p><code>points_to_pixel_coords(mobject, points)</code></p>
 <p>将普通坐标,转换为像素坐标</p>
 </li>
 </ol>
 <p>其他的函数本人也没有很理解,而且涉及到cairo库的学习,个人觉得没有必要深入了解其他的函数,因为有的函数3b1b仅仅是用来子类实现或者根本没有用过,如果需要请自行阅读源码</p>
-<h2 id="4-小结"><a href="#4-小结" class="headerlink" title="4. 小结"></a>4. 小结</h2><p>本次学习camera很多函数偏于底层,我们平时绘制的时候应该用不上,camera的很多关于背景(background)的函数感觉很多都难以使用或者有各种bug(不知道是不是我自己不会用的原因),如果有人发现错误欢迎评论留言<span class="github-emoji" style="color: transparent;background:no-repeat url(https://github.githubassets.com/images/icons/emoji/unicode/1f604.png?v8) center/contain" data-src="https://github.githubassets.com/images/icons/emoji/unicode/1f604.png?v8">😄</span></p>
+<h2 id="4-小结"><a class="markdownIt-Anchor" href="#4-小结"></a> 4. 小结</h2>
+<p>本次学习camera很多函数偏于底层,我们平时绘制的时候应该用不上,camera的很多关于背景(background)的函数感觉很多都难以使用或者有各种bug(不知道是不是我自己不会用的原因),如果有人发现错误欢迎评论留言😄</p>
 <script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
@@ -724,40 +745,8 @@
   
 
   
-    <!-- MathJax -->
-    <script>
-      MathJax = {
-        tex: {
-          inlineMath: [['$', '$'], ['\\(', '\\)']]
-        },
-        options: {
-          renderActions: {
-            findScript: [10, doc => {
-              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
-                const display = !!node.type.match(/; *mode=display/);
-                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
-                const text = document.createTextNode('');
-                node.parentNode.replaceChild(text, node);
-                math.start = { node: text, delim: '', n: 0 };
-                math.end = { node: text, delim: '', n: 0 };
-                doc.math.push(math);
-              });
-            }, '', false],
-            insertedScript: [200, () => {
-              document.querySelectorAll('mjx-container').forEach(node => {
-                let target = node.parentNode;
-                if (target.nodeName.toLowerCase() === 'li') {
-                  target.parentNode.classList.add('has-jax');
-                }
-              });
-            }, '', false]
-          }
-        }
-      };
-    </script>
-
-    <script async src="https://cdn.staticfile.org/mathjax/3.0.5/es5/tex-svg.js" ></script>
-
+    <!-- KaTeX -->
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/KaTeX/0.11.1/katex.min.css" />
   
 
 

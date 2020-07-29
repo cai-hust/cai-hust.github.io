@@ -232,14 +232,16 @@
               </p>
             
             <article class="markdown-body">
-              <h1 id="manim基础教程"><a href="#manim基础教程" class="headerlink" title="manim基础教程"></a>manim基础教程</h1><p>注意：  </p>
+              <h1 id="manim基础教程"><a class="markdownIt-Anchor" href="#manim基础教程"></a> manim基础教程</h1>
+<p>注意：</p>
 <ol>
-<li>本文参考YouTube主Theorem of Beethoven的视频与代码然后自己继续研究得到的，有些图片是ta视频截图得到的，可以说是他的教程文字化后的汉化版，根据GitHub主页，他来自墨西哥国立自治大学，感谢外国大佬的力量，除了自己写的部分的代码，有些代码来自TA的视频与GitHub，其人<a href="https://github.com/Elteoremadebeethoven" target="_blank" rel="noopener">GitHub主页</a>，大家有条件可以支持一下他的YouTube  </li>
-<li>本人将于2019年9月2日开学，到时候可能忙于学业，不能做到跟进视频更新教程，其实目前教程已经大概涵盖70%的东西，到后面主要是自己读源代码自己分析，python基础很重要，有时间我还是会尽量更新的  </li>
+<li>本文参考YouTube主Theorem of Beethoven的视频与代码然后自己继续研究得到的，有些图片是ta视频截图得到的，可以说是他的教程文字化后的汉化版，根据GitHub主页，他来自墨西哥国立自治大学，感谢外国大佬的力量，除了自己写的部分的代码，有些代码来自TA的视频与GitHub，其人<a href="https://github.com/Elteoremadebeethoven" target="_blank" rel="noopener">GitHub主页</a>，大家有条件可以支持一下他的YouTube</li>
+<li>本人将于2019年9月2日开学，到时候可能忙于学业，不能做到跟进视频更新教程，其实目前教程已经大概涵盖70%的东西，到后面主要是自己读源代码自己分析，python基础很重要，有时间我还是会尽量更新的</li>
 <li>此教程虽在开源社区，但是请勿未经我允许转载，希望大家能共同维护个人劳动成果与开源精神</li>
 <li>如果文档有错误或漏洞，或者有问题，欢迎在issue中提出，大家一起讨论，共同创建良好的学习环境</li>
 </ol>
-<h2 id="1-文件的执行"><a href="#1-文件的执行" class="headerlink" title="1. 文件的执行"></a>1. 文件的执行</h2><p><strong>命令行执行：<code>python -m manim \path\to\yourfile.py [className] [-params]</code></strong></p>
+<h2 id="1-文件的执行"><a class="markdownIt-Anchor" href="#1-文件的执行"></a> 1. 文件的执行</h2>
+<p><strong>命令行执行：<code>python -m manim \path\to\yourfile.py [className] [-params]</code></strong></p>
 <pre><code class="hljs text">usage: manim.py [-h] [-p] [-w] [-s] [-l] [-m] [--high_quality] [-g] [-i] [-f]
                 [-t] [-q] [-a] [-o FILE_NAME] [-n START_AT_ANIMATION_NUMBER]
                 [-r RESOLUTION] [-c COLOR] [--sound] [--leave_progress_bars]
@@ -282,50 +284,64 @@ optional arguments:
   --livestream          Run in streaming mode
   --to-twitch           Stream to twitch
   --with-key TWITCH_KEY 	Stream key for twitch</code></pre>
-<h3 id="1-1-保存为视频并立即播放"><a href="#1-1-保存为视频并立即播放" class="headerlink" title="1.1 保存为视频并立即播放"></a>1.1 <strong>保存为视频并立即播放</strong></h3><p>参数 <code>-p</code> 表示预览，不加分辨率选项默认使用最高画质(1440P60)</p>
+<h3 id="11-保存为视频并立即播放"><a class="markdownIt-Anchor" href="#11-保存为视频并立即播放"></a> 1.1 <strong>保存为视频并立即播放</strong></h3>
+<p>参数 <code>-p</code> 表示预览，不加分辨率选项默认使用最高画质(1440P60)</p>
 <p>如果有多个绘图类会出现列表让你选择</p>
 <p>也可以直接指定类名(示例为Example类)生成对应的类名的视频</p>
 <ul>
-<li><p>fps = 15,宽854，高480 (480P15)：</p>
+<li>
+<p>fps = 15,宽854，高480 (480P15)：</p>
 <pre><code class="hljs bash">python -m manim \path\to\yourfile.py Example -pl</code></pre>
 </li>
-<li><p>fps = 30,宽1280，高720 (720P30)：</p>
+<li>
+<p>fps = 30,宽1280，高720 (720P30)：</p>
 <pre><code class="hljs bash">python -m manim \path\to\yourfile.py Example -pm</code></pre>
 </li>
-<li><p>fps = 60,宽1920，高1080 (1080P60):</p>
+<li>
+<p>fps = 60,宽1920，高1080 (1080P60):</p>
 <pre><code class="hljs bash">python -m manim \path\to\yourfile.py Example -p --high_quality</code></pre>
 </li>
-<li><p>fps = 60,宽2560，高1440 (1440P60)：</p>
+<li>
+<p>fps = 60,宽2560，高1440 (1440P60)：</p>
 <pre><code class="hljs bash">python -m manim \path\to\yourfile.py Example -pw</code></pre>
 </li>
 </ul>
-<h3 id="1-2-保留帧"><a href="#1-2-保留帧" class="headerlink" title="1.2 保留帧"></a>1.2 <strong>保留帧</strong></h3><p><code>-s</code>保留最后一帧</p>
+<h3 id="12-保留帧"><a class="markdownIt-Anchor" href="#12-保留帧"></a> 1.2 <strong>保留帧</strong></h3>
+<p><code>-s</code>保留最后一帧</p>
 <p>当有多个类的时候会出现选择项让你选择保留哪几个绘图类的最后一帧</p>
 <ul>
-<li><p>保留最后一帧并立即查看：</p>
+<li>
+<p>保留最后一帧并立即查看：</p>
 <pre><code class="hljs bash">python -m manim \path\to\yourfile.py Example -ps</code></pre>
 </li>
-<li><p>保留全部绘图类为视频：</p>
+<li>
+<p>保留全部绘图类为视频：</p>
 <pre><code class="hljs bash">python -m manim \path\to\yourfile.py Example -al
 python -m manim \path\to\yourfile.py Example -am
 python -m manim \path\to\yourfile.py Example -aw</code></pre>
 </li>
-<li><p>保留全部绘图类最后一帧：</p>
+<li>
+<p>保留全部绘图类最后一帧：</p>
 <pre><code class="hljs bash">python -m manim \path\to\yourfile.py Example -as</code></pre>
 </li>
 </ul>
-<h3 id="1-3-视频尺寸"><a href="#1-3-视频尺寸" class="headerlink" title="1.3 视频尺寸"></a>1.3 <strong>视频尺寸</strong></h3><p><code>-r HEIGHT WIDTH</code></p>
+<h3 id="13-视频尺寸"><a class="markdownIt-Anchor" href="#13-视频尺寸"></a> 1.3 <strong>视频尺寸</strong></h3>
+<p><code>-r HEIGHT WIDTH</code></p>
 <ul>
-<li><p>高度500 宽度600</p>
+<li>
+<p>高度500 宽度600</p>
 <pre><code class="hljs bash">python -m manim \path\to\yourfile.py Example -pr 500 600</code></pre>
 </li>
-<li><p>默认为16/9因此默认可以仅设置高度不需要设置宽度</p>
+<li>
+<p>默认为16/9因此默认可以仅设置高度不需要设置宽度</p>
 <p>高度为500的视频：</p>
 <pre><code class="hljs bash">python -m manim \path\to\yourfile.py Example -pr 500</code></pre>
 </li>
 </ul>
-<h3 id="1-4-视频通道"><a href="#1-4-视频通道" class="headerlink" title="1.4 视频通道"></a>1.4 <strong>视频通道</strong></h3><p><code>-t, --transparent</code> 生成的视频带有alpha通道（即透明背景），扩展名为<code>.mov</code></p>
-<h3 id="1-5-保留进度显示条"><a href="#1-5-保留进度显示条" class="headerlink" title="1.5 保留进度显示条"></a>1.5 <strong>保留进度显示条</strong></h3><p><code>--leave_progress_bars</code>:</p>
+<h3 id="14-视频通道"><a class="markdownIt-Anchor" href="#14-视频通道"></a> 1.4 <strong>视频通道</strong></h3>
+<p><code>-t, --transparent</code> 生成的视频带有alpha通道（即透明背景），扩展名为<code>.mov</code></p>
+<h3 id="15-保留进度显示条"><a class="markdownIt-Anchor" href="#15-保留进度显示条"></a> 1.5 <strong>保留进度显示条</strong></h3>
+<p><code>--leave_progress_bars</code>:</p>
 <pre><code class="hljs clean">$ python -m manim \path\to\yourfile.py Example -pl --leave_progress_bars
 Media will be written to ./media\. You can change this behavior <span class="hljs-keyword">with</span> the --media_dir flag.
 Animation <span class="hljs-number">0</span>: WriteTextMobject, etc.: <span class="hljs-number">100</span>%|############################################| <span class="hljs-number">15</span>/<span class="hljs-number">15</span> [<span class="hljs-number">00</span>:<span class="hljs-number">00</span>&lt;<span class="hljs-number">00</span>:<span class="hljs-number">00</span>, <span class="hljs-number">32.48</span>it/s] 
@@ -333,7 +349,8 @@ Animation <span class="hljs-number">0</span>: WriteTextMobject, etc.: <span clas
 File ready at \path\to\video.mp4
 
 Played <span class="hljs-number">2</span> animations</code></pre>
-<h3 id="1-6-从某一个动画状态（animation）开始存为视频"><a href="#1-6-从某一个动画状态（animation）开始存为视频" class="headerlink" title="1.6 从某一个动画状态（animation）开始存为视频"></a>1.6 从某一个动画状态（animation）开始存为视频</h3><p><code>-n START_AT_ANIMATION_NUMBER, --start_at_animation_number START_AT_ANIMATION_NUMBER</code></p>
+<h3 id="16-从某一个动画状态animation开始存为视频"><a class="markdownIt-Anchor" href="#16-从某一个动画状态animation开始存为视频"></a> 1.6 从某一个动画状态（animation）开始存为视频</h3>
+<p><code>-n START_AT_ANIMATION_NUMBER, --start_at_animation_number START_AT_ANIMATION_NUMBER</code></p>
 <p>不是从第一个动画开始渲染，而是从索引指定的另一个动画开始渲染。 如果您传入两个逗号分隔值，例如 “3,6”，它将以第二个值渲染</p>
 <pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ShowGraph</span><span class="hljs-params">(Scene)</span>:</span> 
     <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">construct</span><span class="hljs-params">(self)</span>:</span> 
@@ -383,18 +400,23 @@ File ready at ...\manim\media\videos\1_text_format\480p15\ShowGraph.mp4
 Played 6 animations</code></pre>
 <p><img src="1565761708445.png" srcset="/img/loading.gif" alt="1565761708445"></p>
 <p>其他的参数不一一介绍，自行查看英文说明</p>
-<h3 id="1-7-默认显示进度条"><a href="#1-7-默认显示进度条" class="headerlink" title="1.7 默认显示进度条"></a>1.7 默认显示进度条</h3><p>默认设置在<code>manimlib/config.py</code>，<code>manimlib/extract_secne.py</code>与<code>manimlib/scene.py</code>里进行定义，可以修改该文件进行修改默认配置,注意因为修改源码所以要小心</p>
+<h3 id="17-默认显示进度条"><a class="markdownIt-Anchor" href="#17-默认显示进度条"></a> 1.7 默认显示进度条</h3>
+<p>默认设置在<code>manimlib/config.py</code>，<code>manimlib/extract_secne.py</code>与<code>manimlib/scene.py</code>里进行定义，可以修改该文件进行修改默认配置,注意因为修改源码所以要小心</p>
 <p>例如：在上面的三个文件里：</p>
 <p>将里面所有的<code>--leave_progress_bars</code>和<code>leave_progress_bars</code>修改为<code>--remove_progress_bars</code>与<code>remove__progress_bars</code>,同时将</p>
 <p><img src="1567668580431.png" srcset="/img/loading.gif" alt="1567668580431"></p>
 <p>此处的action改成不显示</p>
 <p>这样如果加上<code>--remove_progress_bars</code>就不会显示进度条了，而默认是显示进度条的</p>
-<h3 id="1-8-改变视频存放位置"><a href="#1-8-改变视频存放位置" class="headerlink" title="1.8 改变视频存放位置"></a>1.8 改变视频存放位置</h3><p>改变<code>manimlib/constants.py</code>中的：</p>
+<h3 id="18-改变视频存放位置"><a class="markdownIt-Anchor" href="#18-改变视频存放位置"></a> 1.8 改变视频存放位置</h3>
+<p>改变<code>manimlib/constants.py</code>中的：</p>
 <pre><code class="hljs python"><span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> os.path.isdir(MEDIA_DIR):
     MEDIA_DIR = <span class="hljs-string">"./media"</span></code></pre>
-<p> 改<code>./media</code>为你想要存放的位置</p>
-<h3 id="1-9-存为gif"><a href="#1-9-存为gif" class="headerlink" title="1.9 存为gif"></a>1.9 存为gif</h3><p>使用 <code>-i</code> 选项来导出gif文件，但是目前这个功能被删除掉了，可以按照<a href="https://manim.ml/problems/v2.3.html#q16-gif" target="_blank" rel="noopener">这里</a>更改回去</p>
-<h2 id="2-显示操作"><a href="#2-显示操作" class="headerlink" title="2. 显示操作"></a>2. 显示操作</h2><h3 id="2-1-基本步骤（以TextMobject为例）"><a href="#2-1-基本步骤（以TextMobject为例）" class="headerlink" title="2.1 基本步骤（以TextMobject为例）"></a>2.1 基本步骤（以<code>TextMobject</code>为例）</h3><pre><code class="hljs python"><span class="hljs-keyword">from</span> manimlib.imports <span class="hljs-keyword">import</span> *
+<p>改<code>./media</code>为你想要存放的位置</p>
+<h3 id="19-存为gif"><a class="markdownIt-Anchor" href="#19-存为gif"></a> 1.9 存为gif</h3>
+<p>使用 <code>-i</code> 选项来导出gif文件，但是目前这个功能被删除掉了，可以按照<a href="https://manim.ml/problems/v2.3.html#q16-gif" target="_blank" rel="noopener">这里</a>更改回去</p>
+<h2 id="2-显示操作"><a class="markdownIt-Anchor" href="#2-显示操作"></a> 2. 显示操作</h2>
+<h3 id="21-基本步骤以textmobject为例"><a class="markdownIt-Anchor" href="#21-基本步骤以textmobject为例"></a> 2.1 基本步骤（以<code>TextMobject</code>为例）</h3>
+<pre><code class="hljs python"><span class="hljs-keyword">from</span> manimlib.imports <span class="hljs-keyword">import</span> *
 
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">WriteText</span><span class="hljs-params">(Scene)</span>:</span> 
     <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">construct</span><span class="hljs-params">(self)</span>:</span> 
@@ -404,16 +426,19 @@ Played 6 animations</code></pre>
         self.play(SomeWriteMethod(text), run_time=seconds)
         self.wait(seconds)
         self.remove(text)</code></pre>
-<h3 id="2-5-位置相关的函数"><a href="#2-5-位置相关的函数" class="headerlink" title="2.5 位置相关的函数"></a>2.5 位置相关的函数</h3><h4 id="2-5-1-to-edge-和to-corner"><a href="#2-5-1-to-edge-和to-corner" class="headerlink" title="2.5.1 to_edge()和to_corner()"></a><strong>2.5.1</strong> <code>to_edge()</code>和<code>to_corner()</code></h4><p><strong><code>someObject.to_edge(上下左右四个方向, buff=number)</code></strong></p>
+<h3 id="25-位置相关的函数"><a class="markdownIt-Anchor" href="#25-位置相关的函数"></a> 2.5 位置相关的函数</h3>
+<h4 id="251-to_edge和to_corner"><a class="markdownIt-Anchor" href="#251-to_edge和to_corner"></a> <strong>2.5.1</strong> <code>to_edge()</code>和<code>to_corner()</code></h4>
+<p><strong><code>someObject.to_edge(上下左右四个方向, buff=number)</code></strong></p>
 <p><strong><code>someObject.to_corner(左上左下右上右下四个方向, buff=number)</code></strong></p>
 <p><code>to_edge</code>参数可以是<strong>任意方向</strong>(方向有哪些见附录中方向常数列表)以及它们的线性组合，如<strong>0.1*RIGHT+0.2*UP</strong>，<code>buff</code> 两者的边缘的距离</p>
 <p><code>to_corner</code>仅接受组合方向<strong>UR，UL，DR，DL</strong></p>
 <p><img src="1565752494266.png" srcset="/img/loading.gif" alt="1565752494266"></p>
 <ul>
 <li>如果没有<code>to_edge</code>和<code>to_center</code>默认为中间（<strong>ORIGIN</strong>）</li>
-<li><strong><code>someObject.to_edge(UP + RIGHT)</code></strong>完全等效于<strong><code>someObject.to_corner(UR)</code></strong>,其余四个方向同理</li>
+<li><strong><code>someObject.to_edge(UP + RIGHT)</code><strong>完全等效于</strong><code>someObject.to_corner(UR)</code></strong>,其余四个方向同理</li>
 </ul>
-<h4 id="2-5-2-move-to"><a href="#2-5-2-move-to" class="headerlink" title="2.5.2 move_to()"></a>2.5.2 <code>move_to()</code></h4><p><strong><code>someObject.move_to(DIRECTION的线性组合 or numpy的向量)</code></strong></p>
+<h4 id="252-move_to"><a class="markdownIt-Anchor" href="#252-move_to"></a> 2.5.2 <code>move_to()</code></h4>
+<p><strong><code>someObject.move_to(DIRECTION的线性组合 or numpy的向量)</code></strong></p>
 <p>在当前位置移动到对应的位置</p>
 <p>参数可以是<strong>UP，DOWN，LEFT，RIGHT等</strong>的倍数，可以非整数，单位宽度大概是4倍默认字体的行高，<strong>下面只要跟这八个个固定值有关的均是如此</strong></p>
 <pre><code class="hljs python">someObject.move_to(UP + <span class="hljs-number">2</span> * RIGHT)</code></pre>
@@ -424,15 +449,18 @@ someObject.move_to(vec)</code></pre>
 <pre><code class="hljs python">someObject.move_to(someObject2.get_center() + <span class="hljs-number">2</span> * RIGHT)</code></pre>
 <p>参数还可以是另外一个图案，表示的位置是该图案的几何中心：</p>
 <pre><code class="hljs python">someObject.move_to(someObject2)</code></pre>
-<h4 id="2-5-3-next-to"><a href="#2-5-3-next-to" class="headerlink" title="2.5.3 next_to()"></a>2.5.3 <code>next_to()</code></h4><p><strong><code>someObject1.next_to(someObject2, DIRECTION, buff=number)</code></strong> </p>
+<h4 id="253-next_to"><a class="markdownIt-Anchor" href="#253-next_to"></a> 2.5.3 <code>next_to()</code></h4>
+<p><strong><code>someObject1.next_to(someObject2, DIRECTION, buff=number)</code></strong></p>
 <p>someObject1对于someObject2的相对位置</p>
 <p>与<code>move_to</code>的区别在于，<code>next_to</code>表示的是边界的距离，而不是中心距离</p>
 <p><img src="1565755487243.png" srcset="/img/loading.gif" alt="1565755487243"></p>
 <p>如：<code>text1.next_to(text2, LEFT, buff=2)</code> ：</p>
 <p><img src="1565702556749.png" srcset="/img/loading.gif" alt="1565702556749"></p>
-<h4 id="2-5-4-shift"><a href="#2-5-4-shift" class="headerlink" title="2.5.4 shift()"></a>2.5.4 <code>shift()</code></h4><p><strong><code>someObject.shift(DIRECTION * number)</code>：</strong></p>
+<h4 id="254-shift"><a class="markdownIt-Anchor" href="#254-shift"></a> 2.5.4 <code>shift()</code></h4>
+<p><strong><code>someObject.shift(DIRECTION * number)</code>：</strong></p>
 <p>自己垂直方向平移</p>
-<h4 id="2-5-5-rotate"><a href="#2-5-5-rotate" class="headerlink" title="2.5.5 rotate()"></a>2.5.5 <code>rotate()</code></h4><p><strong><code>someObject.rotate(PI*number 或者 number，point)</code>：</strong> </p>
+<h4 id="255-rotate"><a class="markdownIt-Anchor" href="#255-rotate"></a> 2.5.5 <code>rotate()</code></h4>
+<p><strong><code>someObject.rotate(PI*number 或者 number，point)</code>：</strong></p>
 <p>逆时针旋转</p>
 <p>如果相对图案为空，则自旋</p>
 <p>如：</p>
@@ -453,14 +481,18 @@ someObject.move_to(vec)</code></pre>
         textM.rotate(PI/<span class="hljs-number">4</span>, textC) 
         self.play(Write(textM), Write(textC))
         self.wait(<span class="hljs-number">2</span>)</code></pre>
-<h4 id="2-5-6-flip"><a href="#2-5-6-flip" class="headerlink" title="2.5.6 flip()"></a>2.5.6 <code>flip()</code></h4><p><strong><code>someObject.flip(DIRECTION)</code>：</strong></p>
+<h4 id="256-flip"><a class="markdownIt-Anchor" href="#256-flip"></a> 2.5.6 <code>flip()</code></h4>
+<p><strong><code>someObject.flip(DIRECTION)</code>：</strong></p>
 <p>按照矢量量方向翻转180度，方向遵循右手定则。</p>
 <p>如<code>text.flip(UP)</code>：</p>
 <p><img src="1565703056789.png" srcset="/img/loading.gif" alt="1565703056789"></p>
-<h3 id="2-6-播放动画"><a href="#2-6-播放动画" class="headerlink" title="2.6 播放动画"></a>2.6 播放动画</h3><h4 id="2-6-1-play"><a href="#2-6-1-play" class="headerlink" title="2.6.1 play()"></a>2.6.1 <strong><code>play()</code></strong></h4><p>动画效果，可以是多个text，这个函数是多线程的，所以不会阻塞就会进入下一行操作</p>
+<h3 id="26-播放动画"><a class="markdownIt-Anchor" href="#26-播放动画"></a> 2.6 播放动画</h3>
+<h4 id="261-play"><a class="markdownIt-Anchor" href="#261-play"></a> 2.6.1 <strong><code>play()</code></strong></h4>
+<p>动画效果，可以是多个text，这个函数是多线程的，所以不会阻塞就会进入下一行操作</p>
 <p><em>（如果下一个操作是remove掉text而没有使用wait函数进行等待，最终效果会变成立即销毁text即没有显示text，下面的add也同理）</em></p>
 <ol>
-<li><p><strong><code>play(SomePlayMethod(someObject), run_time=seconds)</code></strong> ： 播放某种动画方法</p>
+<li>
+<p><strong><code>play(SomePlayMethod(someObject), run_time=seconds)</code></strong> ： 播放某种动画方法</p>
 <p>如果希望并行同时播放多个动画，仅仅是python语法问题，给出如下例子模板：</p>
 <pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">concurrent</span><span class="hljs-params">(Scene)</span>:</span>
     <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">construct</span><span class="hljs-params">(self)</span>:</span>
@@ -479,7 +511,8 @@ someObject.move_to(vec)</code></pre>
 
         self.wait()</code></pre>
 </li>
-<li><p>同时改变某种或多种属性</p>
+<li>
+<p>同时改变某种或多种属性</p>
 <pre><code class="hljs python">self.play(
     someObjectX.methodX, functionParamX,
     someObjectX.methodY, functionParamY,
@@ -502,16 +535,19 @@ someObject.move_to(vec)</code></pre>
          self.wait()</code></pre>
 </li>
 </ol>
-<h5 id="2-6-1-1-显示动画函数SomePlayMethods"><a href="#2-6-1-1-显示动画函数SomePlayMethods" class="headerlink" title="2.6.1.1 显示动画函数SomePlayMethods"></a>2.6.1.1 显示动画函数SomePlayMethods</h5><p>动画函数，主要包含下列几个：</p>
+<h5 id="2611-显示动画函数someplaymethods"><a class="markdownIt-Anchor" href="#2611-显示动画函数someplaymethods"></a> 2.6.1.1 显示动画函数SomePlayMethods</h5>
+<p>动画函数，主要包含下列几个：</p>
 <ul>
-<li><p><code>manimlib\animation\fading.py</code>：渐变效果 </p>
+<li>
+<p><code>manimlib\animation\fading.py</code>：渐变效果</p>
 <p><strong><code>FadeXXX(someObject)</code></strong></p>
 <ul>
 <li>包含<code>FadeIn</code>，<code>FadeInFromDown</code>，<code>FadeOutAndShiftDown</code>，<code>FadeInFromPoint</code>，<code>FadeInFromLarge</code>等等</li>
 <li>解释：fade in/out 渐入/出；shift down 垂直下降</li>
 </ul>
 </li>
-<li><p><code>manimlib\animation\creation.py</code>：生成效果</p>
+<li>
+<p><code>manimlib\animation\creation.py</code>：生成效果</p>
 <p><strong><code>ShowCreation(someObject)</code></strong></p>
 <ul>
 <li>无法清楚表达，具体可以自行尝试看效果</li>
@@ -529,7 +565,8 @@ someObject.move_to(vec)</code></pre>
 <li>继承自DrawBorderThenFill，增加从左往右逐渐显示的效果</li>
 </ul>
 </li>
-<li><p><code>manimlib\animation\transform.py</code>从一个渐变成另一个</p>
+<li>
+<p><code>manimlib\animation\transform.py</code>从一个渐变成另一个</p>
 <ul>
 <li><strong><code>Transform(someObject1, someObject2)</code></strong></li>
 <li><strong><code>ReplacementTransform(someObject1, someObject2)</code></strong></li>
@@ -597,7 +634,8 @@ someObject.move_to(vec)</code></pre>
 	object.allValue = self.allValue
 	<span class="hljs-keyword">return</span> object</code></pre>
 </li>
-<li><p><strong><code>MoveToTarget(someObject):</code></strong></p>
+<li>
+<p><strong><code>MoveToTarget(someObject):</code></strong></p>
 <p>仅对自身产生变化</p>
 <p>比较简单，用示例代码即可以看懂：</p>
 <pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ChangeColorAndSizeAnimation</span><span class="hljs-params">(Scene)</span>:</span>
@@ -614,16 +652,20 @@ someObject.move_to(vec)</code></pre>
         self.play(MoveToTarget(text), run_time=<span class="hljs-number">2</span>)
         self.wait()</code></pre>
 </li>
-<li><p><code>manimlib\animation\growing.py</code></p>
+<li>
+<p><code>manimlib\animation\growing.py</code></p>
 <ul>
-<li><p><strong><code>GrowFromXXX(someObject)</code></strong></p>
+<li>
+<p><strong><code>GrowFromXXX(someObject)</code></strong></p>
 <p><code>GrowFromCenter</code>,<code>GrowFromPoint</code>,<code>GrowFromEdge</code>,<code>GrowArrow</code>等等</p>
 </li>
 </ul>
 </li>
-<li><p><code>manimlib\animation\update.py</code></p>
+<li>
+<p><code>manimlib\animation\update.py</code></p>
 <ul>
-<li><p><strong><code>UpdateFromFunc(obj,update_function)</code></strong></p>
+<li>
+<p><strong><code>UpdateFromFunc(obj,update_function)</code></strong></p>
 <p>同步播放,很好理解，见例子：</p>
 <p>更多同步并发的播放见<strong>2.9</strong></p>
 <pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Updater</span><span class="hljs-params">(Scene)</span>:</span>
@@ -647,8 +689,10 @@ someObject.move_to(vec)</code></pre>
 </ul>
 </li>
 </ul>
-<h5 id="2-6-1-2-run-time"><a href="#2-6-1-2-run-time" class="headerlink" title="2.6.1.2 run_time"></a>2.6.1.2 <code>run_time</code></h5><p>动画从开始到结束所用的时间，决定了<strong>动画的总时长</strong> （如果动画后不加<code>wait</code>，可能会出现丢掉结尾的帧的情况）</p>
-<h4 id="2-6-1-3-rate-func"><a href="#2-6-1-3-rate-func" class="headerlink" title="2.6.1.3 rate_func"></a>2.6.1.3 <code>rate_func</code></h4><p>直译为速度函数，即内定的动画函数</p>
+<h5 id="2612-run_time"><a class="markdownIt-Anchor" href="#2612-run_time"></a> 2.6.1.2 <code>run_time</code></h5>
+<p>动画从开始到结束所用的时间，决定了<strong>动画的总时长</strong> （如果动画后不加<code>wait</code>，可能会出现丢掉结尾的帧的情况）</p>
+<h4 id="2613-rate_func"><a class="markdownIt-Anchor" href="#2613-rate_func"></a> 2.6.1.3 <code>rate_func</code></h4>
+<p>直译为速度函数，即内定的动画函数</p>
 <p>分为三个值： <strong><code>there_and_back</code>来回，<code>linear</code>线性变化，<code>smooth</code>平滑</strong> （速度先为0，然后加快，到了中间减速最后到达终点为0）</p>
 <p>例：</p>
 <pre><code class="hljs python"> self.play(
@@ -656,18 +700,23 @@ someObject.move_to(vec)</code></pre>
      rate_func=smooth, <span class="hljs-comment"># Change this with: linear,smooth</span>
      run_time=<span class="hljs-number">5</span>
 )</code></pre>
-<h4 id="2-6-2-add"><a href="#2-6-2-add" class="headerlink" title="2.6.2 add()"></a>2.6.2 <code>add()</code></h4><p><strong><code>self.add(someObject1, someObject2, ...)</code></strong></p>
+<h4 id="262-add"><a class="markdownIt-Anchor" href="#262-add"></a> 2.6.2 <code>add()</code></h4>
+<p><strong><code>self.add(someObject1, someObject2, ...)</code></strong></p>
 <p>无动画添加文字，可以是多个text</p>
-<h4 id="2-6-3-wait"><a href="#2-6-3-wait" class="headerlink" title="2.6.3 wait()"></a>2.6.3 <code>wait()</code></h4><p><strong><code>self.wait(seconds)</code>：</strong></p>
+<h4 id="263-wait"><a class="markdownIt-Anchor" href="#263-wait"></a> 2.6.3 <code>wait()</code></h4>
+<p><strong><code>self.wait(seconds)</code>：</strong></p>
 <p>等待动画停留时间，如果没有参数则默认等待到将动画播放完为止</p>
-<h4 id="2-6-4-remove"><a href="#2-6-4-remove" class="headerlink" title="2.6.4 remove()"></a>2.6.4 <code>remove()</code></h4><p><strong><code>self.remove(someObject1, someObject2,…)</code>：</strong></p>
+<h4 id="264-remove"><a class="markdownIt-Anchor" href="#264-remove"></a> 2.6.4 <code>remove()</code></h4>
+<p><strong><code>self.remove(someObject1, someObject2,…)</code>：</strong></p>
 <p>移除text，可以是多个text，注意FadeOut类的动画虽然自带消失效果但是该变量还是会停留在内存中</p>
-<h3 id="2-7-设置颜色"><a href="#2-7-设置颜色" class="headerlink" title="2.7 设置颜色"></a>2.7 设置颜色</h3><p><strong><code>someObject.set_color(COLOR)</code></strong></p>
+<h3 id="27-设置颜色"><a class="markdownIt-Anchor" href="#27-设置颜色"></a> 2.7 设置颜色</h3>
+<p><strong><code>someObject.set_color(COLOR)</code></strong></p>
 <p>COLOR有哪些见附录的颜色一栏，COLOR本质上是一个字符串所以可以自定义字符串传入：</p>
 <p><strong><code>someObject.set_color(string)</code></strong></p>
 <p>如：</p>
 <pre><code class="hljs python">someObject.set_color(<span class="hljs-string">"#0000FF"</span>)</code></pre>
-<h3 id="2-8-缩放大小"><a href="#2-8-缩放大小" class="headerlink" title="2.8 缩放大小"></a>2.8 缩放大小</h3><p><strong><code>someObject.scale(number)</code></strong></p>
+<h3 id="28-缩放大小"><a class="markdownIt-Anchor" href="#28-缩放大小"></a> 2.8 缩放大小</h3>
+<p><strong><code>someObject.scale(number)</code></strong></p>
 <pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TextArray</span><span class="hljs-params">(Scene)</span>:</span>
     <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">construct</span><span class="hljs-params">(self)</span>:</span>
         dot1 = Dot()
@@ -677,11 +726,13 @@ someObject.move_to(vec)</code></pre>
         self.add(dot1, dot2)
         self.wait(<span class="hljs-number">3</span>)</code></pre>
 <p><img src="1565769895077.png" srcset="/img/loading.gif" alt="1565769895077"></p>
-<h3 id="2-9-同步播放动画"><a href="#2-9-同步播放动画" class="headerlink" title="2.9 同步播放动画"></a>2.9 同步播放动画</h3><p>TODO：<strong>暂时没有时间理解源码</strong></p>
+<h3 id="29-同步播放动画"><a class="markdownIt-Anchor" href="#29-同步播放动画"></a> 2.9 同步播放动画</h3>
+<p>TODO：<strong>暂时没有时间理解源码</strong></p>
 <p>让某一个物体（mobject）跟随另一个物体的移动而并行移动（使用其他移动方式，路径）</p>
 <p><code>manimlib\mobject\mobject.py</code></p>
 <ul>
-<li><p><strong><code>add_updater(update_function, index=None, call_updater=True)</code></strong></p>
+<li>
+<p><strong><code>add_updater(update_function, index=None, call_updater=True)</code></strong></p>
 <ul>
 <li><code>update_function</code>：更新函数，函数传入一个object对象，函数内部有一系列对该对象和已知的对象进行的一系列操作，可以是lambda表达式</li>
 </ul>
@@ -721,16 +772,20 @@ someObject.move_to(vec)</code></pre>
 
         self.wait()</code></pre>
 <ul>
-<li><p><strong><code>remove_updater(update_function)</code></strong> 取消并行播放函数</p>
+<li>
+<p><strong><code>remove_updater(update_function)</code></strong> 取消并行播放函数</p>
 </li>
-<li><p><strong><code>clear_updaters(recursive=True)</code></strong> 取消所有的并行播放函数</p>
+<li>
+<p><strong><code>clear_updaters(recursive=True)</code></strong> 取消所有的并行播放函数</p>
 </li>
-<li><p><strong><code>UpdateFromFunc(Animation)</code></strong></p>
+<li>
+<p><strong><code>UpdateFromFunc(Animation)</code></strong></p>
 <p>见<strong>2.6.1.1</strong>,注意这个函数仅在play函数中生效，play结束后就不会继续同步</p>
 </li>
 </ul>
 <p>更多例子（有时间再补充）：<a href="https://github.com/Elteoremadebeethoven/AnimationsWithManim/blob/master/English/update_successions/update_successions.py" target="_blank" rel="noopener">TB的更新函数页面</a></p>
-<h2 id="3-text数组"><a href="#3-text数组" class="headerlink" title="3. text数组"></a>3. text数组</h2><p>在2中所有的显示方法几乎都可以对数组成立，</p>
+<h2 id="3-text数组"><a class="markdownIt-Anchor" href="#3-text数组"></a> 3. text数组</h2>
+<p>在2中所有的显示方法几乎都可以对数组成立，</p>
 <p>如文字串：</p>
 <pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TextArray</span><span class="hljs-params">(Scene)</span>:</span>
     <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">construct</span><span class="hljs-params">(self)</span>:</span>
@@ -762,7 +817,8 @@ someObject.move_to(vec)</code></pre>
 <p><strong><code>text = TextMobject(string)</code>是一维数组</strong></p>
 <p><strong>当<code>text = TextMobject(string1，string2，...)</code>中所有的string均为字母的时候，text为二维数组但是每一个子数组大小仅为1</strong></p>
 <p><strong>如果有任意一个string是多个字母则text是二维数组</strong></p>
-<h2 id="4-基础动画类-Scene"><a href="#4-基础动画类-Scene" class="headerlink" title="4. 基础动画类 Scene"></a>4. 基础动画类 Scene</h2><p>所有的动画均是scene类的子类产生的，因此scene的功能比较少，主要是对一些基础的属性进行配置</p>
+<h2 id="4-基础动画类-scene"><a class="markdownIt-Anchor" href="#4-基础动画类-scene"></a> 4. 基础动画类 Scene</h2>
+<p>所有的动画均是scene类的子类产生的，因此scene的功能比较少，主要是对一些基础的属性进行配置</p>
 <p><code>manimlib\scene\scene.py</code></p>
 <p>变量的值得初始定义见下：</p>
 <pre><code class="hljs python"><span class="hljs-comment"># manimlib\scene\scene.py</span>
@@ -777,7 +833,7 @@ CONFIG = {
         <span class="hljs-string">"end_at_animation_number"</span>: <span class="hljs-literal">None</span>,
         <span class="hljs-string">"leave_progress_bars"</span>: <span class="hljs-literal">False</span>,
     }</code></pre>
-<p>其中 <strong><code>camera_config</code></strong> 是对视频的处理，由 <strong><code>Camera</code>类</strong> 完成:    </p>
+<p>其中 <strong><code>camera_config</code></strong> 是对视频的处理，由 <strong><code>Camera</code>类</strong> 完成:</p>
 <p><code>manimlib\camera\camera.py</code></p>
 <pre><code class="hljs python"><span class="hljs-comment"># manimlib\camera\camera.py</span>
 CONFIG = {
@@ -822,7 +878,8 @@ CONFIG = {
         self.add(TextMobject(<span class="hljs-string">"Text"</span>).set_color(RED))
         self.wait()</code></pre>
 <p><img src="1565833717545.png" srcset="/img/loading.gif" alt="1565833717545"></p>
-<h2 id="5-二维坐标类-GraphScene"><a href="#5-二维坐标类-GraphScene" class="headerlink" title="5. 二维坐标类 GraphScene"></a>5. 二维坐标类 GraphScene</h2><p><code>manimlib\scene\graph_scene.py</code></p>
+<h2 id="5-二维坐标类-graphscene"><a class="markdownIt-Anchor" href="#5-二维坐标类-graphscene"></a> 5. 二维坐标类 GraphScene</h2>
+<p><code>manimlib\scene\graph_scene.py</code></p>
 <p>继承自<code>Scene</code>类，用来绘制坐标</p>
 <p>属性如下：</p>
 <pre><code class="hljs python">CONFIG = {
@@ -862,27 +919,35 @@ CONFIG = {
         self.play(ShowCreation(graph), run_time=<span class="hljs-number">2</span>)
         self.wait()</code></pre>
 <p><img src="1565835900946.png" srcset="/img/loading.gif" alt="1565835900946"></p>
-<h3 id="5-1-setup-axes"><a href="#5-1-setup-axes" class="headerlink" title="5.1 setup_axes()"></a>5.1 <code>setup_axes()</code></h3><p><strong><code>setup_axes(animate=Bool)</code>：</strong></p>
-<p>默认没有动画效果，<code>setup_axes(animate=True)</code>则会显示动画 </p>
-<h3 id="5-2-get-graph"><a href="#5-2-get-graph" class="headerlink" title="5.2 get_graph()"></a>5.2 <code>get_graph()</code></h3><p><strong>`get_graph(func, color=None, x_min=None, x_max=None, </strong>kwargs)`**</p>
+<h3 id="51-setup_axes"><a class="markdownIt-Anchor" href="#51-setup_axes"></a> 5.1 <code>setup_axes()</code></h3>
+<p><strong><code>setup_axes(animate=Bool)</code>：</strong></p>
+<p>默认没有动画效果，<code>setup_axes(animate=True)</code>则会显示动画</p>
+<h3 id="52-get_graph"><a class="markdownIt-Anchor" href="#52-get_graph"></a> 5.2 <code>get_graph()</code></h3>
+<p><strong><code>get_graph(func, color=None, x_min=None, x_max=None, **kwargs)</code></strong></p>
 <p>得到坐标系的句柄，并设置值</p>
-<h3 id="5-3-coords-to-point"><a href="#5-3-coords-to-point" class="headerlink" title="5.3 coords_to_point()"></a>5.3 <code>coords_to_point()</code></h3><p><strong><code>coords_to_point(x, y)</code></strong></p>
+<h3 id="53-coords_to_point"><a class="markdownIt-Anchor" href="#53-coords_to_point"></a> 5.3 <code>coords_to_point()</code></h3>
+<p><strong><code>coords_to_point(x, y)</code></strong></p>
 <p>坐标变成对应的帧中的点，缩写<code>c2p()</code></p>
-<h3 id="5-4-point-to-coords"><a href="#5-4-point-to-coords" class="headerlink" title="5.4 point_to_coords()"></a>5.4 <code>point_to_coords()</code></h3><p><strong><code>point_to_coords(point)</code></strong></p>
+<h3 id="54-point_to_coords"><a class="markdownIt-Anchor" href="#54-point_to_coords"></a> 5.4 <code>point_to_coords()</code></h3>
+<p><strong><code>point_to_coords(point)</code></strong></p>
 <p>帧中的点转换为坐标，返回x,y组成的元组，缩写<code>p2c()</code></p>
-<h3 id="5-5-get-graph-label"><a href="#5-5-get-graph-label" class="headerlink" title="5.5 get_graph_label()"></a>5.5 <code>get_graph_label()</code></h3><p><strong><code>get_graph_label(graph, label="f(x)", x_val=None, direction=RIGHT, buff=MED_SMALL_BUFF, color=None)</code></strong></p>
+<h3 id="55-get_graph_label"><a class="markdownIt-Anchor" href="#55-get_graph_label"></a> 5.5 <code>get_graph_label()</code></h3>
+<p><strong><code>get_graph_label(graph, label="f(x)", x_val=None, direction=RIGHT, buff=MED_SMALL_BUFF, color=None)</code></strong></p>
 <p><code>graph</code>：从graph中获得坐标标签</p>
 <p><code>label</code>：默认为“f(x)”,可以改成自己想要的函数</p>
 <p><code>x_val</code>：label在坐标系中所处位置的的x坐标</p>
 <p><code>buff</code>：距离边界的距离</p>
 <p><code>color</code>：颜色</p>
-<h3 id="5-6-get-vertical-line-to-graph"><a href="#5-6-get-vertical-line-to-graph" class="headerlink" title="5.6 get_vertical_line_to_graph()"></a>5.6 <code>get_vertical_line_to_graph()</code></h3><p><strong>`get_vertical_line_to_graph(x, graph, line_class=Line, </strong>line_kwargs)`**</p>
+<h3 id="56-get_vertical_line_to_graph"><a class="markdownIt-Anchor" href="#56-get_vertical_line_to_graph"></a> 5.6 <code>get_vertical_line_to_graph()</code></h3>
+<p><strong><code>get_vertical_line_to_graph(x, graph, line_class=Line, **line_kwargs)</code></strong></p>
 <p>得到竖直线，起点为(x,0)终点为(x,f(x))</p>
 <p>返回<code>line_class</code>类型的图像</p>
-<h3 id="5-7-get-vertical-lines-to-graph"><a href="#5-7-get-vertical-lines-to-graph" class="headerlink" title="5.7 get_vertical_lines_to_graph()"></a>5.7 <code>get_vertical_lines_to_graph()</code></h3><p><strong>`get_vertical_lines_to_graph(graph, x_min=None, x_max=None, num_lines=20, </strong>kwargs)`**</p>
+<h3 id="57-get_vertical_lines_to_graph"><a class="markdownIt-Anchor" href="#57-get_vertical_lines_to_graph"></a> 5.7 <code>get_vertical_lines_to_graph()</code></h3>
+<p><strong><code>get_vertical_lines_to_graph(graph, x_min=None, x_max=None, num_lines=20, **kwargs)</code></strong></p>
 <p>同时得到画多条竖直线</p>
 <p>返回<code>line_class</code>类型的<code>VGroup</code></p>
-<h3 id="5-8-改变坐标标签的颜色"><a href="#5-8-改变坐标标签的颜色" class="headerlink" title="5.8 改变坐标标签的颜色"></a>5.8 改变坐标标签的颜色</h3><blockquote>
+<h3 id="58-改变坐标标签的颜色"><a class="markdownIt-Anchor" href="#58-改变坐标标签的颜色"></a> 5.8 改变坐标标签的颜色</h3>
+<blockquote>
 <p><a href="https://github.com/Elteoremadebeethoven/AnimationsWithManim/blob/master/English/6a_plots_2D/change_label_colors.md#change-labels-colors-in-graphscene" target="_blank" rel="noopener">https://github.com/Elteoremadebeethoven/AnimationsWithManim/blob/master/English/6a_plots_2D/change_label_colors.md#change-labels-colors-in-graphscene</a></p>
 <p>Change labels colors in <code>GraphScene</code></p>
 <p>Add this to the <code>CONFIG</code> dictionary:在CONFIG中加入：</p>
@@ -899,8 +964,10 @@ y_label = <span class="hljs-constructor">TextMobject(<span class="hljs-params">s
 </blockquote>
 <p>效果：</p>
 <p><img src="ChanceColorLabels.png" srcset="/img/loading.gif" alt="img"></p>
-<h2 id="6-文本类-TextMobject"><a href="#6-文本类-TextMobject" class="headerlink" title="6. 文本类 TextMobject"></a>6. 文本类 <code>TextMobject</code></h2><ol>
-<li><p><strong><code>TextMobject(string)</code>：</strong> 传入一个字符串</p>
+<h2 id="6-文本类-textmobject"><a class="markdownIt-Anchor" href="#6-文本类-textmobject"></a> 6. 文本类 <code>TextMobject</code></h2>
+<ol>
+<li>
+<p><strong><code>TextMobject(string)</code>：</strong> 传入一个字符串</p>
 <p>字符串可以是普通字符串或LaTeX格式或两者混合：</p>
 <pre><code class="hljs python">TextMobject(<span class="hljs-string">"This is a regular text"</span>)</code></pre>
 <pre><code class="hljs python">TextMobject(<span class="hljs-string">"\\displaystyle\\frac{x}{y}"</span>) <span class="hljs-comment"># displaystyle使字体能显示正常大小</span></code></pre>
@@ -938,10 +1005,12 @@ y_label = <span class="hljs-constructor">TextMobject(<span class="hljs-params">s
        self.wait(<span class="hljs-number">3</span>)</code></pre>
 <p><img src="1565704370228.png" srcset="/img/loading.gif" alt="1565704370228"></p>
 </li>
-<li><p><strong><code>TextMobject(string1, string2, string3, ...)</code>：</strong> 传入多个字符串，返回<code>TextMobject</code>数组，可以按照下表索引数组的值</p>
+<li>
+<p><strong><code>TextMobject(string1, string2, string3, ...)</code>：</strong> 传入多个字符串，返回<code>TextMobject</code>数组，可以按照下表索引数组的值</p>
 </li>
 </ol>
-<h2 id="7-LaTeX文本类-TexMobject"><a href="#7-LaTeX文本类-TexMobject" class="headerlink" title="7. LaTeX文本类 TexMobject"></a>7. LaTeX文本类 <code>TexMobject</code></h2><p><code>manimlib\mobject\svg\tex_mobject.py</code></p>
+<h2 id="7-latex文本类-texmobject"><a class="markdownIt-Anchor" href="#7-latex文本类-texmobject"></a> 7. LaTeX文本类 <code>TexMobject</code></h2>
+<p><code>manimlib\mobject\svg\tex_mobject.py</code></p>
 <p>显示为LaTeX格式(在想要LaTeX字符串按照数组显示时必须使用这个实现)</p>
 <pre><code class="hljs python">CONFIG = {
         <span class="hljs-string">"template_tex_file_body"</span>: TEMPLATE_TEX_FILE_BODY,
@@ -965,21 +1034,25 @@ y_label = <span class="hljs-constructor">TextMobject(<span class="hljs-params">s
         self.play(Write(formula))
         self.wait(<span class="hljs-number">3</span>)</code></pre>
 <p><img src="1565769340216.png" srcset="/img/loading.gif" alt="1565769340216"></p>
-<h2 id="8-二维图形类"><a href="#8-二维图形类" class="headerlink" title="8. 二维图形类"></a>8. 二维图形类</h2><p><code>manimlib\mobject\geometry.py</code></p>
+<h2 id="8-二维图形类"><a class="markdownIt-Anchor" href="#8-二维图形类"></a> 8. 二维图形类</h2>
+<p><code>manimlib\mobject\geometry.py</code></p>
 <p>TODO：待完善</p>
-<h3 id="8-1-点Dot"><a href="#8-1-点Dot" class="headerlink" title="8.1 点Dot"></a>8.1 点<code>Dot</code></h3><pre><code class="hljs python">CONFIG = {
+<h3 id="81-点dot"><a class="markdownIt-Anchor" href="#81-点dot"></a> 8.1 点<code>Dot</code></h3>
+<pre><code class="hljs python">CONFIG = {
         <span class="hljs-string">"radius"</span>: DEFAULT_DOT_RADIUS,
         <span class="hljs-string">"stroke_width"</span>: <span class="hljs-number">0</span>,
         <span class="hljs-string">"fill_opacity"</span>: <span class="hljs-number">1.0</span>,
         <span class="hljs-string">"color"</span>: WHITE
     }</code></pre>
-<h3 id="8-2-圆形Circle"><a href="#8-2-圆形Circle" class="headerlink" title="8.2 圆形Circle"></a>8.2 圆形<code>Circle</code></h3><p>继承自Arc</p>
+<h3 id="82-圆形circle"><a class="markdownIt-Anchor" href="#82-圆形circle"></a> 8.2 圆形<code>Circle</code></h3>
+<p>继承自Arc</p>
 <pre><code class="hljs python">CONFIG = {
         <span class="hljs-string">"color"</span>: RED,
         <span class="hljs-string">"close_new_points"</span>: <span class="hljs-literal">True</span>,
         <span class="hljs-string">"anchors_span_full_range"</span>: <span class="hljs-literal">False</span>
     }</code></pre>
-<h3 id="8-3-环Annulus"><a href="#8-3-环Annulus" class="headerlink" title="8.3 环Annulus"></a>8.3 环<code>Annulus</code></h3><p>继承自圆形</p>
+<h3 id="83-环annulus"><a class="markdownIt-Anchor" href="#83-环annulus"></a> 8.3 环<code>Annulus</code></h3>
+<p>继承自圆形</p>
 <pre><code class="hljs python">CONFIG = {
         <span class="hljs-string">"inner_radius"</span>: <span class="hljs-number">1</span>,
         <span class="hljs-string">"outer_radius"</span>: <span class="hljs-number">2</span>,
@@ -988,30 +1061,35 @@ y_label = <span class="hljs-constructor">TextMobject(<span class="hljs-params">s
         <span class="hljs-string">"color"</span>: WHITE,
         <span class="hljs-string">"mark_paths_closed"</span>: <span class="hljs-literal">False</span>,
     }</code></pre>
-<h3 id="8-4-长方形Rectangle"><a href="#8-4-长方形Rectangle" class="headerlink" title="8.4 长方形Rectangle"></a>8.4 长方形<code>Rectangle</code></h3><pre><code class="hljs python">CONFIG = {
+<h3 id="84-长方形rectangle"><a class="markdownIt-Anchor" href="#84-长方形rectangle"></a> 8.4 长方形<code>Rectangle</code></h3>
+<pre><code class="hljs python">CONFIG = {
         <span class="hljs-string">"color"</span>: WHITE,
         <span class="hljs-string">"height"</span>: <span class="hljs-number">2.0</span>,
         <span class="hljs-string">"width"</span>: <span class="hljs-number">4.0</span>,
         <span class="hljs-string">"mark_paths_closed"</span>: <span class="hljs-literal">True</span>,
         <span class="hljs-string">"close_new_points"</span>: <span class="hljs-literal">True</span>,
     }</code></pre>
-<h3 id="8-5-方形Square"><a href="#8-5-方形Square" class="headerlink" title="8.5 方形Square"></a>8.5 方形<code>Square</code></h3><p>继承自长方形</p>
+<h3 id="85-方形square"><a class="markdownIt-Anchor" href="#85-方形square"></a> 8.5 方形<code>Square</code></h3>
+<p>继承自长方形</p>
 <pre><code class="hljs python">CONFIG = {
     	<span class="hljs-comment"># 边长</span>
        <span class="hljs-string">"side_length"</span>: <span class="hljs-number">2.0</span>,
    }</code></pre>
-<h3 id="8-6-椭圆Ellipse"><a href="#8-6-椭圆Ellipse" class="headerlink" title="8.6 椭圆Ellipse"></a>8.6 椭圆<code>Ellipse</code></h3><p>继承自圆形</p>
+<h3 id="86-椭圆ellipse"><a class="markdownIt-Anchor" href="#86-椭圆ellipse"></a> 8.6 椭圆<code>Ellipse</code></h3>
+<p>继承自圆形</p>
 <pre><code class="hljs python">CONFIG = {
         <span class="hljs-string">"width"</span>: <span class="hljs-number">2</span>,
         <span class="hljs-string">"height"</span>: <span class="hljs-number">1</span>
     }</code></pre>
-<h3 id="8-7-弧Arc"><a href="#8-7-弧Arc" class="headerlink" title="8.7 弧Arc"></a>8.7 弧<code>Arc</code></h3><pre><code class="hljs python">CONFIG = {
+<h3 id="87-弧arc"><a class="markdownIt-Anchor" href="#87-弧arc"></a> 8.7 弧<code>Arc</code></h3>
+<pre><code class="hljs python">CONFIG = {
         <span class="hljs-string">"radius"</span>: <span class="hljs-number">1.0</span>,
         <span class="hljs-string">"num_components"</span>: <span class="hljs-number">9</span>,
         <span class="hljs-string">"anchors_span_full_range"</span>: <span class="hljs-literal">True</span>,
         <span class="hljs-string">"arc_center"</span>: ORIGIN,
     }</code></pre>
-<h3 id="8-8-线Line"><a href="#8-8-线Line" class="headerlink" title="8.8 线Line"></a>8.8 线<code>Line</code></h3><p><strong>`Line(start=LEFT, end=RIGHT, </strong>kwargs)`**</p>
+<h3 id="88-线line"><a class="markdownIt-Anchor" href="#88-线line"></a> 8.8 线<code>Line</code></h3>
+<p><strong><code>Line(start=LEFT, end=RIGHT, **kwargs)</code></strong></p>
 <p><code>start,end</code>:起点终点，形式是np向量</p>
 <p><code>kwargs</code>为配置信息，继承自<code>VMobject</code></p>
 <pre><code class="hljs python">CONFIG = {
@@ -1045,8 +1123,10 @@ y_label = <span class="hljs-constructor">TextMobject(<span class="hljs-params">s
         <span class="hljs-string">"tolerance_for_point_equality"</span>: <span class="hljs-number">1e-6</span>,
         <span class="hljs-string">"n_points_per_cubic_curve"</span>: <span class="hljs-number">4</span>,
     }</code></pre>
-<h2 id="9-三维图形类"><a href="#9-三维图形类" class="headerlink" title="9. 三维图形类"></a>9. 三维图形类</h2><p><code>manimlib\mobject\three_dimensions.py</code></p>
-<h3 id="9-1-球-Sphere"><a href="#9-1-球-Sphere" class="headerlink" title="9.1 球 Sphere"></a>9.1 球 <code>Sphere</code></h3><p>继承自<code>ParametricSurface</code>,实现通过绘制三维多边形曲面实现的，具体看源码</p>
+<h2 id="9-三维图形类"><a class="markdownIt-Anchor" href="#9-三维图形类"></a> 9. 三维图形类</h2>
+<p><code>manimlib\mobject\three_dimensions.py</code></p>
+<h3 id="91-球-sphere"><a class="markdownIt-Anchor" href="#91-球-sphere"></a> 9.1 球 <code>Sphere</code></h3>
+<p>继承自<code>ParametricSurface</code>,实现通过绘制三维多边形曲面实现的，具体看源码</p>
 <pre><code class="hljs python">CONFIG = {
         <span class="hljs-string">"resolution"</span>: (<span class="hljs-number">12</span>, <span class="hljs-number">24</span>),
         <span class="hljs-string">"radius"</span>: <span class="hljs-number">1</span>,
@@ -1055,18 +1135,21 @@ y_label = <span class="hljs-constructor">TextMobject(<span class="hljs-params">s
         <span class="hljs-string">"v_min"</span>: <span class="hljs-number">0</span>,
         <span class="hljs-string">"v_max"</span>: TAU,
     }</code></pre>
-<h3 id="9-2-立方-Cube"><a href="#9-2-立方-Cube" class="headerlink" title="9.2 立方 Cube"></a>9.2 立方 <code>Cube</code></h3><pre><code class="hljs python">CONFIG = {
+<h3 id="92-立方-cube"><a class="markdownIt-Anchor" href="#92-立方-cube"></a> 9.2 立方 <code>Cube</code></h3>
+<pre><code class="hljs python">CONFIG = {
         <span class="hljs-string">"fill_opacity"</span>: <span class="hljs-number">0.75</span>,
         <span class="hljs-string">"fill_color"</span>: BLUE,
         <span class="hljs-string">"stroke_width"</span>: <span class="hljs-number">0</span>,
         <span class="hljs-string">"side_length"</span>: <span class="hljs-number">2</span>,
     }</code></pre>
-<h3 id="9-3-棱柱-Prism"><a href="#9-3-棱柱-Prism" class="headerlink" title="9.3 棱柱 Prism"></a>9.3 棱柱 <code>Prism</code></h3><p>继承自<code>Cube</code></p>
+<h3 id="93-棱柱-prism"><a class="markdownIt-Anchor" href="#93-棱柱-prism"></a> 9.3 棱柱 <code>Prism</code></h3>
+<p>继承自<code>Cube</code></p>
 <pre><code class="hljs python">CONFIG = {
         <span class="hljs-string">"dimensions"</span>: [<span class="hljs-number">3</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>]
     }</code></pre>
-<h3 id="9-4-参数曲面-ParametricSurface"><a href="#9-4-参数曲面-ParametricSurface" class="headerlink" title="9.4 参数曲面 ParametricSurface"></a>9.4 参数曲面 <code>ParametricSurface</code></h3><p>参数方程表达的曲面</p>
-<p><strong>`ParametricSurface(func, </strong>kwargs)`**</p>
+<h3 id="94-参数曲面-parametricsurface"><a class="markdownIt-Anchor" href="#94-参数曲面-parametricsurface"></a> 9.4 参数曲面 <code>ParametricSurface</code></h3>
+<p>参数方程表达的曲面</p>
+<p><strong><code>ParametricSurface(func, **kwargs)</code></strong></p>
 <pre><code class="hljs python">CONFIG = {
        <span class="hljs-string">"u_min"</span>: <span class="hljs-number">0</span>,
        <span class="hljs-string">"u_max"</span>: <span class="hljs-number">1</span>,
@@ -1168,7 +1251,8 @@ y_label = <span class="hljs-constructor">TextMobject(<span class="hljs-params">s
         self.play(ReplacementTransform(paraboloid, cylinder))
         self.wait()
         self.play(FadeOut(cylinder))</code></pre>
-<h3 id="9-5-参数曲线-ParametricFunction"><a href="#9-5-参数曲线-ParametricFunction" class="headerlink" title="9.5 参数曲线 ParametricFunction"></a>9.5 参数曲线 <code>ParametricFunction</code></h3><p><strong>`ParametricSurface(func, </strong>kwargs)`**</p>
+<h3 id="95-参数曲线-parametricfunction"><a class="markdownIt-Anchor" href="#95-参数曲线-parametricfunction"></a> 9.5 参数曲线 <code>ParametricFunction</code></h3>
+<p><strong><code>ParametricSurface(func, **kwargs)</code></strong></p>
 <p><code>func</code>:自定义的方程，此方程传入一个参数，返回三维向量，每一个分量均是传入自变量的表达式</p>
 <pre><code class="hljs python">CONFIG = {
         <span class="hljs-string">"t_min"</span>: <span class="hljs-number">0</span>,
@@ -1209,9 +1293,11 @@ y_label = <span class="hljs-constructor">TextMobject(<span class="hljs-params">s
         self.wait()
         self.play(Transform(curve1, curve2), rate_func=there_and_back, run_time=<span class="hljs-number">3</span>)
         self.wait()</code></pre>
-<h2 id="10-群组类VGroup"><a href="#10-群组类VGroup" class="headerlink" title="10. 群组类VGroup"></a>10. 群组类<code>VGroup</code></h2><p>可以将多个图像合并为一个组进行批量同步操作(自我理解为<code>Vectorized Group</code>的缩写)</p>
+<h2 id="10-群组类vgroup"><a class="markdownIt-Anchor" href="#10-群组类vgroup"></a> 10. 群组类<code>VGroup</code></h2>
+<p>可以将多个图像合并为一个组进行批量同步操作(自我理解为<code>Vectorized Group</code>的缩写)</p>
 <p><strong><code>someObjectGroup = VGroup(someObject1, someObject2, ...)</code></strong></p>
-<h3 id="10-1-arrange"><a href="#10-1-arrange" class="headerlink" title="10.1 arrange()"></a>10.1 <code>arrange()</code></h3><p><strong><code>someObjectGroup.arrange(DIRECTION, aligned_edge=DIRECTION, buff=number)</code></strong></p>
+<h3 id="101-arrange"><a class="markdownIt-Anchor" href="#101-arrange"></a> 10.1 <code>arrange()</code></h3>
+<p><strong><code>someObjectGroup.arrange(DIRECTION, aligned_edge=DIRECTION, buff=number)</code></strong></p>
 <p><strong><code>DIRECTION</code>：</strong> 以someObject1,someObject2,…顺序按照此方向排列</p>
 <p><strong><code>aligned_edge</code>：</strong> 对齐</p>
 <p><strong><code>buff</code>：</strong> 成员之间的距离</p>
@@ -1237,12 +1323,15 @@ y_label = <span class="hljs-constructor">TextMobject(<span class="hljs-params">s
     UP,
     {<span class="hljs-string">"aligned_edge"</span>: RIGHT, <span class="hljs-string">"buff"</span>: <span class="hljs-number">2</span>}
 )</code></pre>
-<h2 id="11-相机参数"><a href="#11-相机参数" class="headerlink" title="11. 相机参数"></a>11. 相机参数</h2><p>相机是针对3D动画类(<strong><code>ThreeDScene</code></strong>)的方法</p>
+<h2 id="11-相机参数"><a class="markdownIt-Anchor" href="#11-相机参数"></a> 11. 相机参数</h2>
+<p>相机是针对3D动画类(<strong><code>ThreeDScene</code></strong>)的方法</p>
 <p><code>manimlib\scene\three_d_scene.py</code></p>
 <p>将视频的视窗看做相机，就可以通过调整相机的远近，角度来观察三维物体，这就是相机类的作用</p>
-<h3 id="11-1-set-camera-orientation"><a href="#11-1-set-camera-orientation" class="headerlink" title="11.1 set_camera_orientation"></a>11.1 <code>set_camera_orientation</code></h3><p><strong><code>threeDScene.set_camera_orientation(phi=degrees1, theta=degrees2, gamma=degrees3, distance=number)</code></strong></p>
+<h3 id="111-set_camera_orientation"><a class="markdownIt-Anchor" href="#111-set_camera_orientation"></a> 11.1 <code>set_camera_orientation</code></h3>
+<p><strong><code>threeDScene.set_camera_orientation(phi=degrees1, theta=degrees2, gamma=degrees3, distance=number)</code></strong></p>
 <p>设置相机的角度</p>
-<h3 id="11-2-move-camera"><a href="#11-2-move-camera" class="headerlink" title="11.2 move_camera"></a>11.2 <code>move_camera</code></h3><p><strong>`threeDScene.move_camera(phi=None, theta=None, distance=None, gamma=None, frame_center=None, added_anims=[], </strong>kwargs)`**</p>
+<h3 id="112-move_camera"><a class="markdownIt-Anchor" href="#112-move_camera"></a> 11.2 <code>move_camera</code></h3>
+<p><strong><code>threeDScene.move_camera(phi=None, theta=None, distance=None, gamma=None, frame_center=None, added_anims=[], **kwargs)</code></strong></p>
 <p>例子：</p>
 <pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MoveCamera2</span><span class="hljs-params">(ThreeDScene)</span>:</span>
     <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">construct</span><span class="hljs-params">(self)</span>:</span>
@@ -1258,8 +1347,10 @@ y_label = <span class="hljs-constructor">TextMobject(<span class="hljs-params">s
         <span class="hljs-comment"># Return the position of the camera</span>
         self.move_camera(phi=<span class="hljs-number">80</span>*DEGREES, theta=-PI/<span class="hljs-number">2</span>)            
         self.wait()</code></pre>
-<h3 id="11-3-set-to-default-angled-camera-orientation"><a href="#11-3-set-to-default-angled-camera-orientation" class="headerlink" title="11.3 set_to_default_angled_camera_orientation"></a>11.3 <code>set_to_default_angled_camera_orientation</code></h3><p>还原为默认角度</p>
-<h3 id="11-4-add-fixed-in-frame-mobjects"><a href="#11-4-add-fixed-in-frame-mobjects" class="headerlink" title="11.4 add_fixed_in_frame_mobjects"></a>11.4 <code>add_fixed_in_frame_mobjects</code></h3><p>加入固定在屏幕的图像，此图像不随相机变化而变化</p>
+<h3 id="113-set_to_default_angled_camera_orientation"><a class="markdownIt-Anchor" href="#113-set_to_default_angled_camera_orientation"></a> 11.3 <code>set_to_default_angled_camera_orientation</code></h3>
+<p>还原为默认角度</p>
+<h3 id="114-add_fixed_in_frame_mobjects"><a class="markdownIt-Anchor" href="#114-add_fixed_in_frame_mobjects"></a> 11.4 <code>add_fixed_in_frame_mobjects</code></h3>
+<p>加入固定在屏幕的图像，此图像不随相机变化而变化</p>
 <p><strong><code>add_fixed_in_frame_mobjects(*mobjects)</code></strong></p>
 <p>例：</p>
 <pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Text3D3</span><span class="hljs-params">(ThreeDScene)</span>:</span>
@@ -1285,7 +1376,9 @@ y_label = <span class="hljs-constructor">TextMobject(<span class="hljs-params">s
 
         self.play(LaggedStartMap(ShowCreation, sphere))
         self.wait(<span class="hljs-number">2</span>)</code></pre>
-<h2 id="12-坐标系类"><a href="#12-坐标系类" class="headerlink" title="12. 坐标系类"></a>12. 坐标系类</h2><h3 id="12-0-数轴类-NumberLine"><a href="#12-0-数轴类-NumberLine" class="headerlink" title="12.0 数轴类 NumberLine"></a>12.0 数轴类 <code>NumberLine</code></h3><p>继承于<code>Line</code>,属性如下：</p>
+<h2 id="12-坐标系类"><a class="markdownIt-Anchor" href="#12-坐标系类"></a> 12. 坐标系类</h2>
+<h3 id="120-数轴类-numberline"><a class="markdownIt-Anchor" href="#120-数轴类-numberline"></a> 12.0 数轴类 <code>NumberLine</code></h3>
+<p>继承于<code>Line</code>,属性如下：</p>
 <pre><code class="hljs python">CONFIG = {
         <span class="hljs-string">"color"</span>: LIGHT_GREY,
         <span class="hljs-comment"># X的范围</span>
@@ -1330,7 +1423,8 @@ y_label = <span class="hljs-constructor">TextMobject(<span class="hljs-params">s
 <p><img src="1567675075732.png" srcset="/img/loading.gif" alt="1567675075732"></p>
 <p>本质上来说，数轴是一条线（Line），每一个间隔（tick）均为小的线(Line)</p>
 <p>整个构建流程是，先画出横线作为坐标轴，然后从左到右画出一个个小竖线，最后增加数字，箭头等小部件</p>
-<h3 id="12-1-坐标系抽象类-CoordinateSystem"><a href="#12-1-坐标系抽象类-CoordinateSystem" class="headerlink" title="12.1 坐标系抽象类 CoordinateSystem"></a>12.1 坐标系抽象类 <code>CoordinateSystem</code></h3><pre><code class="hljs python">CONFIG = {
+<h3 id="121-坐标系抽象类-coordinatesystem"><a class="markdownIt-Anchor" href="#121-坐标系抽象类-coordinatesystem"></a> 12.1 坐标系抽象类 <code>CoordinateSystem</code></h3>
+<pre><code class="hljs python">CONFIG = {
         <span class="hljs-string">"dimension"</span>: <span class="hljs-number">2</span>,
         <span class="hljs-string">"x_min"</span>: -FRAME_X_RADIUS,
         <span class="hljs-string">"x_max"</span>: FRAME_X_RADIUS,
@@ -1340,24 +1434,35 @@ y_label = <span class="hljs-constructor">TextMobject(<span class="hljs-params">s
 <p>主要的几个抽象方法：</p>
 <p><strong><code>coords</code>指的是坐标轴中的点的值,<code>point</code>指没有坐标轴时真实的坐标，在创建坐标轴时候中心设置在ORIGIN，坐标大小没有缩放的时候两者是一样的</strong></p>
 <ul>
-<li><p><code>coords_to_point(*coords)；c2p(*coords)</code>:将坐标系中的点的坐标值转换为屏幕上的点</p>
+<li>
+<p><code>coords_to_point(*coords)；c2p(*coords)</code>:将坐标系中的点的坐标值转换为屏幕上的点</p>
 </li>
-<li><p><code>point_to_coords(point)；p2c(point)</code>：coords_to_point逆方法</p>
+<li>
+<p><code>point_to_coords(point)；p2c(point)</code>：coords_to_point逆方法</p>
 </li>
-<li><p><code>get_axes()</code>:得到CoordinateSystem对象，一般为包含x,y,z坐标的数组</p>
+<li>
+<p><code>get_axes()</code>:得到CoordinateSystem对象，一般为包含x,y,z坐标的数组</p>
 </li>
-<li><p><code>get_axis(index)</code>:得到index对应的坐标，xyz坐标对应的index分别为1，2，3</p>
+<li>
+<p><code>get_axis(index)</code>:得到index对应的坐标，xyz坐标对应的index分别为1，2，3</p>
 </li>
-<li><p><code>get_x_axis(); get_y_axis(); get_z_axis()</code></p>
+<li>
+<p><code>get_x_axis(); get_y_axis(); get_z_axis()</code></p>
 </li>
-<li><p><code>get_axis_label</code>一类：给对应的坐标（轴）添加标签，显示标签，并返回标签对象</p>
+<li>
+<p><code>get_axis_label</code>一类：给对应的坐标（轴）添加标签，显示标签，并返回标签对象</p>
 <ul>
-<li><code>get_axis_label(label_tex, axis, edge, direction, buff=MED_SMALL_BUFF)</code>:</li>
-<li><p><code>get_axis_labels(x_label_tex="x", y_label_tex="y")</code>：</p>
+<li>
+<p><code>get_axis_label(label_tex, axis, edge, direction, buff=MED_SMALL_BUFF)</code>:</p>
 </li>
-<li><p><code>get_x_axis_label(label_tex, edge=RIGHT, direction=DL, **kwargs)</code>：</p>
+<li>
+<p><code>get_axis_labels(x_label_tex="x", y_label_tex="y")</code>：</p>
 </li>
-<li><p><code>get_y_axis_label(label_tex, edge=UP, direction=DR, **kwargs)</code>:</p>
+<li>
+<p><code>get_x_axis_label(label_tex, edge=RIGHT, direction=DL, **kwargs)</code>：</p>
+</li>
+<li>
+<p><code>get_y_axis_label(label_tex, edge=UP, direction=DR, **kwargs)</code>:</p>
 </li>
 </ul>
 <p><code>label_tex</code>:坐标标签，使用latex字符串(TexMobject)</p>
@@ -1370,9 +1475,10 @@ y_label = <span class="hljs-constructor">TextMobject(<span class="hljs-params">s
 <p><code>get_graph(function, **kwargs)</code>:给定方程，绘制图像并返回</p>
 <p><code>get_parametric_curve(function, **kwargs)</code>:绘制给定参数曲线方程并返回</p>
 <p><code>input_to_graph_point(x, graph)</code>:暂时没搞清楚啥玩意</p>
-<h3 id="12-2-二维坐标类-Axes"><a href="#12-2-二维坐标类-Axes" class="headerlink" title="12.2 二维坐标类 Axes"></a>12.2 二维坐标类 <code>Axes</code></h3><p>继承<code>CoordinateSystem</code></p>
+<h3 id="122-二维坐标类-axes"><a class="markdownIt-Anchor" href="#122-二维坐标类-axes"></a> 12.2 二维坐标类 <code>Axes</code></h3>
+<p>继承<code>CoordinateSystem</code></p>
 <p>实质是创造两个NumberLine数轴，然后将其中一个按照中心旋转90度，作为Y轴，然后对X，Y轴进行其他的属性进行调整，所以配置里面有<code>"number_line_config"</code></p>
-<p><strong>`Axes(</strong>kwargs)`**</p>
+<p><strong><code>Axes(**kwargs)</code></strong></p>
 <pre><code class="hljs python">CONFIG = {
     	<span class="hljs-comment"># 数轴的配置</span>
         <span class="hljs-string">"number_line_config"</span>: {
@@ -1391,7 +1497,8 @@ y_label = <span class="hljs-constructor">TextMobject(<span class="hljs-params">s
     }</code></pre>
 <p>实现了：</p>
 <ol>
-<li><p><code>coords_to_point(*coords)；c2p(*coords)</code>:将坐标系中的点的坐标值转换为屏幕（帧图）上的点</p>
+<li>
+<p><code>coords_to_point(*coords)；c2p(*coords)</code>:将坐标系中的点的坐标值转换为屏幕（帧图）上的点</p>
 <p>分析一下源码：</p>
 </li>
 </ol>
@@ -1404,14 +1511,15 @@ y_label = <span class="hljs-constructor">TextMobject(<span class="hljs-params">s
     <span class="hljs-keyword">for</span> axis, coord <span class="hljs-keyword">in</span> zip(self.get_axes(), coords):
         result += (axis.number_to_point(coord) - origin)
     <span class="hljs-keyword">return</span> result</code></pre>
-<ol>
+<ol start="2">
 <li><code>point_to_coords(point)；p2c(point)</code></li>
 </ol>
 <p>增加了方法：</p>
 <p><code>get_coordinate_labels(x_vals=None, y_vals=None)</code>：传入x,y标签的latex字符串，得到对应的x,y坐标轴的标签的对象</p>
 <p><code>add_coordinates(x_vals=None, y_vals=None)</code>:和<code>get_coordinate_labels</code>相似，但是将其加入了自己的成员变量并返回了自己</p>
-<h3 id="12-3-三维坐标系类-ThreeDAxes"><a href="#12-3-三维坐标系类-ThreeDAxes" class="headerlink" title="12.3 三维坐标系类 ThreeDAxes"></a>12.3 三维坐标系类 <code>ThreeDAxes</code></h3><p>继承自Axes</p>
-<p><strong>`ThreeDAxes(</strong>kwargs)`**</p>
+<h3 id="123-三维坐标系类-threedaxes"><a class="markdownIt-Anchor" href="#123-三维坐标系类-threedaxes"></a> 12.3 三维坐标系类 <code>ThreeDAxes</code></h3>
+<p>继承自Axes</p>
+<p><strong><code>ThreeDAxes(**kwargs)</code></strong></p>
 <pre><code class="hljs python">CONFIG = {
         <span class="hljs-string">"dimension"</span>: <span class="hljs-number">3</span>,
         <span class="hljs-string">"x_min"</span>: <span class="hljs-number">-5.5</span>,
@@ -1425,7 +1533,9 @@ y_label = <span class="hljs-constructor">TextMobject(<span class="hljs-params">s
         <span class="hljs-string">"num_axis_pieces"</span>: <span class="hljs-number">20</span>,
         <span class="hljs-string">"light_source"</span>: <span class="hljs-number">9</span> * DOWN + <span class="hljs-number">7</span> * LEFT + <span class="hljs-number">1</span>
     }</code></pre>
-<h3 id="12-4-NumberPlane"><a href="#12-4-NumberPlane" class="headerlink" title="12.4 NumberPlane"></a>12.4 <code>NumberPlane</code></h3><h3 id="12-5-ComplexPlane"><a href="#12-5-ComplexPlane" class="headerlink" title="12.5 ComplexPlane"></a>12.5 <code>ComplexPlane</code></h3><p>复数坐标系，继承于<code>NumberPlane</code></p>
+<h3 id="124-numberplane"><a class="markdownIt-Anchor" href="#124-numberplane"></a> 12.4 <code>NumberPlane</code></h3>
+<h3 id="125-complexplane"><a class="markdownIt-Anchor" href="#125-complexplane"></a> 12.5 <code>ComplexPlane</code></h3>
+<p>复数坐标系，继承于<code>NumberPlane</code></p>
 <pre><code class="hljs python"><span class="hljs-comment"># author:TB</span>
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ComplexPlaneScene</span><span class="hljs-params">(Scene)</span>:</span>
     <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">construct</span><span class="hljs-params">(self)</span>:</span>
@@ -1450,10 +1560,13 @@ y_label = <span class="hljs-constructor">TextMobject(<span class="hljs-params">s
         y_label.move_to(cp.c2p(-y_label.get_width(), <span class="hljs-number">3.8</span>))
         self.add(cp, x_label, y_label)
         self.wait()</code></pre>
-<h2 id="附录A：常见的常数"><a href="#附录A：常见的常数" class="headerlink" title="附录A：常见的常数"></a>附录A：常见的常数</h2><p><code>manimlib\constants.py</code></p>
-<h3 id="1-颜色"><a href="#1-颜色" class="headerlink" title="1. 颜色"></a>1. 颜色</h3><p>见<code>constants.py</code>中 <strong><code>COLOR_MAP</code></strong> 中的列表</p>
+<h2 id="附录a常见的常数"><a class="markdownIt-Anchor" href="#附录a常见的常数"></a> 附录A：常见的常数</h2>
+<p><code>manimlib\constants.py</code></p>
+<h3 id="1-颜色"><a class="markdownIt-Anchor" href="#1-颜色"></a> 1. 颜色</h3>
+<p>见<code>constants.py</code>中 <strong><code>COLOR_MAP</code></strong> 中的列表</p>
 <p>具体效果见<a href="https://elteoremadebeethoven.github.io/manim_3feb_docs.github.io/html/_static/colors/colors.html" target="_blank" rel="noopener">TB的教程</a></p>
-<h3 id="2-方向"><a href="#2-方向" class="headerlink" title="2. 方向"></a>2. 方向</h3><pre><code class="hljs python">ORIGIN = np.array((<span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>))
+<h3 id="2-方向"><a class="markdownIt-Anchor" href="#2-方向"></a> 2. 方向</h3>
+<pre><code class="hljs python">ORIGIN = np.array((<span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>))
 UP = np.array((<span class="hljs-number">0.</span>, <span class="hljs-number">1.</span>, <span class="hljs-number">0.</span>))
 DOWN = np.array((<span class="hljs-number">0.</span>, <span class="hljs-number">-1.</span>, <span class="hljs-number">0.</span>))
 RIGHT = np.array((<span class="hljs-number">1.</span>, <span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>))
@@ -1472,10 +1585,12 @@ TOP = FRAME_Y_RADIUS * UP
 BOTTOM = FRAME_Y_RADIUS * DOWN
 LEFT_SIDE = FRAME_X_RADIUS * LEFT
 RIGHT_SIDE = FRAME_X_RADIUS * RIGHT</code></pre>
-<h3 id="3-角度"><a href="#3-角度" class="headerlink" title="3. 角度"></a>3. 角度</h3><pre><code class="hljs python">PI = np.pi
+<h3 id="3-角度"><a class="markdownIt-Anchor" href="#3-角度"></a> 3. 角度</h3>
+<pre><code class="hljs python">PI = np.pi
 TAU = <span class="hljs-number">2</span> * PI
 DEGREES = TAU / <span class="hljs-number">360</span></code></pre>
-<h3 id="4-距离"><a href="#4-距离" class="headerlink" title="4. 距离"></a>4. 距离</h3><pre><code class="hljs python">SMALL_BUFF = <span class="hljs-number">0.1</span>
+<h3 id="4-距离"><a class="markdownIt-Anchor" href="#4-距离"></a> 4. 距离</h3>
+<pre><code class="hljs python">SMALL_BUFF = <span class="hljs-number">0.1</span>
 MED_SMALL_BUFF = <span class="hljs-number">0.25</span>
 MED_LARGE_BUFF = <span class="hljs-number">0.5</span>
 LARGE_BUFF = <span class="hljs-number">1</span>
@@ -1801,40 +1916,8 @@ DEFAULT_MOBJECT_TO_MOBJECT_BUFFER = MED_SMALL_BUFF</code></pre><script>
   
 
   
-    <!-- MathJax -->
-    <script>
-      MathJax = {
-        tex: {
-          inlineMath: [['$', '$'], ['\\(', '\\)']]
-        },
-        options: {
-          renderActions: {
-            findScript: [10, doc => {
-              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
-                const display = !!node.type.match(/; *mode=display/);
-                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
-                const text = document.createTextNode('');
-                node.parentNode.replaceChild(text, node);
-                math.start = { node: text, delim: '', n: 0 };
-                math.end = { node: text, delim: '', n: 0 };
-                doc.math.push(math);
-              });
-            }, '', false],
-            insertedScript: [200, () => {
-              document.querySelectorAll('mjx-container').forEach(node => {
-                let target = node.parentNode;
-                if (target.nodeName.toLowerCase() === 'li') {
-                  target.parentNode.classList.add('has-jax');
-                }
-              });
-            }, '', false]
-          }
-        }
-      };
-    </script>
-
-    <script async src="https://cdn.staticfile.org/mathjax/3.0.5/es5/tex-svg.js" ></script>
-
+    <!-- KaTeX -->
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/KaTeX/0.11.1/katex.min.css" />
   
 
 

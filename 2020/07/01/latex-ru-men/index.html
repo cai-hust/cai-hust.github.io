@@ -177,7 +177,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      2.4k 字
+      2.5k 字
     </span>
   
 
@@ -187,7 +187,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      36
+      37
        分钟
     </span>
   
@@ -232,7 +232,9 @@
               </p>
             
             <article class="markdown-body">
-              <h1 id="1-Latex框架和总体设置"><a href="#1-Latex框架和总体设置" class="headerlink" title="1. Latex框架和总体设置"></a>1. Latex框架和总体设置</h1><h2 id="1-1-框架"><a href="#1-1-框架" class="headerlink" title="1.1 框架"></a>1.1 框架</h2><pre><code class="hljs latex">\documentclass[UTF8,a4paper,12pt]{ctexart}
+              <h1 id="1-latex框架和总体设置"><a class="markdownIt-Anchor" href="#1-latex框架和总体设置"></a> 1. Latex框架和总体设置</h1>
+<h2 id="11-框架"><a class="markdownIt-Anchor" href="#11-框架"></a> 1.1 框架</h2>
+<pre><code class="hljs latex">\documentclass[UTF8,a4paper,12pt]{ctexart}
 \title{LaTeX入门教程}
 \date{} %不显示时间
 
@@ -240,15 +242,20 @@
   \maketitle
   中文内容
 \end{document}</code></pre>
-<h1 id="1-2-标题-section"><a href="#1-2-标题-section" class="headerlink" title="1.2 标题 section"></a>1.2 标题 section</h1><h3 id="1-2-1-一级标题"><a href="#1-2-1-一级标题" class="headerlink" title="1.2.1 一级标题"></a>1.2.1 一级标题</h3><pre><code class="hljs latex">\section{一级标题}  % 有序号
+<h1 id="12-标题-section"><a class="markdownIt-Anchor" href="#12-标题-section"></a> 1.2 标题 section</h1>
+<h3 id="121-一级标题"><a class="markdownIt-Anchor" href="#121-一级标题"></a> 1.2.1 一级标题</h3>
+<pre><code class="hljs latex">\section{一级标题}  % 有序号
 \section*{一级标题} % 无序号</code></pre>
-<h3 id="1-2-2-二级标题"><a href="#1-2-2-二级标题" class="headerlink" title="1.2.2 二级标题"></a>1.2.2 二级标题</h3><pre><code class="hljs latex">\subsection{二级标题}  % 有序号
+<h3 id="122-二级标题"><a class="markdownIt-Anchor" href="#122-二级标题"></a> 1.2.2 二级标题</h3>
+<pre><code class="hljs latex">\subsection{二级标题}  % 有序号
 \subsection*{二级标题} % 无序号</code></pre>
-<h3 id="1-2-3-标题label"><a href="#1-2-3-标题label" class="headerlink" title="1.2.3 标题label"></a>1.2.3 标题label</h3><pre><code class="hljs latex">\section{System} % 章节标题
+<h3 id="123-标题label"><a class="markdownIt-Anchor" href="#123-标题label"></a> 1.2.3 标题label</h3>
+<pre><code class="hljs latex">\section{System} % 章节标题
 	\label{sec:system} %标题的标签
 
 \ref{sec:conclusions} %在正文中引用这个标题名</code></pre>
-<h2 id="1-3-标题形式"><a href="#1-3-标题形式" class="headerlink" title="1.3 标题形式"></a>1.3 标题形式</h2><pre><code class="hljs latex">% 章节序号 和 序号字体大小
+<h2 id="13-标题形式"><a class="markdownIt-Anchor" href="#13-标题形式"></a> 1.3 标题形式</h2>
+<pre><code class="hljs latex">% 章节序号 和 序号字体大小
 \renewcommand{\thesection}{{\zihao{4} \chinese{section}.}} % 一.
 \renewcommand{\thesubsection}{{\zihao{-4}\arabic{section}.\arabic{subsection}}} % 1.1
 
@@ -258,12 +265,14 @@
 \roman (i, ii, iii, ...)
 \Roman (I, II, III, ...)
 \chinese (一，二，三，四，...)</code></pre>
-<h2 id="1-4-字体字号"><a href="#1-4-字体字号" class="headerlink" title="1.4 字体字号"></a>1.4 字体字号</h2><pre><code class="hljs latex">{\songti 你好} % 宋体
+<h2 id="14-字体字号"><a class="markdownIt-Anchor" href="#14-字体字号"></a> 1.4 字体字号</h2>
+<pre><code class="hljs latex">{\songti 你好} % 宋体
 {\heiti 你好}  % 黑体
 \textbf{你好}  % 加粗</code></pre>
 <pre><code class="hljs tex">{<span class="hljs-tag">\<span class="hljs-name">zihao</span><span class="hljs-string">{4}</span></span> 你好} <span class="hljs-comment">% 四号字体</span>
 {<span class="hljs-tag">\<span class="hljs-name">zihao</span><span class="hljs-string">{-4}</span></span> 你好} <span class="hljs-comment">% 小四号字体</span></code></pre>
-<h2 id="1-5-行距"><a href="#1-5-行距" class="headerlink" title="1.5 行距"></a>1.5 行距</h2><p>在导言部分</p>
+<h2 id="15-行距"><a class="markdownIt-Anchor" href="#15-行距"></a> 1.5 行距</h2>
+<p>在导言部分</p>
 <pre><code class="hljs latex">% 行距，单倍行距
 \usepackage{setspace}
 \setstretch{1}
@@ -275,13 +284,15 @@
 1：单倍行距
 1.2：1.5倍行距
 1.6：2倍行距</code></pre>
-<h2 id="1-6-页眉页脚"><a href="#1-6-页眉页脚" class="headerlink" title="1.6 页眉页脚"></a>1.6 页眉页脚</h2><pre><code class="hljs latex">% 页眉页脚
+<h2 id="16-页眉页脚"><a class="markdownIt-Anchor" href="#16-页眉页脚"></a> 1.6 页眉页脚</h2>
+<pre><code class="hljs latex">% 页眉页脚
 \usepackage{fancyhdr}
 \pagestyle{fancy}
 \fancyhf{}
 \cfoot{\thepage} % 页脚居中写页码
 \fancyhead[R]{\textbf{参赛队号 $\#\,6794$}} % 页脚写队名</code></pre>
-<h2 id="1-7-图表公式的编号形式"><a href="#1-7-图表公式的编号形式" class="headerlink" title="1.7 图表公式的编号形式"></a>1.7 图表公式的编号形式</h2><pre><code class="hljs latex">% 图、表、公式的编号
+<h2 id="17-图表公式的编号形式"><a class="markdownIt-Anchor" href="#17-图表公式的编号形式"></a> 1.7 图表公式的编号形式</h2>
+<pre><code class="hljs latex">% 图、表、公式的编号
 \renewcommand{\thefigure}{\arabic{section}-\arabic{figure}} # 5-1
 \renewcommand{\thetable}{\arabic{section}-\arabic{table}} # 5-1
 \renewcommand{\theequation}{\arabic{section}-\arabic{equation}} # 5-1
@@ -290,10 +301,12 @@
 如图 \ref{Fig:character}所示 % 如图5-1所示
 % 对多个图中的字图的引用
 如图 \arabic{section}-\ref{Fig:character:a}所示 % 如图5-1(a)所示</code></pre>
-<h2 id="1-8-字体"><a href="#1-8-字体" class="headerlink" title="1.8 字体"></a>1.8 字体</h2><pre><code class="hljs latex">\textbf{字体} % 粗体
+<h2 id="18-字体"><a class="markdownIt-Anchor" href="#18-字体"></a> 1.8 字体</h2>
+<pre><code class="hljs latex">\textbf{字体} % 粗体
 \textit{字体} % 斜体
 \emph{重点}   % 强调</code></pre>
-<h2 id="1-9-颜色"><a href="#1-9-颜色" class="headerlink" title="1.9 颜色"></a>1.9 颜色</h2><pre><code class="hljs latex">\definecolor{Red}{RGB}{225,0,0}
+<h2 id="19-颜色"><a class="markdownIt-Anchor" href="#19-颜色"></a> 1.9 颜色</h2>
+<pre><code class="hljs latex">\definecolor{Red}{RGB}{225,0,0}
 \definecolor{Green}{RGB}{0,225,0}
 \definecolor{Blue}{RGB}{0,0,225}
 
@@ -301,12 +314,15 @@
 \textcolor{Red}{text}
 \textcolor{Green}{text}
 \textcolor{Blue}{text}</code></pre>
-<h2 id="1-10-空格"><a href="#1-10-空格" class="headerlink" title="1.10 空格"></a>1.10 空格</h2><pre><code class="hljs latex">\quad
+<h2 id="110-空格"><a class="markdownIt-Anchor" href="#110-空格"></a> 1.10 空格</h2>
+<pre><code class="hljs latex">\quad
 \qquad
 \,
 \ (空格)
 \/</code></pre>
-<h1 id="2-插入图片"><a href="#2-插入图片" class="headerlink" title="2. 插入图片"></a>2. 插入图片</h1><h2 id="2-1-单个图片"><a href="#2-1-单个图片" class="headerlink" title="2.1 单个图片"></a>2.1 单个图片</h2><pre><code class="hljs latex">% 添加包
+<h1 id="2-插入图片"><a class="markdownIt-Anchor" href="#2-插入图片"></a> 2. 插入图片</h1>
+<h2 id="21-单个图片"><a class="markdownIt-Anchor" href="#21-单个图片"></a> 2.1 单个图片</h2>
+<pre><code class="hljs latex">% 添加包
 % figure 1
 \usepackage{graphicx}
 \usepackage{float}
@@ -321,7 +337,9 @@
 
 % 在中文中需要引用图片的地方
 如图 \ref{fig:figure1label} 所示</code></pre>
-<h2 id="2-2-两个图片并列"><a href="#2-2-两个图片并列" class="headerlink" title="2.2 两个图片并列"></a>2.2 两个图片并列</h2><h3 id="2-2-1-两个并排图片，单独标题"><a href="#2-2-1-两个并排图片，单独标题" class="headerlink" title="2.2.1 两个并排图片，单独标题"></a>2.2.1 两个并排图片，单独标题</h3><pre><code class="hljs latex">% 使用的宏包
+<h2 id="22-两个图片并列"><a class="markdownIt-Anchor" href="#22-两个图片并列"></a> 2.2 两个图片并列</h2>
+<h3 id="221-两个并排图片单独标题"><a class="markdownIt-Anchor" href="#221-两个并排图片单独标题"></a> 2.2.1 两个并排图片，单独标题</h3>
+<pre><code class="hljs latex">% 使用的宏包
 \begin{minipage}[t]{0.5\linewidth}
 \end{minipage}</code></pre>
 <pre><code class="hljs latex">\begin{figure}[H]
@@ -338,7 +356,8 @@
 			\label{Fig:right}
 		\end{minipage}
 	\end{figure}</code></pre>
-<h3 id="2-2-2-两个并排图片，单独小标题，共享大标题"><a href="#2-2-2-两个并排图片，单独小标题，共享大标题" class="headerlink" title="2.2.2 两个并排图片，单独小标题，共享大标题"></a>2.2.2 两个并排图片，单独小标题，共享大标题</h3><pre><code class="hljs latex">% 使用宏包
+<h3 id="222-两个并排图片单独小标题共享大标题"><a class="markdownIt-Anchor" href="#222-两个并排图片单独小标题共享大标题"></a> 2.2.2 两个并排图片，单独小标题，共享大标题</h3>
+<pre><code class="hljs latex">% 使用宏包
 \subfigure[小标题]{}</code></pre>
 <pre><code class="hljs latex">% 添加红包 \usepackage{subfigure}
 \begin{figure}[H]
@@ -358,7 +377,9 @@
 		}
 		\caption{G1 after first step of algorithm.}
 \end{figure}</code></pre>
-<h1 id="3-插入表格"><a href="#3-插入表格" class="headerlink" title="3. 插入表格"></a>3. 插入表格</h1><h2 id="3-1-生成表格"><a href="#3-1-生成表格" class="headerlink" title="3.1 生成表格"></a>3.1 生成表格</h2><pre><code class="hljs latex">\usepackage{booktabs} % 绘制三线表</code></pre>
+<h1 id="3-插入表格"><a class="markdownIt-Anchor" href="#3-插入表格"></a> 3. 插入表格</h1>
+<h2 id="31-生成表格"><a class="markdownIt-Anchor" href="#31-生成表格"></a> 3.1 生成表格</h2>
+<pre><code class="hljs latex">\usepackage{booktabs} % 绘制三线表</code></pre>
 <pre><code class="hljs latex">\begin{table}[htp]
 	\centering
 	\caption{常用符号说明}
@@ -376,16 +397,22 @@
 <li>latex表格生成网站:<a href="http://www.tablesgenerator.com/" target="_blank" rel="noopener">http://www.tablesgenerator.com/</a></li>
 <li>excel转latex:<a href="https://tableconvert.com/" target="_blank" rel="noopener">https://tableconvert.com/</a></li>
 </ul>
-<h2 id="3-2-表格引用"><a href="#3-2-表格引用" class="headerlink" title="3.2 表格引用"></a>3.2 表格引用</h2><pre><code class="hljs latex">如表格 \ref{tab:DH}所示。</code></pre>
-<h1 id="4-数学公式"><a href="#4-数学公式" class="headerlink" title="4. 数学公式"></a>4. 数学公式</h1><h2 id="4-0-包"><a href="#4-0-包" class="headerlink" title="4.0 包"></a>4.0 包</h2><pre><code class="hljs latex">\usepackage{amsmath}
+<h2 id="32-表格引用"><a class="markdownIt-Anchor" href="#32-表格引用"></a> 3.2 表格引用</h2>
+<pre><code class="hljs latex">如表格 \ref{tab:DH}所示。</code></pre>
+<h1 id="4-数学公式"><a class="markdownIt-Anchor" href="#4-数学公式"></a> 4. 数学公式</h1>
+<h2 id="40-包"><a class="markdownIt-Anchor" href="#40-包"></a> 4.0 包</h2>
+<pre><code class="hljs latex">\usepackage{amsmath}
 \usepackage{bm} % 数学公式中使用的黑体 \bm{R}</code></pre>
-<h2 id="4-1-单个方程"><a href="#4-1-单个方程" class="headerlink" title="4.1 单个方程"></a>4.1 单个方程</h2><pre><code class="hljs latex">\begin{equation}
+<h2 id="41-单个方程"><a class="markdownIt-Anchor" href="#41-单个方程"></a> 4.1 单个方程</h2>
+<pre><code class="hljs latex">\begin{equation}
 y = ax+b
 \end{equation}</code></pre>
-<script type="math/tex; mode=display">
 \begin{equation}
 y = ax+b
-\end{equation}</script><h2 id="4-2-方程组"><a href="#4-2-方程组" class="headerlink" title="4.2 方程组"></a>4.2 方程组</h2><pre><code class="hljs latex">% 左大括号
+\end{equation}
+
+<h2 id="42-方程组"><a class="markdownIt-Anchor" href="#42-方程组"></a> 4.2 方程组</h2>
+<pre><code class="hljs latex">% 左大括号
 \begin{equation}
     \begin{cases}
     y_1 = a_1x + b_1\\
@@ -410,44 +437,50 @@ y = ax+b
 		\end{gathered}
 	\right .
 \end{equation}</code></pre>
-<script type="math/tex; mode=display">
 % 左大括号
 \begin{equation}
     \begin{cases}
     y_1 = a_1x + b_1\\
     y_2 = a_2x + b_2
     \end{cases}
-\end{equation}</script><script type="math/tex; mode=display">
+\end{equation}
+
 % 两个方程是一组(使用1个编号)，没有左大括号
 \begin{equation}
     \begin{gathered}
     y_1 = a_1x + b_1\\
     y_2 = a_2x + b_2
     \end{gathered}
-\end{equation}</script><script type="math/tex; mode=display">
+\end{equation}
+
 % 两个方程是一组(使用1个编号)，有左大括号
 \begin{equation}
-    \left \{
-        \begin{gathered}
-            y_1 = a_1x + b_1\\
-            y_2 = a_2x + b_2
-        \end{gathered}
-    \right .
-\end{equation}</script><h2 id="4-3-拆分单个公式"><a href="#4-3-拆分单个公式" class="headerlink" title="4.3 拆分单个公式"></a>4.3 拆分单个公式</h2><pre><code class="hljs latex">% 将一个长的公式分两行写
+	\left \{
+		\begin{gathered}
+			y_1 = a_1x + b_1\\
+			y_2 = a_2x + b_2
+		\end{gathered}
+	\right .
+\end{equation}
+
+<h2 id="43-拆分单个公式"><a class="markdownIt-Anchor" href="#43-拆分单个公式"></a> 4.3 拆分单个公式</h2>
+<pre><code class="hljs latex">% 将一个长的公式分两行写
 \begin{equation}
     \begin{split}
     y =&amp; a + b + c\\
        &amp; + d + e
     \end{split}
 \end{equation}</code></pre>
-<script type="math/tex; mode=display">
 % 将一个长的公式分两行写
 \begin{equation}
     \begin{split}
-    y =& a + b + c\\
-       & + d + e
+    y =&amp; a + b + c\\
+       &amp; + d + e
     \end{split}
-\end{equation}</script><h2 id="4-4-分段函数"><a href="#4-4-分段函数" class="headerlink" title="4.4 分段函数"></a>4.4 分段函数</h2><pre><code class="hljs latex">\begin{equation}
+\end{equation}
+
+<h2 id="44-分段函数"><a class="markdownIt-Anchor" href="#44-分段函数"></a> 4.4 分段函数</h2>
+<pre><code class="hljs latex">\begin{equation}
 T=
     \begin{cases}
         0       &amp; a&lt;2\\
@@ -455,33 +488,39 @@ T=
         3       &amp; a&gt;2
     \end{cases}
 \end{equation}</code></pre>
-<script type="math/tex; mode=display">
 \begin{equation}
 T=
     \begin{cases}
-        0       & a<2\\
-        1       & a=2\\
-        3       & a>2
+        0       &amp; a&lt;2\\
+        1       &amp; a=2\\
+        3       &amp; a&gt;2
     \end{cases}
-\end{equation}</script><h2 id="4-5-矩阵"><a href="#4-5-矩阵" class="headerlink" title="4.5 矩阵"></a>4.5 矩阵</h2><pre><code class="hljs latex">\begin{equation}
+\end{equation}
+
+<h2 id="45-矩阵"><a class="markdownIt-Anchor" href="#45-矩阵"></a> 4.5 矩阵</h2>
+<pre><code class="hljs latex">\begin{equation}
     \begin{bmatrix}
         a &amp; b\\
         c &amp; d
     \end{bmatrix}
 \end{equation}</code></pre>
-<script type="math/tex; mode=display">
 \begin{equation}
     \begin{bmatrix}
-        a & b\\
-        c & d
+        a &amp; b\\
+        c &amp; d
     \end{bmatrix}
-\end{equation}</script><h2 id="4-6-分子分母"><a href="#4-6-分子分母" class="headerlink" title="4.6 分子分母"></a>4.6 分子分母</h2><pre><code class="hljs latex">\begin{equation}
+\end{equation}
+
+<h2 id="46-分子分母"><a class="markdownIt-Anchor" href="#46-分子分母"></a> 4.6 分子分母</h2>
+<pre><code class="hljs latex">\begin{equation}
     \frac{a+b}{c+d}
 \end{equation}</code></pre>
-<script type="math/tex; mode=display">
 \begin{equation}
     \frac{a+b}{c+d}
-\end{equation}</script><h2 id="4-7-希腊字母"><a href="#4-7-希腊字母" class="headerlink" title="4.7 希腊字母"></a>4.7 希腊字母</h2><pre><code class="hljs latex">% 小写希腊字母(大写希腊字母时，首字母大写即可)
+\end{equation}
+
+<h2 id="47-希腊字母"><a class="markdownIt-Anchor" href="#47-希腊字母"></a> 4.7 希腊字母</h2>
+<pre><code class="hljs latex">% 小写希腊字母(大写希腊字母时，首字母大写即可)
 \alpha
 \beta
 \gamma
@@ -498,8 +537,7 @@ T=
 \chi
 \psi
 \omega</code></pre>
-<script type="math/tex; mode=display">
-% 小写希腊字母(大写希腊字母时，首字母大写即可)
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>α</mi><mi>β</mi><mi>γ</mi><mi>δ</mi><mi>ϵ</mi><mi>η</mi><mi>θ</mi><mi>λ</mi><mi>μ</mi><mi>σ</mi><mi>τ</mi><mi>ϕ</mi><mi>φ</mi><mi>χ</mi><mi>ψ</mi><mi>ω</mi></mrow><annotation encoding="application/x-tex">% 小写希腊字母(大写希腊字母时，首字母大写即可)
 \alpha
 \beta
 \gamma
@@ -515,32 +553,47 @@ T=
 \varphi
 \chi
 \psi
-\omega</script><h2 id="4-8-数学算子"><a href="#4-8-数学算子" class="headerlink" title="4.8 数学算子"></a>4.8 数学算子</h2><pre><code class="hljs latex">\sum     % 求和
+\omega
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.0037em;">α</span><span class="mord mathdefault" style="margin-right:0.05278em;">β</span><span class="mord mathdefault" style="margin-right:0.05556em;">γ</span><span class="mord mathdefault" style="margin-right:0.03785em;">δ</span><span class="mord mathdefault">ϵ</span><span class="mord mathdefault" style="margin-right:0.03588em;">η</span><span class="mord mathdefault" style="margin-right:0.02778em;">θ</span><span class="mord mathdefault">λ</span><span class="mord mathdefault">μ</span><span class="mord mathdefault" style="margin-right:0.03588em;">σ</span><span class="mord mathdefault" style="margin-right:0.1132em;">τ</span><span class="mord mathdefault">ϕ</span><span class="mord mathdefault">φ</span><span class="mord mathdefault">χ</span><span class="mord mathdefault" style="margin-right:0.03588em;">ψ</span><span class="mord mathdefault" style="margin-right:0.03588em;">ω</span></span></span></span></span></p>
+<h2 id="48-数学算子"><a class="markdownIt-Anchor" href="#48-数学算子"></a> 4.8 数学算子</h2>
+<pre><code class="hljs latex">\sum     % 求和
 \prod    % 乘积
 \partial % 微分
 \int     % 积分
 \iint    % 二级积分
 \iiint   % 三级积分</code></pre>
-<script type="math/tex; mode=display">
-\sum     \\ % 求和 
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>∑</mo><mspace linebreak="newline"></mspace><mo>∏</mo><mspace linebreak="newline"></mspace><mi mathvariant="normal">∂</mi><mspace linebreak="newline"></mspace><mo>∫</mo><mspace linebreak="newline"></mspace><mo>∬</mo><mspace linebreak="newline"></mspace><mo>∭</mo><mspace linebreak="newline"></mspace></mrow><annotation encoding="application/x-tex">\sum     \\ % 求和 
 \prod    \\ % 乘积 
 \partial \\ % 微分
 \int     \\ % 积分
 \iint    \\ % 二级积分
-\iiint   \\ % 三级积分</script><h1 id="5-一些符号"><a href="#5-一些符号" class="headerlink" title="5. 一些符号"></a>5. 一些符号</h1><h2 id="5-1-度"><a href="#5-1-度" class="headerlink" title="5.1 度"></a>5.1 度</h2><pre><code class="hljs latex">90^{\circ}</code></pre>
-<script type="math/tex; mode=display">
-90^{\circ}</script><h2 id="5-2-角"><a href="#5-2-角" class="headerlink" title="5.2 角"></a>5.2 角</h2><pre><code class="hljs latex">\angle A = 90^{\circ}</code></pre>
-<script type="math/tex; mode=display">
-\angle A = 90^{\circ}</script><h2 id="5-3-单引号，双引号"><a href="#5-3-单引号，双引号" class="headerlink" title="5.3 单引号，双引号"></a>5.3 单引号，双引号</h2><pre><code class="hljs latex">'单引号'\\
+\iiint   \\ % 三级积分
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.6000100000000002em;vertical-align:-0.55001em;"></span><span class="mop op-symbol large-op" style="position:relative;top:-0.000004999999999977245em;">∑</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span></span><span class="mspace newline"></span><span class="base"><span class="strut" style="height:1.6000100000000002em;vertical-align:-0.55001em;"></span><span class="mop op-symbol large-op" style="position:relative;top:-0.000004999999999977245em;">∏</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span></span><span class="mspace newline"></span><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord" style="margin-right:0.05556em;">∂</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span></span><span class="mspace newline"></span><span class="base"><span class="strut" style="height:2.22225em;vertical-align:-0.86225em;"></span><span class="mop op-symbol large-op" style="margin-right:0.44445em;position:relative;top:-0.0011249999999999316em;">∫</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span></span><span class="mspace newline"></span><span class="base"><span class="strut" style="height:2.222em;vertical-align:-0.862em;"></span><span class="mop op-symbol large-op" style="margin-right:0.44445em;position:relative;top:-0.0009999999999999454em;">∬</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span></span><span class="mspace newline"></span><span class="base"><span class="strut" style="height:2.222em;vertical-align:-0.862em;"></span><span class="mop op-symbol large-op" style="margin-right:0.44445em;position:relative;top:-0.0009999999999999454em;">∭</span></span><span class="mspace newline"></span></span></span></span></p>
+<h1 id="5-一些符号"><a class="markdownIt-Anchor" href="#5-一些符号"></a> 5. 一些符号</h1>
+<h2 id="51-度"><a class="markdownIt-Anchor" href="#51-度"></a> 5.1 度</h2>
+<pre><code class="hljs latex">90^{\circ}</code></pre>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>9</mn><msup><mn>0</mn><mo>∘</mo></msup></mrow><annotation encoding="application/x-tex">90^{\circ}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.724115em;vertical-align:0em;"></span><span class="mord">9</span><span class="mord"><span class="mord">0</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.724115em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">∘</span></span></span></span></span></span></span></span></span></span></span></span></span></p>
+<h2 id="52-角"><a class="markdownIt-Anchor" href="#52-角"></a> 5.2 角</h2>
+<pre><code class="hljs latex">\angle A = 90^{\circ}</code></pre>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi mathvariant="normal">∠</mi><mi>A</mi><mo>=</mo><mn>9</mn><msup><mn>0</mn><mo>∘</mo></msup></mrow><annotation encoding="application/x-tex">\angle A = 90^{\circ}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69224em;vertical-align:0em;"></span><span class="mord">∠</span><span class="mord mathdefault">A</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.724115em;vertical-align:0em;"></span><span class="mord">9</span><span class="mord"><span class="mord">0</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.724115em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">∘</span></span></span></span></span></span></span></span></span></span></span></span></span></p>
+<h2 id="53-单引号双引号"><a class="markdownIt-Anchor" href="#53-单引号双引号"></a> 5.3 单引号，双引号</h2>
+<pre><code class="hljs latex">'单引号'\\
 ''双引号''</code></pre>
-<script type="math/tex; mode=display">
-'单引号'\\
-''双引号''</script><h2 id="5-4-横杠"><a href="#5-4-横杠" class="headerlink" title="5.4 横杠"></a>5.4 横杠</h2><pre><code class="hljs latex">-   \\ % 连字符
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mrow></mrow><mo mathvariant="normal">′</mo></msup><mi mathvariant="normal">单</mi><mi mathvariant="normal">引</mi><msup><mi mathvariant="normal">号</mi><mo mathvariant="normal">′</mo></msup><msup><mspace linebreak="newline"></mspace><mrow><mo mathvariant="normal">′</mo><mo mathvariant="normal">′</mo></mrow></msup><mi mathvariant="normal">双</mi><mi mathvariant="normal">引</mi><msup><mi mathvariant="normal">号</mi><mrow><mo mathvariant="normal">′</mo><mo mathvariant="normal">′</mo></mrow></msup></mrow><annotation encoding="application/x-tex">'单引号'\\
+''双引号''
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.801892em;vertical-align:0em;"></span><span class="mord"><span></span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.801892em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span><span class="mord cjk_fallback">单</span><span class="mord cjk_fallback">引</span><span class="mord"><span class="mord cjk_fallback">号</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.801892em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span><span class="mord"><span class="mspace newline"></span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.801892em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span><span class="mord mtight">′</span></span></span></span></span></span></span></span></span><span class="mord cjk_fallback">双</span><span class="mord cjk_fallback">引</span><span class="mord"><span class="mord cjk_fallback">号</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.801892em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span><span class="mord mtight">′</span></span></span></span></span></span></span></span></span></span></span></span></span></p>
+<h2 id="54-横杠"><a class="markdownIt-Anchor" href="#54-横杠"></a> 5.4 横杠</h2>
+<pre><code class="hljs latex">-   \\ % 连字符
 --  \\ % 数字范围
 --- \\ % 破折号</code></pre>
-<h2 id="5-5-下划线"><a href="#5-5-下划线" class="headerlink" title="5.5 下划线"></a>5.5 下划线</h2><pre><code class="hljs latex">\underline{论文} % 单下划线
+<h2 id="55-下划线"><a class="markdownIt-Anchor" href="#55-下划线"></a> 5.5 下划线</h2>
+<pre><code class="hljs latex">\underline{论文} % 单下划线
 \uuline{论文}    % 双下划线</code></pre>
-<h1 id="6-列表"><a href="#6-列表" class="headerlink" title="6. 列表"></a>6. 列表</h1><h2 id="6-1-列表"><a href="#6-1-列表" class="headerlink" title="6.1 列表"></a>6.1 列表</h2><pre><code class="hljs latex">% 列表里面嵌套列表
+<h1 id="6-列表"><a class="markdownIt-Anchor" href="#6-列表"></a> 6. 列表</h1>
+<h2 id="61-列表"><a class="markdownIt-Anchor" href="#61-列表"></a> 6.1 列表</h2>
+<pre><code class="hljs latex">% 列表里面嵌套列表
 \begin{enumerate}
 	\item [1.] 大学
 		\begin{enumerate}
@@ -551,7 +604,9 @@ T=
 		\end{enumerate}
 	\item [2.] 研究生
 \end{enumerate}</code></pre>
-<h1 id="7-插入代码"><a href="#7-插入代码" class="headerlink" title="7. 插入代码"></a>7. 插入代码</h1><h2 id="7-1-包"><a href="#7-1-包" class="headerlink" title="7.1 包"></a>7.1 包</h2><pre><code class="hljs latex">\usepackage{listings} % 插入代码的包
+<h1 id="7-插入代码"><a class="markdownIt-Anchor" href="#7-插入代码"></a> 7. 插入代码</h1>
+<h2 id="71-包"><a class="markdownIt-Anchor" href="#71-包"></a> 7.1 包</h2>
+<pre><code class="hljs latex">\usepackage{listings} % 插入代码的包
 \usepackage{xcolor} %颜色包
 
 \lstset{ %
@@ -581,7 +636,8 @@ T=
 	escapechar=`,                    % 中文注释
 	columns=flexible                % 非等款输出
 }</code></pre>
-<h2 id="7-2-代码"><a href="#7-2-代码" class="headerlink" title="7.2 代码"></a>7.2 代码</h2><pre><code class="hljs latex">% 先定义颜色
+<h2 id="72-代码"><a class="markdownIt-Anchor" href="#72-代码"></a> 7.2 代码</h2>
+<pre><code class="hljs latex">% 先定义颜色
 \definecolor{dkgreen}{rgb}{0,0.6,0}
 \definecolor{gray}{rgb}{0.5,0.5,0.5}
 \definecolor{MidnightBlue}{RGB}{25,25,112}
@@ -617,7 +673,9 @@ T=
 
   %...
 \end{lstlisting}</code></pre>
-<h1 id="8-文献引用"><a href="#8-文献引用" class="headerlink" title="8. 文献引用"></a>8. 文献引用</h1><h2 id="8-1-文献的下载"><a href="#8-1-文献的下载" class="headerlink" title="8.1 文献的下载"></a>8.1 文献的下载</h2><p>谷歌学术上下载文献后,点击如下图标:</p>
+<h1 id="8-文献引用"><a class="markdownIt-Anchor" href="#8-文献引用"></a> 8. 文献引用</h1>
+<h2 id="81-文献的下载"><a class="markdownIt-Anchor" href="#81-文献的下载"></a> 8.1 文献的下载</h2>
+<p>谷歌学术上下载文献后,点击如下图标:</p>
 <p><img src="image-20200111205436290.png" srcset="/img/loading.gif" alt="谷歌学术上下载文献"></p>
 <p>得到如下文本:</p>
 <pre><code class="hljs tex">@article{李德毅2004不确定性人工智能,
@@ -634,7 +692,8 @@ T=
 <p><img src="image-20200111205910856.png" srcset="/img/loading.gif" alt="添加文件副本"></p>
 <p>当有多条的时候,将需要的选中,然后右键导出条目.可以将所有选中条目导出为bibtex(.bib)文件:</p>
 <p><img src="image-20200111210233332.png" srcset="/img/loading.gif" alt="导出为bibtex"></p>
-<h2 id="8-2-bibtex文件的使用"><a href="#8-2-bibtex文件的使用" class="headerlink" title="8.2 bibtex文件的使用"></a>8.2 bibtex文件的使用</h2><p>latex文件使用cite包:</p>
+<h2 id="82-bibtex文件的使用"><a class="markdownIt-Anchor" href="#82-bibtex文件的使用"></a> 8.2 bibtex文件的使用</h2>
+<p>latex文件使用cite包:</p>
 <pre><code class="hljs latex">\usepackage{cite}</code></pre>
 <p>文档的结尾使用这两句话:</p>
 <pre><code class="hljs latex">\bibliographystyle{plain}
@@ -642,7 +701,7 @@ T=
 <p>其中ref是bibtex文件的名字(此代码处为ref.bib)</p>
 <p>当上面的文章需要使用bibtex中的文件,使用:</p>
 <pre><code class="hljs latex">\cite{__2004}</code></pre>
-<p>其中”__2004”是你要引用的条目的第一句话,例如本ref.bib文件如下:</p>
+<p>其中"__2004"是你要引用的条目的第一句话,例如本ref.bib文件如下:</p>
 <pre><code class="hljs latex">@article{__2004,
 	title = {不确定性人工智能},
 	volume = {15},
@@ -663,7 +722,7 @@ T=
 	pages = {0--0},
 	file = {邹蕾 和 张先锋 - 2012 - 人工智能及其发展应用.pdf:C\:\\Users\\25648\\Zotero\\storage\\3U4NZ6YF\\邹蕾 和 张先锋 - 2012 - 人工智能及其发展应用.pdf:application/pdf}
 }</code></pre>
-<p>所以”__2004”显示后就是如下效果:</p>
+<p>所以"__2004"显示后就是如下效果:</p>
 <p>代码部分:</p>
 <pre><code class="hljs latex">李德毅的文章\cite{__2004}
 \bibliographystyle{plain}
@@ -994,40 +1053,8 @@ T=
   
 
   
-    <!-- MathJax -->
-    <script>
-      MathJax = {
-        tex: {
-          inlineMath: [['$', '$'], ['\\(', '\\)']]
-        },
-        options: {
-          renderActions: {
-            findScript: [10, doc => {
-              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
-                const display = !!node.type.match(/; *mode=display/);
-                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
-                const text = document.createTextNode('');
-                node.parentNode.replaceChild(text, node);
-                math.start = { node: text, delim: '', n: 0 };
-                math.end = { node: text, delim: '', n: 0 };
-                doc.math.push(math);
-              });
-            }, '', false],
-            insertedScript: [200, () => {
-              document.querySelectorAll('mjx-container').forEach(node => {
-                let target = node.parentNode;
-                if (target.nodeName.toLowerCase() === 'li') {
-                  target.parentNode.classList.add('has-jax');
-                }
-              });
-            }, '', false]
-          }
-        }
-      };
-    </script>
-
-    <script async src="https://cdn.staticfile.org/mathjax/3.0.5/es5/tex-svg.js" ></script>
-
+    <!-- KaTeX -->
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/KaTeX/0.11.1/katex.min.css" />
   
 
 

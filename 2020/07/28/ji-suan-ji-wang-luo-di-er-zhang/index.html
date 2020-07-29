@@ -177,7 +177,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      4.1k 字
+      4.3k 字
     </span>
   
 
@@ -187,7 +187,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      44
+      46
        分钟
     </span>
   
@@ -232,7 +232,8 @@
               </p>
             
             <article class="markdown-body">
-              <h2 id="2-1-物理层的基本概念"><a href="#2-1-物理层的基本概念" class="headerlink" title="2.1 物理层的基本概念"></a>2.1 物理层的基本概念</h2><p>物理层考虑的是怎样才能在连接各种计算机的传输媒体上<strong>传输数据比特流</strong>，而不是指具体的传输媒体。对上层屏蔽底层差异。</p>
+              <h2 id="21-物理层的基本概念"><a class="markdownIt-Anchor" href="#21-物理层的基本概念"></a> 2.1 物理层的基本概念</h2>
+<p>物理层考虑的是怎样才能在连接各种计算机的传输媒体上<strong>传输数据比特流</strong>，而不是指具体的传输媒体。对上层屏蔽底层差异。</p>
 <p>用于物理层的协议也常称为物理层规程（procedure），协议与规程的意思一般是一样的。</p>
 <p>物理层的主要任务：确定传输媒体的接口有关的一些特性：</p>
 <ul>
@@ -241,9 +242,12 @@
 <li>功能特性：电平电压的意义</li>
 <li>过程特性：不同功能各种可能事件出现顺序</li>
 </ul>
-<h2 id="2-2-数据通信的基础知识"><a href="#2-2-数据通信的基础知识" class="headerlink" title="2.2 数据通信的基础知识"></a>2.2 数据通信的基础知识</h2><h3 id="2-2-1-数据通信系统的模型"><a href="#2-2-1-数据通信系统的模型" class="headerlink" title="2.2.1 数据通信系统的模型"></a>2.2.1 数据通信系统的模型</h3><p>一般的通信系统可以分为三个部分：源系统，传输系统，目的系统，如下图所示：</p>
+<h2 id="22-数据通信的基础知识"><a class="markdownIt-Anchor" href="#22-数据通信的基础知识"></a> 2.2 数据通信的基础知识</h2>
+<h3 id="221-数据通信系统的模型"><a class="markdownIt-Anchor" href="#221-数据通信系统的模型"></a> 2.2.1 数据通信系统的模型</h3>
+<p>一般的通信系统可以分为三个部分：源系统，传输系统，目的系统，如下图所示：</p>
 <p><img src="image-20200528181103983.png" srcset="/img/loading.gif" alt="通信系统的组成部分"></p>
-<h3 id="2-2-2-有关信道的几个基本概念"><a href="#2-2-2-有关信道的几个基本概念" class="headerlink" title="2.2.2 有关信道的几个基本概念"></a>2.2.2 有关信道的几个基本概念</h3><p>信道一般都是用来表示向某一个方向传送信息的媒体。因此，一条通信电路往往包含一条发送信道和一条接收信道。</p>
+<h3 id="222-有关信道的几个基本概念"><a class="markdownIt-Anchor" href="#222-有关信道的几个基本概念"></a> 2.2.2 有关信道的几个基本概念</h3>
+<p>信道一般都是用来表示向某一个方向传送信息的媒体。因此，一条通信电路往往包含一条发送信道和一条接收信道。</p>
 <p>一般信道通信有三种方式：<strong>单向信道（单工），双向交替信道（半双工)，双向同时信道（全双工）</strong></p>
 <p>来自信源的信号称为<strong>基带信号</strong>（基本频带信号），如文字图像的数字信号等。往往含有较多的低频成分，甚至直流成分，很多信道无法传输低频信号与直流信号，所以需要对基带信号进行<strong>调制（modulation）</strong>。</p>
 <blockquote>
@@ -258,7 +262,7 @@
 </blockquote>
 <p>调制的分类：</p>
 <ul>
-<li>基带调制：仅仅对基带信号的波形进行变换，把数字信号转换为另一种数字信号，变换后仍为基带信号,称为编码<strong>（coding）</strong>.</li>
+<li>基带调制：仅仅对基带信号的波形进行变换，把数字信号转换为另一种数字信号，变换后仍为基带信号,称为编码**（coding）**.</li>
 <li>带通调制：使用载波（carrier）进行调制，把基带信号频率范围搬移到较高的频段，并转换为模拟信号，可以很好在模拟信道传输，调制后的信号称为带通信号</li>
 </ul>
 <p>常用的编码如下：</p>
@@ -278,47 +282,60 @@
 <li><strong>调相</strong>（PM）：载波的初始相位随基带数字信号而变化</li>
 </ol>
 <p>为了达到更高的信息传输速率，可以使用更复杂的振幅相位混合调制方法，如<strong>正交振幅调制</strong>（QAM Quadrature Amplitude Modulation）</p>
-<h3 id="2-2-3-信道的极限容量"><a href="#2-2-3-信道的极限容量" class="headerlink" title="2.2.3 信道的极限容量"></a>2.2.3 信道的极限容量</h3><p>限制码元在信道上的传输速率的因素有以下两个：</p>
+<h3 id="223-信道的极限容量"><a class="markdownIt-Anchor" href="#223-信道的极限容量"></a> 2.2.3 信道的极限容量</h3>
+<p>限制码元在信道上的传输速率的因素有以下两个：</p>
 <ol>
-<li><p>信道能够通过的频率范围</p>
+<li>
+<p>信道能够通过的频率范围</p>
 <p>信道能够通过的频率范围具体的信道所能通过的频率范围总是有限的。信号中的许多高频分量往往不能通过信道。</p>
 <p>1924年，奈魁斯特（H. Nyquist）推导出<strong>无噪声有限带宽信道</strong>的最大数据传输率公式：</p>
-<script type="math/tex; mode=display">
-任意信号通过一个带宽为Ｈ的低通滤波器，每秒采样２Ｈ次就能完整地重现该信号，信号电平分为Ｖ级,则有:\\
-最大数据传输率 = 2Hlog_2V (bps)</script><p><strong>在任何信道中，码元传输的速率是有上限的，传输速率超过此上限，就会出现严重的码间串扰的问题，使接收端对码元的判决（即识别）成为不可能。</strong>如果信道的频带越宽，也就是能够通过的信号高频分量越多，那么就可以用更高的速率传送码元而不出现码间串扰。</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi mathvariant="normal">任</mi><mi mathvariant="normal">意</mi><mi mathvariant="normal">信</mi><mi mathvariant="normal">号</mi><mi mathvariant="normal">通</mi><mi mathvariant="normal">过</mi><mi mathvariant="normal">一</mi><mi mathvariant="normal">个</mi><mi mathvariant="normal">带</mi><mi mathvariant="normal">宽</mi><mi mathvariant="normal">为</mi><mi mathvariant="normal">Ｈ</mi><mi mathvariant="normal">的</mi><mi mathvariant="normal">低</mi><mi mathvariant="normal">通</mi><mi mathvariant="normal">滤</mi><mi mathvariant="normal">波</mi><mi mathvariant="normal">器</mi><mi mathvariant="normal">，</mi><mi mathvariant="normal">每</mi><mi mathvariant="normal">秒</mi><mi mathvariant="normal">采</mi><mi mathvariant="normal">样</mi><mi mathvariant="normal">２</mi><mi mathvariant="normal">Ｈ</mi><mi mathvariant="normal">次</mi><mi mathvariant="normal">就</mi><mi mathvariant="normal">能</mi><mi mathvariant="normal">完</mi><mi mathvariant="normal">整</mi><mi mathvariant="normal">地</mi><mi mathvariant="normal">重</mi><mi mathvariant="normal">现</mi><mi mathvariant="normal">该</mi><mi mathvariant="normal">信</mi><mi mathvariant="normal">号</mi><mi mathvariant="normal">，</mi><mi mathvariant="normal">信</mi><mi mathvariant="normal">号</mi><mi mathvariant="normal">电</mi><mi mathvariant="normal">平</mi><mi mathvariant="normal">分</mi><mi mathvariant="normal">为</mi><mi mathvariant="normal">Ｖ</mi><mi mathvariant="normal">级</mi><mo separator="true">,</mo><mi mathvariant="normal">则</mi><mi mathvariant="normal">有</mi><mo>:</mo><mspace linebreak="newline"></mspace><mi mathvariant="normal">最</mi><mi mathvariant="normal">大</mi><mi mathvariant="normal">数</mi><mi mathvariant="normal">据</mi><mi mathvariant="normal">传</mi><mi mathvariant="normal">输</mi><mi mathvariant="normal">率</mi><mo>=</mo><mn>2</mn><mi>H</mi><mi>l</mi><mi>o</mi><msub><mi>g</mi><mn>2</mn></msub><mi>V</mi><mo stretchy="false">(</mo><mi>b</mi><mi>p</mi><mi>s</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">任意信号通过一个带宽为Ｈ的低通滤波器，每秒采样２Ｈ次就能完整地重现该信号，信号电平分为Ｖ级,则有:\\
+最大数据传输率 = 2Hlog_2V (bps)
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord cjk_fallback">任</span><span class="mord cjk_fallback">意</span><span class="mord cjk_fallback">信</span><span class="mord cjk_fallback">号</span><span class="mord cjk_fallback">通</span><span class="mord cjk_fallback">过</span><span class="mord cjk_fallback">一</span><span class="mord cjk_fallback">个</span><span class="mord cjk_fallback">带</span><span class="mord cjk_fallback">宽</span><span class="mord cjk_fallback">为</span><span class="mord cjk_fallback">Ｈ</span><span class="mord cjk_fallback">的</span><span class="mord cjk_fallback">低</span><span class="mord cjk_fallback">通</span><span class="mord cjk_fallback">滤</span><span class="mord cjk_fallback">波</span><span class="mord cjk_fallback">器</span><span class="mord cjk_fallback">，</span><span class="mord cjk_fallback">每</span><span class="mord cjk_fallback">秒</span><span class="mord cjk_fallback">采</span><span class="mord cjk_fallback">样</span><span class="mord cjk_fallback">２</span><span class="mord cjk_fallback">Ｈ</span><span class="mord cjk_fallback">次</span><span class="mord cjk_fallback">就</span><span class="mord cjk_fallback">能</span><span class="mord cjk_fallback">完</span><span class="mord cjk_fallback">整</span><span class="mord cjk_fallback">地</span><span class="mord cjk_fallback">重</span><span class="mord cjk_fallback">现</span><span class="mord cjk_fallback">该</span><span class="mord cjk_fallback">信</span><span class="mord cjk_fallback">号</span><span class="mord cjk_fallback">，</span><span class="mord cjk_fallback">信</span><span class="mord cjk_fallback">号</span><span class="mord cjk_fallback">电</span><span class="mord cjk_fallback">平</span><span class="mord cjk_fallback">分</span><span class="mord cjk_fallback">为</span><span class="mord cjk_fallback">Ｖ</span><span class="mord cjk_fallback">级</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord cjk_fallback">则</span><span class="mord cjk_fallback">有</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">:</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="mspace newline"></span><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mord cjk_fallback">最</span><span class="mord cjk_fallback">大</span><span class="mord cjk_fallback">数</span><span class="mord cjk_fallback">据</span><span class="mord cjk_fallback">传</span><span class="mord cjk_fallback">输</span><span class="mord cjk_fallback">率</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">2</span><span class="mord mathdefault" style="margin-right:0.08125em;">H</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">o</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord mathdefault" style="margin-right:0.22222em;">V</span><span class="mopen">(</span><span class="mord mathdefault">b</span><span class="mord mathdefault">p</span><span class="mord mathdefault">s</span><span class="mclose">)</span></span></span></span></span></p>
+<p>**在任何信道中，码元传输的速率是有上限的，传输速率超过此上限，就会出现严重的码间串扰的问题，使接收端对码元的判决（即识别）成为不可能。**如果信道的频带越宽，也就是能够通过的信号高频分量越多，那么就可以用更高的速率传送码元而不出现码间串扰。</p>
 </li>
-<li><p>信噪比</p>
+<li>
+<p>信噪比</p>
 <p>噪声是随机产生的，它的瞬时值有时会很大，因此噪声会使接收端对码元的判决产生错误（1误判为0或0误判为1）。</p>
 <p>信噪比就是信号的平均功率和噪声的平均功率之比，常记为S/N，并用分贝（dB）作为度量单位：</p>
-<script type="math/tex; mode=display">
-信噪比（dB）=10log_{10}(S/N)(dB)</script></li>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi mathvariant="normal">信</mi><mi mathvariant="normal">噪</mi><mi mathvariant="normal">比</mi><mi mathvariant="normal">（</mi><mi>d</mi><mi>B</mi><mi mathvariant="normal">）</mi><mo>=</mo><mn>10</mn><mi>l</mi><mi>o</mi><msub><mi>g</mi><mn>10</mn></msub><mo stretchy="false">(</mo><mi>S</mi><mi mathvariant="normal">/</mi><mi>N</mi><mo stretchy="false">)</mo><mo stretchy="false">(</mo><mi>d</mi><mi>B</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">信噪比（dB）=10log_{10}(S/N)(dB)
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord cjk_fallback">信</span><span class="mord cjk_fallback">噪</span><span class="mord cjk_fallback">比</span><span class="mord cjk_fallback">（</span><span class="mord mathdefault">d</span><span class="mord mathdefault" style="margin-right:0.05017em;">B</span><span class="mord cjk_fallback">）</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mord">0</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">o</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span><span class="mord mtight">0</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span><span class="mord">/</span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span><span class="mclose">)</span><span class="mopen">(</span><span class="mord mathdefault">d</span><span class="mord mathdefault" style="margin-right:0.05017em;">B</span><span class="mclose">)</span></span></span></span></span></p>
+<p>1948年，香农（C. Shannon）把奈魁斯特的工作扩大到信道受到<strong>随机（热）噪声</strong>干扰的情况。热噪声出现的大小用信噪比（信号功率与噪声功率之比）来衡量。香农的主要结论是：</p>
+</li>
 </ol>
-<p>   1948年，香农（C. Shannon）把奈魁斯特的工作扩大到信道受到<strong>随机（热）噪声</strong>干扰的情况。热噪声出现的大小用信噪比（信号功率与噪声功率之比）来衡量。香农的主要结论是：</p>
-<script type="math/tex; mode=display">
-   带宽为 H 赫兹，信噪比为S/N的任意信道的最大数据传输率为\\
-   最大数据传输率 = Hlog_2(1 + \frac{S}{N}) (bps)</script><p>   香农公式的意义在于：只要信息传输速率低于信道的极限信息传输速率，就一定存在某种办法来实现无差错的传输</p>
-<h2 id="2-3-物理层下面的传输媒体"><a href="#2-3-物理层下面的传输媒体" class="headerlink" title="2.3 物理层下面的传输媒体"></a>2.3 物理层下面的传输媒体</h2><p>传输媒体可分为两大类，即<strong>导引型传输媒体</strong>和<strong>非导引型传输媒体</strong></p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi mathvariant="normal">带</mi><mi mathvariant="normal">宽</mi><mi mathvariant="normal">为</mi><mi>H</mi><mi mathvariant="normal">赫</mi><mi mathvariant="normal">兹</mi><mi mathvariant="normal">，</mi><mi mathvariant="normal">信</mi><mi mathvariant="normal">噪</mi><mi mathvariant="normal">比</mi><mi mathvariant="normal">为</mi><mi>S</mi><mi mathvariant="normal">/</mi><mi>N</mi><mi mathvariant="normal">的</mi><mi mathvariant="normal">任</mi><mi mathvariant="normal">意</mi><mi mathvariant="normal">信</mi><mi mathvariant="normal">道</mi><mi mathvariant="normal">的</mi><mi mathvariant="normal">最</mi><mi mathvariant="normal">大</mi><mi mathvariant="normal">数</mi><mi mathvariant="normal">据</mi><mi mathvariant="normal">传</mi><mi mathvariant="normal">输</mi><mi mathvariant="normal">率</mi><mi mathvariant="normal">为</mi><mspace linebreak="newline"></mspace><mi mathvariant="normal">最</mi><mi mathvariant="normal">大</mi><mi mathvariant="normal">数</mi><mi mathvariant="normal">据</mi><mi mathvariant="normal">传</mi><mi mathvariant="normal">输</mi><mi mathvariant="normal">率</mi><mo>=</mo><mi>H</mi><mi>l</mi><mi>o</mi><msub><mi>g</mi><mn>2</mn></msub><mo stretchy="false">(</mo><mn>1</mn><mo>+</mo><mfrac><mi>S</mi><mi>N</mi></mfrac><mo stretchy="false">)</mo><mo stretchy="false">(</mo><mi>b</mi><mi>p</mi><mi>s</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">   带宽为 H 赫兹，信噪比为S/N的任意信道的最大数据传输率为\\
+   最大数据传输率 = Hlog_2(1 + \frac{S}{N}) (bps)
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord cjk_fallback">带</span><span class="mord cjk_fallback">宽</span><span class="mord cjk_fallback">为</span><span class="mord mathdefault" style="margin-right:0.08125em;">H</span><span class="mord cjk_fallback">赫</span><span class="mord cjk_fallback">兹</span><span class="mord cjk_fallback">，</span><span class="mord cjk_fallback">信</span><span class="mord cjk_fallback">噪</span><span class="mord cjk_fallback">比</span><span class="mord cjk_fallback">为</span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span><span class="mord">/</span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span><span class="mord cjk_fallback">的</span><span class="mord cjk_fallback">任</span><span class="mord cjk_fallback">意</span><span class="mord cjk_fallback">信</span><span class="mord cjk_fallback">道</span><span class="mord cjk_fallback">的</span><span class="mord cjk_fallback">最</span><span class="mord cjk_fallback">大</span><span class="mord cjk_fallback">数</span><span class="mord cjk_fallback">据</span><span class="mord cjk_fallback">传</span><span class="mord cjk_fallback">输</span><span class="mord cjk_fallback">率</span><span class="mord cjk_fallback">为</span></span><span class="mspace newline"></span><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mord cjk_fallback">最</span><span class="mord cjk_fallback">大</span><span class="mord cjk_fallback">数</span><span class="mord cjk_fallback">据</span><span class="mord cjk_fallback">传</span><span class="mord cjk_fallback">输</span><span class="mord cjk_fallback">率</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.08125em;">H</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">o</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:2.04633em;vertical-align:-0.686em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.36033em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.10903em;">N</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.05764em;">S</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mclose">)</span><span class="mopen">(</span><span class="mord mathdefault">b</span><span class="mord mathdefault">p</span><span class="mord mathdefault">s</span><span class="mclose">)</span></span></span></span></span></p>
+<p>香农公式的意义在于：只要信息传输速率低于信道的极限信息传输速率，就一定存在某种办法来实现无差错的传输</p>
+<h2 id="23-物理层下面的传输媒体"><a class="markdownIt-Anchor" href="#23-物理层下面的传输媒体"></a> 2.3 物理层下面的传输媒体</h2>
+<p>传输媒体可分为两大类，即<strong>导引型传输媒体</strong>和<strong>非导引型传输媒体</strong></p>
 <ul>
-<li><p>导引型传输媒体：</p>
+<li>
+<p>导引型传输媒体：</p>
 <p>电磁波被导引沿着固体媒体（铜线或光纤）传播</p>
 </li>
-<li><p>非导引型传输媒体：</p>
+<li>
+<p>非导引型传输媒体：</p>
 <p>非导引型传输媒体就是指自由空间，在非导引型传输媒体中电磁波的传输常称为无线传输</p>
 </li>
 </ul>
-<h3 id="2-3-1-导引型传输媒体"><a href="#2-3-1-导引型传输媒体" class="headerlink" title="2.3.1 导引型传输媒体"></a>2.3.1 导引型传输媒体</h3><ol>
-<li><p>双绞线</p>
+<h3 id="231-导引型传输媒体"><a class="markdownIt-Anchor" href="#231-导引型传输媒体"></a> 2.3.1 导引型传输媒体</h3>
+<ol>
+<li>
+<p>双绞线</p>
 <p>几到十几公里，距离太长需要中继器，导线越粗传输距离越远。</p>
 <p>为了提高双绞线抗电磁干扰的能力，可以在双绞线的外面再加上一层用金属丝编织成的屏蔽层。这就是屏蔽双绞线，简称为STP（Shielded Twisted Pair）。</p>
 <p><img src="image-20200530004644430.png" srcset="/img/loading.gif" alt="双绞线示意图"></p>
 <p>无论是哪种类别的双绞线，衰减都随频率的升高而增大。</p>
 </li>
-<li><p>同轴线缆</p>
+<li>
+<p>同轴线缆</p>
 <p>同轴电缆由内导体铜质芯线（单股实心线或多股绞合线）、绝缘层、网状编织的外导体屏蔽层（也可以是单股的）以及保护塑料外层所组成</p>
 <p><img src="image-20200530010138941.png" srcset="/img/loading.gif" alt="同轴电缆的结构"></p>
 <p>目前同轴电缆主要用在有线电视网的居民小区中。同轴电缆的带宽取决于电缆的质量。</p>
 </li>
-<li><p>光缆</p>
+<li>
+<p>光缆</p>
 <p>光纤通信就是利用光导纤维（以下简称为光纤）传递光脉冲来进行通信。有光脉冲相当于1，而没有光脉冲相当于0。由于可见光的频率非常高，约为108MHz的量级，因此一个光纤通信系统的传输带宽远远大于目前其他各种传输媒体的带宽。</p>
 <p><img src="image-20200530194205138.png" srcset="/img/loading.gif" alt="多模光纤与单模光纤"></p>
 <p>光纤不仅具有通信容量非常大的优点，而且还具有其他的一些特点：</p>
@@ -330,11 +347,14 @@
 </ul>
 </li>
 </ol>
-<h3 id="2-3-2-非导引型传输媒体"><a href="#2-3-2-非导引型传输媒体" class="headerlink" title="2.3.2 非导引型传输媒体"></a>2.3.2 非导引型传输媒体</h3><ol>
-<li><p><strong>短波通信</strong></p>
+<h3 id="232-非导引型传输媒体"><a class="markdownIt-Anchor" href="#232-非导引型传输媒体"></a> 2.3.2 非导引型传输媒体</h3>
+<ol>
+<li>
+<p><strong>短波通信</strong></p>
 <p>短波通信（即高频通信）主要是靠电离层的反射。但电离层的不稳定所产生的衰落现象和电离层反射所产生的多径效应，使得短波信道的通信质量较差。</p>
 </li>
-<li><p><strong>微波通信</strong></p>
+<li>
+<p><strong>微波通信</strong></p>
 <p>无线电微波通信在数据通信中占有重要地位，微波在空间主要是直线传播，微波会穿透电离层而进入宇宙空间，传统的微波通信主要有两种方式，即地面微波接力通信和卫星通信。为实现远距离通信必须在一条微波通信信道的两个终端之间建立若干个中继站</p>
 <p>微波通信的主要特点：</p>
 <ul>
@@ -350,28 +370,35 @@
 <li>中继站的使用和维护要耗费较多的人力和物力</li>
 </ul>
 </li>
-<li><p><strong>卫星通信</strong></p>
+<li>
+<p><strong>卫星通信</strong></p>
 <p>最大特点是通信距离远，且通信费用与通信距离无关</p>
 <p>卫星通信的频带很宽，通信容量很大，信号所受到的干扰也较小，通信比较稳定</p>
 <p>具有较大的<strong>传播时延</strong></p>
 </li>
 </ol>
-<h2 id="2-4-信道复用技术"><a href="#2-4-信道复用技术" class="headerlink" title="2.4 信道复用技术"></a>2.4 信道复用技术</h2><h3 id="2-4-1-频分复用、时分复用和统计时分复用"><a href="#2-4-1-频分复用、时分复用和统计时分复用" class="headerlink" title="2.4.1 频分复用、时分复用和统计时分复用"></a>2.4.1 频分复用、时分复用和统计时分复用</h3><p>最基本的复用就是<strong>频分复用</strong>FDM（Frequency Division Multiplexing）和<strong>时分复用</strong>TDM（Time Division Multiplexing）。</p>
-<p><strong>时分复用：</strong>时分复用的所有用户是在不同的时间占用同样的频带宽度。这两种复用方法的优点是技术比较成熟，但缺点是不够灵活，利用率低。时分复用则更有利于数字信号的传输。</p>
+<h2 id="24-信道复用技术"><a class="markdownIt-Anchor" href="#24-信道复用技术"></a> 2.4 信道复用技术</h2>
+<h3 id="241-频分复用-时分复用和统计时分复用"><a class="markdownIt-Anchor" href="#241-频分复用-时分复用和统计时分复用"></a> 2.4.1 频分复用、时分复用和统计时分复用</h3>
+<p>最基本的复用就是<strong>频分复用</strong>FDM（Frequency Division Multiplexing）和<strong>时分复用</strong>TDM（Time Division Multiplexing）。</p>
+<p>**时分复用：**时分复用的所有用户是在不同的时间占用同样的频带宽度。这两种复用方法的优点是技术比较成熟，但缺点是不够灵活，利用率低。时分复用则更有利于数字信号的传输。</p>
 <p><strong>统计时分复用STDM</strong>（Statistic TDM）是一种改进的时分复用，它能明显地提高信道的利用率。集中器（concentrator）常使用这种统计时分复用，此时每个信息需要注明自己的地址信息</p>
 <p><img src="image-20200531010331886.png" srcset="/img/loading.gif" alt="统计时分复用"></p>
 <p>两种时分复用的区别：</p>
 <p>TDM：资源独占，时延可控  一般用于电话网（电路交换）</p>
 <p>STDM：资源共享，时延不可控  一般用于INTERNET（分组交换）</p>
-<p><strong>频分复用：</strong>若每一个用户占用的带宽不变，则当复用的用户数增加时，复用后的信道的总带宽就跟着变宽</p>
+<p>**频分复用：**若每一个用户占用的带宽不变，则当复用的用户数增加时，复用后的信道的总带宽就跟着变宽</p>
 <p><img src="image-20200530233938499.png" srcset="/img/loading.gif" alt="时分复用可能会造成线路资源的浪费"></p>
-<h3 id="2-4-2-波分复用"><a href="#2-4-2-波分复用" class="headerlink" title="2.4.2 波分复用"></a>2.4.2 波分复用</h3><p>波分复用WDM（Wavelength Division Multiplexing）就是光的频分复用。由于光载波的频率很高，因此习惯上用波长而不用频率来表示所使用的光载波。这样就得出了波分复用这一名词</p>
-<h3 id="2-4-3-码分复用"><a href="#2-4-3-码分复用" class="headerlink" title="2.4.3 码分复用"></a>2.4.3 码分复用</h3><p>码分复用CDM（Code Division Multiplexing）,更常用的名词是码分多址CDMA（Code Division MultipleAccess）。每一个用户可以在同样的时间使用同样的频带进行通信。由于各用户使用经过特殊挑选的不同码型，因此各用户之间不会造成干扰。</p>
+<h3 id="242-波分复用"><a class="markdownIt-Anchor" href="#242-波分复用"></a> 2.4.2 波分复用</h3>
+<p>波分复用WDM（Wavelength Division Multiplexing）就是光的频分复用。由于光载波的频率很高，因此习惯上用波长而不用频率来表示所使用的光载波。这样就得出了波分复用这一名词</p>
+<h3 id="243-码分复用"><a class="markdownIt-Anchor" href="#243-码分复用"></a> 2.4.3 码分复用</h3>
+<p>码分复用CDM（Code Division Multiplexing）,更常用的名词是码分多址CDMA（Code Division MultipleAccess）。每一个用户可以在同样的时间使用同样的频带进行通信。由于各用户使用经过特殊挑选的不同码型，因此各用户之间不会造成干扰。</p>
 <p>码分复用最初用于军事通信，因为这种系统发送的信号有很强的抗干扰能力，其频谱类似于白噪声，不易被敌人发现。</p>
 <p>在CDMA中，每一个比特时间再划分为m个短的间隔，称为码片（chip）。通常m的值是64或128。，为了画图简单起见，我们设m为8,使用CDMA的每一个站被指派一个唯一的m bit码片序列（chip sequence）。一个站如果要发送比特1，则发送它自己的m bit码片序列。如果要发送比特0，则发送该码片序列的二进制反码。例如，指派给S站的8bit码片序列是00011011。当S发送比特1时，它就发送序列00011011，而当S发送比特0时，就发送11100100。为了方便，我们按惯例将码片中的0写为–1，将1写为＋1。因此S站的码片序列是（–1–1–1＋1＋1–1＋1＋1）。</p>
-<p>现假定S站要发送信息的数据率为b bit/s。由于每一个比特要转换成m个比特的码片，因此S站实际上发送的数据率提高到mb bit/s，同时S站所占用的频带宽度也提高到原来数值的m倍。这种通信方式是扩频（spread spectrum）通信中的一种。扩频通信通常有两大类。一种是<strong>直接序列扩频DSSS</strong>（Direct Sequence Spread Spectrum），如上面讲的使用码片序列就是这一类。另一种是<strong>跳频扩频</strong><br><strong>FHSS</strong>（Frequency Hopping Spread Spectrum）。</p>
+<p>现假定S站要发送信息的数据率为b bit/s。由于每一个比特要转换成m个比特的码片，因此S站实际上发送的数据率提高到mb bit/s，同时S站所占用的频带宽度也提高到原来数值的m倍。这种通信方式是扩频（spread spectrum）通信中的一种。扩频通信通常有两大类。一种是<strong>直接序列扩频DSSS</strong>（Direct Sequence Spread Spectrum），如上面讲的使用码片序列就是这一类。另一种是<strong>跳频扩频</strong><br>
+<strong>FHSS</strong>（Frequency Hopping Spread Spectrum）。</p>
 <p>CDMA系统的一个重要特点就是这种体制给每一个站分配的码片序列不仅必须各不相同，并且还必须互相正交（orthogonal）。在实用的系统中是使用伪随机码序列。</p>
-<h2 id="2-5-数字传输系统"><a href="#2-5-数字传输系统" class="headerlink" title="2.5 数字传输系统"></a>2.5 数字传输系统</h2><p>早期的数字传输系统存在着许多缺点，其中最主要的是以下两个:</p>
+<h2 id="25-数字传输系统"><a class="markdownIt-Anchor" href="#25-数字传输系统"></a> 2.5 数字传输系统</h2>
+<p>早期的数字传输系统存在着许多缺点，其中最主要的是以下两个:</p>
 <ol>
 <li>速率标准不统一,国际范围的基于光纤的高速数据传输就很难实现</li>
 <li>不是同步传输,在过去相当长的时间，为了节约经费，各国的数字网主要采用准同步方式。在准同步系统中由于各支路信号的时钟频率有一定的偏差</li>
@@ -380,18 +407,24 @@
 <p>ITU-T以美国标准SONET为基础，制定出<strong>国际标准同步数字系列SDH（Synchronous Digital Hierarchy）</strong></p>
 <p>SDH/SONET定义了标准光信号，规定了波长为1310nm和1550nm的激光源。在物理层定义了帧结构。</p>
 <p>现在SDH/SONET标准已成为公认的新一代理想的传输网体制，因而对世界电信网络的发展具有重大的意义。SDH标准也适合于微波和卫星传输的技术体制</p>
-<h2 id="2-6-宽带接入技术"><a href="#2-6-宽带接入技术" class="headerlink" title="2.6 宽带接入技术"></a>2.6 宽带接入技术</h2><h3 id="2-6-1-ADSL技术"><a href="#2-6-1-ADSL技术" class="headerlink" title="2.6.1 ADSL技术"></a>2.6.1 ADSL技术</h3><p><strong>非对称数字用户线ADSL（Asymmetric Digital Subscriber Line）</strong>技术是用数字技术对现有的模拟电话用户线进行改造，使它能够承载宽带数字业务。</p>
+<h2 id="26-宽带接入技术"><a class="markdownIt-Anchor" href="#26-宽带接入技术"></a> 2.6 宽带接入技术</h2>
+<h3 id="261-adsl技术"><a class="markdownIt-Anchor" href="#261-adsl技术"></a> 2.6.1 ADSL技术</h3>
+<p>**非对称数字用户线ADSL（Asymmetric Digital Subscriber Line）**技术是用数字技术对现有的模拟电话用户线进行改造，使它能够承载宽带数字业务。</p>
 <p>ADSL在用户线（铜线）的两端各安装一个ADSL调制解调器。这种调制解调器的实现方案有许多种。我国目前采用的方案是离散多音调DMT（Discrete Multi-Tone）调制技术。</p>
-<h3 id="2-6-2-光纤同轴混合网（HFC网）"><a href="#2-6-2-光纤同轴混合网（HFC网）" class="headerlink" title="2.6.2 光纤同轴混合网（HFC网）"></a>2.6.2 光纤同轴混合网（HFC网）</h3><p><strong>光纤同轴混合网（HFC网，HFC是Hybrid Fiber Coax的缩写）</strong>是在目前覆盖面很广的有线电视网的基础上开发的一种居民宽带接入网，除可传送电视节目外，还能提供电话、数据和其他宽带交互型业务。</p>
+<h3 id="262-光纤同轴混合网hfc网"><a class="markdownIt-Anchor" href="#262-光纤同轴混合网hfc网"></a> 2.6.2 光纤同轴混合网（HFC网）</h3>
+<p>**光纤同轴混合网（HFC网，HFC是Hybrid Fiber Coax的缩写）**是在目前覆盖面很广的有线电视网的基础上开发的一种居民宽带接入网，除可传送电视节目外，还能提供电话、数据和其他宽带交互型业务。</p>
 <p>最早的有线电视网是树形拓扑结构的同轴电缆网络，它采用模拟技术的频分复用对电视节目进行单向广播传输。但以后有线电视网进行了改造，变成了现在的光纤同轴混合网（HFC网）。这种光纤同轴混合网HFC的主要特点如下:</p>
 <ul>
-<li><p>HFC网把原有线电视网中的同轴电缆主干部分改换为光纤</p>
+<li>
+<p>HFC网把原有线电视网中的同轴电缆主干部分改换为光纤</p>
 <p><img src="image-20200602172605028.png" srcset="/img/loading.gif" alt="HFC网的结构图"></p>
 </li>
-<li><p>要使现有的模拟电视机能够接收数字电视信号，需要把一个叫做机顶盒（settopbox）的设备连接在同轴电缆和用户的电视机之间。但为了使用户能够利用HFC网接入到互联网，以及在上行信道中传送交互数字电视所需的一些信息，我们还需要增加一个为HFC网使用的调制解调器，它又称为电缆调制解调器（cable modem）。</p>
+<li>
+<p>要使现有的模拟电视机能够接收数字电视信号，需要把一个叫做机顶盒（settopbox）的设备连接在同轴电缆和用户的电视机之间。但为了使用户能够利用HFC网接入到互联网，以及在上行信道中传送交互数字电视所需的一些信息，我们还需要增加一个为HFC网使用的调制解调器，它又称为电缆调制解调器（cable modem）。</p>
 </li>
 </ul>
-<h3 id="2-6-3-FTTx技术"><a href="#2-6-3-FTTx技术" class="headerlink" title="2.6.3 FTTx技术"></a>2.6.3 FTTx技术</h3><p>略</p>
+<h3 id="263-fttx技术"><a class="markdownIt-Anchor" href="#263-fttx技术"></a> 2.6.3 FTTx技术</h3>
+<p>略</p>
 <script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
@@ -707,40 +740,8 @@
   
 
   
-    <!-- MathJax -->
-    <script>
-      MathJax = {
-        tex: {
-          inlineMath: [['$', '$'], ['\\(', '\\)']]
-        },
-        options: {
-          renderActions: {
-            findScript: [10, doc => {
-              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
-                const display = !!node.type.match(/; *mode=display/);
-                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
-                const text = document.createTextNode('');
-                node.parentNode.replaceChild(text, node);
-                math.start = { node: text, delim: '', n: 0 };
-                math.end = { node: text, delim: '', n: 0 };
-                doc.math.push(math);
-              });
-            }, '', false],
-            insertedScript: [200, () => {
-              document.querySelectorAll('mjx-container').forEach(node => {
-                let target = node.parentNode;
-                if (target.nodeName.toLowerCase() === 'li') {
-                  target.parentNode.classList.add('has-jax');
-                }
-              });
-            }, '', false]
-          }
-        }
-      };
-    </script>
-
-    <script async src="https://cdn.staticfile.org/mathjax/3.0.5/es5/tex-svg.js" ></script>
-
+    <!-- KaTeX -->
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/KaTeX/0.11.1/katex.min.css" />
   
 
 

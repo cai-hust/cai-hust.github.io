@@ -233,11 +233,12 @@
             
             <article class="markdown-body">
               <p>manim的整体结构解析</p>
-<h2 id="1-CONFIG是什么"><a href="#1-CONFIG是什么" class="headerlink" title="1. CONFIG是什么"></a>1. CONFIG是什么</h2><p>几乎任何的类都会有一个神奇的字典,叫<code>CONFIG</code>,这个字典的所有键值对都会被赋予给类的属性,原因是因为所有的绘图类都是继承自<strong>Container</strong>类(<em>位置:\manimlib\container\container.py</em>),这个类在初始化的时候执行代码如下:</p>
+<h2 id="1-config是什么"><a class="markdownIt-Anchor" href="#1-config是什么"></a> 1. CONFIG是什么</h2>
+<p>几乎任何的类都会有一个神奇的字典,叫<code>CONFIG</code>,这个字典的所有键值对都会被赋予给类的属性,原因是因为所有的绘图类都是继承自<strong>Container</strong>类(<em>位置:\manimlib\container\<a href="http://container.py" target="_blank" rel="noopener">container.py</a></em>),这个类在初始化的时候执行代码如下:</p>
 <pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Container</span><span class="hljs-params">(object)</span>:</span>
     <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self, **kwargs)</span>:</span>
         digest_config(self, kwargs)</code></pre>
-<p>而<em>digest_config</em>在<em>\manimlib\utils\config_ops.py</em>:</p>
+<p>而<em>digest_config</em>在*\manimlib\utils\config_ops.py*:</p>
 <pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">digest_config</span><span class="hljs-params">(obj, kwargs, caller_locals={})</span>:</span>
     <span class="hljs-string">"""</span>
 <span class="hljs-string">    Sets init args and CONFIG values as local variables</span>
@@ -270,8 +271,10 @@
     all_dicts = [kwargs, caller_locals, obj.__dict__]
     all_dicts += static_configs
     obj.__dict__ = merge_dicts_recursively(*reversed(all_dicts))</code></pre>
-<p>上面的英文解释已经很清楚了,一句话概括这个函数:将CONFIG这个字典中的内容变成类的属性.<br>值得注意的是:<strong>这个字典的一些键的值可以继续为CONFIG字典</strong></p>
-<h2 id="2-主要类图"><a href="#2-主要类图" class="headerlink" title="2. 主要类图"></a>2. 主要类图</h2><p>Container类图:</p>
+<p>上面的英文解释已经很清楚了,一句话概括这个函数:将CONFIG这个字典中的内容变成类的属性.<br>
+值得注意的是:<strong>这个字典的一些键的值可以继续为CONFIG字典</strong></p>
+<h2 id="2-主要类图"><a class="markdownIt-Anchor" href="#2-主要类图"></a> 2. 主要类图</h2>
+<p>Container类图:</p>
 <p><img src="Container.png" srcset="/img/loading.gif" alt="Container类图"></p>
 <p>Mobject类图:</p>
 <p><img src="Mobject.png" srcset="/img/loading.gif" alt="Mobject类图"></p>
@@ -283,7 +286,8 @@
 <p><img src="Camera.png" srcset="/img/loading.gif" alt="Camera类图"></p>
 <p>Animation类图:</p>
 <p><img src="Animation.png" srcset="/img/loading.gif" alt="Animation类图"></p>
-<h2 id="3-小结"><a href="#3-小结" class="headerlink" title="3. 小结"></a>3. 小结</h2><p>时隔几个月,我又重新更新并看了一下manim的repo,这次我仅仅是粗略看了一下manim的结构,发现变化还是很明显的,相比几个月前的难以阅读,到现在几乎是很好阅读了.</p>
+<h2 id="3-小结"><a class="markdownIt-Anchor" href="#3-小结"></a> 3. 小结</h2>
+<p>时隔几个月,我又重新更新并看了一下manim的repo,这次我仅仅是粗略看了一下manim的结构,发现变化还是很明显的,相比几个月前的难以阅读,到现在几乎是很好阅读了.</p>
 <p>我在此也对整个文件结构的所有类图内容扫描了一遍,发现整个代码里面几乎能想到的形式都有对应的类实现,有的类的继承实现甚至非常多余,因为就改了一两个参数,这几乎可以自己写,不过这manim本身目的就不是给公开使用,而是Grant Sanderson用来做视频的.</p>
 <p>如果有时间我会对几个最基本的类进行解释,如果把最基本的类用法解释清楚接下来就可以很好的制作3b1b风格视频了.</p>
 <script>

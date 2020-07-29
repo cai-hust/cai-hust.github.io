@@ -232,7 +232,8 @@
               </p>
             
             <article class="markdown-body">
-              <h2 id="函数参数中含有列表的问题"><a href="#函数参数中含有列表的问题" class="headerlink" title="函数参数中含有列表的问题"></a>函数参数中含有列表的问题</h2><p><strong>定义默认参数要牢记一点：默认参数必须指向不变对象！</strong></p>
+              <p>##函数参数中含有列表的问题</p>
+<p><strong>定义默认参数要牢记一点：默认参数必须指向不变对象！</strong></p>
 <blockquote>
 <p><a href="https://www.liaoxuefeng.com/wiki/1016959663602400/1017261630425888" target="_blank" rel="noopener">https://www.liaoxuefeng.com/wiki/1016959663602400/1017261630425888</a></p>
 </blockquote>
@@ -253,7 +254,8 @@
         L = []
     L.append(<span class="hljs-string">'END'</span>)
     <span class="hljs-keyword">return</span> L</code></pre>
-<h2 id="可变参数与列表的结合-与-的使用"><a href="#可变参数与列表的结合-与-的使用" class="headerlink" title="可变参数与列表的结合:*与**的使用"></a>可变参数与列表的结合:*与**的使用</h2><p>如果python代码看的比较多的时候,就会发现有类似如下的写法:</p>
+<h2 id="可变参数与列表的结合与的使用"><a class="markdownIt-Anchor" href="#可变参数与列表的结合与的使用"></a> 可变参数与列表的结合:*与**的使用</h2>
+<p>如果python代码看的比较多的时候,就会发现有类似如下的写法:</p>
 <pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">function</span><span class="hljs-params">(*args,**kwargs)</span>:</span>
 	...</code></pre>
 <p>*args 用来将参数打包成tuple给函数体调用, **kwargs 打包关键字参数成dict给函数体调用</p>
@@ -285,12 +287,15 @@
     
 <span class="hljs-meta">&gt;&gt;&gt; </span>person(<span class="hljs-string">'Jack'</span>, <span class="hljs-number">24</span>, city=<span class="hljs-string">'Beijing'</span>, job=<span class="hljs-string">'Engineer'</span>)
 Jack <span class="hljs-number">24</span> Beijing Engineer</code></pre>
-<h2 id="列表的等间隔切片"><a href="#列表的等间隔切片" class="headerlink" title="列表的等间隔切片"></a>列表的等间隔切片</h2><p>给个例子就很明确了:</p>
+<h2 id="列表的等间隔切片"><a class="markdownIt-Anchor" href="#列表的等间隔切片"></a> 列表的等间隔切片</h2>
+<p>给个例子就很明确了:</p>
 <pre><code class="hljs python">&gt;&gt;&gt;lst = [<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>]
 &gt;&gt;&gt;lst[<span class="hljs-number">1</span>:<span class="hljs-number">4</span>:<span class="hljs-number">2</span>]
 [<span class="hljs-number">2</span>,<span class="hljs-number">4</span>]</code></pre>
-<h2 id="生成器generator与yield结合的用法"><a href="#生成器generator与yield结合的用法" class="headerlink" title="生成器generator与yield结合的用法"></a>生成器generator与yield结合的用法</h2><p>详见<a href="https://blog.csdn.net/mieleizhi0522/article/details/82142856/" target="_blank" rel="noopener">https://blog.csdn.net/mieleizhi0522/article/details/82142856/</a></p>
-<h2 id="map和reduce"><a href="#map和reduce" class="headerlink" title="map和reduce"></a>map和reduce</h2><p>map就是映射函数于列表,非常方便产生列表,例子如下:</p>
+<h2 id="生成器generator与yield结合的用法"><a class="markdownIt-Anchor" href="#生成器generator与yield结合的用法"></a> 生成器generator与yield结合的用法</h2>
+<p>详见https://blog.csdn.net/mieleizhi0522/article/details/82142856/</p>
+<h2 id="map和reduce"><a class="markdownIt-Anchor" href="#map和reduce"></a> map和reduce</h2>
+<p>map就是映射函数于列表,非常方便产生列表,例子如下:</p>
 <pre><code class="hljs python"><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">f</span><span class="hljs-params">(x)</span>:</span>
 <span class="hljs-meta">... </span>    <span class="hljs-keyword">return</span> x * x
 ...
@@ -307,7 +312,8 @@ DIGITS = {<span class="hljs-string">'0'</span>: <span class="hljs-number">0</spa
 
 <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">str2int</span><span class="hljs-params">(s)</span>:</span>
     <span class="hljs-keyword">return</span> reduce(<span class="hljs-keyword">lambda</span> x, y: x * <span class="hljs-number">10</span> + y, map(char2num, s))</code></pre>
-<h2 id="lambda表达式和列表生成式产生的奇妙反应"><a href="#lambda表达式和列表生成式产生的奇妙反应" class="headerlink" title="lambda表达式和列表生成式产生的奇妙反应"></a>lambda表达式和列表生成式产生的奇妙反应</h2><p>先看一段代码:</p>
+<h2 id="lambda表达式和列表生成式产生的奇妙反应"><a class="markdownIt-Anchor" href="#lambda表达式和列表生成式产生的奇妙反应"></a> lambda表达式和列表生成式产生的奇妙反应</h2>
+<p>先看一段代码:</p>
 <pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">num</span><span class="hljs-params">()</span>:</span>
     <span class="hljs-keyword">return</span> [<span class="hljs-keyword">lambda</span> x:i*x <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">4</span>)]
 
@@ -329,13 +335,17 @@ DIGITS = {<span class="hljs-string">'0'</span>: <span class="hljs-number">0</spa
 
 &gt;&gt;&gt;[m(<span class="hljs-number">1</span>) <span class="hljs-keyword">for</span> m <span class="hljs-keyword">in</span> num()]</code></pre>
 <p>因为i是命名空间lambda里面所以外部的i是不会进入内部的,首先产生<code>[lambda x:i*x,lambda x:i*x,lambda x:i*x,lambda x:i*x]</code>,循环完了后,i=3,所以返回<code>[lambda x:3*x,lambda x:3*x,lambda x:3*x,lambda x:3*x]</code></p>
-<h2 id="偏函数的用法"><a href="#偏函数的用法" class="headerlink" title="偏函数的用法"></a>偏函数的用法</h2><p>有的时候,希望某些函数的参数固定,就可以使用如下方法进行固定</p>
+<h2 id="偏函数的用法"><a class="markdownIt-Anchor" href="#偏函数的用法"></a> 偏函数的用法</h2>
+<p>有的时候,希望某些函数的参数固定,就可以使用如下方法进行固定</p>
 <pre><code class="hljs python">functools.partial()</code></pre>
 <p>用法详见网上</p>
-<h2 id="类与对象的方法"><a href="#类与对象的方法" class="headerlink" title="类与对象的方法"></a>类与对象的方法</h2><ol>
-<li><p>getattr(),setattr(),hasattr()三种方法的</p>
+<h2 id="类与对象的方法"><a class="markdownIt-Anchor" href="#类与对象的方法"></a> 类与对象的方法</h2>
+<ol>
+<li>
+<p>getattr(),setattr(),hasattr()三种方法的</p>
 </li>
-<li><p><code>__getitem__()</code>:</p>
+<li>
+<p><code>__getitem__()</code>:</p>
 <p>如果想要一个类既有索引又可以切片,需要类似如下的操作</p>
 <pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Fib</span><span class="hljs-params">(object)</span>:</span>
     <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__getitem__</span><span class="hljs-params">(self, n)</span>:</span>
@@ -676,40 +686,8 @@ DIGITS = {<span class="hljs-string">'0'</span>: <span class="hljs-number">0</spa
   
 
   
-    <!-- MathJax -->
-    <script>
-      MathJax = {
-        tex: {
-          inlineMath: [['$', '$'], ['\\(', '\\)']]
-        },
-        options: {
-          renderActions: {
-            findScript: [10, doc => {
-              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
-                const display = !!node.type.match(/; *mode=display/);
-                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
-                const text = document.createTextNode('');
-                node.parentNode.replaceChild(text, node);
-                math.start = { node: text, delim: '', n: 0 };
-                math.end = { node: text, delim: '', n: 0 };
-                doc.math.push(math);
-              });
-            }, '', false],
-            insertedScript: [200, () => {
-              document.querySelectorAll('mjx-container').forEach(node => {
-                let target = node.parentNode;
-                if (target.nodeName.toLowerCase() === 'li') {
-                  target.parentNode.classList.add('has-jax');
-                }
-              });
-            }, '', false]
-          }
-        }
-      };
-    </script>
-
-    <script async src="https://cdn.staticfile.org/mathjax/3.0.5/es5/tex-svg.js" ></script>
-
+    <!-- KaTeX -->
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/KaTeX/0.11.1/katex.min.css" />
   
 
 

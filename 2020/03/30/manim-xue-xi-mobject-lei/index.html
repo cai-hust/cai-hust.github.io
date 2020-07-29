@@ -187,7 +187,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      68
+      69
        分钟
     </span>
   
@@ -232,17 +232,23 @@
               </p>
             
             <article class="markdown-body">
-              <h2 id="1-Mobject所派生的子类"><a href="#1-Mobject所派生的子类" class="headerlink" title="1. Mobject所派生的子类"></a>1. Mobject所派生的子类</h2><p><img src="Mobject-1586013786368.png" srcset="/img/loading.gif" alt="Mobject"></p>
-<h2 id="2-Mobject的主要变量与属性"><a href="#2-Mobject的主要变量与属性" class="headerlink" title="2. Mobject的主要变量与属性"></a>2. Mobject的主要变量与属性</h2><h3 id="2-1-CONFIG"><a href="#2-1-CONFIG" class="headerlink" title="2.1 CONFIG"></a>2.1 CONFIG</h3><pre><code class="hljs python">CONFIG = {
+              <h2 id="1-mobject所派生的子类"><a class="markdownIt-Anchor" href="#1-mobject所派生的子类"></a> 1. Mobject所派生的子类</h2>
+<p><img src="Mobject-1586013786368.png" srcset="/img/loading.gif" alt="Mobject"></p>
+<h2 id="2-mobject的主要变量与属性"><a class="markdownIt-Anchor" href="#2-mobject的主要变量与属性"></a> 2. Mobject的主要变量与属性</h2>
+<h3 id="21-config"><a class="markdownIt-Anchor" href="#21-config"></a> 2.1 CONFIG</h3>
+<pre><code class="hljs python">CONFIG = {
         <span class="hljs-string">"color"</span>: WHITE,
         <span class="hljs-string">"name"</span>: <span class="hljs-literal">None</span>,
         <span class="hljs-string">"dim"</span>: <span class="hljs-number">3</span>,
         <span class="hljs-string">"target"</span>: <span class="hljs-literal">None</span>,
     }</code></pre>
-<h3 id="2-2-init-函数"><a href="#2-2-init-函数" class="headerlink" title="2.2 __init__()函数:"></a>2.2 <code>__init__()</code>函数:</h3><ul>
-<li><p><code>submobjects = []</code>:每个Mobject都有自己的submobjects列表,列表里面的每个元素也是Mobject,这样有利于对嵌套的Mobject进行整体操作,如对一群图形一起平移等等动画的实现</p>
+<h3 id="22-__init__函数"><a class="markdownIt-Anchor" href="#22-__init__函数"></a> 2.2 <code>__init__()</code>函数:</h3>
+<ul>
+<li>
+<p><code>submobjects = []</code>:每个Mobject都有自己的submobjects列表,列表里面的每个元素也是Mobject,这样有利于对嵌套的Mobject进行整体操作,如对一群图形一起平移等等动画的实现</p>
 </li>
-<li><p><code>updaters = []</code>:一系列的更新函数组成,如:</p>
+<li>
+<p><code>updaters = []</code>:一系列的更新函数组成,如:</p>
 <pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">update_text</span><span class="hljs-params">(obj)</span>:</span>
            obj.next_to(dot,RIGHT,buff=SMALL_BUFF)</code></pre>
 <p>就可以作为一个updater,有<code>add_updater()</code>方法进行添加:</p>
@@ -275,18 +281,23 @@
 <p><img src="AddUpdater-1586013786369.gif" srcset="/img/loading.gif" alt="AddUpdater"></p>
 <p>详细见下面3.3.2的介绍</p>
 </li>
-<li><p><code>updating_suspended = False</code>:是否暂停更新</p>
+<li>
+<p><code>updating_suspended = False</code>:是否暂停更新</p>
 </li>
-<li><p><code>points = np.zeros((0, self.dim))</code>:坐标,默认为原点,维度由属性<code>dim</code>决定</p>
+<li>
+<p><code>points = np.zeros((0, self.dim))</code>:坐标,默认为原点,维度由属性<code>dim</code>决定</p>
 </li>
 </ul>
-<h3 id="2-3-其他函数里面产生的变量"><a href="#2-3-其他函数里面产生的变量" class="headerlink" title="2.3 其他函数里面产生的变量"></a>2.3 其他函数里面产生的变量</h3><ul>
+<h3 id="23-其他函数里面产生的变量"><a class="markdownIt-Anchor" href="#23-其他函数里面产生的变量"></a> 2.3 其他函数里面产生的变量</h3>
+<ul>
 <li><code>saved_state</code>:自己的一份备份,可以用来恢复之前的状态</li>
 <li><code>array_attr</code>:初始为<code>["points"]</code>列表</li>
 <li><code>z_index_group</code>:暂时不知道有什么用</li>
 </ul>
-<h3 id="2-4-Mobject的一些抽象概念"><a href="#2-4-Mobject的一些抽象概念" class="headerlink" title="2.4 Mobject的一些抽象概念"></a>2.4 Mobject的一些抽象概念</h3><ul>
-<li><p>family:如果将Mobject看作父节点,submobjects列表中的Mobject看作子节点,则对每个Mobjects都会产生一棵树,这个树里面的所有节点成为这个Mobject的family</p>
+<h3 id="24-mobject的一些抽象概念"><a class="markdownIt-Anchor" href="#24-mobject的一些抽象概念"></a> 2.4 Mobject的一些抽象概念</h3>
+<ul>
+<li>
+<p>family:如果将Mobject看作父节点,submobjects列表中的Mobject看作子节点,则对每个Mobjects都会产生一棵树,这个树里面的所有节点成为这个Mobject的family</p>
 <p>family没有真正的实体,但是Mobject内有一个函数叫<code>get_family()</code>可以返回这个概念:</p>
 <pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get_family</span><span class="hljs-params">(self)</span>:</span>
     	<span class="hljs-comment"># 如果对map函数不理解,请自行查找Python map()函数</span>
@@ -299,44 +310,58 @@
 <p>Mobject的很多函数也用到了这个概念</p>
 </li>
 </ul>
-<h3 id="2-5-Mobject的属性"><a href="#2-5-Mobject的属性" class="headerlink" title="2.5 Mobject的属性"></a>2.5 Mobject的属性</h3><ol>
-<li><p>自身可迭代</p>
+<h3 id="25-mobject的属性"><a class="markdownIt-Anchor" href="#25-mobject的属性"></a> 2.5 Mobject的属性</h3>
+<ol>
+<li>
+<p>自身可迭代</p>
 <p>假如有Mobject变量mob,则mob[0]是self本身,mob[1]以及更大的索引是subMobject</p>
 </li>
-<li><p>自身有长度</p>
+<li>
+<p>自身有长度</p>
 <p>自身长度为submobject列表长度+1</p>
 </li>
 </ol>
-<h2 id="3-Mobject的主要方法"><a href="#3-Mobject的主要方法" class="headerlink" title="3. Mobject的主要方法"></a>3. Mobject的主要方法</h2><h3 id="3-1-属性的处理"><a href="#3-1-属性的处理" class="headerlink" title="3.1 属性的处理"></a>3.1 属性的处理</h3><ol>
-<li><p><code>reset_points()</code></p>
+<h2 id="3-mobject的主要方法"><a class="markdownIt-Anchor" href="#3-mobject的主要方法"></a> 3. Mobject的主要方法</h2>
+<h3 id="31-属性的处理"><a class="markdownIt-Anchor" href="#31-属性的处理"></a> 3.1 属性的处理</h3>
+<ol>
+<li>
+<p><code>reset_points()</code></p>
 <p>self.points = np.zeros((0, self.dim))</p>
 </li>
-<li><p><code>add(*mobjects)</code></p>
+<li>
+<p><code>add(*mobjects)</code></p>
 <p>将自己的submobjects列表中加入mobjects</p>
 <p><strong>注意:不能加入自己</strong></p>
 </li>
-<li><p><code>add_to_back(*mobjects)</code></p>
+<li>
+<p><code>add_to_back(*mobjects)</code></p>
 <p>将自己的submobjects列表末尾加入mobjects</p>
 <p><strong>注意:如果加入的mobjects中有的在自己的列表中已经存在,则按照加入的mobjects顺序存放</strong></p>
 </li>
-<li><p><code>remove(*mobjects)</code></p>
+<li>
+<p><code>remove(*mobjects)</code></p>
 <p>submobjects列表移除对应的mobjects</p>
 <p><strong>注意:如果mobjects某些元素不在submobjects列表则不会有任何反应</strong></p>
 </li>
 <li></li>
 </ol>
-<h3 id="3-2-图像静态显示"><a href="#3-2-图像静态显示" class="headerlink" title="3.2 图像静态显示"></a>3.2 图像静态显示</h3><ol>
-<li><p><code>get_image(camera=None)</code></p>
+<h3 id="32-图像静态显示"><a class="markdownIt-Anchor" href="#32-图像静态显示"></a> 3.2 图像静态显示</h3>
+<ol>
+<li>
+<p><code>get_image(camera=None)</code></p>
 <p>根据传入的camera类对应的参数(如角度,距离等等)返回一个图像(以PIL.Image的格式)</p>
 <p><strong>注意:应该用不到这个(如果不是自己开发代码)</strong></p>
 </li>
-<li><p><code>show(camera=None)</code></p>
+<li>
+<p><code>show(camera=None)</code></p>
 <p>无动画根据传入的camera类对应的参数(如角度,距离等等)显示自己</p>
 </li>
-<li><p><code>save_image(name=None)</code></p>
+<li>
+<p><code>save_image(name=None)</code></p>
 <p>将自己图像保存到宏定义<code>VIDEO_DIR</code>位置,名字为<code>name</code>如果未传入名字,则默认名字为自己的str方法得到的数值</p>
 </li>
-<li><p><code>deepcopy()</code></p>
+<li>
+<p><code>deepcopy()</code></p>
 </li>
 </ol>
 <p>返回一个自己的副本,副本的改变与不会影响到自己</p>
@@ -344,37 +369,46 @@
 <li><code>copy()</code></li>
 </ol>
 <p>浅拷贝,与深拷贝对应</p>
-<ol>
+<ol start="2">
 <li><code>generate_target(use_deepcopy=False)</code></li>
 </ol>
-<h3 id="3-3-更新-跟踪-函数"><a href="#3-3-更新-跟踪-函数" class="headerlink" title="3.3 更新(跟踪)函数"></a>3.3 更新(跟踪)函数</h3><ol>
-<li><p>$ ^{^*}$<code>update(dt=0, recursive=True)</code></p>
+<h3 id="33-更新跟踪函数"><a class="markdownIt-Anchor" href="#33-更新跟踪函数"></a> 3.3 更新(跟踪)函数</h3>
+<ol>
+<li>
+<p>$ <sup>{</sup>*}$<code>update(dt=0, recursive=True)</code></p>
 <p><em>底层函数,一般制作的时候用不到,但是仍然列举出来以备不时之需</em></p>
 <ul>
-<li><p>参数含义</p>
+<li>
+<p>参数含义</p>
 <p><code>dt</code>:每帧运动速率是多少</p>
 <p><code>recursive</code>:递归进行submobjects列表的Mobject的<code>update</code>函数</p>
 </li>
-<li><p>执行过程</p>
+<li>
+<p>执行过程</p>
 <p>如果updaters的某一项<code>update_function</code>列表里面有参数<code>dt</code>,则执行update_function(dt),否则执行update_function(),并根据recursive判断是否递归到submobjects列表中的每一项</p>
 </li>
 </ul>
 </li>
-<li><p><code>get_updaters()</code>:</p>
+<li>
+<p><code>get_updaters()</code>:</p>
 <p>得到updaters[]</p>
 </li>
-<li><p><code>get_family_updaters()</code>:</p>
+<li>
+<p><code>get_family_updaters()</code>:</p>
 <p>得到family的所有updaters</p>
 </li>
-<li><p><code>add_updater(update_function, index=None, call_updater=True)</code></p>
+<li>
+<p><code>add_updater(update_function, index=None, call_updater=True)</code></p>
 <ul>
-<li><p>参数含义</p>
+<li>
+<p>参数含义</p>
 <p><code>update_function</code>:更新函数</p>
 <p><code>index</code>:更新函数的索引</p>
 <p><code>call_updater</code>:我也不知道这个有啥用(¦3[▓▓],3b1b的代码也没找到一个用过这个参数的</p>
 <p><em>TODO:<code>call_updater</code>什么意思,欢迎留言</em></p>
 </li>
-<li><p>执行过程</p>
+<li>
+<p>执行过程</p>
 <p>将自己的<code>updaters</code>列表加入<code>update_function</code>,位置在<code>index</code>,插入方法同python列表的insert方法,并决定是否立即执行</p>
 <p>例子:</p>
 <pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">UpdateFunctionWithDt</span><span class="hljs-params">(Scene)</span>:</span>
@@ -445,45 +479,58 @@
 </li>
 </ul>
 </li>
-<li><p><code>remove_updater(update_function)</code>:</p>
+<li>
+<p><code>remove_updater(update_function)</code>:</p>
 <p>很明显与<code>add_updater</code>相反</p>
 </li>
-<li><p><code>clear_updaters(recursive=True)</code>:</p>
+<li>
+<p><code>clear_updaters(recursive=True)</code>:</p>
 <p>清除所有的<code>update_function</code>,如果<code>recursive</code>为<code>True</code>则submobjects列表的所有<code>update_function</code>清除</p>
 <p><strong>存疑:<code>recursive</code>为<code>True</code>貌似如果subMobjects里面还套有subMobjects,则内层的不能被清除?</strong></p>
 </li>
-<li><p><code>match_updaters(mobject)</code>:</p>
+<li>
+<p><code>match_updaters(mobject)</code>:</p>
 <p>将mobject的updater全部复制给自己(自己的原来的updaters失效)</p>
 </li>
-<li><p><code>suspend_updating(recursive=True)</code>:</p>
+<li>
+<p><code>suspend_updating(recursive=True)</code>:</p>
 <p>略</p>
 </li>
-<li><p><code>resume_updating(recursive=True)</code></p>
+<li>
+<p><code>resume_updating(recursive=True)</code></p>
 <p>略</p>
 </li>
-<li><p><code>get_time_based_updaters()</code>:</p>
+<li>
+<p><code>get_time_based_updaters()</code>:</p>
 <p>得到参数含有<code>dt</code>的updater</p>
 </li>
-<li><p><code>has_time_based_updater()</code>:</p>
+<li>
+<p><code>has_time_based_updater()</code>:</p>
 <p>有参数含有<code>dt</code>的updater</p>
 </li>
 </ol>
-<h3 id="3-4-变换函数"><a href="#3-4-变换函数" class="headerlink" title="3.4 变换函数"></a>3.4 变换函数</h3><ol>
-<li><p><code>apply_to_family(func)</code>:</p>
+<h3 id="34-变换函数"><a class="markdownIt-Anchor" href="#34-变换函数"></a> 3.4 变换函数</h3>
+<ol>
+<li>
+<p><code>apply_to_family(func)</code>:</p>
 <p>对每个家庭成员实行func函数</p>
 </li>
-<li><p><code>shift(*vectors)</code>:</p>
+<li>
+<p><code>shift(*vectors)</code>:</p>
 <p>平移,vector的维数为dim,如果输入多个vector则平移的终点为这几个vector的向量和</p>
 <p>如<code>.shift(UP*2,LEFT)</code>和<code>shift(UP*2+LEFT)</code>是一个效果</p>
 </li>
-<li><p><code>scale(scale_factor, **kwargs)</code>:</p>
+<li>
+<p><code>scale(scale_factor, **kwargs)</code>:</p>
 <ul>
-<li><p>参数:</p>
+<li>
+<p>参数:</p>
 <p><code>scale_factor</code>:缩放因子</p>
 <p><code>**kwargs</code>:</p>
 <p>默认行为是围绕mobject的中心进行缩放。参数about_edge可以是向量，指要围绕mobject的哪一侧进行缩放,否则，如果给about_point一个值，则相对于该点进行缩放。</p>
 <ul>
-<li><p><code>about_edge</code>:相对边</p>
+<li>
+<p><code>about_edge</code>:相对边</p>
 <pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AddUpdater</span><span class="hljs-params">(Scene)</span>:</span>
     <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">construct</span><span class="hljs-params">(self)</span>:</span>
         circles = [Circle(arc_center = LEFT*i*<span class="hljs-number">2</span>) <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">3</span>)]
@@ -511,7 +558,8 @@
         self.wait()</code></pre>
 <p><img src="UP_RIGHT-1586013786370.gif" srcset="/img/loading.gif" alt="UP_RIGHT"></p>
 </li>
-<li><p><code>about_point</code>:相对点</p>
+<li>
+<p><code>about_point</code>:相对点</p>
 <pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AddUpdater</span><span class="hljs-params">(Scene)</span>:</span>
     <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">construct</span><span class="hljs-params">(self)</span>:</span>
         circles = [Circle(arc_center = LEFT*i*<span class="hljs-number">2</span>) <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">3</span>)]
@@ -526,12 +574,14 @@
 </li>
 </ul>
 </li>
-<li><p>执行过程</p>
+<li>
+<p>执行过程</p>
 <p>放大或缩小指定的因子</p>
 </li>
 </ul>
 </li>
-<li><p><code>rotate(angle, axis=OUT, **kwargs)</code>:</p>
+<li>
+<p><code>rotate(angle, axis=OUT, **kwargs)</code>:</p>
 <p>学过初中物理就应该知道右手定则,在数学,物理中,旋转的方向就是右手定则中的(大拇指)方向</p>
 <pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">myRotateScene</span><span class="hljs-params">(ThreeDScene)</span>:</span>
     <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">construct</span><span class="hljs-params">(self)</span>:</span>
@@ -559,10 +609,12 @@
 <p>这个相对点旋转其实是线性代数里面的旋转矩阵造成的结果,如果角度是180度,效果是关于这个点对称</p>
 <p><img src="rotateAboutPoint-1586013786370.gif" srcset="/img/loading.gif" alt="rotateAboutPoint"></p>
 </li>
-<li><p><code>flip(axis=UP, **kwargs)</code>:</p>
+<li>
+<p><code>flip(axis=UP, **kwargs)</code>:</p>
 <p>翻转,其实就是<code>rotate</code>180度,其他参数同<code>rotate</code></p>
 </li>
-<li><p><code>stretch(factor, dim, **kwargs)</code>:</p>
+<li>
+<p><code>stretch(factor, dim, **kwargs)</code>:</p>
 <p>在对应的维度伸缩<code>factor</code>倍</p>
 <p>这个函数与<code>scale</code>的用法一样,也会有<code>about_point</code>和<code>about_edge</code></p>
 <pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Stretch</span><span class="hljs-params">(Scene)</span>:</span>
@@ -571,7 +623,8 @@
         self.play(text.stretch,<span class="hljs-number">2</span>,<span class="hljs-number">1</span>)
         self.wait(<span class="hljs-number">2</span>)</code></pre>
 </li>
-<li><p><code>apply_function(function, **kwargs)</code>:</p>
+<li>
+<p><code>apply_function(function, **kwargs)</code>:</p>
 <p>对所有family成员的点坐标都进行<code>function</code>处理,所以function必须是一个处理一个点的函数</p>
 <p>例如对于二维图形:</p>
 <pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">myScene</span><span class="hljs-params">(Scene)</span>:</span>
@@ -588,7 +641,8 @@
 <p>默认的<code>about_point</code>为<code>ORIGIN</code>,可以看出来实现了<code>apply_function</code>的会大一倍</p>
 <p><img src="applyFunc-1586013786370.gif" srcset="/img/loading.gif" alt="applyFunc"></p>
 </li>
-<li><p><code>apply_function_to_position(function)</code>:</p>
+<li>
+<p><code>apply_function_to_position(function)</code>:</p>
 <p>移动图像中心到function(self.get_center())</p>
 <pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">myWag</span><span class="hljs-params">(Scene)</span>:</span>
     <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">x2</span><span class="hljs-params">(self,x)</span>:</span>
@@ -601,29 +655,88 @@
         self.play(circle.apply_function_to_position,{<span class="hljs-string">"function"</span>:self.x2})
         self.wait()</code></pre>
 </li>
-<li><p><code>apply_function_to_submobject_positions(function)</code>:</p>
+<li>
+<p><code>apply_function_to_submobject_positions(function)</code>:</p>
 <p>略</p>
 </li>
-<li><p><code>apply_matrix(matrix, **kwargs)</code>:</p>
+<li>
+<p><code>apply_matrix(matrix, **kwargs)</code>:</p>
 <p><code>matrix</code>为变换矩阵,这个就是对Mobject点对应的向量乘以<code>matrix</code>变换矩阵,学过线性代数或者计算机视觉或者看过3b1b的线性代数的人应该不陌生</p>
 </li>
-<li><p><code>apply_complex_function(function, **kwargs)</code>:</p>
+<li>
+<p><code>apply_complex_function(function, **kwargs)</code>:</p>
 <p>同理于<code>apply_function(function, **kwargs)</code>,只不过这里的<code>function</code>接受一个平面复数,即<code>complex(x, y)</code></p>
 </li>
-<li><p><code>wag(direction=RIGHT, axis=DOWN, wag_factor=1.0)</code>:</p>
+<li>
+<p><code>wag(direction=RIGHT, axis=DOWN, wag_factor=1.0)</code>:</p>
 <p>分析源码得到如下处理步骤:</p>
 <ol>
-<li><p>对所有含有坐标属性家庭成员进行步骤2到5的操作</p>
+<li>
+<p>对所有含有坐标属性家庭成员进行步骤2到5的操作</p>
 </li>
-<li><p>向axis对应维度投影,如axis=UP/DOWN则向y轴投影,即保留y值不变,得到对应维度的向量列表alphas</p>
+<li>
+<p>向axis对应维度投影,如axis=UP/DOWN则向y轴投影,即保留y值不变,得到对应维度的向量列表alphas</p>
 </li>
-<li><p>将向量列表alphas归一化到[0,1],归一方法如下:</p>
-<script type="math/tex; mode=display">
-\vec{alphas'}_i = \frac{\vec{alphas}_i-min(\vec{alphas})}{max(\vec{alphas})-min(\vec{alphas})}</script></li>
-<li><p>执行幂运算</p>
-<script type="math/tex; mode=display">
-\vec{alphas}_i^{"}=(\vec{alphas'})^{wag\_factor}</script></li>
-<li><p>每个点在direction方向平移$\vec{alphas}_i^{“}$</p>
+<li>
+<p>将向量列表alphas归一化到[0,1],归一方法如下:</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mover accent="true"><mrow><mi>a</mi><mi>l</mi><mi>p</mi><mi>h</mi><mi>a</mi><msup><mi>s</mi><mo mathvariant="normal">′</mo></msup></mrow><mo>⃗</mo></mover><mi>i</mi></msub><mo>=</mo><mfrac><mrow><msub><mover accent="true"><mrow><mi>a</mi><mi>l</mi><mi>p</mi><mi>h</mi><mi>a</mi><mi>s</mi></mrow><mo>⃗</mo></mover><mi>i</mi></msub><mo>−</mo><mi>m</mi><mi>i</mi><mi>n</mi><mo stretchy="false">(</mo><mover accent="true"><mrow><mi>a</mi><mi>l</mi><mi>p</mi><mi>h</mi><mi>a</mi><mi>s</mi></mrow><mo>⃗</mo></mover><mo stretchy="false">)</mo></mrow><mrow><mi>m</mi><mi>a</mi><mi>x</mi><mo stretchy="false">(</mo><mover accent="true"><mrow><mi>a</mi><mi>l</mi><mi>p</mi><mi>h</mi><mi>a</mi><mi>s</mi></mrow><mo>⃗</mo></mover><mo stretchy="false">)</mo><mo>−</mo><mi>m</mi><mi>i</mi><mi>n</mi><mo stretchy="false">(</mo><mover accent="true"><mrow><mi>a</mi><mi>l</mi><mi>p</mi><mi>h</mi><mi>a</mi><mi>s</mi></mrow><mo>⃗</mo></mover><mo stretchy="false">)</mo></mrow></mfrac></mrow><annotation encoding="application/x-tex">\vec{alphas'}_i = \frac{\vec{alphas}_i-min(\vec{alphas})}{max(\vec{alphas})-min(\vec{alphas})}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.2215799999999999em;vertical-align:-0.24414em;"></span><span class="mord"><span class="mord accent"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.9774399999999999em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault">a</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">p</span><span class="mord mathdefault">h</span><span class="mord mathdefault">a</span><span class="mord"><span class="mord mathdefault">s</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6778919999999999em;"><span style="top:-2.9890000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span></span></span><span style="top:-3.26344em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.2355em;"><span class="overlay" style="height:0.714em;width:0.471em;"><svg width="0.471em" height="0.714em" style="width:0.471em" viewBox="0 0 471 714" preserveAspectRatio="xMinYMin"><path d="M377 20c0-5.333 1.833-10 5.5-14S391 0 397 0c4.667 0 8.667 1.667 12 5
+3.333 2.667 6.667 9 10 19 6.667 24.667 20.333 43.667 41 57 7.333 4.667 11
+10.667 11 18 0 6-1 10-3 12s-6.667 5-14 9c-28.667 14.667-53.667 35.667-75 63
+-1.333 1.333-3.167 3.5-5.5 6.5s-4 4.833-5 5.5c-1 .667-2.5 1.333-4.5 2s-4.333 1
+-7 1c-4.667 0-9.167-1.833-13.5-5.5S337 184 337 178c0-12.667 15.667-32.333 47-59
+H213l-171-1c-8.667-6-13-12.333-13-19 0-4.667 4.333-11.333 13-20h359
+c-16-25.333-24-45-24-59z"></path></svg></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.19444em;"><span></span></span></span></span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.21752399999999997em;"><span style="top:-2.4558600000000004em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.24414em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.7718799999999995em;vertical-align:-1.1174399999999998em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.65444em;"><span style="top:-2.1325600000000002em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault">m</span><span class="mord mathdefault">a</span><span class="mord mathdefault">x</span><span class="mopen">(</span><span class="mord accent"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.9774399999999999em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault">a</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">p</span><span class="mord mathdefault">h</span><span class="mord mathdefault">a</span><span class="mord mathdefault">s</span></span></span><span style="top:-3.26344em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.2355em;"><span class="overlay" style="height:0.714em;width:0.471em;"><svg width="0.471em" height="0.714em" style="width:0.471em" viewBox="0 0 471 714" preserveAspectRatio="xMinYMin"><path d="M377 20c0-5.333 1.833-10 5.5-14S391 0 397 0c4.667 0 8.667 1.667 12 5
+3.333 2.667 6.667 9 10 19 6.667 24.667 20.333 43.667 41 57 7.333 4.667 11
+10.667 11 18 0 6-1 10-3 12s-6.667 5-14 9c-28.667 14.667-53.667 35.667-75 63
+-1.333 1.333-3.167 3.5-5.5 6.5s-4 4.833-5 5.5c-1 .667-2.5 1.333-4.5 2s-4.333 1
+-7 1c-4.667 0-9.167-1.833-13.5-5.5S337 184 337 178c0-12.667 15.667-32.333 47-59
+H213l-171-1c-8.667-6-13-12.333-13-19 0-4.667 4.333-11.333 13-20h359
+c-16-25.333-24-45-24-59z"></path></svg></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.19444em;"><span></span></span></span></span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathdefault">m</span><span class="mord mathdefault">i</span><span class="mord mathdefault">n</span><span class="mopen">(</span><span class="mord accent"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.9774399999999999em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault">a</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">p</span><span class="mord mathdefault">h</span><span class="mord mathdefault">a</span><span class="mord mathdefault">s</span></span></span><span style="top:-3.26344em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.2355em;"><span class="overlay" style="height:0.714em;width:0.471em;"><svg width="0.471em" height="0.714em" style="width:0.471em" viewBox="0 0 471 714" preserveAspectRatio="xMinYMin"><path d="M377 20c0-5.333 1.833-10 5.5-14S391 0 397 0c4.667 0 8.667 1.667 12 5
+3.333 2.667 6.667 9 10 19 6.667 24.667 20.333 43.667 41 57 7.333 4.667 11
+10.667 11 18 0 6-1 10-3 12s-6.667 5-14 9c-28.667 14.667-53.667 35.667-75 63
+-1.333 1.333-3.167 3.5-5.5 6.5s-4 4.833-5 5.5c-1 .667-2.5 1.333-4.5 2s-4.333 1
+-7 1c-4.667 0-9.167-1.833-13.5-5.5S337 184 337 178c0-12.667 15.667-32.333 47-59
+H213l-171-1c-8.667-6-13-12.333-13-19 0-4.667 4.333-11.333 13-20h359
+c-16-25.333-24-45-24-59z"></path></svg></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.19444em;"><span></span></span></span></span></span><span class="mclose">)</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord accent"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.9774399999999999em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault">a</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">p</span><span class="mord mathdefault">h</span><span class="mord mathdefault">a</span><span class="mord mathdefault">s</span></span></span><span style="top:-3.26344em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.2355em;"><span class="overlay" style="height:0.714em;width:0.471em;"><svg width="0.471em" height="0.714em" style="width:0.471em" viewBox="0 0 471 714" preserveAspectRatio="xMinYMin"><path d="M377 20c0-5.333 1.833-10 5.5-14S391 0 397 0c4.667 0 8.667 1.667 12 5
+3.333 2.667 6.667 9 10 19 6.667 24.667 20.333 43.667 41 57 7.333 4.667 11
+10.667 11 18 0 6-1 10-3 12s-6.667 5-14 9c-28.667 14.667-53.667 35.667-75 63
+-1.333 1.333-3.167 3.5-5.5 6.5s-4 4.833-5 5.5c-1 .667-2.5 1.333-4.5 2s-4.333 1
+-7 1c-4.667 0-9.167-1.833-13.5-5.5S337 184 337 178c0-12.667 15.667-32.333 47-59
+H213l-171-1c-8.667-6-13-12.333-13-19 0-4.667 4.333-11.333 13-20h359
+c-16-25.333-24-45-24-59z"></path></svg></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.19444em;"><span></span></span></span></span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.21752399999999997em;"><span style="top:-2.4558600000000004em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.24414em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathdefault">m</span><span class="mord mathdefault">i</span><span class="mord mathdefault">n</span><span class="mopen">(</span><span class="mord accent"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.9774399999999999em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault">a</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">p</span><span class="mord mathdefault">h</span><span class="mord mathdefault">a</span><span class="mord mathdefault">s</span></span></span><span style="top:-3.26344em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.2355em;"><span class="overlay" style="height:0.714em;width:0.471em;"><svg width="0.471em" height="0.714em" style="width:0.471em" viewBox="0 0 471 714" preserveAspectRatio="xMinYMin"><path d="M377 20c0-5.333 1.833-10 5.5-14S391 0 397 0c4.667 0 8.667 1.667 12 5
+3.333 2.667 6.667 9 10 19 6.667 24.667 20.333 43.667 41 57 7.333 4.667 11
+10.667 11 18 0 6-1 10-3 12s-6.667 5-14 9c-28.667 14.667-53.667 35.667-75 63
+-1.333 1.333-3.167 3.5-5.5 6.5s-4 4.833-5 5.5c-1 .667-2.5 1.333-4.5 2s-4.333 1
+-7 1c-4.667 0-9.167-1.833-13.5-5.5S337 184 337 178c0-12.667 15.667-32.333 47-59
+H213l-171-1c-8.667-6-13-12.333-13-19 0-4.667 4.333-11.333 13-20h359
+c-16-25.333-24-45-24-59z"></path></svg></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.19444em;"><span></span></span></span></span></span><span class="mclose">)</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.1174399999999998em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></p>
+</li>
+<li>
+<p>执行幂运算</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msubsup><mover accent="true"><mrow><mi>a</mi><mi>l</mi><mi>p</mi><mi>h</mi><mi>a</mi><mi>s</mi></mrow><mo>⃗</mo></mover><mi>i</mi><mi mathvariant="normal">"</mi></msubsup><mo>=</mo><mo stretchy="false">(</mo><mover accent="true"><mrow><mi>a</mi><mi>l</mi><mi>p</mi><mi>h</mi><mi>a</mi><msup><mi>s</mi><mo mathvariant="normal">′</mo></msup></mrow><mo>⃗</mo></mover><msup><mo stretchy="false">)</mo><mrow><mi>w</mi><mi>a</mi><mi>g</mi><mi mathvariant="normal">_</mi><mi>f</mi><mi>a</mi><mi>c</mi><mi>t</mi><mi>o</mi><mi>r</mi></mrow></msup></mrow><annotation encoding="application/x-tex">\vec{alphas}_i^{"}=(\vec{alphas'})^{wag\_factor}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.4634479999999996em;vertical-align:-0.247em;"></span><span class="mord"><span class="mord accent"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.9774399999999999em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault">a</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">p</span><span class="mord mathdefault">h</span><span class="mord mathdefault">a</span><span class="mord mathdefault">s</span></span></span><span style="top:-3.26344em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.2355em;"><span class="overlay" style="height:0.714em;width:0.471em;"><svg width="0.471em" height="0.714em" style="width:0.471em" viewBox="0 0 471 714" preserveAspectRatio="xMinYMin"><path d="M377 20c0-5.333 1.833-10 5.5-14S391 0 397 0c4.667 0 8.667 1.667 12 5
+3.333 2.667 6.667 9 10 19 6.667 24.667 20.333 43.667 41 57 7.333 4.667 11
+10.667 11 18 0 6-1 10-3 12s-6.667 5-14 9c-28.667 14.667-53.667 35.667-75 63
+-1.333 1.333-3.167 3.5-5.5 6.5s-4 4.833-5 5.5c-1 .667-2.5 1.333-4.5 2s-4.333 1
+-7 1c-4.667 0-9.167-1.833-13.5-5.5S337 184 337 178c0-12.667 15.667-32.333 47-59
+H213l-171-1c-8.667-6-13-12.333-13-19 0-4.667 4.333-11.333 13-20h359
+c-16-25.333-24-45-24-59z"></path></svg></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.19444em;"><span></span></span></span></span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.2164479999999998em;"><span style="top:-2.4530000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span><span style="top:-3.43034em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">"</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.247em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.2274399999999999em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord accent"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.9774399999999999em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault">a</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">p</span><span class="mord mathdefault">h</span><span class="mord mathdefault">a</span><span class="mord"><span class="mord mathdefault">s</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6778919999999999em;"><span style="top:-2.9890000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span></span></span><span style="top:-3.26344em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.2355em;"><span class="overlay" style="height:0.714em;width:0.471em;"><svg width="0.471em" height="0.714em" style="width:0.471em" viewBox="0 0 471 714" preserveAspectRatio="xMinYMin"><path d="M377 20c0-5.333 1.833-10 5.5-14S391 0 397 0c4.667 0 8.667 1.667 12 5
+3.333 2.667 6.667 9 10 19 6.667 24.667 20.333 43.667 41 57 7.333 4.667 11
+10.667 11 18 0 6-1 10-3 12s-6.667 5-14 9c-28.667 14.667-53.667 35.667-75 63
+-1.333 1.333-3.167 3.5-5.5 6.5s-4 4.833-5 5.5c-1 .667-2.5 1.333-4.5 2s-4.333 1
+-7 1c-4.667 0-9.167-1.833-13.5-5.5S337 184 337 178c0-12.667 15.667-32.333 47-59
+H213l-171-1c-8.667-6-13-12.333-13-19 0-4.667 4.333-11.333 13-20h359
+c-16-25.333-24-45-24-59z"></path></svg></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.19444em;"><span></span></span></span></span></span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8991079999999999em;"><span style="top:-3.1130000000000004em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.02691em;">w</span><span class="mord mathdefault mtight">a</span><span class="mord mathdefault mtight" style="margin-right:0.03588em;">g</span><span class="mord mtight" style="margin-right:0.02778em;">_</span><span class="mord mathdefault mtight" style="margin-right:0.10764em;">f</span><span class="mord mathdefault mtight">a</span><span class="mord mathdefault mtight">c</span><span class="mord mathdefault mtight">t</span><span class="mord mathdefault mtight">o</span><span class="mord mathdefault mtight" style="margin-right:0.02778em;">r</span></span></span></span></span></span></span></span></span></span></span></span></span></p>
+</li>
+<li>
+<p>每个点在direction方向平移<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msubsup><mover accent="true"><mrow><mi>a</mi><mi>l</mi><mi>p</mi><mi>h</mi><mi>a</mi><mi>s</mi></mrow><mo>⃗</mo></mover><mi>i</mi><mi mathvariant="normal">"</mi></msubsup></mrow><annotation encoding="application/x-tex">\vec{alphas}_i^{"}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.4634479999999996em;vertical-align:-0.247em;"></span><span class="mord"><span class="mord accent"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.9774399999999999em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault">a</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">p</span><span class="mord mathdefault">h</span><span class="mord mathdefault">a</span><span class="mord mathdefault">s</span></span></span><span style="top:-3.26344em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.2355em;"><span class="overlay" style="height:0.714em;width:0.471em;"><svg width="0.471em" height="0.714em" style="width:0.471em" viewBox="0 0 471 714" preserveAspectRatio="xMinYMin"><path d="M377 20c0-5.333 1.833-10 5.5-14S391 0 397 0c4.667 0 8.667 1.667 12 5
+3.333 2.667 6.667 9 10 19 6.667 24.667 20.333 43.667 41 57 7.333 4.667 11
+10.667 11 18 0 6-1 10-3 12s-6.667 5-14 9c-28.667 14.667-53.667 35.667-75 63
+-1.333 1.333-3.167 3.5-5.5 6.5s-4 4.833-5 5.5c-1 .667-2.5 1.333-4.5 2s-4.333 1
+-7 1c-4.667 0-9.167-1.833-13.5-5.5S337 184 337 178c0-12.667 15.667-32.333 47-59
+H213l-171-1c-8.667-6-13-12.333-13-19 0-4.667 4.333-11.333 13-20h359
+c-16-25.333-24-45-24-59z"></path></svg></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.19444em;"><span></span></span></span></span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.2164479999999998em;"><span style="top:-2.4530000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span><span style="top:-3.43034em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">"</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.247em;"><span></span></span></span></span></span></span></span></span></span></p>
 </li>
 </ol>
 <p>例子:</p>
@@ -641,7 +754,8 @@
 <p><img src="myWag1-1585643241928-1586013786370.gif" srcset="/img/loading.gif" alt="myWag1"></p>
 <p>从左到右factor依次为0.1,1,2,都是向上wag的,具体怎么理解大家可以自己理解,比较难以表述</p>
 </li>
-<li><p><code>reverse_points()</code>:</p>
+<li>
+<p><code>reverse_points()</code>:</p>
 <p>调换点的顺序:</p>
 <pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">myWag</span><span class="hljs-params">(Scene)</span>:</span>
     <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">construct</span><span class="hljs-params">(self)</span>:</span>
@@ -661,16 +775,20 @@
 <p><img src="ReversePoint-1586013786371.gif" srcset="/img/loading.gif" alt="ReversePoint"></p>
 <p>注意play函数不能很好表现reverse的现象,如果看顺序,上图顺序从逆时针变成了顺时针</p>
 </li>
-<li><p><code>repeat(count)</code>:</p>
+<li>
+<p><code>repeat(count)</code>:</p>
 <p>会出现重影的特效</p>
 <p><img src="Repeat-1586013786371.gif" srcset="/img/loading.gif" alt="Repeat"></p>
 </li>
-<li><p><code>apply_points_function_about_point(func, about_point=None, about_edge=None)</code>:</p>
+<li>
+<p><code>apply_points_function_about_point(func, about_point=None, about_edge=None)</code>:</p>
 <p>相对点或边对自己的所有点左边应用函数</p>
 </li>
 </ol>
-<h3 id="3-5-位置函数"><a href="#3-5-位置函数" class="headerlink" title="3.5 位置函数"></a>3.5 位置函数</h3><ol>
-<li><p><code>center()</code>:</p>
+<h3 id="35-位置函数"><a class="markdownIt-Anchor" href="#35-位置函数"></a> 3.5 位置函数</h3>
+<ol>
+<li>
+<p><code>center()</code>:</p>
 <p>此处center为动词:到中心</p>
 <pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Repeat</span><span class="hljs-params">(Scene)</span>:</span>
     <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">construct</span><span class="hljs-params">(self)</span>:</span>
@@ -684,7 +802,8 @@
         self.wait()</code></pre>
 <p><img src="Center-1586013786371.gif" srcset="/img/loading.gif" alt="Center"></p>
 </li>
-<li><p><code>align_on_border(direction, buff=DEFAULT_MOBJECT_TO_EDGE_BUFFER)</code>:</p>
+<li>
+<p><code>align_on_border(direction, buff=DEFAULT_MOBJECT_TO_EDGE_BUFFER)</code>:</p>
 <p>在边界对齐,buff为和边界的距离</p>
 <pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Align</span><span class="hljs-params">(Scene)</span>:</span>
     <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">construct</span><span class="hljs-params">(self)</span>:</span>
@@ -693,14 +812,17 @@
         self.wait(<span class="hljs-number">2</span>)</code></pre>
 <p><img src="Align-1586013786371.gif" srcset="/img/loading.gif" alt="Align"></p>
 </li>
-<li><p><code>to_corner(corner=LEFT + DOWN, buff=DEFAULT_MOBJECT_TO_EDGE_BUFFER)</code>:</p>
+<li>
+<p><code>to_corner(corner=LEFT + DOWN, buff=DEFAULT_MOBJECT_TO_EDGE_BUFFER)</code>:</p>
 <p>到某一个角</p>
 <p><img src="to-1586013786371.png" srcset="/img/loading.gif" alt="to_corner author:Elteoremadebeethoven"></p>
 </li>
-<li><p><code>to_edge(edge=LEFT, buff=DEFAULT_MOBJECT_TO_EDGE_BUFFER)</code>:</p>
+<li>
+<p><code>to_edge(edge=LEFT, buff=DEFAULT_MOBJECT_TO_EDGE_BUFFER)</code>:</p>
 <p>到某一边</p>
 </li>
-<li><p><code>next_to(mobject_or_point,direction=RIGHT, buff=DEFAULT_MOBJECT_TO_MOBJECT_BUFFER,aligned_edge=ORIGIN,submobject_to_align=None,index_of_submobject_to_align=None, coor_mask=np.array([1, 1, 1]),)</code>:</p>
+<li>
+<p><code>next_to(mobject_or_point,direction=RIGHT, buff=DEFAULT_MOBJECT_TO_MOBJECT_BUFFER,aligned_edge=ORIGIN,submobject_to_align=None,index_of_submobject_to_align=None, coor_mask=np.array([1, 1, 1]),)</code>:</p>
 <p>参数分析:</p>
 <ul>
 <li><code>mobject_or_point</code>:Mobject或者一个点坐标</li>
@@ -716,14 +838,17 @@
 <li><code>coor_mask</code>:掩膜,术语来自数字信号处理/数字图像处理,不懂可以自行搜索,在这里即为1的地方才进行next_to,如果为0,则对应的坐标不进行next_to变换</li>
 </ul>
 <p>执行过程:</p>
-<p>   如果<code>mobject_or_point</code>是点则next_to的对象就是点,否则为由参数决定的Mobject的中心</p>
-<ol>
-<li><p><code>shift_onto_screen(**kwargs)</code>:</p>
+<p>如果<code>mobject_or_point</code>是点则next_to的对象就是点,否则为由参数决定的Mobject的中心</p>
+<ol start="6">
+<li>
+<p><code>shift_onto_screen(**kwargs)</code>:</p>
 </li>
-<li><p><code>is_off_screen()</code>:</p>
+<li>
+<p><code>is_off_screen()</code>:</p>
 <p>是否超出屏幕范围</p>
 </li>
-<li><p><code>rescale_to_fit(length, dim, stretch=False, **kwargs)</code>:</p>
+<li>
+<p><code>rescale_to_fit(length, dim, stretch=False, **kwargs)</code>:</p>
 <p>将某一个方向的长度拉伸至length,可以按照scale方式拉长或者stretch方式拉长</p>
 <pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">RescaleToFit</span><span class="hljs-params">(Scene)</span>:</span>
     <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">construct</span><span class="hljs-params">(self)</span>:</span>
@@ -741,7 +866,8 @@
 <li><code>set_depth(depth, stretch=False, **kwargs)</code></li>
 </ul>
 </li>
-<li><p><code>set_coord(value, dim, direction=ORIGIN)</code>:</p>
+<li>
+<p><code>set_coord(value, dim, direction=ORIGIN)</code>:</p>
 <p>将dim对应的坐标设置为value,direction表示设置什么的坐标,如direction为RIGHT则表示设置图像的最右端点的dim维度的坐标为value</p>
 <ul>
 <li><code>set_x(x, direction=ORIGIN)</code></li>
@@ -749,17 +875,21 @@
 <li><code>set_z(z, direction=ORIGIN)</code></li>
 </ul>
 </li>
-<li><p><code>space_out_submobjects(factor=1.5, **kwargs)</code>:</p>
+<li>
+<p><code>space_out_submobjects(factor=1.5, **kwargs)</code>:</p>
 <p>自己scale factor倍,子mobject缩小1/factor倍</p>
 </li>
-<li><p><code>move_to(point_or_mobject, aligned_edge=ORIGIN,coor_mask=np.array([1, 1, 1]))</code>:</p>
+<li>
+<p><code>move_to(point_or_mobject, aligned_edge=ORIGIN,coor_mask=np.array([1, 1, 1]))</code>:</p>
 <p>与next_to相近,不过区别是:next_to表示的是边界的距离，而不是中心距离</p>
 <p><img src="move_next_to-1586013786372.png" srcset="/img/loading.gif" alt="move_next_to author:Elteoremadebeethoven"></p>
 </li>
-<li><p><code>replace(mobject, dim_to_match=0, stretch=False)</code>:</p>
+<li>
+<p><code>replace(mobject, dim_to_match=0, stretch=False)</code>:</p>
 <p>将位置移动到mobject,并且大小做一些改变,具体看源码</p>
 </li>
-<li><p><code>surround(mobject,dim_to_match=0,stretch=False,buff=MED_SMALL_BUFF)</code>:</p>
+<li>
+<p><code>surround(mobject,dim_to_match=0,stretch=False,buff=MED_SMALL_BUFF)</code>:</p>
 <p>包围(默认情况下,等边长的正多边形规则物体效果很好,对于不等变长的形状最好启用stretch)</p>
 <pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Surround</span><span class="hljs-params">(Scene)</span>:</span>
     <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">construct</span><span class="hljs-params">(self)</span>:</span>
@@ -770,7 +900,8 @@
         self.wait(<span class="hljs-number">2</span>)</code></pre>
 <p><img src="Surround-1586013786372.gif" srcset="/img/loading.gif" alt="Surround"></p>
 </li>
-<li><p><code>put_start_and_end_on(start, end)</code>:</p>
+<li>
+<p><code>put_start_and_end_on(start, end)</code>:</p>
 <p>将起点终点重置为start,end</p>
 <pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">PutStartAndEndOn</span><span class="hljs-params">(Scene)</span>:</span>
 	<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">construct</span><span class="hljs-params">(self)</span>:</span>
@@ -783,7 +914,8 @@
         self.wait()</code></pre>
 <p><img src="PutStartAndEndOn-1586013786372.gif" srcset="/img/loading.gif" alt="PutStartAndEndOn"></p>
 </li>
-<li><p><code>add_background_rectangle(color=BLACK, opacity=0.75, **kwargs)</code>:</p>
+<li>
+<p><code>add_background_rectangle(color=BLACK, opacity=0.75, **kwargs)</code>:</p>
 <p>增加背景方块,此方块是可以随着Mobject变化而变化的</p>
 <pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">BackgroundRectangle</span><span class="hljs-params">(Scene)</span>:</span>
 	<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">construct</span><span class="hljs-params">(self)</span>:</span>
@@ -794,18 +926,23 @@
         self.wait()</code></pre>
 <p><img src="BackgroundRectangle-1586013786372.gif" srcset="/img/loading.gif" alt="BackgroundRectangle"></p>
 </li>
-<li><p><code>add_background_rectangle_to_submobjects(**kwargs)</code>:</p>
+<li>
+<p><code>add_background_rectangle_to_submobjects(**kwargs)</code>:</p>
 <p>略</p>
 </li>
-<li><p><code>add_background_rectangle_to_family_members_with_points(**kwargs)</code>:</p>
+<li>
+<p><code>add_background_rectangle_to_family_members_with_points(**kwargs)</code>:</p>
 <p>略</p>
 </li>
 </ol>
-<h3 id="3-6-颜色函数"><a href="#3-6-颜色函数" class="headerlink" title="3.6 颜色函数"></a>3.6 颜色函数</h3><ol>
-<li><p><code>set_color(color=YELLOW_C, family=True)</code>:</p>
+<h3 id="36-颜色函数"><a class="markdownIt-Anchor" href="#36-颜色函数"></a> 3.6 颜色函数</h3>
+<ol>
+<li>
+<p><code>set_color(color=YELLOW_C, family=True)</code>:</p>
 <p>设置颜色,family指家庭成员是否也跟着变色</p>
 </li>
-<li><p><code>set_color_by_gradient(*colors)</code>:</p>
+<li>
+<p><code>set_color_by_gradient(*colors)</code>:</p>
 <p>渐变色,可以是两个或多个颜色的列表</p>
 <pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">main</span><span class="hljs-params">(Scene)</span>:</span>
     <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">construct</span><span class="hljs-params">(self)</span>:</span>
@@ -815,16 +952,20 @@
         self.wait(<span class="hljs-number">3</span>)</code></pre>
 <p><img src="image-20200403201147347-1586013786372.png" srcset="/img/loading.gif" alt="gradientColor"></p>
 </li>
-<li><p><code>set_colors_by_radial_gradient(center=None, radius=1, inner_color=WHITE, outer_color=BLACK)</code>:</p>
+<li>
+<p><code>set_colors_by_radial_gradient(center=None, radius=1, inner_color=WHITE, outer_color=BLACK)</code>:</p>
 <p>辐射状渐变颜色,半径为radius</p>
 </li>
-<li><p><code>set_submobject_colors_by_gradient(*colors)</code>:</p>
+<li>
+<p><code>set_submobject_colors_by_gradient(*colors)</code>:</p>
 <p>给子Mobject设置渐变颜色</p>
 </li>
-<li><p><code>set_submobject_colors_by_radial_gradient(center=None, radius=1, inner_color=WHITE, outer_color=BLACK)</code>:</p>
+<li>
+<p><code>set_submobject_colors_by_radial_gradient(center=None, radius=1, inner_color=WHITE, outer_color=BLACK)</code>:</p>
 <p>同理,略</p>
 </li>
-<li><p><code>fade_to(color, alpha, family=True)</code>:</p>
+<li>
+<p><code>fade_to(color, alpha, family=True)</code>:</p>
 <p>褪色为某一个颜色,alpha为插值系数,alpha在[0,1]之间,越接近1,褪色越厉害</p>
 <pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">FadeTo</span><span class="hljs-params">(Scene)</span>:</span>
     <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">construct</span><span class="hljs-params">(self)</span>:</span>
@@ -835,45 +976,59 @@
         self.wait()</code></pre>
 <p><img src="FadeTo-1586013786373.gif" srcset="/img/loading.gif" alt="FadeTo"></p>
 </li>
-<li><p><code>get_color()</code>:</p>
+<li>
+<p><code>get_color()</code>:</p>
 <p>返回颜色</p>
 </li>
-<li><p><code>fade(darkness=0.5, family=True)</code>:</p>
+<li>
+<p><code>fade(darkness=0.5, family=True)</code>:</p>
 <p>褪色为黑色,darkness为灰度</p>
 </li>
 </ol>
-<h3 id="3-7-恢复函数"><a href="#3-7-恢复函数" class="headerlink" title="3.7 恢复函数"></a>3.7 恢复函数</h3><ol>
-<li><p><code>save_state(use_deepcopy=False)</code>:</p>
+<h3 id="37-恢复函数"><a class="markdownIt-Anchor" href="#37-恢复函数"></a> 3.7 恢复函数</h3>
+<ol>
+<li>
+<p><code>save_state(use_deepcopy=False)</code>:</p>
 <p>保存状态,并确定是否使用深拷贝</p>
 </li>
-<li><p><code>restore()</code>:</p>
+<li>
+<p><code>restore()</code>:</p>
 <p>恢复之前状态</p>
 </li>
 </ol>
-<h3 id="3-8-其他的getter方法"><a href="#3-8-其他的getter方法" class="headerlink" title="3.8 其他的getter方法"></a>3.8 其他的getter方法</h3><ol>
-<li><p><code>reduce_across_dimension(points_func, reduce_func, dim)</code>:</p>
+<h3 id="38-其他的getter方法"><a class="markdownIt-Anchor" href="#38-其他的getter方法"></a> 3.8 其他的getter方法</h3>
+<ol>
+<li>
+<p><code>reduce_across_dimension(points_func, reduce_func, dim)</code>:</p>
 </li>
-<li><p><code>nonempty_submobjects()</code>:</p>
+<li>
+<p><code>nonempty_submobjects()</code>:</p>
 <p>返回Submobject的subSubMobject不为空的Submobject</p>
 </li>
-<li><p><code>get_merged_array(array_attr)</code>:</p>
+<li>
+<p><code>get_merged_array(array_attr)</code>:</p>
 <p>得到Mobject以及其子Mobject的array_attr属性的列表</p>
 </li>
-<li><p><code>get_all_points()</code>:</p>
+<li>
+<p><code>get_all_points()</code>:</p>
 <p>得到Mobject与其子Mobject属性所有的点</p>
 </li>
-<li><p><code>get_num_points()</code>:</p>
+<li>
+<p><code>get_num_points()</code>:</p>
 <p>得到自己的点的数量(不包含子Mobject)</p>
 </li>
-<li><p><code>get_extremum_along_dim(points=None, dim=0, key=0)</code>:</p>
-<p>沿着dim方向(dim为0表示x方向,1表示y方向….),给出坐标的极值,key&lt;0表示得到最小值,key&gt;0表示得到最大值,key=0表示得到中值</p>
+<li>
+<p><code>get_extremum_along_dim(points=None, dim=0, key=0)</code>:</p>
+<p>沿着dim方向(dim为0表示x方向,1表示y方向…),给出坐标的极值,key&lt;0表示得到最小值,key&gt;0表示得到最大值,key=0表示得到中值</p>
 </li>
-<li><p><code>get_critical_point(direction)</code>:</p>
+<li>
+<p><code>get_critical_point(direction)</code>:</p>
 <p>画一个框，框住mobject。 这样的盒子有9个“关键点”：4个角，4个边缘中心，中心。 这将返回其中之一。</p>
 <p>direction什么方向就返回什么</p>
 <p>对其进行封装有如下的函数:</p>
 <ul>
-<li><code>get_edge_center</code><ul>
+<li><code>get_edge_center</code>
+<ul>
 <li><code>get_top</code></li>
 <li><code>get_bottom</code></li>
 <li><code>get_right</code></li>
@@ -886,7 +1041,8 @@
 <li><code>get_center</code></li>
 </ul>
 </li>
-<li><p><code>get_boundary_point(direction)</code>:</p>
+<li>
+<p><code>get_boundary_point(direction)</code>:</p>
 <p>得到某个方向的最远的点</p>
  <pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">FadeTo</span><span class="hljs-params">(Scene)</span>:</span>
     <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">construct</span><span class="hljs-params">(self)</span>:</span>
@@ -904,7 +1060,8 @@
         self.wait(<span class="hljs-number">2</span>)</code></pre>
 <p><img src="image-20200404172800256-1586013786373.png" srcset="/img/loading.gif" alt="boundary_points"></p>
 </li>
-<li><p><code>length_over_dim(dim)</code>:</p>
+<li>
+<p><code>length_over_dim(dim)</code>:</p>
 <p>dim方向的长度</p>
 <p>此方法封装的方法:</p>
 <ul>
@@ -913,7 +1070,8 @@
 <li><code>get_depth</code></li>
 </ul>
 </li>
-<li><p><code>get_coord(dim, direction=ORIGIN)</code>:</p>
+<li>
+<p><code>get_coord(dim, direction=ORIGIN)</code>:</p>
 <p>在dim方向得到direction对应的极值,直接使用意义不大</p>
 <ul>
 <li><code>get_x(direction=ORIGIN)</code></li>
@@ -921,18 +1079,23 @@
 <li><code>get_z(direction=ORIGIN)</code></li>
 </ul>
 </li>
-<li><p><code>get_start</code>,<code>get_end</code>,<code>get_start_and_end</code>:</p>
+<li>
+<p><code>get_start</code>,<code>get_end</code>,<code>get_start_and_end</code>:</p>
 <p>得到点的起点终点,起点和终点</p>
 </li>
-<li><p><code>has_points</code>,<code>has_no_points</code>:</p>
+<li>
+<p><code>has_points</code>,<code>has_no_points</code>:</p>
 <p>是否有点这属性</p>
 </li>
 </ol>
-<h3 id="3-9-匹配函数"><a href="#3-9-匹配函数" class="headerlink" title="3.9 匹配函数"></a>3.9 匹配函数</h3><ol>
-<li><p><code>match_color(mobject)</code>:</p>
+<h3 id="39-匹配函数"><a class="markdownIt-Anchor" href="#39-匹配函数"></a> 3.9 匹配函数</h3>
+<ol>
+<li>
+<p><code>match_color(mobject)</code>:</p>
 <p>匹配mobject的颜色</p>
 </li>
-<li><p><code>match_dim_size(mobject, dim, **kwargs)</code>:</p>
+<li>
+<p><code>match_dim_size(mobject, dim, **kwargs)</code>:</p>
 <p>匹配dim方向的长度,<code>**kwargs</code>和<code>rescale_to_fit()</code>使用方法相同</p>
 <ul>
 <li><code>match_width</code></li>
@@ -940,7 +1103,8 @@
 <li><code>match_depth</code></li>
 </ul>
 </li>
-<li><p><code>match_coord(mobject, dim, direction=ORIGIN)</code>:</p>
+<li>
+<p><code>match_coord(mobject, dim, direction=ORIGIN)</code>:</p>
 <p>按照get_coord()得到对应的Mobject坐标,然后设置</p>
 <ul>
 <li><code>match_x</code></li>
@@ -949,8 +1113,10 @@
 </ul>
 </li>
 </ol>
-<h3 id="3-10-排列函数"><a href="#3-10-排列函数" class="headerlink" title="3.10 排列函数"></a>3.10 排列函数</h3><ol>
-<li><p><code>arrange(direction=RIGHT, center=True, **kwargs)</code>:</p>
+<h3 id="310-排列函数"><a class="markdownIt-Anchor" href="#310-排列函数"></a> 3.10 排列函数</h3>
+<ol>
+<li>
+<p><code>arrange(direction=RIGHT, center=True, **kwargs)</code>:</p>
 <p>submobject列表的全部变量进行排队,按照direction的方式排队,center决定了是否排完队跑到中心</p>
 <p><code>**kwargs</code>参考next_to</p>
 <pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Arrange</span><span class="hljs-params">(Scene)</span>:</span>
@@ -966,7 +1132,8 @@
         self.wait(<span class="hljs-number">2</span>)</code></pre>
 <p><img src="Arrange-1586013786373.gif" srcset="/img/loading.gif" alt="Arrange"></p>
 </li>
-<li><p><code>arrange_in_grid(n_rows=None, n_cols=None, **kwargs)</code>:</p>
+<li>
+<p><code>arrange_in_grid(n_rows=None, n_cols=None, **kwargs)</code>:</p>
 <p>对submobject列表重拍列</p>
 <p>如果默认无参数,重拍列至方阵,否则n_rows和n_cols最多选一个,排列为对应的行或列,如果都填,则排列为n_rows行</p>
 <p><code>**kwargs</code>参考next_to函数</p>
@@ -982,15 +1149,19 @@
         self.wait(<span class="hljs-number">2</span>)</code></pre>
 <p><img src="ArrangeInGrid-1586013786373.gif" srcset="/img/loading.gif" alt="ArrangeInGrid"></p>
 </li>
-<li><p><code>sort(point_to_num_func=lambda p: p[0], submob_func=None)</code>:</p>
+<li>
+<p><code>sort(point_to_num_func=lambda p: p[0], submob_func=None)</code>:</p>
 <p>对点进行排序,这个一般意义不大,可以自己编写排序方法</p>
 </li>
-<li><p><code>shuffle(recursive=False)</code>:</p>
+<li>
+<p><code>shuffle(recursive=False)</code>:</p>
 <p>打乱submobject的列表排序,以及是否递归进行</p>
 </li>
 </ol>
-<h3 id="3-11-对齐函数"><a href="#3-11-对齐函数" class="headerlink" title="3.11 对齐函数"></a>3.11 对齐函数</h3><ol>
-<li><p><code>align_to(mobject_or_point, direction=ORIGIN, alignment_vect=UP)</code>:</p>
+<h3 id="311-对齐函数"><a class="markdownIt-Anchor" href="#311-对齐函数"></a> 3.11 对齐函数</h3>
+<ol>
+<li>
+<p><code>align_to(mobject_or_point, direction=ORIGIN, alignment_vect=UP)</code>:</p>
 <p>对齐,direction表示对齐的边是哪边</p>
 <p>mob1.align_to（mob2，UP）垂直移动mob1，以便其顶部边缘与mob2的顶部边缘对齐。 mob1.align_to（mob2，alignment_vect = RIGHT）水平移动mob1，使其中心位于mob2中心的正上方/正下方</p>
 <pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AlighTo</span><span class="hljs-params">(Scene)</span>:</span>
@@ -1002,34 +1173,46 @@
         self.wait(<span class="hljs-number">2</span>)</code></pre>
 <p><img src="AlighTo-1586013786373.gif" srcset="/img/loading.gif" alt="AlighTo"></p>
 </li>
-<li><p><code>add_n_more_submobjects(n)</code>:</p>
+<li>
+<p><code>add_n_more_submobjects(n)</code>:</p>
 <p>加入n个submoject</p>
 </li>
 </ol>
-<h3 id="3-12-抽象方法"><a href="#3-12-抽象方法" class="headerlink" title="3.12 抽象方法"></a>3.12 抽象方法</h3><ol>
-<li><p><code>align_data(mobject)</code>:</p>
+<h3 id="312-抽象方法"><a class="markdownIt-Anchor" href="#312-抽象方法"></a> 3.12 抽象方法</h3>
+<ol>
+<li>
+<p><code>align_data(mobject)</code>:</p>
 </li>
-<li><p><code>align_points(mobject)</code>:</p>
+<li>
+<p><code>align_points(mobject)</code>:</p>
 </li>
-<li><p><code>align_submobjects(mobject)</code>:</p>
+<li>
+<p><code>align_submobjects(mobject)</code>:</p>
 <p>对齐submobjects</p>
 </li>
-<li><p><code>null_point_align(mobject)</code>:</p>
+<li>
+<p><code>null_point_align(mobject)</code>:</p>
 </li>
-<li><p><code>get_point_mobject(center=None)</code></p>
+<li>
+<p><code>get_point_mobject(center=None)</code></p>
 </li>
-<li><p><code>align_points_with_larger(larger_mobject)</code></p>
+<li>
+<p><code>align_points_with_larger(larger_mobject)</code></p>
 </li>
-<li><p><code>interpolate_color(mobject1, mobject2, alpha)</code>:</p>
+<li>
+<p><code>interpolate_color(mobject1, mobject2, alpha)</code>:</p>
 <p>颜色插值</p>
 </li>
-<li><p><code>interpolate(mobject1,mobject2,alpha, path_func=straight_path)</code>:</p>
+<li>
+<p><code>interpolate(mobject1,mobject2,alpha, path_func=straight_path)</code>:</p>
 <p>Mobject插值</p>
 </li>
-<li><p><code>become_partial(mobject, a, b)</code>:</p>
+<li>
+<p><code>become_partial(mobject, a, b)</code>:</p>
 <p>以仅成为mobject一部分的方式设置点。 输入0 &lt;= a &lt;b &lt;= 1确定要成为mobject的哪一部分。</p>
 </li>
-<li><p><code>become(mobject, copy_submobjects=True)</code>:</p>
+<li>
+<p><code>become(mobject, copy_submobjects=True)</code>:</p>
 <p>变成另一个的样式</p>
 <pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Become</span><span class="hljs-params">(Scene)</span>:</span>
     <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">construct</span><span class="hljs-params">(self)</span>:</span>
@@ -1046,7 +1229,8 @@
 <p><img src="Become-1586013786373.gif" srcset="/img/loading.gif" alt="Become"></p>
 </li>
 </ol>
-<h2 id="4-小结"><a href="#4-小结" class="headerlink" title="4. 小结"></a>4. 小结</h2><p>Mobject的用法还是很多的,空闲时间写了很多天才写完,希望自己能用熟练</p>
+<h2 id="4-小结"><a class="markdownIt-Anchor" href="#4-小结"></a> 4. 小结</h2>
+<p>Mobject的用法还是很多的,空闲时间写了很多天才写完,希望自己能用熟练</p>
 <script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
@@ -1368,40 +1552,8 @@
   
 
   
-    <!-- MathJax -->
-    <script>
-      MathJax = {
-        tex: {
-          inlineMath: [['$', '$'], ['\\(', '\\)']]
-        },
-        options: {
-          renderActions: {
-            findScript: [10, doc => {
-              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
-                const display = !!node.type.match(/; *mode=display/);
-                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
-                const text = document.createTextNode('');
-                node.parentNode.replaceChild(text, node);
-                math.start = { node: text, delim: '', n: 0 };
-                math.end = { node: text, delim: '', n: 0 };
-                doc.math.push(math);
-              });
-            }, '', false],
-            insertedScript: [200, () => {
-              document.querySelectorAll('mjx-container').forEach(node => {
-                let target = node.parentNode;
-                if (target.nodeName.toLowerCase() === 'li') {
-                  target.parentNode.classList.add('has-jax');
-                }
-              });
-            }, '', false]
-          }
-        }
-      };
-    </script>
-
-    <script async src="https://cdn.staticfile.org/mathjax/3.0.5/es5/tex-svg.js" ></script>
-
+    <!-- KaTeX -->
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/KaTeX/0.11.1/katex.min.css" />
   
 
 

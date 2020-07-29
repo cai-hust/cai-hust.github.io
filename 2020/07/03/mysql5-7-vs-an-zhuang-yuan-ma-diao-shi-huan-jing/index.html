@@ -177,7 +177,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      303 字
+      305 字
     </span>
   
 
@@ -232,35 +232,50 @@
               </p>
             
             <article class="markdown-body">
-              <h1 id="1-源码以及软件下载"><a href="#1-源码以及软件下载" class="headerlink" title="1. 源码以及软件下载"></a>1. 源码以及软件下载</h1><ol>
+              <h1 id="1-源码以及软件下载"><a class="markdownIt-Anchor" href="#1-源码以及软件下载"></a> 1. 源码以及软件下载</h1>
+<ol>
 <li>Visual Code community 2019</li>
 <li>MySQL源码5.7.19</li>
 <li>与MySQL5.7.19配套的boost_1_59_0-msvc-14.0-64</li>
 <li>ActivePerl-5.28</li>
 <li>cmake-3.18.0</li>
 </ol>
-<h1 id="2-源码的编译"><a href="#2-源码的编译" class="headerlink" title="2. 源码的编译"></a>2. 源码的编译</h1><p><img src="image-20200626142031305.png" srcset="/img/loading.gif" alt="源码的编译"></p>
-<h1 id="3-VS编译遇到的报错问题"><a href="#3-VS编译遇到的报错问题" class="headerlink" title="3. VS编译遇到的报错问题"></a>3. VS编译遇到的报错问题</h1><h2 id="3-1-Call-Stack-most-recent-call-first-cmake-boost-cmake-238-COULD-NOT-FIND-BOOST-CMakeList"><a href="#3-1-Call-Stack-most-recent-call-first-cmake-boost-cmake-238-COULD-NOT-FIND-BOOST-CMakeList" class="headerlink" title="3.1 Call Stack (most recent call first): cmake/boost.cmake:238 (COULD_NOT_FIND_BOOST) CMakeList"></a>3.1 Call Stack (most recent call first): cmake/boost.cmake:238 (COULD_NOT_FIND_BOOST) CMakeList</h2><p>boost的版本不对,改为boost_1_59_0就成功编译</p>
-<h2 id="3-2-“对COM-组件的调用返回了错误-HRESULT-E-FAIL”无法加载项目"><a href="#3-2-“对COM-组件的调用返回了错误-HRESULT-E-FAIL”无法加载项目" class="headerlink" title="3.2 “对COM 组件的调用返回了错误 HRESULT E_FAIL”无法加载项目"></a>3.2 “对COM 组件的调用返回了错误 HRESULT E_FAIL”无法加载项目</h2><ol>
-<li><p><img src="20200607002041265.png" srcset="/img/loading.gif" alt="1"></p>
+<h1 id="2-源码的编译"><a class="markdownIt-Anchor" href="#2-源码的编译"></a> 2. 源码的编译</h1>
+<p><img src="image-20200626142031305.png" srcset="/img/loading.gif" alt="源码的编译"></p>
+<h1 id="3-vs编译遇到的报错问题"><a class="markdownIt-Anchor" href="#3-vs编译遇到的报错问题"></a> 3. VS编译遇到的报错问题</h1>
+<h2 id="31-call-stack-most-recent-call-first-cmakeboostcmake238-could_not_find_boost-cmakelist"><a class="markdownIt-Anchor" href="#31-call-stack-most-recent-call-first-cmakeboostcmake238-could_not_find_boost-cmakelist"></a> 3.1 Call Stack (most recent call first): cmake/boost.cmake:238 (COULD_NOT_FIND_BOOST) CMakeList</h2>
+<p>boost的版本不对,改为boost_1_59_0就成功编译</p>
+<h2 id="32-对com-组件的调用返回了错误-hresult-e_fail无法加载项目"><a class="markdownIt-Anchor" href="#32-对com-组件的调用返回了错误-hresult-e_fail无法加载项目"></a> 3.2 "对COM 组件的调用返回了错误 HRESULT E_FAIL"无法加载项目</h2>
+<ol>
+<li>
+<p><img src="20200607002041265.png" srcset="/img/loading.gif" alt="1"></p>
 </li>
-<li><p><img src="20200607002123675.png" srcset="/img/loading.gif" alt="2"></p>
+<li>
+<p><img src="20200607002123675.png" srcset="/img/loading.gif" alt="2"></p>
 </li>
-<li><p><img src="20200607002217417.png" srcset="/img/loading.gif" alt="3"></p>
+<li>
+<p><img src="20200607002217417.png" srcset="/img/loading.gif" alt="3"></p>
 </li>
 </ol>
-<h2 id="3-3-“该文件包含不能在当前代码页-936-中表示的字符。请将该文件保存为-Unicode-格式以防止数据丢失”"><a href="#3-3-“该文件包含不能在当前代码页-936-中表示的字符。请将该文件保存为-Unicode-格式以防止数据丢失”" class="headerlink" title="3.3 “该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失”"></a>3.3 “该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失”</h2><p><a href="https://www.cnblogs.com/leokale-zz/p/11423953.html" target="_blank" rel="noopener">https://www.cnblogs.com/leokale-zz/p/11423953.html</a></p>
-<h2 id="3-4-运行报错"><a href="#3-4-运行报错" class="headerlink" title="3.4 运行报错"></a>3.4 运行报错</h2><p>mysql.cc 文件中函数test_lc_time_sz 最后的DBUG_ASSERT(0); 需要改成DBUG_ASSERT(1);</p>
-<h2 id="3-5-编译成功后运行：mysqld-Could-not-create-or-access-the-registry-key-needed-for-the-MySQL-app"><a href="#3-5-编译成功后运行：mysqld-Could-not-create-or-access-the-registry-key-needed-for-the-MySQL-app" class="headerlink" title="3.5 编译成功后运行：mysqld: Could not create or access the registry key needed for the MySQL app"></a>3.5 编译成功后运行：mysqld: Could not create or access the registry key needed for the MySQL app</h2><p>以管理员方式进行运行程序</p>
+<h2 id="33-该文件包含不能在当前代码页936中表示的字符-请将该文件保存为-unicode-格式以防止数据丢失"><a class="markdownIt-Anchor" href="#33-该文件包含不能在当前代码页936中表示的字符-请将该文件保存为-unicode-格式以防止数据丢失"></a> 3.3 “该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失”</h2>
+<p><a href="https://www.cnblogs.com/leokale-zz/p/11423953.html" target="_blank" rel="noopener">https://www.cnblogs.com/leokale-zz/p/11423953.html</a></p>
+<h2 id="34-运行报错"><a class="markdownIt-Anchor" href="#34-运行报错"></a> 3.4 运行报错</h2>
+<p><a href="http://mysql.cc" target="_blank" rel="noopener">mysql.cc</a> 文件中函数test_lc_time_sz 最后的DBUG_ASSERT(0); 需要改成DBUG_ASSERT(1);</p>
+<h2 id="35-编译成功后运行mysqld-could-not-create-or-access-the-registry-key-needed-for-the-mysql-app"><a class="markdownIt-Anchor" href="#35-编译成功后运行mysqld-could-not-create-or-access-the-registry-key-needed-for-the-mysql-app"></a> 3.5 编译成功后运行：mysqld: Could not create or access the registry key needed for the MySQL app</h2>
+<p>以管理员方式进行运行程序</p>
 <p><a href="https://blog.csdn.net/zeqi1991/article/details/96195127" target="_blank" rel="noopener">https://blog.csdn.net/zeqi1991/article/details/96195127</a></p>
-<h2 id="3-6-运行报错Table-‘mysql-plugin’-doesn’t-exist"><a href="#3-6-运行报错Table-‘mysql-plugin’-doesn’t-exist" class="headerlink" title="3.6 运行报错Table ‘mysql.plugin’ doesn’t exist"></a>3.6 运行报错Table ‘mysql.plugin’ doesn’t exist</h2><ol>
-<li><p>删除data的文件夹内的所有的内容</p>
+<h2 id="36-运行报错table-mysqlplugin-doesnt-exist"><a class="markdownIt-Anchor" href="#36-运行报错table-mysqlplugin-doesnt-exist"></a> 3.6 运行报错Table ‘mysql.plugin’ doesn’t exist</h2>
+<ol>
+<li>
+<p>删除data的文件夹内的所有的内容</p>
 </li>
-<li><p>sql \Debug \ .\mysqld —initialize</p>
+<li>
+<p>sql \Debug \ .\mysqld --initialize</p>
 <p><img src="image-20200627012830324.png" srcset="/img/loading.gif" alt="sql \Debug \ .\mysqld --initialize"></p>
 </li>
 </ol>
-<h1 id="4-结果"><a href="#4-结果" class="headerlink" title="4. 结果"></a>4. 结果</h1><p><img src="image-20200626150116025.png" srcset="/img/loading.gif" alt="结果"></p>
+<h1 id="4-结果"><a class="markdownIt-Anchor" href="#4-结果"></a> 4. 结果</h1>
+<p><img src="image-20200626150116025.png" srcset="/img/loading.gif" alt="结果"></p>
 <script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {

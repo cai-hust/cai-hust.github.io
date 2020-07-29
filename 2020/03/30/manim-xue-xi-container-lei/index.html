@@ -232,10 +232,13 @@
               </p>
             
             <article class="markdown-body">
-              <h2 id="1-Container的派生类"><a href="#1-Container的派生类" class="headerlink" title="1. Container的派生类"></a>1. Container的派生类</h2><p><img src="Container.png" srcset="/img/loading.gif" alt="Container"></p>
-<h2 id="2-container类的作用"><a href="#2-container类的作用" class="headerlink" title="2. container类的作用"></a>2. container类的作用</h2><p>代码注释有段话: 当前，这仅适用于Scene和Mobject.尽管如此，我们还是在这里抽象其功能，尽管纯粹是名义上的.目前，所有实现都必须由派生类处理。</p>
+              <h2 id="1-container的派生类"><a class="markdownIt-Anchor" href="#1-container的派生类"></a> 1. Container的派生类</h2>
+<p><img src="Container.png" srcset="/img/loading.gif" alt="Container"></p>
+<h2 id="2-container类的作用"><a class="markdownIt-Anchor" href="#2-container类的作用"></a> 2. container类的作用</h2>
+<p>代码注释有段话: 当前，这仅适用于Scene和Mobject.尽管如此，我们还是在这里抽象其功能，尽管纯粹是名义上的.目前，所有实现都必须由派生类处理。</p>
 <p>上面的注释说明了3B1B正在规范代码,使代码的阅读者更好的读懂代码与自己创建代码分支</p>
-<h2 id="3-小结"><a href="#3-小结" class="headerlink" title="3. 小结"></a>3. 小结</h2><p>container类仅仅是一个抽象类,只有add和remove抽象方法,没有很大的实际用途,除非自己开发代码,不然不会用到这个类.</p>
+<h2 id="3-小结"><a class="markdownIt-Anchor" href="#3-小结"></a> 3. 小结</h2>
+<p>container类仅仅是一个抽象类,只有add和remove抽象方法,没有很大的实际用途,除非自己开发代码,不然不会用到这个类.</p>
 <script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
@@ -557,40 +560,8 @@
   
 
   
-    <!-- MathJax -->
-    <script>
-      MathJax = {
-        tex: {
-          inlineMath: [['$', '$'], ['\\(', '\\)']]
-        },
-        options: {
-          renderActions: {
-            findScript: [10, doc => {
-              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
-                const display = !!node.type.match(/; *mode=display/);
-                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
-                const text = document.createTextNode('');
-                node.parentNode.replaceChild(text, node);
-                math.start = { node: text, delim: '', n: 0 };
-                math.end = { node: text, delim: '', n: 0 };
-                doc.math.push(math);
-              });
-            }, '', false],
-            insertedScript: [200, () => {
-              document.querySelectorAll('mjx-container').forEach(node => {
-                let target = node.parentNode;
-                if (target.nodeName.toLowerCase() === 'li') {
-                  target.parentNode.classList.add('has-jax');
-                }
-              });
-            }, '', false]
-          }
-        }
-      };
-    </script>
-
-    <script async src="https://cdn.staticfile.org/mathjax/3.0.5/es5/tex-svg.js" ></script>
-
+    <!-- KaTeX -->
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/KaTeX/0.11.1/katex.min.css" />
   
 
 

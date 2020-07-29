@@ -232,7 +232,8 @@
               </p>
             
             <article class="markdown-body">
-              <h1 id="1-main函数的理解"><a href="#1-main函数的理解" class="headerlink" title="1. main函数的理解"></a>1. main函数的理解</h1><p>函数的入口在<code>mysqld/main.cc</code>里面：</p>
+              <h1 id="1-main函数的理解"><a class="markdownIt-Anchor" href="#1-main函数的理解"></a> 1. main函数的理解</h1>
+<p>函数的入口在<code>mysqld/main.cc</code>里面：</p>
 <p><img src="image-20200627163326858.png" srcset="/img/loading.gif" alt="mysqld/main.cc"></p>
 <p>而里面的函数在两个地方出现：</p>
 <p><img src="image-20200627163411816.png" srcset="/img/loading.gif" alt="vs终端显示"></p>
@@ -259,26 +260,33 @@
     <span class="hljs-comment">//...</span>
 }
 <span class="hljs-comment">//此win_main，就是第一个mysqld_main的代码内容</span></code></pre>
-<h1 id="2-main函数的流程"><a href="#2-main函数的流程" class="headerlink" title="2. main函数的流程"></a>2. main函数的流程</h1><h2 id="2-1准备"><a href="#2-1准备" class="headerlink" title="2.1准备"></a>2.1准备</h2><ol>
-<li><p>执行基本的线程库和malloc初始化，读取默认文件和解析选项。</p>
+<h1 id="2-main函数的流程"><a class="markdownIt-Anchor" href="#2-main函数的流程"></a> 2. main函数的流程</h1>
+<h2 id="21准备"><a class="markdownIt-Anchor" href="#21准备"></a> 2.1准备</h2>
+<ol>
+<li>
+<p>执行基本的线程库和malloc初始化，读取默认文件和解析选项。</p>
 <pre><code class="hljs c++"><span class="hljs-keyword">if</span> (load_defaults(MYSQL_CONFIG_NAME, load_default_groups, &amp;argc, &amp;argv))
   {
     flush_error_log_messages();
     <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
   }</code></pre>
 </li>
-<li><p>是否使用PERFORMANCE_SCHEMA存储引擎</p>
+<li>
+<p>是否使用PERFORMANCE_SCHEMA存储引擎</p>
 <pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">ifdef</span> WITH_PERFSCHEMA_STORAGE_ENGINE</span>
   <span class="hljs-comment">/*</span>
 <span class="hljs-comment">    Initialize the array of performance schema instrument configurations.</span>
 <span class="hljs-comment">  */</span>
   init_pfs_instrument_array();
 <span class="hljs-meta">#<span class="hljs-meta-keyword">endif</span> <span class="hljs-comment">/* WITH_PERFSCHEMA_STORAGE_ENGINE */</span></span></code></pre>
-<p><img src="image-20200627203915117.png" srcset="/img/loading.gif" alt="mysql架构"><br>图源自:<a href="https://draven.co/" target="_blank" rel="noopener">https://draven.co/</a></p>
+<p><img src="image-20200627203915117.png" srcset="/img/loading.gif" alt="mysql架构"><br>
+图源自:<a href="https://draven.co/" target="_blank" rel="noopener">https://draven.co/</a></p>
 </li>
-<li><p>默认配置文件的加载</p>
+<li>
+<p>默认配置文件的加载</p>
 <pre><code class="hljs c++">load_defaults(MYSQL_CONFIG_NAME, load_default_groups, &amp;argc, &amp;argv)</code></pre>
-<p>my.ini文件的加载顺序，它会这样加载：<br>C:/WINDOWS/my.cnf　C:/WINDOWS/my.ini　C:/my.cnf 　C:/my.ini</p>
+<p>my.ini文件的加载顺序，它会这样加载：<br>
+C:/WINDOWS/my.cnf　C:/WINDOWS/my.ini　C:/my.cnf 　C:/my.ini</p>
 <p>如果指定了MYSQL_HOME，在找不到前边4个文件的时候，它会去查找$MYSQL_HOME$/my.cnf或my.ini</p>
 <p>对应的代码如下：</p>
 <pre><code class="hljs c++"><span class="hljs-keyword">char</span> fname_buffer[FN_REFLEN];
@@ -303,7 +311,8 @@ errors += add_directory(alloc, <span class="hljs-string">"C:/"</span>, dirs);
   errors += add_directory(alloc, <span class="hljs-string">""</span>, dirs);</code></pre>
 </li>
 </ol>
-<h2 id="2-1WITH-PERFSCHEMA-STORAGE-ENGINE宏定义"><a href="#2-1WITH-PERFSCHEMA-STORAGE-ENGINE宏定义" class="headerlink" title="2.1WITH_PERFSCHEMA_STORAGE_ENGINE宏定义"></a>2.1<code>WITH_PERFSCHEMA_STORAGE_ENGINE</code>宏定义</h2><pre><code class="hljs C++"><span class="hljs-meta">#<span class="hljs-meta-keyword">ifdef</span> WITH_PERFSCHEMA_STORAGE_ENGINE</span>
+<h2 id="21with_perfschema_storage_engine宏定义"><a class="markdownIt-Anchor" href="#21with_perfschema_storage_engine宏定义"></a> 2.1<code>WITH_PERFSCHEMA_STORAGE_ENGINE</code>宏定义</h2>
+<pre><code class="hljs C++"><span class="hljs-meta">#<span class="hljs-meta-keyword">ifdef</span> WITH_PERFSCHEMA_STORAGE_ENGINE</span>
   <span class="hljs-comment">/*</span>
 <span class="hljs-comment">    Initialize the array of performance schema instrument configurations.</span>
 <span class="hljs-comment">  */</span>
@@ -313,7 +322,8 @@ errors += add_directory(alloc, <span class="hljs-string">"C:/"</span>, dirs);
 <p><a href="https://dev.mysql.com/doc/refman/5.7/en/performance-schema.html" target="_blank" rel="noopener">https://dev.mysql.com/doc/refman/5.7/en/performance-schema.html</a></p>
 <p><img src="image-20200628123338750.png" srcset="/img/loading.gif" alt="文件位置"></p>
 <ol>
-<li><p>初始化一些线程会用到的锁、信号量、变量等，其中封装了一些pthread的函数</p>
+<li>
+<p>初始化一些线程会用到的锁、信号量、变量等，其中封装了一些pthread的函数</p>
 <p>接了下来调用了各种线程的初始化，过程感觉不是重点，没有继续看下去</p>
 <pre><code class="hljs C++"><span class="hljs-keyword">if</span> (my_init())
   {
@@ -322,10 +332,12 @@ errors += add_directory(alloc, <span class="hljs-string">"C:/"</span>, dirs);
     <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
   }</code></pre>
 </li>
-<li><p>初始化SQL statement</p>
+<li>
+<p>初始化SQL statement</p>
 <p><code>init_sql_statement_names();</code></p>
 </li>
-<li><p>初始化系统变量</p>
+<li>
+<p>初始化系统变量</p>
 <pre><code class="hljs C++"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">sys_var_init</span><span class="hljs-params">()</span></span>
 <span class="hljs-function"></span>{
   DBUG_ENTER(<span class="hljs-string">"sys_var_init"</span>);
@@ -350,7 +362,8 @@ error:
 <p><code>system_variable_hash</code>是一个用于保存<code>sys_var</code>的哈希表</p>
 <p><code>mysql_add_sys_var_chain</code>这个函数的本意应该是将<code>all_sys_vars</code>中的数据都加入<code>system_variable_hash</code>这个哈希表中</p>
 </li>
-<li><p>调整相关的选项</p>
+<li>
+<p>调整相关的选项</p>
 <pre><code class="hljs c++">adjust_related_options(&amp;requested_open_files);</code></pre>
 <p>具体的内容不是很清楚，看方法名猜测是调整函数名字对应的几个参数：</p>
 <pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">adjust_related_options</span><span class="hljs-params">(ulong *requested_open_files)</span></span>
@@ -367,11 +380,13 @@ error:
 }</code></pre>
 <p>打开文件的数量，最大连接数，表缓存大小等等</p>
 <ul>
-<li><p>open_files_limit值：</p>
+<li>
+<p>open_files_limit值：</p>
 <p>my.cnf里如果配置了open_files_limit，open_files_limit最后取值为 配置文件 open_files_limit，max_connections*5， wanted_files= 10+max_connections+table_cache_size*2 三者中的最大值。</p>
 <p>如果my.cnf里如果没配置open_files_limit，open_files_limit最后取值为max_connections*5，10+max_connections+table_cache_size*2，ulimit -n中的最大者</p>
 </li>
-<li><p>max_connections的限制：</p>
+<li>
+<p>max_connections的限制：</p>
 <p>因为MySQL的最大连接数受到了安装平台的线程库、可用内存、每个连接需要使用的内存、每个连接的工作量、响应时间的影响，linux大概能承受500～1000并发请求，而Windows由于Posix通用接口层的限制，必须满足(open tables × 2 + open connections) &lt; 2048</p>
 <pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">adjust_max_connections</span><span class="hljs-params">(ulong requested_open_files)</span></span>
 <span class="hljs-function"></span>{
@@ -390,7 +405,8 @@ error:
 }</code></pre>
 <p>TABLE_OPEN_CACHE_MIN是写死的宏：400</p>
 </li>
-<li><p>table_open_cache</p>
+<li>
+<p>table_open_cache</p>
 <p>table_open_cache受到了max_connections的限制，至少需要连接数*该链接执行的join表的个数</p>
 <pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">adjust_table_cache_size</span><span class="hljs-params">(ulong requested_open_files)</span></span>
 <span class="hljs-function"></span>{
@@ -410,7 +426,8 @@ error:
   table_cache_size_per_instance= table_cache_size / table_cache_instances;
 }</code></pre>
 </li>
-<li><p>table_definition_cache</p>
+<li>
+<p>table_definition_cache</p>
 <p>table_definition_cache是能放在缓存中的表的定义的数量，表的定义在缓存中的时候能够加快打开表的速度，默认是400 + (table_open_cache / 2)</p>
 <pre><code class="hljs c++">default_value= <span class="hljs-built_in">min</span>&lt;ulong&gt; (<span class="hljs-number">400</span> + table_cache_size / <span class="hljs-number">2</span>, <span class="hljs-number">2000</span>);
   var= intern_find_sys_var(STRING_WITH_LEN(<span class="hljs-string">"table_definition_cache"</span>));
@@ -419,7 +436,8 @@ error:
 </li>
 </ul>
 </li>
-<li><p>对相关的配置进行生效</p>
+<li>
+<p>对相关的配置进行生效</p>
 <pre><code class="hljs c++"><span class="hljs-keyword">if</span> (ho_error == <span class="hljs-number">0</span>)
   {
     <span class="hljs-keyword">if</span> (!opt_help &amp;&amp; !opt_bootstrap)
@@ -441,7 +459,8 @@ error:
   }</code></pre>
 </li>
 </ol>
-<h2 id="2-2HAVE-PSI-INTERFACE宏定义"><a href="#2-2HAVE-PSI-INTERFACE宏定义" class="headerlink" title="2.2HAVE_PSI_INTERFACE宏定义"></a>2.2<code>HAVE_PSI_INTERFACE</code>宏定义</h2><p>PSI代表：Performance schema instrumentation interface性能模式检测接口</p>
+<h2 id="22have_psi_interface宏定义"><a class="markdownIt-Anchor" href="#22have_psi_interface宏定义"></a> 2.2<code>HAVE_PSI_INTERFACE</code>宏定义</h2>
+<p>PSI代表：Performance schema instrumentation interface性能模式检测接口</p>
 <pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">ifdef</span> HAVE_PSI_INTERFACE</span>
   <span class="hljs-comment">/*</span>
 <span class="hljs-comment">    获取当前的性能模式检测接口，如果可供使用的话。</span>
@@ -469,7 +488,8 @@ error:
     }
   }
 <span class="hljs-meta">#<span class="hljs-meta-keyword">endif</span> <span class="hljs-comment">/* HAVE_PSI_INTERFACE */</span></span></code></pre>
-<h2 id="2-3-query日志初始化"><a href="#2-3-query日志初始化" class="headerlink" title="2.3 query日志初始化"></a>2.3 query日志初始化</h2><pre><code class="hljs C++">init_error_log();
+<h2 id="23-query日志初始化"><a class="markdownIt-Anchor" href="#23-query日志初始化"></a> 2.3 query日志初始化</h2>
+<pre><code class="hljs C++">init_error_log();
 
   <span class="hljs-comment">/* Initialize audit interface globals. Audit plugins are inited later. */</span>
   mysql_audit_initialize();
@@ -482,7 +502,8 @@ error:
 <span class="hljs-comment">    执行基本查询日志初始化。 应该在MY_INIT之后调用，因为它会初始化互斥量。</span>
 <span class="hljs-comment">  */</span>
   query_logger.init();</code></pre>
-<h2 id="2-4-如果错误则退出"><a href="#2-4-如果错误则退出" class="headerlink" title="2.4 如果错误则退出"></a>2.4 如果错误则退出</h2><pre><code class="hljs C++"><span class="hljs-keyword">if</span> (ho_error)
+<h2 id="24-如果错误则退出"><a class="markdownIt-Anchor" href="#24-如果错误则退出"></a> 2.4 如果错误则退出</h2>
+<pre><code class="hljs C++"><span class="hljs-keyword">if</span> (ho_error)
 {
   <span class="hljs-comment">/*</span>
 <span class="hljs-comment">   解析命令行选项失败，由于没有可行的剩下的_argc / remaining_argv来继续服务器初始化，因此代码已尽其所能。</span>
@@ -502,7 +523,8 @@ error:
   unireg_abort(MYSQLD_ABORT_EXIT);        <span class="hljs-comment">// 如果初始化失败就直接退出SQL</span>
 
 my_init_signals();</code></pre>
-<h2 id="2-5-堆栈的大小初始化"><a href="#2-5-堆栈的大小初始化" class="headerlink" title="2.5 堆栈的大小初始化"></a>2.5 堆栈的大小初始化</h2><pre><code class="hljs C++">my_thread_attr_setstacksize(&amp;connection_attrib,
+<h2 id="25-堆栈的大小初始化"><a class="markdownIt-Anchor" href="#25-堆栈的大小初始化"></a> 2.5 堆栈的大小初始化</h2>
+<pre><code class="hljs C++">my_thread_attr_setstacksize(&amp;connection_attrib,
                             my_thread_stack_size + guardize);
 
   {
@@ -522,7 +544,8 @@ my_init_signals();</code></pre>
 <span class="hljs-meta">#<span class="hljs-meta-keyword">endif</span></span>
     }
   }</code></pre>
-<h2 id="2-6-开启binlog会检查server-id"><a href="#2-6-开启binlog会检查server-id" class="headerlink" title="2.6 开启binlog会检查server_id"></a>2.6 开启binlog会检查server_id</h2><pre><code class="hljs python"><span class="hljs-keyword">if</span> (opt_bin_log &amp;&amp; !(server_id_supplied) )
+<h2 id="26-开启binlog会检查server_id"><a class="markdownIt-Anchor" href="#26-开启binlog会检查server_id"></a> 2.6 开启binlog会检查server_id</h2>
+<pre><code class="hljs python"><span class="hljs-keyword">if</span> (opt_bin_log &amp;&amp; !(server_id_supplied) )
   {
     sql_print_error(<span class="hljs-string">"You have enabled the binary log, but you haven't provided "</span>
                     <span class="hljs-string">"the mandatory server-id. Please refer to the proper "</span>
@@ -530,9 +553,11 @@ my_init_signals();</code></pre>
     unireg_abort(MYSQLD_ABORT_EXIT);
   }</code></pre>
 <p>如果开启二进制日志但是没有提供操作服务器ID就会报错并退出</p>
-<h2 id="2-7-服务器组件初始化"><a href="#2-7-服务器组件初始化" class="headerlink" title="2.7 服务器组件初始化"></a>2.7 服务器组件初始化</h2><pre><code class="hljs c++"><span class="hljs-keyword">if</span> (init_server_components())
+<h2 id="27-服务器组件初始化"><a class="markdownIt-Anchor" href="#27-服务器组件初始化"></a> 2.7 服务器组件初始化</h2>
+<pre><code class="hljs c++"><span class="hljs-keyword">if</span> (init_server_components())
     unireg_abort(MYSQLD_ABORT_EXIT);</code></pre>
-<h2 id="2-8检查data目录下是否有auto-cnf"><a href="#2-8检查data目录下是否有auto-cnf" class="headerlink" title="2.8检查data目录下是否有auto.cnf"></a>2.8检查data目录下是否有auto.cnf</h2><pre><code class="hljs c++"><span class="hljs-comment">/*</span>
+<h2 id="28检查data目录下是否有autocnf"><a class="markdownIt-Anchor" href="#28检查data目录下是否有autocnf"></a> 2.8检查data目录下是否有auto.cnf</h2>
+<pre><code class="hljs c++"><span class="hljs-comment">/*</span>
 <span class="hljs-comment">  Each server should have one UUID. We will create it automatically, if it</span>
 <span class="hljs-comment">  does not exist.</span>
 <span class="hljs-comment"> */</span>
@@ -544,7 +569,8 @@ my_init_signals();</code></pre>
                   <span class="hljs-string">" possible to generate a new UUID."</span>);
   unireg_abort(MYSQLD_ABORT_EXIT);
 }</code></pre>
-<h2 id="2-9将uuid加入sid-map-中"><a href="#2-9将uuid加入sid-map-中" class="headerlink" title="2.9将uuid加入sid_map()中"></a>2.9将uuid加入sid_map()中</h2><pre><code class="hljs c++"><span class="hljs-comment">/*</span>
+<h2 id="29将uuid加入sid_map中"><a class="markdownIt-Anchor" href="#29将uuid加入sid_map中"></a> 2.9将uuid加入sid_map()中</h2>
+<pre><code class="hljs c++"><span class="hljs-comment">/*</span>
 <span class="hljs-comment">  Add server_uuid to the sid_map.  This must be done after</span>
 <span class="hljs-comment">  server_uuid has been initialized in init_server_auto_options and</span>
 <span class="hljs-comment">  after the binary log (and sid_map file) has been initialized in</span>
@@ -564,10 +590,11 @@ global_sid_lock-&gt;unlock();
 
 <span class="hljs-keyword">if</span> (gtid_ret)
   unireg_abort(MYSQLD_ABORT_EXIT);</code></pre>
-<h2 id="2-10初始化gtid-state对象以及对应的操作"><a href="#2-10初始化gtid-state对象以及对应的操作" class="headerlink" title="2.10初始化gtid_state对象以及对应的操作"></a>2.10初始化gtid_state对象以及对应的操作</h2><pre><code class="hljs c++"><span class="hljs-comment">// Initialize executed_gtids from mysql.gtid_executed table.</span>
+<h2 id="210初始化gtid_state对象以及对应的操作"><a class="markdownIt-Anchor" href="#210初始化gtid_state对象以及对应的操作"></a> 2.10初始化gtid_state对象以及对应的操作</h2>
+<pre><code class="hljs c++"><span class="hljs-comment">// Initialize executed_gtids from mysql.gtid_executed table.</span>
 <span class="hljs-keyword">if</span> (gtid_state-&gt;read_gtid_executed_from_table() == <span class="hljs-number">-1</span>)
   unireg_abort(<span class="hljs-number">1</span>);</code></pre>
-<p>GTID (Global Transaction ID)是全局事务ID,当在主库上提交事务或者被从库应用时，可以定位和追踪每一个事务，对DBA来说意义就很大了，我们可以适当的解放出来，不用手工去可以找偏移量的值了，而是通过CHANGE MASTER TO MASTER_HOST=’xxx’, MASTER_AUTO_POSITION=1的即可方便的搭建从库，在故障修复中也可以采用MASTER_AUTO_POSITION=‘X’的方式。</p>
+<p>GTID (Global Transaction ID)是全局事务ID,当在主库上提交事务或者被从库应用时，可以定位和追踪每一个事务，对DBA来说意义就很大了，我们可以适当的解放出来，不用手工去可以找偏移量的值了，而是通过CHANGE MASTER TO MASTER_HOST=‘xxx’, MASTER_AUTO_POSITION=1的即可方便的搭建从库，在故障修复中也可以采用MASTER_AUTO_POSITION=‘X’的方式。</p>
 <p>在以下四种情况下，将未保存的GTID保存到gtid_exected表中：</p>
 <ol>
 <li>升级</li>
@@ -576,8 +603,10 @@ global_sid_lock-&gt;unlock();
 <li>如果服务器崩溃，则最后一个binlog的GTID集不会保存到gtid_exected表中，因此在从崩溃中恢复期间，我们将其保存到gtid_executed表和execute_gtids中。</li>
 </ol>
 <p>其中的代码我没有仔细研究</p>
-<h2 id="2-11-网络连接"><a href="#2-11-网络连接" class="headerlink" title="2.11 网络连接"></a>2.11 网络连接</h2><ul>
-<li><p>SSL支持与网络的初始化</p>
+<h2 id="211-网络连接"><a class="markdownIt-Anchor" href="#211-网络连接"></a> 2.11 网络连接</h2>
+<ul>
+<li>
+<p>SSL支持与网络的初始化</p>
 <pre><code class="hljs C++"><span class="hljs-keyword">if</span> (init_ssl())
   unireg_abort(MYSQLD_ABORT_EXIT);
 <span class="hljs-keyword">if</span> (network_init())
@@ -664,18 +693,25 @@ mysqld_socket_acceptor=
 <p>初始化listener：</p>
 <pre><code class="hljs c++"><span class="hljs-keyword">if</span> (mysqld_socket_acceptor-&gt;init_connection_acceptor())
      <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>; <span class="hljs-comment">// mysqld_socket_acceptor would be freed in unireg_abort.</span></code></pre>
-<p>查看Mysqld_socket_listener中的setup_listener()具体的实现：<br>通过以下关键变量来记录listener的主要信息<br><strong>m_tcp_port</strong>:记录tcp socket连接<br><strong>m_unix_sockname</strong>: 使用的是std::string类型记录如果使用socket文件，则文件名（路径+文件）<br>通过使用m_socket_map来区分所使用的连接是tcp_socket还是unix socket的连接方式</p>
+<p>查看Mysqld_socket_listener中的setup_listener()具体的实现：<br>
+通过以下关键变量来记录listener的主要信息<br>
+<strong>m_tcp_port</strong>:记录tcp socket连接<br>
+<strong>m_unix_sockname</strong>: 使用的是std::string类型记录如果使用socket文件，则文件名（路径+文件）<br>
+通过使用m_socket_map来区分所使用的连接是tcp_socket还是unix socket的连接方式</p>
 <p>通过两个if判断，分别判断是否tcp还是socket文件连接，并记录于m_socket_map中然后通过迭代器循环实现监听事件的记录，代码通过pool_info_t实现监听相应的事件</p>
 </li>
-<li><p>UDP初始化</p>
+<li>
+<p>UDP初始化</p>
 <pre><code class="hljs C++">udf_init();</code></pre>
 </li>
-<li><p>slave初始化</p>
+<li>
+<p>slave初始化</p>
 </li>
 </ul>
 <pre><code class="hljs c++"><span class="hljs-keyword">if</span> (server_id != <span class="hljs-number">0</span>)
       init_slave(); <span class="hljs-comment">/* Ignoring errors while configuring replication. */</span></code></pre>
-<h2 id="2-12-初始化线程"><a href="#2-12-初始化线程" class="headerlink" title="2.12 初始化线程"></a>2.12 初始化线程</h2><pre><code class="hljs C++"><span class="hljs-meta">#<span class="hljs-meta-keyword">ifdef</span> _WIN32</span>
+<h2 id="212-初始化线程"><a class="markdownIt-Anchor" href="#212-初始化线程"></a> 2.12 初始化线程</h2>
+<pre><code class="hljs C++"><span class="hljs-meta">#<span class="hljs-meta-keyword">ifdef</span> _WIN32</span>
   create_shutdown_thread();
 <span class="hljs-meta">#<span class="hljs-meta-keyword">endif</span></span>
   start_handle_manager();
@@ -696,7 +732,8 @@ mysqld_socket_acceptor=
   Service.SetRunning();
 <span class="hljs-meta">#<span class="hljs-meta-keyword">endif</span></span>
 start_processing_signals();</code></pre>
-<h2 id="2-13循环监听客户端"><a href="#2-13循环监听客户端" class="headerlink" title="2.13循环监听客户端"></a>2.13循环监听客户端</h2><p><strong>此处循环监听客户端,直到客户端选择退出再进行后续的操作,所以此函数一般情况是SQL的耗时最多,执行代码最多的地方,也是mysql的核心算法的代码</strong></p>
+<h2 id="213循环监听客户端"><a class="markdownIt-Anchor" href="#213循环监听客户端"></a> 2.13循环监听客户端</h2>
+<p><strong>此处循环监听客户端,直到客户端选择退出再进行后续的操作,所以此函数一般情况是SQL的耗时最多,执行代码最多的地方,也是mysql的核心算法的代码</strong></p>
 <p>此时要分为两种系统讨论:windows和Linux</p>
 <pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">if</span> defined(_WIN32)</span>
   setup_conn_event_handler_threads();
@@ -711,7 +748,8 @@ start_processing_signals();</code></pre>
 
   mysqld_socket_acceptor-&gt;connection_event_loop();
 <span class="hljs-meta">#<span class="hljs-meta-keyword">endif</span> <span class="hljs-comment">/* _WIN32 */</span></span></code></pre>
-<h3 id="2-13-1-linux系统"><a href="#2-13-1-linux系统" class="headerlink" title="2.13.1 linux系统"></a>2.13.1 linux系统</h3><pre><code class="hljs c++">mysql_mutex_lock(&amp;LOCK_socket_listener_active);
+<h3 id="2131-linux系统"><a class="markdownIt-Anchor" href="#2131-linux系统"></a> 2.13.1 linux系统</h3>
+<pre><code class="hljs c++">mysql_mutex_lock(&amp;LOCK_socket_listener_active);
 <span class="hljs-comment">// Make it possible for the signal handler to kill the listener.</span>
 socket_listener_active= <span class="hljs-literal">true</span>;
 <span class="hljs-comment">//从这里开始，服务器启动线程一直等待，直到shutdown后，继续向下执行</span>
@@ -852,7 +890,8 @@ mysql_thread_set_psi_id(thd-&gt;thread_id()); <span class="hljs-comment">//初�
 <ul>
 <li>在sql_executor.cc档案中的JOIN::exec()中.先呼叫send_result_set_metadata()生成查询标题，再进入sql_executor.cc中的do_select()生成查询结果.在do_select()中呼叫sub_select ().在sub_select()中，先判断是否是最后一条记录.然后while回圈每次读取一条记录。</li>
 </ul>
-<h3 id="2-13-2-windows系统"><a href="#2-13-2-windows系统" class="headerlink" title="2.13.2 windows系统"></a>2.13.2 windows系统</h3><p>调用函数<code>setup_conn_event_handler_threads();</code>,此时创建监听线程,启动三个单独线程处理不同的连接方式，即Mysqld_socket_listener/Named_pipe_listener/Shared_mem_listener,函数执行了的操作如下:</p>
+<h3 id="2132-windows系统"><a class="markdownIt-Anchor" href="#2132-windows系统"></a> 2.13.2 windows系统</h3>
+<p>调用函数<code>setup_conn_event_handler_threads();</code>,此时创建监听线程,启动三个单独线程处理不同的连接方式，即Mysqld_socket_listener/Named_pipe_listener/Shared_mem_listener,函数执行了的操作如下:</p>
 <pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">setup_conn_event_handler_threads</span><span class="hljs-params">()</span></span>
 <span class="hljs-function"></span>{
   my_thread_handle hThread;
@@ -923,8 +962,10 @@ mysql_thread_set_psi_id(thd-&gt;thread_id()); <span class="hljs-comment">//初�
   <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
 }</code></pre>
 <p>和Linux分析一样,<code>conn_acceptor-&gt;connection_event_loop();</code>进行’通过nysqld_socket_acceptor变量引用connect_event_loop()方法，循环监听客户端来的连接’,接着就回到了Linux的分析</p>
-<h2 id="2-14-后续的结束收尾工作"><a href="#2-14-后续的结束收尾工作" class="headerlink" title="2.14 后续的结束收尾工作"></a>2.14 后续的结束收尾工作</h2><p>略</p>
-<h1 id="3-总结"><a href="#3-总结" class="headerlink" title="3. 总结"></a>3. 总结</h1><p>本次源码的分析主要是针对main函数的分析,初步了解了main函数的工作流程,后续将会主要针对Innodb引擎进行分析</p>
+<h2 id="214-后续的结束收尾工作"><a class="markdownIt-Anchor" href="#214-后续的结束收尾工作"></a> 2.14 后续的结束收尾工作</h2>
+<p>略</p>
+<h1 id="3-总结"><a class="markdownIt-Anchor" href="#3-总结"></a> 3. 总结</h1>
+<p>本次源码的分析主要是针对main函数的分析,初步了解了main函数的工作流程,后续将会主要针对Innodb引擎进行分析</p>
 <script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {

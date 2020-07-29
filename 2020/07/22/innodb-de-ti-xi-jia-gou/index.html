@@ -187,7 +187,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      184
+      185
        分钟
     </span>
   
@@ -232,13 +232,15 @@
               </p>
             
             <article class="markdown-body">
-              <h2 id="1-innodb的总体架构"><a href="#1-innodb的总体架构" class="headerlink" title="1. innodb的总体架构"></a>1. innodb的总体架构</h2><p>innodb线程与文件的关系:<sup><a href="#fn_4" id="reffn_4">4</a></sup></p>
-<p><img src="innodb存储架构.png" srcset="/img/loading.gif" alt="innodb存储架构"></p>
-<p>innodb文件结构:<sup><a href="#fn_9" id="reffn_9">9</a></sup></p>
+              <h2 id="1-innodb的总体架构"><a class="markdownIt-Anchor" href="#1-innodb的总体架构"></a> 1. innodb的总体架构</h2>
+<p>innodb线程与文件的关系:[^4]</p>
+<p><img src="innodb%E5%AD%98%E5%82%A8%E6%9E%B6%E6%9E%84.png" srcset="/img/loading.gif" alt="innodb存储架构"></p>
+<p>innodb文件结构:[^9]</p>
 <p><img src="innodb-architecture.png" srcset="/img/loading.gif" alt="InnoDB architecture diagram showing in-memory and on-disk structures"></p>
-<p>InnoDB所有数据都被逻辑地存放在一个表空间（tablespace）中。表空间又由段（segment）、区（extent）、页（page）组成，页在一些文档中有时也称为块（block）。逻辑存储结构大致如下图:<sup><a href="#fn_8" id="reffn_8">8</a></sup></p>
+<p>InnoDB所有数据都被逻辑地存放在一个表空间（tablespace）中。表空间又由段（segment）、区（extent）、页（page）组成，页在一些文档中有时也称为块（block）。逻辑存储结构大致如下图:[^8]</p>
 <p><img src="v2-50b50d5c6b799c3d84d8bcf7942b0086_720w.jpg" srcset="/img/loading.gif" alt="InnoDB逻辑存储结构"></p>
-<h3 id="table的数据结构"><a href="#table的数据结构" class="headerlink" title="table的数据结构"></a>table的数据结构</h3><pre><code class="hljs c++"><span class="hljs-comment">/** Data structure for a database table.  Most fields will be</span>
+<h3 id="table的数据结构"><a class="markdownIt-Anchor" href="#table的数据结构"></a> table的数据结构</h3>
+<pre><code class="hljs c++"><span class="hljs-comment">/** Data structure for a database table.  Most fields will be</span>
 <span class="hljs-comment">initialized to 0, NULL or FALSE in dict_mem_table_create(). */</span>
 <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">dict_table_t</span> {</span>
 
@@ -646,7 +648,8 @@
 	<span class="hljs-comment">/** encryption iv, it's only for export/import */</span>
 	<span class="hljs-keyword">byte</span>*					encryption_iv;
 };</code></pre>
-<h3 id="index的数据结构"><a href="#index的数据结构" class="headerlink" title="index的数据结构"></a>index的数据结构</h3><pre><code class="hljs c++"><span class="hljs-comment">/** Data structure for an index.  Most fields will be</span>
+<h3 id="index的数据结构"><a class="markdownIt-Anchor" href="#index的数据结构"></a> index的数据结构</h3>
+<pre><code class="hljs c++"><span class="hljs-comment">/** Data structure for an index.  Most fields will be</span>
 <span class="hljs-comment">initialized to 0, NULL or FALSE in dict_mem_index_create(). */</span>
 <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">dict_index_t</span>{</span>
 	<span class="hljs-keyword">index_id_t</span>	id;	<span class="hljs-comment">/*!&lt; id of the index */</span>
@@ -811,7 +814,8 @@
 	}
 <span class="hljs-meta">#<span class="hljs-meta-keyword">endif</span> <span class="hljs-comment">/* !UNIV_HOTBACKUP */</span></span>
 };</code></pre>
-<h3 id="column的数据结构"><a href="#column的数据结构" class="headerlink" title="column的数据结构"></a>column的数据结构</h3><pre><code class="hljs c++"><span class="hljs-comment">/** Data structure for a column in a table */</span>
+<h3 id="column的数据结构"><a class="markdownIt-Anchor" href="#column的数据结构"></a> column的数据结构</h3>
+<pre><code class="hljs c++"><span class="hljs-comment">/** Data structure for a column in a table */</span>
 <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">dict_col_t</span>{</span>
 	<span class="hljs-comment">/*----------------------*/</span>
 	<span class="hljs-comment">/** The following are copied from dtype_t,</span>
@@ -855,7 +859,8 @@
 <span class="hljs-comment">					this column. Our current max limit is</span>
 <span class="hljs-comment">					3072 for Barracuda table */</span>
 };</code></pre>
-<h2 id="2-innodb线程的产生过程"><a href="#2-innodb线程的产生过程" class="headerlink" title="2. innodb线程的产生过程"></a>2. innodb线程的产生过程</h2><p>在mysql_main函数里面有一行代码是加载组件:</p>
+<h2 id="2-innodb线程的产生过程"><a class="markdownIt-Anchor" href="#2-innodb线程的产生过程"></a> 2. innodb线程的产生过程</h2>
+<p>在mysql_main函数里面有一行代码是加载组件:</p>
 <pre><code class="hljs c++"><span class="hljs-comment">//...</span>
 <span class="hljs-comment">//MySQL 5.7.19版本mysqld.cc文件的4673行</span>
   <span class="hljs-keyword">if</span> (init_server_components())
@@ -984,7 +989,7 @@ innobase_init(
 	err = innobase_start_or_create_for_mysql();
 	<span class="hljs-comment">//...</span>
 }</code></pre>
-<p>其中:<sup><a href="#fn_1" id="reffn_1">1</a></sup></p>
+<p>其中:[^1]</p>
 <pre><code class="hljs c++"><span class="hljs-comment">/********************************************************************</span>
 <span class="hljs-comment">Starts InnoDB and creates a new database if database files</span>
 <span class="hljs-comment">are not found and the user wants.</span>
@@ -1019,7 +1024,8 @@ DECLARE_THREAD(srv_master_thread)(
 			<span class="hljs-comment">/*!&lt; in: a dummy parameter required by</span>
 <span class="hljs-comment">			os_thread_create */</span>;</code></pre>
 <p>由此进入master线程</p>
-<h2 id="3-Master-Thread工作方式"><a href="#3-Master-Thread工作方式" class="headerlink" title="3. Master Thread工作方式"></a>3. Master Thread工作方式</h2><p>流程图如下:<sup><a href="#fn_7" id="reffn_7">7</a></sup></p>
+<h2 id="3-master-thread工作方式"><a class="markdownIt-Anchor" href="#3-master-thread工作方式"></a> 3. Master Thread工作方式</h2>
+<p>流程图如下:[^7]</p>
 <p><img src="InnoDB_Master_Thread.png" srcset="/img/loading.gif" alt="InnoDB Master Thread"></p>
 <p>上面的<code>srv_master_thread</code>已经定位到的函数的代码如下:</p>
 <pre><code class="hljs c++"><span class="hljs-keyword">extern</span> <span class="hljs-string">"C"</span>
@@ -1081,16 +1087,20 @@ suspend_thread:
 	<span class="hljs-function"><span class="hljs-title">srv_master_do_idle_tasks</span>();</span>
 <span class="hljs-function"><span class="hljs-variable"><span class="hljs-keyword">else</span></span></span>
 <span class="hljs-function">	<span class="hljs-title">srv_master_do_active_tasks</span>();</span></code></pre>
-<p>在图2中可以看到，master thread作为后台程序，一直不停的在loop，而loop过程中会选择active task 或者idle task函数执行:<sup><a href="#fn_2" id="reffn_2">2</a></sup></p>
+<p>在图2中可以看到，master thread作为后台程序，一直不停的在loop，而loop过程中会选择active task 或者idle task函数执行:[^2]</p>
 <ul>
-<li><p>只有在innodb_force_recovery参数设置值大于SRV_FORCE_NO_BACKGROUND的情况下，master thread会进入suspend状态</p>
-<p>若flush loop中也没有什么事情可以做了，InnoDB存储引擎会切换到suspend__loop，将Master Thread挂起，等待事件的发生。若用户启用（enable）了InnoDB存储引擎，却没有使用任何InnoDB存储引擎的表，那么Master Thread总是处于挂起的状态<sup><a href="#fn_4" id="reffn_4">4</a></sup>。</p>
+<li>
+<p>只有在innodb_force_recovery参数设置值大于SRV_FORCE_NO_BACKGROUND的情况下，master thread会进入suspend状态</p>
+<p>若flush loop中也没有什么事情可以做了，InnoDB存储引擎会切换到suspend__loop，将Master Thread挂起，等待事件的发生。若用户启用（enable）了InnoDB存储引擎，却没有使用任何InnoDB存储引擎的表，那么Master Thread总是处于挂起的状态[^4]。</p>
 </li>
-<li><p>在srv_shutdown_state的值不等于SRV_SHUTDOWN_NONE的情况下，master thread会去执行shutdown task。输出值srv_active，srv_idle，srv_shutdown的值分别是在函数srv_master_do_active_task，srv_master_do_idle_task，srv_master_do_shutdown_task中++。</p>
+<li>
+<p>在srv_shutdown_state的值不等于SRV_SHUTDOWN_NONE的情况下，master thread会去执行shutdown task。输出值srv_active，srv_idle，srv_shutdown的值分别是在函数srv_master_do_active_task，srv_master_do_idle_task，srv_master_do_shutdown_task中++。</p>
 </li>
-<li><p>而srv_master_do_active_task的执行是由当前activity_count与old_activity_count的值决定，只要这两个值不相等，则master调用active task。在执行数据库更改操作，如插入，删除，更新，表操作的情况下，当前的activity count的值会增加，系统调用active task。所以说，srv_active的值可以反映出系统的负载情况.</p>
+<li>
+<p>而srv_master_do_active_task的执行是由当前activity_count与old_activity_count的值决定，只要这两个值不相等，则master调用active task。在执行数据库更改操作，如插入，删除，更新，表操作的情况下，当前的activity count的值会增加，系统调用active task。所以说，srv_active的值可以反映出系统的负载情况.</p>
 </li>
-<li><p>值得注意的是background thread 部分的输出值是历史统计值，即mysqld服务启动之后会一直递增。</p>
+<li>
+<p>值得注意的是background thread 部分的输出值是历史统计值，即mysqld服务启动之后会一直递增。</p>
 </li>
 </ul>
 <p><code>srv_master_do_active_tasks</code>做的事情如下:</p>
@@ -1101,21 +1111,23 @@ suspend_thread:
 </ol>
 <p>具体代码如下:</p>
 <ul>
-<li><p>检查剩余的日志空间</p>
+<li>
+<p>检查剩余的日志空间</p>
 <pre><code class="hljs c++"><span class="hljs-comment">/* 确保redo日志文件中有足够的可重用空间*/</span>
 	srv_main_thread_op_info = <span class="hljs-string">"checking free log space"</span>;
 	<span class="hljs-comment">/*检查是否需要刷新日志缓冲区或新的检查点，如果是，则执行此操作。 当数据库操作修改了大约4个以上的页面时，应调用此方法。 注意，仅当OS线程除字典互斥锁外没有其他同步对象时，才可以调用此函数。*/</span>
 	log_free_check();</code></pre>
 </li>
-<li><p>插入缓存<em>缓存的insert操作insert buffer,缩写ibuf</em><sup><a href="#fn_3" id="reffn_3">3</a></sup> <sup><a href="#fn_4" id="reffn_4">4</a></sup></p>
-<p>合并插入缓冲（Insert Buffer）并不是每秒都会发生的。InnoDB存储引擎会判断当前一秒内发生的IO次数是否小于5次，如果小于5次，InnoDB认为当前的IO压力很小，可以执行合并插入缓冲的操作。<sup><a href="#fn_4" id="reffn_4">4</a></sup></p>
+<li>
+<p>插入缓存<em>缓存的insert操作insert buffer,缩写ibuf</em>[^3] [^4]</p>
+<p>合并插入缓冲（Insert Buffer）并不是每秒都会发生的。InnoDB存储引擎会判断当前一秒内发生的IO次数是否小于5次，如果小于5次，InnoDB认为当前的IO压力很小，可以执行合并插入缓冲的操作。[^4]</p>
 <pre><code class="hljs c++"><span class="hljs-comment">/* Do an ibuf merge */</span>
 	srv_main_thread_op_info = <span class="hljs-string">"doing insert buffer merge"</span>;
 	counter_time = ut_time_us(<span class="hljs-literal">NULL</span>);
 	ibuf_merge_in_background(<span class="hljs-literal">false</span>);
 	MONITOR_INC_TIME_IN_MICRO_SECS(
 		MONITOR_SRV_IBUF_MERGE_MICROSECOND, counter_time);</code></pre>
-<p><code>ibuf_merge_in_background</code>的思路:<sup><a href="#fn_4" id="reffn_4">4</a></sup></p>
+<p><code>ibuf_merge_in_background</code>的思路:[^4]</p>
 <p>InnoDB存储引擎的开发团队参考了Google的patch，提供了类似的方法来修正该问题。因此InnoDB Plugin（从InnoDB1.0.x版本开始）提供了参数innodb_io_capacity，用来表示磁盘IO的吞吐量，默认值为200。对于刷新到磁盘页的数量，会按照innodb_io_capacity的百分比来进行控制。规则如下：</p>
 <p>❑在合并插入缓冲时，合并插入缓冲的数量为innodb_io_capacity值的5%；</p>
 <p>❑在从缓冲区刷新脏页时，刷新脏页的数量为innodb_io_capacity。</p>
@@ -1174,13 +1186,14 @@ suspend_thread:
 	<span class="hljs-keyword">return</span>(sum_bytes);
 }</code></pre>
 </li>
-<li><p>日志缓冲刷新到磁盘,即使这个事务还没有提交</p>
+<li>
+<p>日志缓冲刷新到磁盘,即使这个事务还没有提交</p>
  <pre><code class="hljs C++">  <span class="hljs-comment">/* Flush logs if needed */</span>
 srv_main_thread_op_info = <span class="hljs-string">"flushing log"</span>;
 srv_sync_log_buffer_in_background();
   MONITOR_INC_TIME_IN_MICRO_SECS(
   		MONITOR_SRV_LOG_FLUSH_MICROSECOND, counter_time);</code></pre>
-<p> 其中对<code>srv_sync_log_buffer_in_background()</code>的解读如下:</p>
+<p>其中对<code>srv_sync_log_buffer_in_background()</code>的解读如下:</p>
  <pre><code class="hljs c++"><span class="hljs-comment">/*主线程的任务是确保在后台每秒刷新一次日志文件。 这是为了确保当innodb_flush_logs_at_trx_commit！= 1崩溃时，丢失的trx不会超过一秒钟。*/</span>
 srv_sync_log_buffer_in_background(<span class="hljs-keyword">void</span>)
 <span class="hljs-comment">/*===================================*/</span>
@@ -1205,7 +1218,8 @@ srv_sync_log_buffer_in_background(<span class="hljs-keyword">void</span>)
 <p>因为空闲,有时间进行全缓冲区的插入合并:</p>
 <pre><code class="hljs c++">ibuf_merge_in_background(<span class="hljs-literal">true</span>);</code></pre>
 <p>其余的就是一些后续的处理</p>
-<h2 id="4-page-clean线程"><a href="#4-page-clean线程" class="headerlink" title="4. page clean线程"></a>4. page clean线程</h2><p>在上述<a href="#2. innodb线程的产生过程">2. innodb线程的产生过程</a>中已经提到的<code>innobase_start_or_create_for_mysql</code>中有page clean线程:</p>
+<h2 id="4-page-clean线程"><a class="markdownIt-Anchor" href="#4-page-clean线程"></a> 4. page clean线程</h2>
+<p>在上述[2. innodb线程的产生过程](#2. innodb线程的产生过程)中已经提到的<code>innobase_start_or_create_for_mysql</code>中有page clean线程:</p>
 <pre><code class="hljs c++">innobase_start_or_create_for_mysql(<span class="hljs-keyword">void</span>)
 <span class="hljs-comment">/*====================================*/</span>
 {
@@ -1222,20 +1236,22 @@ srv_sync_log_buffer_in_background(<span class="hljs-keyword">void</span>)
 	}
     <span class="hljs-comment">//...</span>
 }</code></pre>
-<p>其中的<code>buf_flush_page_cleaner_worker</code>是Page Cleaner Thread,为了提升扩展性和刷脏效率，在innodb1.2.X版本里引入了多个page cleaner线程。从而达到并行刷脏的效果<sup><a href="#fn_5" id="reffn_5">5</a></sup></p>
+<p>其中的<code>buf_flush_page_cleaner_worker</code>是Page Cleaner Thread,为了提升扩展性和刷脏效率，在innodb1.2.X版本里引入了多个page cleaner线程。从而达到并行刷脏的效果[^5]</p>
 <p>在该版本中，Page cleaner并未和buffer pool绑定，其模型为一个协调线程 + 多个工作线程，协调线程本身也是工作线程。因此如果innodb_page_cleaners设置为8，那么就是一个协调线程，加7个工作线程</p>
 <ul>
-<li><p><strong>协调线程的入口函数为</strong><code>buf_flush_page_cleaner_coordinator</code>:</p>
+<li>
+<p><strong>协调线程的入口函数为</strong><code>buf_flush_page_cleaner_coordinator</code>:</p>
 <p>决定了需要flush的page数和lsn_limit后，会设置slot数组，将其中每个slot的状态设置为PAGE_CLEANER_STATE_REQUESTED, 并设置目标page数及lsn_limit，然后唤醒worker线程 (pc_request)\</p>
 <p>主循环:</p>
-<p>实际正常运行情况下的工作都包含在:<sup><a href="#fn_6" id="reffn_6">6</a></sup></p>
+<p>实际正常运行情况下的工作都包含在:[^6]</p>
 <pre><code class="hljs c++"><span class="hljs-keyword">while</span> (srv_shutdown_state == SRV_SHUTDOWN_NONE) {
     <span class="hljs-comment">//...</span>
 }</code></pre>
 <p>之中.</p>
 <ol>
-<li><p>首先如果没有活跃的change buffer 并且没有pending的物理块，并且上次刷新的块数量为0则不需要睡眠1秒:</p>
-<pre><code class="hljs c++"><span class="hljs-comment">/* 如果服务器空闲并且缓冲池中没有待处理的IO，并且有工作要做，则page_cleaner会跳过睡眠。 */</span>
+<li>首先如果没有活跃的change buffer 并且没有pending的物理块，并且上次刷新的块数量为0则不需要睡眠1秒:</li>
+</ol>
+   <pre><code class="hljs c++"><span class="hljs-comment">/* 如果服务器空闲并且缓冲池中没有待处理的IO，并且有工作要做，则page_cleaner会跳过睡眠。 */</span>
 <span class="hljs-keyword">if</span> (srv_check_activity(last_activity)
     || buf_get_n_pending_read_ios()
     || n_flushed == <span class="hljs-number">0</span>) {
@@ -1250,8 +1266,9 @@ srv_sync_log_buffer_in_background(<span class="hljs-keyword">void</span>)
 	ret_sleep = <span class="hljs-number">0</span>;
 }</code></pre>
 <p>但是这个睡眠是可以被唤醒的，比如同步刷新应该就会唤醒它（buf_flush_request_force函数）。参考函数os_event::wait_time_low</p>
-</li>
-<li><p>IO能力不足警告</p>
+<ol start="2">
+<li>
+<p>IO能力不足警告</p>
 <pre><code class="hljs c++"><span class="hljs-keyword">if</span> (curr_time &gt; next_loop_time + <span class="hljs-number">3000</span>) {<span class="hljs-comment">//如果刷新时间 大于了 上次时间 +1 秒+3 秒 则报info</span>
 				<span class="hljs-keyword">if</span> (warn_count == <span class="hljs-number">0</span>) {
 					ib::info() &lt;&lt; <span class="hljs-string">"page_cleaner: 1000ms"</span>
@@ -1280,13 +1297,14 @@ srv_sync_log_buffer_in_background(<span class="hljs-keyword">void</span>)
 				warn_count = <span class="hljs-number">0</span>;
 			}</code></pre>
 </li>
-<li><p>同步刷新判断</p>
+<li>
+<p>同步刷新判断</p>
 <p><strong>触发条件</strong>:</p>
 <pre><code class="hljs c++"><span class="hljs-keyword">if</span> (ret_sleep != OS_SYNC_TIME_EXCEEDED
 		    &amp;&amp; srv_flush_sync
 		    &amp;&amp; buf_flush_sync_lsn &gt; <span class="hljs-number">0</span>)</code></pre>
 <p>同步会唤醒正在睡眠状态的page clean协调工作线程,那么睡眠应该不会满足一秒的条件,所以不会被标记为OS_SYNC_TIME_EXCEEDED，同时srv_flush_sync和buf_flush_sync_lsn均会被设置,接下来就是唤醒工作线程进行刷新，同时本协调线程也完成部分任务。</p>
-<p>  工作代码:</p>
+<p>工作代码:</p>
 <pre><code class="hljs c++"><span class="hljs-comment">/* Request flushing for threads */</span>
 pc_request(ULINT_MAX, lsn_limit);<span class="hljs-comment">//唤醒page clean 工作线程干活</span>
        
@@ -1294,14 +1312,15 @@ ulint tm = ut_time_ms();
        
 <span class="hljs-comment">/* Coordinator also treats requests */</span>
 <span class="hljs-keyword">while</span> (pc_flush_slot() &gt; <span class="hljs-number">0</span>) {}<span class="hljs-comment">////协调者同样完成部分任务</span></code></pre>
-<p>  <strong>唤醒操作</strong>:</p>
+<p><strong>唤醒操作</strong>:</p>
 <p>在checkpoint或者DML语句执行过程中都会通过log_free_check检查是否redo log处于安全的状态，如果不安全就会调用如下代码（log_preflush_pool_modified_pages函数中）唤醒page clean线程进行同步刷新</p>
 <pre><code class="hljs c++"><span class="hljs-keyword">if</span> (srv_flush_sync) {        <span class="hljs-comment">/* wake page cleaner for IO burst */</span>
          buf_flush_request_force(new_oldest); <span class="hljs-comment">//设置全局变量同时通过broadcast唤醒同步刷新</span>
      }
      buf_flush_wait_flushed(new_oldest); <span class="hljs-comment">//所有线程等待同步刷新完成</span></code></pre>
 </li>
-<li><p>活跃刷新</p>
+<li>
+<p>活跃刷新</p>
 <p><strong>触发条件</strong>:</p>
 <pre><code class="hljs c++"><span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (srv_check_activity(last_activity))</code></pre>
 <p>这里判断是否有活跃的线程，所谓活跃就是调用srv_inc_activity_count函数进行增加的，一般来讲DML和DDL会标记为活跃，purge线程及其工作线程工作期间会标记为活跃。可以将断点做到srv_inc_activity_count进行debug。所以线上数据库DML比较多所以一般都会是活跃刷新。</p>
@@ -1323,7 +1342,7 @@ ulint tm = ut_time_ms();
 <span class="hljs-comment">//...</span>
      
 pc_wait_finished(&amp;n_flushed_lru, &amp;n_flushed_list);</code></pre>
-<p> <code>page_cleaner_flush_pages_recommendation</code>:</p>
+<p><code>page_cleaner_flush_pages_recommendation</code>:</p>
 <p>此函数最后计算出了需要刷新的块，其中刷新比率计算的的重点函数为af_get_pct_for_dirty和af_get_pct_for_lsn 下面将给出代码注释，其实前文中的算法就来自af_get_pct_for_dirty。</p>
 <pre><code class="hljs c++"> 
 {
@@ -1415,7 +1434,7 @@ pc_wait_finished(&amp;n_flushed_lru, &amp;n_flushed_list);</code></pre>
 &nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;&nbsp;&nbsp;
     <span class="hljs-keyword">return</span>(n_pages);
 }</code></pre>
-<p> af_get_pct_for_dirty函数:</p>
+<p>af_get_pct_for_dirty函数:</p>
 <pre><code class="hljs c++"> 
 {
 &nbsp;&nbsp;&nbsp;&nbsp;cur_lsn&nbsp;=&nbsp;log_get_lsn();<span class="hljs-comment">//获取当前的lsn&nbsp;在&nbsp;redo&nbsp;buffer中的</span>
@@ -1551,11 +1570,13 @@ pc_wait_finished(&amp;n_flushed_lru, &amp;n_flushed_list);</code></pre>
 </li>
 </ol>
 </li>
-<li><p><strong>工作线程的入口函数为</strong><code>buf_flush_page_cleaner_worker</code>:</p>
+<li>
+<p><strong>工作线程的入口函数为</strong><code>buf_flush_page_cleaner_worker</code>:</p>
 <p>线程被唤醒后，从slot数组中取一个未被占用的slot，修改其状态，表示已被调度，然后对该slot所对应的buffer pool instance进行操作</p>
 </li>
 </ul>
-<h2 id="5-purge线程"><a href="#5-purge线程" class="headerlink" title="5. purge线程"></a>5. purge线程</h2><p><code>innobase_start_or_create_for_mysql</code>中的:</p>
+<h2 id="5-purge线程"><a class="markdownIt-Anchor" href="#5-purge线程"></a> 5. purge线程</h2>
+<p><code>innobase_start_or_create_for_mysql</code>中的:</p>
 <pre><code class="hljs c++"><span class="hljs-keyword">if</span> (!srv_read_only_mode
 	    &amp;&amp; srv_force_recovery &lt; SRV_FORCE_NO_BACKGROUND) {
 
