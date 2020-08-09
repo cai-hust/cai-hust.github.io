@@ -8343,4 +8343,396 @@ PGP也提供了公共密钥认证机制，但是这个机制完全不同于通�
         <tag>知识点整理</tag>
       </tags>
   </entry>
+  <entry>
+    <title>doxygen生成文档</title>
+    <url>/2020/08/09/doxygen-sheng-cheng-wen-dang/</url>
+    <content><![CDATA[<p>doxygen是一个代码注释规范,可以注释多个语言的代码,通过对应的软件可以生成对应的文档,下面是doxygen的简单学习</p>
+<h2 id="1-doxygen的安装"><a class="markdownIt-Anchor" href="#1-doxygen的安装"></a> 1. doxygen的安装</h2>
+<p>安装doxygen以及对应的依赖graphviz</p>
+<pre><code class="hljs bash">sudo apt-get install doxygen
+sudo apt-get install graphviz</code></pre>
+<h2 id="2-doxygen的使用规范"><a class="markdownIt-Anchor" href="#2-doxygen的使用规范"></a> 2. doxygen的使用规范</h2>
+<p>clion对doxygen有默认的操作,可以直接进行doxyge n风格的注释:<a href="https://www.jetbrains.com/help/clion/creating-and-viewing-doxygen-documentation.html" target="_blank" rel="noopener">doxygen+clion</a></p>
+<p>键入以下符号之一：<code>///</code>(C<ins>风格)，<code>//!</code>(C</ins>风格)，<code>/**</code>(Javadoc风格)或<code>/*!</code>(Qt风格)然后按Enter,即可自动生成对应的风格的doxygen注释,一般地,下面按照mysql的默认的javadoc风格,即使用<code>/**</code>:</p>
+<pre><code class="hljs c"><span class="hljs-comment">/**</span>
+<span class="hljs-comment"> * </span>
+<span class="hljs-comment"> * @param a </span>
+<span class="hljs-comment"> * @param b </span>
+<span class="hljs-comment"> * @param c </span>
+<span class="hljs-comment"> * @return </span>
+<span class="hljs-comment"> */</span>
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">sumabc</span><span class="hljs-params">(<span class="hljs-keyword">int</span> a,<span class="hljs-keyword">int</span> b,<span class="hljs-keyword">int</span> c)</span></span>{
+  <span class="hljs-keyword">return</span> a+b+c;   
+}</code></pre>
+<p>如果是clion的话,几个常用的注解以及对应的含义如下:</p>
+<table>
+<thead>
+<tr>
+<th>名字</th>
+<th>意义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>无</td>
+<td>函数/类的详细的描述</td>
+</tr>
+<tr>
+<td>@param</td>
+<td>形式参数的注解</td>
+</tr>
+<tr>
+<td>@return</td>
+<td>返回值的注解</td>
+</tr>
+<tr>
+<td>@author/@authors</td>
+<td>作者(们)</td>
+</tr>
+<tr>
+<td>@todo</td>
+<td>要做的事情</td>
+</tr>
+<tr>
+<td>@brief</td>
+<td>简要描述,需要放在最前面</td>
+</tr>
+<tr>
+<td>@date</td>
+<td>时间</td>
+</tr>
+</tbody>
+</table>
+<p>注意:如果希望换行,注释需要空一行,生成的文档才能换行</p>
+<h3 id="21-我们规定的使用的命令"><a class="markdownIt-Anchor" href="#21-我们规定的使用的命令"></a> 2.1 我们规定的使用的命令</h3>
+<h4 id="211-普通行的注释"><a class="markdownIt-Anchor" href="#211-普通行的注释"></a> 2.1.1 普通行的注释</h4>
+<p>单行注释就是普通的注释可以采用以下几个普通的注释:</p>
+<pre><code class="hljs c++"><span class="hljs-comment">/**/</span>
+<span class="hljs-comment">//</span></code></pre>
+<h4 id="212-单行变量单行typedef的注释"><a class="markdownIt-Anchor" href="#212-单行变量单行typedef的注释"></a> 2.1.2 单行变量/单行typedef的注释</h4>
+<p>使用doxygen格式对局部变量的定义注释:</p>
+<pre><code class="hljs c++"><span class="hljs-keyword">int</span> a=<span class="hljs-number">0</span>; <span class="hljs-comment">///&lt;...some comments...</span></code></pre>
+<p>如果是doxygen,则当鼠标悬浮在对应的变量时候,对应的变量会被识别:</p>
+<p><img src="doxygen%E7%94%9F%E6%88%90%E6%96%87%E6%A1%A3/image-20200803214948921.png" srcset="/img/loading.gif" alt="doxygen注释"></p>
+<h4 id="212-函数的注释"><a class="markdownIt-Anchor" href="#212-函数的注释"></a> 2.1.2 函数的注释</h4>
+<p>下面是一个实际的例子:</p>
+<pre><code class="hljs c++"><span class="hljs-comment">/**@brief 简洁描述</span>
+<span class="hljs-comment"> * 简洁描述继续</span>
+<span class="hljs-comment"> *</span>
+<span class="hljs-comment"> * 详细描述</span>
+<span class="hljs-comment"> * @ingroup 蔡文玉</span>
+<span class="hljs-comment"> * @todo 要做的事情</span>
+<span class="hljs-comment"> * @author cwy</span>
+<span class="hljs-comment"> * @date 2020年8月4日</span>
+<span class="hljs-comment"> * @param a 参数a</span>
+<span class="hljs-comment"> * @param b 参数b</span>
+<span class="hljs-comment"> * @param c 参数c</span>
+<span class="hljs-comment"> * @return 返回a+b+c</span>
+<span class="hljs-comment"> */</span>
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">sumabc</span><span class="hljs-params">(<span class="hljs-keyword">int</span> a,<span class="hljs-keyword">int</span> b,<span class="hljs-keyword">int</span> c)</span></span>{
+  <span class="hljs-keyword">return</span> a+b+c;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>{
+    <span class="hljs-keyword">int</span> a = <span class="hljs-number">0</span>;<span class="hljs-comment">///&lt; 这是一个测试的变量:a</span>
+    a;
+    sumabc(<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>);
+    <span class="hljs-built_in">std</span>::<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">"Hello, World!"</span> &lt;&lt; <span class="hljs-built_in">std</span>::<span class="hljs-built_in">endl</span>;
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+}</code></pre>
+<p>对应的<code>sumabc</code>的注释产生的效果如下:</p>
+<p><img src="doxygen%E7%94%9F%E6%88%90%E6%96%87%E6%A1%A3/image-20200804032622804.png" srcset="/img/loading.gif" alt="函数注释"></p>
+<h4 id="213-类结构体结构体的typedef的注释"><a class="markdownIt-Anchor" href="#213-类结构体结构体的typedef的注释"></a> 2.1.3 类/结构体/结构体的typedef的注释</h4>
+<p>类的成员变量使用前面的单行变量doxygen注释,成员函数使用函数注释:</p>
+<pre><code class="hljs c++"><span class="hljs-comment">/**</span>
+<span class="hljs-comment"> * @ingroup 蔡文玉</span>
+<span class="hljs-comment"> * 测试类</span>
+<span class="hljs-comment"> */</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Test1</span></span>
+<span class="hljs-class">{</span>
+<span class="hljs-keyword">public</span>:
+  <span class="hljs-keyword">int</span> a;<span class="hljs-comment">///&lt; 属性a</span>
+  <span class="hljs-comment">/**</span>
+<span class="hljs-comment">   * 详细说明</span>
+<span class="hljs-comment">   * @param a 参数a</span>
+<span class="hljs-comment">   * @param b 参数b</span>
+<span class="hljs-comment">   * @return 返回值a+b</span>
+<span class="hljs-comment">   */</span>
+  <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">add</span><span class="hljs-params">(<span class="hljs-keyword">int</span> a,<span class="hljs-keyword">int</span> b)</span></span>{
+      <span class="hljs-keyword">return</span> a+b;
+  }
+};</code></pre>
+<h4 id="214文件头部注释"><a class="markdownIt-Anchor" href="#214文件头部注释"></a> 2.1.4文件头部注释</h4>
+<pre><code class="hljs c++"><span class="hljs-comment">//////////////////////////////////////////////////////////////////////////</span>
+<span class="hljs-comment">///     COPYRIGHT NOTICE</span>
+<span class="hljs-comment">///     Copyright (c) 2020, 华中科技大学</span>
+<span class="hljs-comment">///     All rights reserved.</span>
+<span class="hljs-comment">///</span>
+<span class="hljs-comment">/// @file test.h</span>
+<span class="hljs-comment">/// @brief doxygen使用测试的头文件,简单描述</span>
+<span class="hljs-comment">///</span>
+<span class="hljs-comment">///本文件是doxygen使用测试的头文件,此处是文件的详细描述,巴拉巴拉XXXXXXXXXXXXXXXXXXXXXXXXXXX</span>
+<span class="hljs-comment">///</span>
+<span class="hljs-comment">/// @version 1.1</span>
+<span class="hljs-comment">/// @author cwy</span>
+<span class="hljs-comment">/// @date 2020年8月4日</span>
+<span class="hljs-comment">/// ...</span>
+<span class="hljs-comment">///</span>
+<span class="hljs-comment">///     修订说明：最初版本</span>
+<span class="hljs-comment">//////////////////////////////////////////////////////////////////////////</span></code></pre>
+<p>如上,详细的描述略</p>
+<p><img src="doxygen%E7%94%9F%E6%88%90%E6%96%87%E6%A1%A3/image-20200804135859519.png" srcset="/img/loading.gif" alt="分页"></p>
+<h2 id="21-分组模块注释"><a class="markdownIt-Anchor" href="#21-分组模块注释"></a> 2.1 分组(模块)注释</h2>
+<p>模块(module)可以把东西分组组织到同一个页中。 这样组中的成员可以是文件，命名空间，类，函数，变量，枚举，typedef,宏定义，以及其它的组。</p>
+<p>对于组别,可以有以下几个相关的注解:</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>@defgroup</td>
+<td>定义群组</td>
+</tr>
+<tr>
+<td>@ingroup</td>
+<td>将函数/类划入某个群组</td>
+</tr>
+</tbody>
+</table>
+<p><code>@defgroup</code>和<code>@ingroup</code>不必非要在一个文件里面,下面是一个<code>@defgroup</code>例子:</p>
+<pre><code class="hljs c++"><span class="hljs-comment">/** @defgroup cwy</span>
+<span class="hljs-comment"> * cwy注释的代码</span>
+<span class="hljs-comment"> * */</span></code></pre>
+<p><code>@defgroup</code>命令有两个参数，第一个参数(<code>"cwy"</code>)用来唯一标识组，第二个参数(<code>"cwy注释的代码"</code>)是指明该组在文档中显示的标题。</p>
+<p>当需要使用分组的时候,可以对要使用的对象使用<code>@ingroup</code>注解:</p>
+<pre><code class="hljs c++"><span class="hljs-comment">/**</span>
+<span class="hljs-comment"> * @ingroup 蔡文玉</span>
+<span class="hljs-comment"> * 测试类</span>
+<span class="hljs-comment"> */</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Test1</span></span>
+<span class="hljs-class">{</span>
+<span class="hljs-keyword">public</span>:
+    <span class="hljs-keyword">int</span> a;<span class="hljs-comment">///&lt; 属性a</span>
+    <span class="hljs-comment">/**</span>
+<span class="hljs-comment">     * 详细说明</span>
+<span class="hljs-comment">     * @param a 参数a</span>
+<span class="hljs-comment">     * @param b 参数b</span>
+<span class="hljs-comment">     * @return 返回值a+b</span>
+<span class="hljs-comment">     */</span>
+    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">add</span><span class="hljs-params">(<span class="hljs-keyword">int</span> a,<span class="hljs-keyword">int</span> b)</span></span>{
+        <span class="hljs-keyword">return</span> a+b;
+    }
+};</code></pre>
+<p>特殊地,单行也可以进行注解:</p>
+<pre><code class="hljs c++"><span class="hljs-keyword">int</span> x;<span class="hljs-comment">///&lt;x坐标 @ingroup cwy</span></code></pre>
+<p>最后生成的文档在module分页下.</p>
+<p>注意:<code>@defgroup</code>和<code>@ingroup</code>不必非要在一个文件内</p>
+<h2 id="3-doxygen注释生成过程操作实例"><a class="markdownIt-Anchor" href="#3-doxygen注释生成过程操作实例"></a> 3. doxygen注释生成过程操作实例</h2>
+<h2 id="31-准备工作"><a class="markdownIt-Anchor" href="#31-准备工作"></a> 3.1 准备工作</h2>
+<ol>
+<li>
+<p>安装doxygen</p>
+<p>详见第一节</p>
+</li>
+<li>
+<p>在项目的根目录打开命令行:</p>
+<p><img src="doxygen%E7%94%9F%E6%88%90%E6%96%87%E6%A1%A3/image-20200804145615427.png" srcset="/img/loading.gif" alt="项目的目录打开命令行"></p>
+</li>
+<li>
+<p>执行:</p>
+<pre><code class="hljs bash">cwy@mysql:~/桌面/<span class="hljs-built_in">test</span>$ doxygen -g -s
+
+
+Configuration file `Doxyfile<span class="hljs-string">' created.</span>
+<span class="hljs-string"></span>
+<span class="hljs-string">Now edit the configuration file and enter</span>
+<span class="hljs-string"></span>
+<span class="hljs-string">  doxygen Doxyfile</span>
+<span class="hljs-string"></span>
+<span class="hljs-string">to generate the documentation for your project</span></code></pre>
+</li>
+<li>
+<p>编辑根目录生成的配置文件中的以下几项:</p>
+<pre><code class="hljs ini"><span class="hljs-comment">#给出所有文档的输出目录</span>
+<span class="hljs-attr">OUTPUT_DIRECTORY</span>       = doc(文档文件输出文件夹)
+<span class="hljs-comment">#设置使用的语言</span>
+<span class="hljs-attr">OUTPUT_LANGUAGE</span> 	   = Chinese
+<span class="hljs-comment">#生成latex文档</span>
+<span class="hljs-attr">GENERATE_LATEX</span>         = <span class="hljs-literal">NO</span></code></pre>
+<p>其他的选项可以自己选择,如生成latex文件:</p>
+<pre><code class="hljs ini"><span class="hljs-comment">#生成latex文档</span>
+<span class="hljs-attr">GENERATE_LATEX</span>         = <span class="hljs-literal">YES</span></code></pre>
+<p>生成rtf文件:</p>
+<pre><code class="hljs ini"><span class="hljs-comment">#生成rtf文档</span>
+<span class="hljs-attr">GENERATE_RTF</span>           = <span class="hljs-literal">YES</span></code></pre>
+</li>
+<li>
+<p>执行</p>
+<p>在根目录输入命令:</p>
+<pre><code class="hljs bash">cwy@mysql:~/桌面/<span class="hljs-built_in">test</span>$ doxygen</code></pre>
+<p>即可得到对应文件夹以及相关文件:</p>
+<p><img src="doxygen%E7%94%9F%E6%88%90%E6%96%87%E6%A1%A3/image-20200804231208478.png" srcset="/img/loading.gif" alt="生成文件"></p>
+<p>对应的index文件如下:</p>
+<p><img src="doxygen%E7%94%9F%E6%88%90%E6%96%87%E6%A1%A3/image-20200804231808228.png" srcset="/img/loading.gif" alt="index文件"></p>
+<p>双击可以得到文档注释网页版</p>
+</li>
+</ol>
+<h1 id="4-附录"><a class="markdownIt-Anchor" href="#4-附录"></a> 4. 附录</h1>
+<p>上文的使用的文件如下:</p>
+<p>main.c文件:</p>
+<pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">"test.h"</span></span>
+
+<span class="hljs-comment">/** @defgroup 启动模块</span>
+<span class="hljs-comment"> * 启动模块的代码</span>
+<span class="hljs-comment"> * */</span>
+
+<span class="hljs-comment">/** @defgroup 通信模块</span>
+<span class="hljs-comment"> * 通信模块的代码</span>
+<span class="hljs-comment"> * */</span>
+
+<span class="hljs-comment">/** @defgroup 文件模块</span>
+<span class="hljs-comment"> * 文件模块的代码</span>
+<span class="hljs-comment"> * */</span>
+
+<span class="hljs-comment">/**@brief 简洁描述</span>
+<span class="hljs-comment"> * 简洁描述继续</span>
+<span class="hljs-comment"> * 详细描述</span>
+<span class="hljs-comment"> * @ingroup 启动模块</span>
+<span class="hljs-comment"> * @todo 要做的事情</span>
+<span class="hljs-comment"> * @author cwy</span>
+<span class="hljs-comment"> * @date 2020年8月4日</span>
+<span class="hljs-comment"> * @param a 参数a</span>
+<span class="hljs-comment"> * @param b 参数b</span>
+<span class="hljs-comment"> * @param c 参数c</span>
+<span class="hljs-comment"> * @return 返回a+b+c</span>
+<span class="hljs-comment"> */</span>
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">sumabc</span><span class="hljs-params">(<span class="hljs-keyword">int</span> a,<span class="hljs-keyword">int</span> b,<span class="hljs-keyword">int</span> c)</span></span>{
+  <span class="hljs-keyword">return</span> a+b+c;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>{
+    <span class="hljs-keyword">int</span> a = <span class="hljs-number">0</span>;<span class="hljs-comment">///&lt; 这是一个测试的变量:a</span>
+    a;
+    sumabc(<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>);
+
+    <span class="hljs-built_in">point</span> p;
+    p.x;
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+}</code></pre>
+<p>test.h文件:</p>
+<pre><code class="hljs c"><span class="hljs-comment">//////////////////////////////////////////////////////////////////////////</span>
+<span class="hljs-comment">///     COPYRIGHT NOTICE</span>
+<span class="hljs-comment">///     Copyright (c) 2020, 华中科技大学</span>
+<span class="hljs-comment">///     All rights reserved.</span>
+<span class="hljs-comment">///</span>
+<span class="hljs-comment">/// @file test.h</span>
+<span class="hljs-comment">/// @brief doxygen使用测试的头文件,简单描述</span>
+<span class="hljs-comment">///</span>
+<span class="hljs-comment">///本文件是doxygen使用测试的头文件,此处是文件的详细描述,巴拉巴拉XXXXXXXXXXXXXXXXXXXXXXXXXXX</span>
+<span class="hljs-comment">///</span>
+<span class="hljs-comment">/// @version 1.1</span>
+<span class="hljs-comment">/// @author cwy</span>
+<span class="hljs-comment">/// @date 2020年8月4日</span>
+<span class="hljs-comment">/// ...</span>
+<span class="hljs-comment">///</span>
+<span class="hljs-comment">///     修订说明：最初版本</span>
+<span class="hljs-comment">//////////////////////////////////////////////////////////////////////////</span>
+
+<span class="hljs-meta">#<span class="hljs-meta-keyword">ifndef</span> TEST_TEST_H</span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> TEST_TEST_H</span>
+
+<span class="hljs-meta">#<span class="hljs-meta-keyword">endif</span> <span class="hljs-comment">//TEST_TEST_H</span></span>
+
+<span class="hljs-comment">/**</span>
+<span class="hljs-comment"> * @ingroup 启动模块</span>
+<span class="hljs-comment"> * 测试类</span>
+<span class="hljs-comment"> */</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Test1</span></span>
+<span class="hljs-class">{</span>
+<span class="hljs-keyword">public</span>:
+    <span class="hljs-keyword">int</span> a;<span class="hljs-comment">///&lt; 属性a</span>
+    <span class="hljs-comment">/**</span>
+<span class="hljs-comment">     * 详细说明</span>
+<span class="hljs-comment">     * @param a 参数a</span>
+<span class="hljs-comment">     * @param b 参数b</span>
+<span class="hljs-comment">     * @return 返回值a+b</span>
+<span class="hljs-comment">     */</span>
+    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">add</span><span class="hljs-params">(<span class="hljs-keyword">int</span> a,<span class="hljs-keyword">int</span> b)</span></span>{
+        <span class="hljs-keyword">return</span> a+b;
+    }
+};
+
+<span class="hljs-comment">/**</span>
+<span class="hljs-comment"> * @ingroup 文件模块</span>
+<span class="hljs-comment"> * 测试类3</span>
+<span class="hljs-comment"> */</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Test3</span></span>
+<span class="hljs-class">{</span>
+<span class="hljs-keyword">public</span>:
+    <span class="hljs-keyword">int</span> b;
+};
+
+<span class="hljs-comment">/**</span>
+<span class="hljs-comment"> * @ingroup 通信模块</span>
+<span class="hljs-comment"> * 测试类4</span>
+<span class="hljs-comment"> */</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Test4</span></span>
+<span class="hljs-class">{</span>
+<span class="hljs-keyword">public</span>:
+    <span class="hljs-keyword">int</span> c;
+};
+
+<span class="hljs-comment">/**</span>
+<span class="hljs-comment"> * unsigned int</span>
+<span class="hljs-comment"> */</span>
+<span class="hljs-keyword">typedef</span> <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span> uint;
+
+<span class="hljs-comment">/**</span>
+<span class="hljs-comment"> * 三维点坐标</span>
+<span class="hljs-comment"> * @ingroup 启动模块</span>
+<span class="hljs-comment"> */</span>
+<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">point</span>{</span>
+<span class="hljs-keyword">public</span>:
+    <span class="hljs-keyword">int</span> x;<span class="hljs-comment">///&lt;x坐标 @ingroup 启动模块</span>
+    <span class="hljs-keyword">int</span> y;
+    <span class="hljs-keyword">int</span> z;
+
+    <span class="hljs-built_in">point</span>(<span class="hljs-keyword">int</span> x, <span class="hljs-keyword">int</span> y, <span class="hljs-keyword">int</span> z) : x(x), y(y), z(z) {}
+    <span class="hljs-built_in">point</span>(){}
+
+    <span class="hljs-comment">/**</span>
+<span class="hljs-comment">     * 设置x坐标</span>
+<span class="hljs-comment">     * @param x x坐标的值</span>
+<span class="hljs-comment">     */</span>
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">setX</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x)</span> </span>{
+        <span class="hljs-built_in">point</span>::x = x;
+    }
+
+    <span class="hljs-comment">//...</span>
+};</code></pre>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>]]></content>
+  </entry>
 </search>
